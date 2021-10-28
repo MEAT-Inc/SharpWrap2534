@@ -13,6 +13,7 @@ namespace JBoxInvoker___Tests
     /// Used to test information about the passthru instance object built.
     /// </summary>
     [TestClass]
+    [TestCategory("J2534 Logic")]
     public class PassThruInstanceTests
     {
         // Split output string value.
@@ -39,9 +40,45 @@ namespace JBoxInvoker___Tests
             bool Loaded0500 = LoaderInstanceDev2.SetupJInstance(PassThruPaths.CarDAQPlus3_0500);
             Console.WriteLine("--> Loading process ran without errors!");
 
-            // Check the bool results for loading.
+            // Release devices.
+            bool ReleaseDevice1OK = LoaderInstanceDev1.ReleaseJInstance();
+            bool ReleaseDevice2OK = LoaderInstanceDev2.ReleaseJInstance();
+            Assert.IsTrue(ReleaseDevice1OK && ReleaseDevice2OK);
+            Console.WriteLine("--> Released devices 1 and 2 OK!");
             Console.WriteLine("\n" + SepString);
+
+            // Check the bool results for loading.
             Assert.IsTrue(Loaded0404 && Loaded0500, "Setup J2534 instance loader OK for both V0404 and V0500!");
+        }
+
+        /// <summary>
+        /// Checks to make sure a device can only be released once.
+        /// </summary>
+        [TestMethod]
+        [TestCategory("J2534 Instance")]
+        public void ReleaseNullDevice()
+        {
+            // Log infos
+            Console.WriteLine(SepString + "\nTests Running...\n");
+            Console.WriteLine("--> Building new J2534 instance for Device 1...");
+            
+            // Build instance
+            var LoaderInstanceDev1 = J2534Instance.JApiInstance(JDeviceNumber.PTDevice1);
+            Console.WriteLine("--> Built new loader instances OK!");
+
+            // Release instance twice to check for fail.
+            bool ReleasePass = LoaderInstanceDev1.ReleaseJInstance();
+            bool ReleaseFail = LoaderInstanceDev1.ReleaseJInstance();
+            Console.WriteLine("--> Released devices OK!");
+
+            // Check for one pass and one fail.
+            Console.WriteLine("\n" + SepString);
+            Console.WriteLine("Test Results\n");
+            Console.WriteLine("--> Release test one and two ran OK!");
+            Console.WriteLine("\n" + SepString);
+
+            // Assert condition.
+            Assert.IsTrue(ReleasePass && !ReleaseFail, "Release testing passed! True for valid, false for null!");
         }
 
         /// <summary>
@@ -63,9 +100,14 @@ namespace JBoxInvoker___Tests
 
             // Try building again with incorrect DLL.
             bool ShouldFailLoad = LoaderInstanceDev1.SetupJInstance(PassThruPaths.CarDAQPlus4_0404);
-            if (ShouldFailLoad) { Assert.Fail("Failed to ensure only one DLL instance can exist for device type!"); }
+            Assert.IsFalse(ShouldFailLoad, "Failed to ensure only one DLL instance can exist for device type!"); 
             Console.WriteLine("--> Loading procedure failed as expected!");
-            
+
+            // Release device.
+            bool ReleasedOK = LoaderInstanceDev1.ReleaseJInstance();
+            Assert.IsTrue(ReleasedOK, "Failed to release device instance!");
+            Console.WriteLine("--> Released device instance OK!");
+
             // Assert true and log split line.
             Console.WriteLine("\n" + SepString);
             Console.WriteLine("Test Results\n");

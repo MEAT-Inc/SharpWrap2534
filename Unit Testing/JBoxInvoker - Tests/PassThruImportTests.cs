@@ -11,14 +11,17 @@ using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace JBoxInvoker___Tests
 {
+    /// <summary>
+    /// Test class to configure DLL importing
+    /// </summary>
     [TestClass]
+    [TestCategory("J2534 Logic")]
     public class PassThruImportTests
     {
         // Split output string value.
         private static readonly string SepString = "------------------------------------------------------";
 
         [TestMethod]
-        [TestCategory("J2534 Instance")]
         [TestCategory("J2534 DLL Import")]
         public void LoadJ2534ApisTest()
         {
@@ -40,7 +43,7 @@ namespace JBoxInvoker___Tests
                     Console.WriteLine($"    --> DLL Path: {JDllImporter.JDllPath}");
                     Console.WriteLine($"    --> DLL Pointer: {JDllImporter.ModulePointer}");
                     Console.WriteLine($"    --> Setup new DLL Loader OK!");
-
+                    
                     // Add into list of bools.
                     ResultsList.Add(new (true, null));
                 }

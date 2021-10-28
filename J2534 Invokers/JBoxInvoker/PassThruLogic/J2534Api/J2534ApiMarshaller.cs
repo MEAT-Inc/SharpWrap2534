@@ -31,5 +31,53 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             this.ApiInstance = Api;
             this.MarshallStatus = PTInstanceStatus.INITIALIZED;
         }
+
+        // ----------------------------- MARSHALL API CALLS GENERATED FROM THE API --------------------------------
+
+        /// <summary>
+        /// Runs a new PTOpen command for the provided Device ID
+        /// </summary>
+        /// <param name="DeviceId">Device ID returned for this instance.</param>
+        public void PassThruOpen(out uint DeviceId) { this.ApiInstance.PassThruOpen(out DeviceId); }
+        public void PassThruOpen(string DeviceName, out uint DeviceId)
+        {
+            IntPtr NameAsPtr = Marshal.StringToHGlobalAnsi(DeviceName);
+            try { this.ApiInstance.PassThruOpen(NameAsPtr, out DeviceId); }
+            finally { Marshal.FreeHGlobal(NameAsPtr); }
+        }
+        /// <summary>
+        /// Runs a PTClose for the provided Device ID
+        /// </summary>
+        /// <param name="DeviceId">ID of device to close down</param>
+        public void PassThruClose(uint DeviceId) { this.ApiInstance.PassThruClose(DeviceId);}
+        /// <summary>
+        /// Issues a PTConnect method to the device specified.
+        /// </summary>
+        /// <param name="DeviceId">ID of device to open</param>
+        /// <param name="Protocol">Protocol of the channel</param>
+        /// <param name="ConnectFlags">Flag args for the channel</param>
+        /// <param name="ConnectBaud">Baudrate of the channel</param>
+        /// <param name="ChannelId">ID Of the oppened channel>/param>
+        public void PassThruConnect(uint DeviceId, ProtocolId Protocol, uint ConnectFlags, BaudRate ConnectBaud, out uint ChannelId)
+        {
+            this.ApiInstance.PassThruConnect(DeviceId, Protocol, ConnectFlags, ConnectBaud, out ChannelId);
+        }
+        /// <summary>
+        /// Issues a PTConnect method to the device specified.
+        /// </summary>
+        /// <param name="DeviceId">ID of device to open</param>
+        /// <param name="Protocol">Protocol of the channel</param>
+        /// <param name="ConnectFlags">Flag args for the channel</param>
+        /// <param name="ConnectBaud">Baudrate of the channel</param>
+        /// <param name="ChannelId">ID Of the oppened channel>/param>
+        public void PassThruConnect(uint DeviceId, ProtocolId Protocol, uint ConnectFlags, uint ConnectBaud, out uint ChannelId)
+        {
+            this.ApiInstance.PassThruConnect(DeviceId, Protocol, ConnectFlags, ConnectBaud, out ChannelId);
+        }
+        /// <summary>
+        /// Runs a PassThru disconnect method on the device ID given
+        /// </summary>
+        /// <param name="ChannelId">ID Of the channel to drop out.</param>
+        public void PassThruDisconnect(uint ChannelId) { this.ApiInstance.PassThruDisconnect(ChannelId); }
     }
 }

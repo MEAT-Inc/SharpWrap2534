@@ -143,7 +143,25 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         public void PassThruOpen(out uint DeviceId)
         {
             // Make our call to run the PTOpen command here.
-            J2534Err PTCommandError = (J2534Err)this.DelegateSet.PTOpen(this.JDllImporter.ModulePointer, out DeviceId);
+            J2534Err PTCommandError = (J2534Err)this.DelegateSet.PTOpen(IntPtr.Zero, out DeviceId);
+
+            // If the error is not a NOERROR Response then throw it.
+            if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
+            var ErrorBuilder = new StringBuilder(100);
+            PassThruGetLastError(ErrorBuilder);
+
+            // Throw exception here.
+            throw new J2534Exception(PTCommandError, ErrorBuilder);
+        }
+        /// <summary>
+        /// Runs a new PTOpen command for the provided Device ID
+        /// </summary>
+        /// <param name="DeviceId">Device ID returned for this instance.</param>
+        /// <param name="DevicePtr">Pointer for device name.</param>
+        public void PassThruOpen(IntPtr DevicePtr, out uint DeviceId)
+        {
+            // Make our call to run the PTOpen command here.
+            J2534Err PTCommandError = (J2534Err)this.DelegateSet.PTOpen(DevicePtr, out DeviceId);
 
             // If the error is not a NOERROR Response then throw it.
             if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }

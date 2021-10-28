@@ -15,7 +15,7 @@ namespace JBoxInvoker___Tests
     /// </summary>
     [TestClass]
     [TestCategory("J2534 Logic")]
-    public class PassThruInstanceTests
+    public class PassThruApiTests
     {
         // Split output string value.
         private static readonly string SepString = "------------------------------------------------------";
@@ -24,7 +24,7 @@ namespace JBoxInvoker___Tests
         /// Builds a V0404 CDP3 and V0500 CDP3 DLL API init method set.
         /// </summary>
         [TestMethod]
-        [TestCategory("J2534 Instance")]
+        [TestCategory("J2534 API Instance")]
         public void SetupJInstanceTest()
         { 
             // Log infos
@@ -32,8 +32,8 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Building new J2534 instance for Devices 1 and 2...");
 
             // Build instances
-            var LoaderInstanceDev1 = J2534ApiInstance.JApiInstance(JDeviceNumber.PTDevice1);
-            var LoaderInstanceDev2 = J2534ApiInstance.JApiInstance(JDeviceNumber.PTDevice2);
+            var LoaderInstanceDev1 = new J2534ApiInstance(JDeviceNumber.PTDevice1);
+            var LoaderInstanceDev2 = new J2534ApiInstance(JDeviceNumber.PTDevice2);
             Console.WriteLine("--> Built new loader instances OK!");
             
             // Load modules into memory.
@@ -42,9 +42,8 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Loading process ran without errors!");
 
             // Release devices.
-            bool ReleaseDevice1OK = LoaderInstanceDev1.ReleaseJApiInstance();
-            bool ReleaseDevice2OK = LoaderInstanceDev2.ReleaseJApiInstance();
-            Assert.IsTrue(ReleaseDevice1OK && ReleaseDevice2OK);
+            LoaderInstanceDev1 = null;
+            LoaderInstanceDev2 = null;
             Console.WriteLine("--> Released devices 1 and 2 OK!");
             Console.WriteLine("\n" + SepString);
 
@@ -53,40 +52,10 @@ namespace JBoxInvoker___Tests
         }
 
         /// <summary>
-        /// Checks to make sure a device can only be released once.
-        /// </summary>
-        [TestMethod]
-        [TestCategory("J2534 Instance")]
-        public void ReleaseNullDevice()
-        {
-            // Log infos
-            Console.WriteLine(SepString + "\nTests Running...\n");
-            Console.WriteLine("--> Building new J2534 instance for Device 1...");
-            
-            // Build instance
-            var LoaderInstanceDev1 = J2534ApiInstance.JApiInstance(JDeviceNumber.PTDevice1);
-            Console.WriteLine("--> Built new loader instances OK!");
-
-            // Release instance twice to check for fail.
-            bool ReleasePass = LoaderInstanceDev1.ReleaseJApiInstance();
-            bool ReleaseFail = LoaderInstanceDev1.ReleaseJApiInstance();
-            Console.WriteLine("--> Released devices OK!");
-
-            // Check for one pass and one fail.
-            Console.WriteLine("\n" + SepString);
-            Console.WriteLine("Test Results\n");
-            Console.WriteLine("--> Release test one and two ran OK!");
-            Console.WriteLine("\n" + SepString);
-
-            // Assert condition.
-            Assert.IsTrue(ReleasePass && !ReleaseFail, "Release testing passed! True for valid, false for null!");
-        }
-
-        /// <summary>
         /// Tests building an invalid instance type for the given object.
         /// </summary>
         [TestMethod]
-        [TestCategory("J2534 Instance")]
+        [TestCategory("J2534 API Instance")]
         public void CheckExistingDevice()
         {
             // Log infos
@@ -94,7 +63,7 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Building new J2534 instance for Device 1...");
 
             // Build instances
-            var LoaderInstanceDev1 = J2534ApiInstance.JApiInstance(JDeviceNumber.PTDevice1);
+            var LoaderInstanceDev1 = new J2534ApiInstance(JDeviceNumber.PTDevice1);
             bool ShouldPassLoad = LoaderInstanceDev1.SetupJApiInstance(PassThruPaths.CarDAQPlus3_0404);
             Assert.IsTrue(ShouldPassLoad, "Failed Loaded DLL for a CDP3! This is a serious issue!");
             Console.WriteLine("--> Loaded initial DLL call for instance OK!");
@@ -103,11 +72,6 @@ namespace JBoxInvoker___Tests
             bool ShouldFailLoad = LoaderInstanceDev1.SetupJApiInstance(PassThruPaths.CarDAQPlus4_0404);
             Assert.IsFalse(ShouldFailLoad, "Failed to ensure only one DLL instance can exist for device type!"); 
             Console.WriteLine("--> Loading procedure failed as expected!");
-
-            // Release device.
-            bool ReleasedOK = LoaderInstanceDev1.ReleaseJApiInstance();
-            Assert.IsTrue(ReleasedOK, "Failed to release device instance!");
-            Console.WriteLine("--> Released device instance OK!");
 
             // Assert true and log split line.
             Console.WriteLine("\n" + SepString);

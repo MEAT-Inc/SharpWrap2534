@@ -35,6 +35,16 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             this.MarshallStatus = PTInstanceStatus.INITIALIZED;
         }
 
+        /// <summary>
+        /// Break down values on the class instance
+        /// </summary>
+        ~J2534ApiMarshaller()
+        {
+            // Breakdown values.
+            this.ApiInstance = null;
+            this.MarshallStatus = PTInstanceStatus.FREED;
+        }
+
         // -------------------------------- PASSTHRU MESSAGE SUPPORTING METHODS ------------------------------------
 
         /// <summary>

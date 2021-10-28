@@ -52,11 +52,13 @@ namespace JBoxInvoker.PassThruLogic
         /// <summary>
         /// Builds a new JInstance setup based
         /// </summary>
-        /// <param name="JDllPath">J2534 DLL object to use</param>
+        /// <param name="JApiDllType">J2534 DLL object to use</param>
         /// <returns>True if setup. False if not.</returns>
         public bool SetupJInstance(PassThruPaths JApiDllType)
         {
             // Check if this has been run or not.
+            if (this.J2534DllType != default && this.J2534DllType != JApiDllType)
+                return false;
             
             // Set the version and build our delegate/Importer objects
             this.J2534DllType = JApiDllType;

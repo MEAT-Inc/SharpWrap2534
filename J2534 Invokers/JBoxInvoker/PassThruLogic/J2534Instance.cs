@@ -106,10 +106,11 @@ namespace JBoxInvoker.PassThruLogic
             // Release device here and return passed.
             switch (this.DeviceNumber)
             {
-                // If devices are null, then return false.
+                // If devices are null or the status is free already, then return false. 
                 case JDeviceNumber.PTDevice1 when _jApiInstance1 == null:
-                    return false;
                 case JDeviceNumber.PTDevice2 when _jApiInstance2 == null:
+                case JDeviceNumber.PTDevice1 when _jApiInstance1.Status == PTInstanceStatus.FREED:
+                case JDeviceNumber.PTDevice2 when _jApiInstance2.Status == PTInstanceStatus.FREED:
                     return false;
 
                 // Null out the instance for device 1 and return. Null out class values.

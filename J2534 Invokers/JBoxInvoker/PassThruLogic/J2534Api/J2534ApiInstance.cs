@@ -36,16 +36,16 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
 
         // JDevice Number.
         public PTInstanceStatus ApiStatus { get; private set; }
-        public JDeviceNumber DeviceNumber { get; set; }
+        public JDeviceNumber DeviceNumber { get; private set; }
 
         // Version of the DLL for the J2534 DLL
-        public JVersion ApiVersion;
+        public JVersion ApiVersion { get; private set; }
         public string J2534DllPath { get; private set; }
         public PassThruPaths J2534DllType { get; private set; }
 
         // PassThru method delegates
-        public PassThruImporter JDllImporter;
-        public PassThruDelegates DelegateSet;
+        private PassThruImporter JDllImporter;
+        private PassThruDelegates DelegateSet;
 
         // ------------------------------ CONSTRUCTOR INIT METHOD FOR INSTANCE -----------------------------
 
@@ -54,13 +54,14 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// </summary>
         /// <param name="JApiDllType">J2534 DLL object to use</param>
         /// <returns>True if setup. False if not.</returns>
-        public bool SetupJApiInstance(PassThruPaths JApiDllType)
+        public bool SetupJApiInstance(JDeviceNumber DeviceNumber, PassThruPaths JApiDllType)
         {
             // Check status value.
             if (this.ApiStatus == PTInstanceStatus.INITIALIZED) return false;
 
             // Set the version and build our delegate/Importer objects
             this.J2534DllType = JApiDllType;
+            this.DeviceNumber = DeviceNumber;
             this.J2534DllPath = this.J2534DllType.ToDescriptionString();
             this.ApiVersion = this.J2534DllPath.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
 

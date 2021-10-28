@@ -19,6 +19,11 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         private static J2534Device _jDeviceInstance1;
         private static J2534Device _jDeviceInstance2;
         
+        /// <summary>
+        /// PRIVATE CTOR FOR SINGLETON USE ONLY!
+        /// </summary>
+        /// <param name="DeviceNumber"></param>
+        /// <param name="Dll"></param>
         private J2534Device(JDeviceNumber DeviceNumber, J2534Dll Dll)
         {
             // Store DLL Value and build marshall.
@@ -26,12 +31,42 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.DeviceNumber = DeviceNumber;
 
             // Build API and marshall.
+            var DllPath = Dll.FunctionLibrary.FromDescriptionString<PassThruPaths>();
             this.ApiInstance = new J2534ApiInstance(this.DeviceNumber);
-            this.ApiInstance.SetupJApiInstance(Dll.FunctionLibrary.FromDescriptionString<PassThruPaths>());
+            this.ApiInstance.SetupJApiInstance(this.DeviceNumber, DllPath);
             this.ApiMarshall = new J2534ApiMarshaller(this.ApiInstance);
 
             // Set Status.
             this.DeviceStatus = PTInstanceStatus.INITIALIZED;
+        }
+        /// <summary>
+        /// Builds a new SAFE Device instance using a predefined DLL path
+        /// </summary>
+        /// <param name="DeviceNumber"></param>
+        /// <param name="DllPath"></param>
+        private J2534Device(JDeviceNumber DeviceNumber, PassThruPaths InputPath)
+        {          
+            // Store DLL Value and build marshall.
+            this.JDll = new J2534Dll(InputPath.ToString());
+            this.DeviceNumber = DeviceNumber;
+
+            // Build API and marshall.
+            this.ApiInstance = new J2534ApiInstance(this.DeviceNumber);
+            this.ApiInstance.SetupJApiInstance(this.DeviceNumber, InputPath);
+            this.ApiMarshall = new J2534ApiMarshaller(this.ApiInstance);
+
+            // Set Status.
+            this.DeviceStatus = PTInstanceStatus.INITIALIZED;
+        }
+        /// <summary>
+        /// Deconstructs the device object and members
+        /// </summary>
+        ~J2534Device()
+        {
+            // Null out member values
+            this.ApiInstance = null;
+            this.ApiMarshall = null;
+            this.DeviceStatus = PTInstanceStatus.FREED;
         }
 
         // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
@@ -45,7 +80,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         internal J2534ApiInstance ApiInstance;
         internal J2534ApiMarshaller ApiMarshall;
 
-        // ------------------------- J2534 DEVICE OBJECT CTOR ----------------------------
+        // ------------------- J2534 DEVICE OBJECT CTOR WITH SINGLETON ----------------------
 
         /// <summary>
         /// Builds a new Device instance using the DLL Given
@@ -60,5 +95,20 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             // Return device 2 instance
             return _jDeviceInstance2 ?? (_jDeviceInstance2 = new J2534Device(DeviceNumber, Dll));
         }
+        /// <summary>
+        /// Builds a new Device instance using the DLL Given
+        /// </summary>
+        /// <param name="Dll">DLL To build from</param>
+        public static J2534Device BuildJ2534Device(JDeviceNumber DeviceNumber, PassThruPaths Dll)
+        {
+            // Return device one instance
+            if (DeviceNumber == JDeviceNumber.PTDevice1)
+                return _jDeviceInstance1 ?? (_jDeviceInstance1 = new J2534Device(DeviceNumber, Dll));
+
+            // Return device 2 instance
+            return _jDeviceInstance2 ?? (_jDeviceInstance2 = new J2534Device(DeviceNumber, Dll));
+        }
+
+        // ----------------------------- J2534 DEVICE OBJECT METHODS ------------------------
     }
 }

@@ -34,7 +34,7 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Built new API Marshalling instances OK!");
 
             // Load modules into memory.
-            bool Loaded0404 = LoaderInstanceDev1.SetupJApiInstance(PassThruPaths.CarDAQPlus3_0404);
+            bool Loaded0404 = LoaderInstanceDev1.SetupJApiInstance(JDeviceNumber.PTDevice1, PassThruPaths.CarDAQPlus3_0404);
             Console.WriteLine("--> Loading process ran without errors!");
 
             // Release devices.

@@ -14,7 +14,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
     public class J2534ApiMarshaller
     {
         // Class values for the marshall configuration
-        public J2534ApiInstance ApiInstance { get; private set; }
+        internal J2534ApiInstance ApiInstance { get; private set; }
         public PTInstanceStatus MarshallStatus { get; private set; }
 
         // Reflected API Values.
@@ -33,6 +33,16 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             // Store API Values.
             this.ApiInstance = Api;
             this.MarshallStatus = PTInstanceStatus.INITIALIZED;
+        }
+
+        /// <summary>
+        /// Break down values on the class instance
+        /// </summary>
+        ~J2534ApiMarshaller()
+        {
+            // Breakdown values.
+            this.ApiInstance = null;
+            this.MarshallStatus = PTInstanceStatus.FREED;
         }
 
         // -------------------------------- PASSTHRU MESSAGE SUPPORTING METHODS ------------------------------------

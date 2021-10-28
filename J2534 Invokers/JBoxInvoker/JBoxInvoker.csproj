@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="EnumLibExtensions.cs" />
     <Compile Include="PassThruLogic\J2534Api\J2534ApiMarshaller.cs" />
+    <Compile Include="PassThruLogic\J2534Objects\J2534Device.cs" />
+    <Compile Include="PassThruLogic\J2534Objects\J2534Dll.cs" />
     <Compile Include="PassThruLogic\PassThruImport\PassThruImporter.cs" />
     <Compile Include="PassThruLogic\PassThruImport\PassThruDelegates.cs" />
     <Compile Include="PassThruLogic\PassThruTypes\PassThruException.cs" />
@@ -52,6 +54,7 @@
     <Compile Include="PassThruLogic\J2534Api\J2534ApiInstance.cs" />
     <Compile Include="PassThruLogic\PassThruTypes\PassThruEnums.cs" />
     <Compile Include="PassThruLogic\SupportingLogic\InstanceEnums.cs" />
+    <Compile Include="PassThruLogic\SupportingLogic\J2534DllFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PassThruLogic\SupportingLogic\Win32Invokers.cs" />
   </ItemGroup>

@@ -9,14 +9,13 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
     /// <summary>
     /// Instance object for the API built in the PassThru logic class.
     /// </summary>
-    public sealed class J2534ApiInstance
+    public class J2534ApiInstance
     {
-        // ------------------------------------ SINGLETON CONFIGURATION -----------------------------------
-
-        // Singleton schema for this class object. Two total instances can exist. Device 1/2
-        private static J2534ApiInstance _jApiInstance1;
-        private static J2534ApiInstance _jApiInstance2;
-        private J2534ApiInstance(JDeviceNumber DeviceNumber)
+        /// <summary>
+        /// Builds a new instance of this J2534 Api
+        /// </summary>
+        /// <param name="DeviceNumber"></param>
+        public J2534ApiInstance(JDeviceNumber DeviceNumber)
         {
             // Store Number and status values.
             this.DeviceNumber = DeviceNumber;
@@ -31,19 +30,6 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             // Release the DLL used and make a new delegate set.
             this.JDllImporter = null;
             this.DelegateSet = new PassThruDelegates();
-        }
-
-        /// <summary>
-        /// Gets our singleton instance object of this class.
-        /// </summary>
-        public static J2534ApiInstance JApiInstance(JDeviceNumber DeviceNumber)
-        {
-            // Return device one instance
-            if (DeviceNumber == JDeviceNumber.PTDevice1) 
-                return _jApiInstance1 ?? (_jApiInstance1 = new J2534ApiInstance(DeviceNumber));
-
-            // Return device 2 instance
-            return _jApiInstance2 ?? (_jApiInstance2 = new J2534ApiInstance(DeviceNumber));
         }
 
         // ------------------------------------ CLASS VALUES FOR J2534 API ---------------------------------
@@ -70,12 +56,6 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <returns>True if setup. False if not.</returns>
         public bool SetupJApiInstance(PassThruPaths JApiDllType)
         {
-            // Check if this has been run or not.
-            // If one and two are set we can't run, or if the type doesn't match existing.
-            if (_jApiInstance1?.ApiStatus == PTInstanceStatus.INITIALIZED &&
-                _jApiInstance2?.ApiStatus == PTInstanceStatus.INITIALIZED) return false;
-            if (this.J2534DllType != default && this.J2534DllType != JApiDllType) return false;
-
             // Check status value.
             if (this.ApiStatus == PTInstanceStatus.INITIALIZED) return false;
 
@@ -94,44 +74,6 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
 
             // Return passed.
             return true;
-        }
-        /// <summary>
-        /// Destroys a device instance object and returns it.
-        /// </summary>
-        /// <returns>True if device is released and was real. False if not released.</returns>
-        public bool ReleaseJApiInstance()
-        { 
-            // Release device here and return passed.
-            switch (this.DeviceNumber)
-            {
-                // If devices are null or the status is free already, then return false. 
-                case JDeviceNumber.PTDevice1 when _jApiInstance1 == null:
-                case JDeviceNumber.PTDevice2 when _jApiInstance2 == null:
-                case JDeviceNumber.PTDevice1 when _jApiInstance1.ApiStatus == PTInstanceStatus.FREED:
-                case JDeviceNumber.PTDevice2 when _jApiInstance2.ApiStatus == PTInstanceStatus.FREED:
-                    return false;
-
-                // Null out the instance for device 1 and return. Null out class values.
-                case JDeviceNumber.PTDevice1:
-                    _jApiInstance1.DelegateSet = null;
-                    _jApiInstance1.J2534DllPath = null;
-                    _jApiInstance1.JDllImporter = null;
-                    _jApiInstance1.J2534DllType = default;
-                    _jApiInstance1.ApiStatus = PTInstanceStatus.FREED;
-                    return true;
-
-                // Null out the instance for device 2 and return. Null out class values.
-                case JDeviceNumber.PTDevice2:
-                    _jApiInstance2.DelegateSet = null;
-                    _jApiInstance2.J2534DllPath = null;
-                    _jApiInstance2.JDllImporter = null;
-                    _jApiInstance2.J2534DllType = default;
-                    _jApiInstance2.ApiStatus = PTInstanceStatus.FREED;
-                    return true;
-
-                // Default out is false. Can't modify an invalid device ID Value.
-                default: return false;
-            }
         }
 
         // ---------------------------------- J2534 PUBLIC FACING API CALLS ---------------------------------

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using JBoxInvoker.PassThruLogic.PassThruImport;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
-namespace JBoxInvoker.PassThruLogic
+namespace JBoxInvoker.PassThruLogic.J2534Api
 {
     /// <summary>
     /// Used to marshall out API methods from an instance of the DLL Api
@@ -31,6 +29,7 @@ namespace JBoxInvoker.PassThruLogic
         {
             // Store API Values.
             this.ApiInstance = Api;
+            this.MarshallStatus = PTInstanceStatus.INITIALIZED;
         }
     }
 }

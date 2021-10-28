@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using JBoxInvoker.PassThruLogic.J2534Api;
 
 namespace JBoxInvoker.PassThruLogic.PassThruImport
 {

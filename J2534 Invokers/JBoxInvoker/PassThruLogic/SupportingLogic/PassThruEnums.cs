@@ -36,4 +36,12 @@ namespace JBoxInvoker.PassThruLogic.SupportingLogic
         [Description("Device #1")] PTDevice1,
         [Description("Device #2")] PTDevice2,
     }
+
+    // Enums to describe the status for the instance.
+    public enum PTInstanceStatus
+    {
+        [Description("Not Configured")] NULL,
+        [Description("DLL Loaded")] INITIALIZED,
+        [Description("Freed")] FREED,
+    }
 }

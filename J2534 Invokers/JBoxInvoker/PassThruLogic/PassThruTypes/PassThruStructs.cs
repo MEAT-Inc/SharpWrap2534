@@ -7,80 +7,123 @@ using JBoxInvoker.PassThruLogic.SupportingLogic;
 
 namespace JBoxInvoker.PassThruLogic.PassThruTypes
 {
-    // Set of structure objects without signed value sets.
-
     /// <summary>
-    /// PassThur message struct
+    /// Set of structure objects without signed value sets.
     /// </summary>
-    public class PassThruMsg
+    public class PassThruStructs
     {
-        public ProtocolId protocolId;
-        public uint rxStatus;
-        public uint txFlags;
-        public uint timestamp;
-        public uint dataLength;
-        public uint extraDataIndex;
-        public byte[] data;
-
-        public PassThruMsg(uint nbytes) { data = new byte[nbytes]; }
-    }
-    /// <summary>
-    /// SConfig list setup
-    /// </summary>
-    public class SConfigList
-    {
-        public uint numOfParams;
-        public List<SConfig> configList;
-
-        public SConfigList() { configList = new List<SConfig>(); }
-    }
-    /// <summary>
-    /// Single SConfig instance.
-    /// </summary>
-    public class SConfig
-    {
-        public ConfigParamId parameter;
-        public uint value;
-
-        public SConfig(ConfigParamId param) { parameter = param; }
-    }
-    /// <summary>
-    /// SByte array. Used for sending sets of SConfigs.
-    /// </summary>
-    public class SByteArray
-    {
-        public uint numOfBytes;
-        public byte[] data;
-
-        public SByteArray(uint numBytes)
+        /// <summary>
+        /// PassThur message struct
+        /// </summary>
+        public struct PassThruMsg
         {
-            numOfBytes = numBytes;
-            data = new byte[numBytes];
-        }
-    }
-    /// <summary>
-    /// SDevice instances show all the values of a device when a PTOpen command is run.
-    /// </summary>
-    public class SDevice
-    {
-        public string deviceName;
-        public uint deviceAvailable;
-        public uint deviceDLLFWStatus;
-        public uint deviceConnectMedia;
-        public uint deviceConnectSpeed;
-        public uint deviceSignalQuality;
-        public uint deviceSignalStrength;
+            public ProtocolId ProtocolID;
+            public uint RxStatus;
+            public uint TxFlags;
+            public uint Timestamp;
+            public uint DataSize;
+            public uint ExtraDataIndex;
+            public byte[] Data;
 
-        // to control what shows up in the combobox
-        public override string ToString() { return deviceName; }
-    };
-    /// <summary>
-    /// Resource structs show used controls on a connector instance type for a device.
-    /// </summary>
-    public class ResourceStruct
-    {
-        public Connector connector;
-        public uint numOfResources;
-        public List<int> resourceList = new List<int>();
+            /// <summary>
+            /// Builds a new PassThru message from managed types.
+            /// </summary>
+            /// <param name="ByteCount"></param>
+            public PassThruMsg(uint ByteCount)
+            {
+                ProtocolID = 0;
+                RxStatus = 0;
+                TxFlags = 0;
+                Timestamp = 0;
+                DataSize = 0;
+                ExtraDataIndex = 0;
+                Data = new byte[ByteCount];
+            }
+        }
+        /// <summary>
+        /// SConfig list setup
+        /// </summary>
+        public struct SConfigList
+        {
+            public uint NumberOfParams;
+            public List<SConfig> ConfigList;
+
+            /// <summary>
+            /// Builds a new managed SConfig List
+            /// </summary>
+            public SConfigList(uint ParamCount = 0)
+            {
+                ConfigList = new List<SConfig>((int)ParamCount);
+                NumberOfParams = (uint)ConfigList.Count;
+            }
+        }
+        /// <summary>
+        /// Single SConfig instance.
+        /// </summary>
+        public struct SConfig
+        {
+            public uint SConfigValue;
+            public ConfigParamId SConfigParamId;
+
+            /// <summary>
+            /// Builds a new Sconfig Param
+            /// </summary>
+            /// <param name="ConfigParam"></param>
+            public SConfig(ConfigParamId ConfigParam)
+            {
+                SConfigParamId = ConfigParam;
+                SConfigValue = (uint)ConfigParam;
+            }
+        }
+        /// <summary>
+        /// SByte array. Used for sending sets of SConfigs.
+        /// </summary>
+        public struct SByteArray
+        {
+            public uint NumberOfBytes;
+            public byte[] Data;
+
+            /// <summary>
+            /// Builds a new SByte Array
+            /// </summary>
+            /// <param name="ByteCount"></param>
+            public SByteArray(uint ByteCount)
+            {
+                NumberOfBytes = ByteCount;
+                Data = new byte[ByteCount];
+            }
+        }
+        /// <summary>
+        /// SDevice instances show all the values of a device when a PTOpen command is run.
+        /// </summary>
+        public struct SDevice
+        {
+            public string DeviceName;
+            public uint DeviceAvailable;
+            public uint DeviceDllFWStatus;
+            public uint DeviceConnectMedia;
+            public uint DeviceConnectSpeed;
+            public uint DeviceSignalQuality;
+            public uint DeviceSignalStrength;
+
+            // to control what shows up in the combobox
+            public override string ToString() { return DeviceName; }
+        };
+        /// <summary>
+        /// Resource structs show used controls on a connector instance type for a device.
+        /// </summary>
+        public struct ResourceStruct
+        {
+            public Connector ConnectorType;
+            public uint ResourceCount;
+            public List<int> ResourceList;
+
+            public ResourceStruct(int NumResources = 0)
+            {
+                ResourceCount = (uint)NumResources;
+                ResourceList = new List<int>(NumResources);
+                ConnectorType = default;
+            }
+        }
     }
 }

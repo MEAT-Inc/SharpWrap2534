@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using JBoxInvoker.PassThruLogic.PassThruTypes;
 
 namespace JBoxInvoker.PassThruLogic.PassThruImport
 {
@@ -31,17 +32,17 @@ namespace JBoxInvoker.PassThruLogic.PassThruImport
 
         // DELEGATE: PASSTHRU READ MESSAGE
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int DelegatePassThruReadMsgs(uint ChannelId, [In, Out] PassThruStructs_Native.PASSTHRU_MSG[] PassThruMsg, out uint MsgCount, uint MsgTimeout);       
+        public delegate int DelegatePassThruReadMsgs(uint ChannelId, [In, Out] PassThruStructsNative.PASSTHRU_MSG[] PassThruMsg, out uint MsgCount, uint MsgTimeout);       
         public DelegatePassThruReadMsgs PTReadMsgs;
 
         // DELEGATE: PASSTHRU WRITE MESSAGE
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int DelegatePassThruWriteMsgs(uint ChannelId, [In] PassThruStructs_Native.PASSTHRU_MSG[] PassThruMsg, ref uint MsgCount, uint MsgTimeout);              
+        public delegate int DelegatePassThruWriteMsgs(uint ChannelId, [In] PassThruStructsNative.PASSTHRU_MSG[] PassThruMsg, ref uint MsgCount, uint MsgTimeout);              
         public DelegatePassThruWriteMsgs PTWriteMsgs;
 
         // DELEGATE: PASSTHRU START PERIODIC
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int DelegatePassThruStartPeriodicMsg(uint ChannelId, [In] ref PassThruStructs_Native.PASSTHRU_MSG PassThruMsg, out uint PassThruMsgId, uint TimeInterval);  
+        public delegate int DelegatePassThruStartPeriodicMsg(uint ChannelId, [In] ref PassThruStructsNative.PASSTHRU_MSG PassThruMsg, out uint PassThruMsgId, uint TimeInterval);  
         public DelegatePassThruStartPeriodicMsg PTStartPeriodicMsg;
 
         // DELEGATE: PASSTHRU STOP PERIODIC
@@ -51,12 +52,12 @@ namespace JBoxInvoker.PassThruLogic.PassThruImport
 
         // DELEGATE: PASSTHRU START FILTER (With message flow Ctl)
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int DelegatePassThruStartMsgFilter(uint ChannelId, uint FilterType, [In] ref PassThruStructs_Native.PASSTHRU_MSG PassThruMask, [In] ref PassThruStructs_Native.PASSTHRU_MSG PassThruPattern, [In] ref PassThruStructs_Native.PASSTHRU_MSG PassThruFlowCtl, out uint FilterId);
+        public delegate int DelegatePassThruStartMsgFilter(uint ChannelId, uint FilterType, [In] ref PassThruStructsNative.PASSTHRU_MSG PassThruMask, [In] ref PassThruStructsNative.PASSTHRU_MSG PassThruPattern, [In] ref PassThruStructsNative.PASSTHRU_MSG PassThruFlowCtl, out uint FilterId);
         public DelegatePassThruStartMsgFilter PTStartMsgFilter;
 
         // DELEGATE: PASSTHRU START FILTER
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int DelegatePassThruStartMsgFilterFlowPtr(uint ChannelId, uint FilterType, [In] ref PassThruStructs_Native.PASSTHRU_MSG PassThruMask, [In] ref PassThruStructs_Native.PASSTHRU_MSG PassThruPattern, [In] IntPtr PassThruFlowCtl, out uint FilterId);
+        public delegate int DelegatePassThruStartMsgFilterFlowPtr(uint ChannelId, uint FilterType, [In] ref PassThruStructsNative.PASSTHRU_MSG PassThruMask, [In] ref PassThruStructsNative.PASSTHRU_MSG PassThruPattern, [In] IntPtr PassThruFlowCtl, out uint FilterId);
         public DelegatePassThruStartMsgFilterFlowPtr PTStartMsgFilterFlowPtr;
 
         // DELEGATE: PASSTHRU STOP FILTER

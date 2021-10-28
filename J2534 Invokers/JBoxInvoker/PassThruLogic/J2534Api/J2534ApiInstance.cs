@@ -254,7 +254,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <param name="Messages">Messages to send</param>
         /// <param name="MsgCount">Number of messages to read</param>
         /// <param name="ReadTimeout">Read timeout value.</param>
-        public void PassThruReadMsgs(uint ChannelId, PassThruStructs_Native.PASSTHRU_MSG[] Messages, out uint MsgCount, uint ReadTimeout)
+        public void PassThruReadMsgs(uint ChannelId, PassThruStructsNative.PASSTHRU_MSG[] Messages, out uint MsgCount, uint ReadTimeout)
         {
             // Run our PTRead command.
             J2534Err PTCommandError = (J2534Err)this.DelegateSet.PTReadMsgs(ChannelId, Messages, out MsgCount, ReadTimeout);
@@ -274,11 +274,11 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <param name="MsgToSend">Message to send</param>
         /// <param name="MsgCount">Messages sent</param>
         /// <param name="SendTimeout">Timeout value for send</param>
-        public void PassThruWriteMsgs(uint ChannelId, PassThruStructs_Native.PASSTHRU_MSG MsgToSend, out uint MsgCount, uint SendTimeout)
+        public void PassThruWriteMsgs(uint ChannelId, PassThruStructsNative.PASSTHRU_MSG MsgToSend, out uint MsgCount, uint SendTimeout)
         {
             // Wrap the messages into a native array.
             MsgCount = 1;
-            PassThruStructs_Native.PASSTHRU_MSG[] NativeWrappedMsgs = new PassThruStructs_Native.PASSTHRU_MSG[1] { MsgToSend };
+            PassThruStructsNative.PASSTHRU_MSG[] NativeWrappedMsgs = new PassThruStructsNative.PASSTHRU_MSG[1] { MsgToSend };
 
             // Send the PTWrite command here.
             J2534Err PTCommandError = (J2534Err)this.DelegateSet.PTWriteMsgs(ChannelId, NativeWrappedMsgs, ref MsgCount, SendTimeout);
@@ -298,7 +298,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <param name="Msgs">Messages to send out</param>
         /// <param name="MsgCount">Number of messages to send</param>
         /// <param name="SendTimeout">Send timeout for operation</param>
-        public void PassThruWriteMsgs(uint ChannelId, PassThruStructs_Native.PASSTHRU_MSG[] Msgs, ref uint MsgCount, uint SendTimeout)
+        public void PassThruWriteMsgs(uint ChannelId, PassThruStructsNative.PASSTHRU_MSG[] Msgs, ref uint MsgCount, uint SendTimeout)
         {
             // Run the PTWrite command and store the error output.
             J2534Err PTCommandError = (J2534Err)this.DelegateSet.PTWriteMsgs(ChannelId, Msgs, ref MsgCount, SendTimeout);
@@ -317,11 +317,11 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <param name="ChannelId">Channel to send on.</param>
         /// <param name="Msg">Message ot send </param>
         /// <param name="MsgId">ID of the newly made message</param>
-        /// <param name="SendTimeout">Timeout for the send operation</param>
-        public void PassThruStartPeriodicMsg(uint ChannelId, PassThruStructs_Native.PASSTHRU_MSG Msg, out uint MsgId, uint SendTimeout)
+        /// <param name="MessageInterval">Timeout for the send operation</param>
+        public void PassThruStartPeriodicMsg(uint ChannelId, PassThruStructsNative.PASSTHRU_MSG Msg, out uint MsgId, uint MessageInterval)
         {
             // Runs the PT Start periodic command and stores error code.
-            J2534Err PTCommandError = (J2534Err)this.DelegateSet.PTStartPeriodicMsg(ChannelId, ref Msg, out MsgId, SendTimeout);
+            J2534Err PTCommandError = (J2534Err)this.DelegateSet.PTStartPeriodicMsg(ChannelId, ref Msg, out MsgId, MessageInterval);
 
             // If the error is not a NOERROR Response then throw it.
             if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
@@ -357,10 +357,10 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <param name="Mask">Mask message</param>
         /// <param name="Pattern">Pattern Message</param>
         /// <param name="FilterId">ID of the newly made filter.</param>
-        public void PassThruStartMsgFilter(uint ChannelId, FilterDef FilterType, PassThruStructs_Native.PASSTHRU_MSG Mask, PassThruStructs_Native.PASSTHRU_MSG Pattern, out uint FilterId)
+        public void PassThruStartMsgFilter(uint ChannelId, FilterDef FilterType, PassThruStructsNative.PASSTHRU_MSG Mask, PassThruStructsNative.PASSTHRU_MSG Pattern, out uint FilterId)
         {
             // Runs a flow ctl filter without flow control value.
-            PassThruStructs_Native.PASSTHRU_MSG FlowMsg = new PassThruStructs_Native.PASSTHRU_MSG(-1);
+            PassThruStructsNative.PASSTHRU_MSG FlowMsg = new PassThruStructsNative.PASSTHRU_MSG(-1);
             PassThruStartMsgFilter(ChannelId, FilterType, Mask, Pattern, FlowMsg, out FilterId);
         }
         /// <summary>
@@ -372,7 +372,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <param name="Pattern">Pattern Message</param>
         /// <param name="FlowCtl">Flow control filter message</param>
         /// <param name="FilterId">ID of the newly made filter.</param>
-        public void PassThruStartMsgFilter(uint ChannelId, FilterDef FilterType, PassThruStructs_Native.PASSTHRU_MSG Mask, PassThruStructs_Native.PASSTHRU_MSG Pattern, PassThruStructs_Native.PASSTHRU_MSG? FlowCtl, out uint FilterId)
+        public void PassThruStartMsgFilter(uint ChannelId, FilterDef FilterType, PassThruStructsNative.PASSTHRU_MSG Mask, PassThruStructsNative.PASSTHRU_MSG Pattern, PassThruStructsNative.PASSTHRU_MSG? FlowCtl, out uint FilterId)
         {
             // Universal Error object.
             J2534Err PTCommandError;
@@ -382,7 +382,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             else
             {
                 // For a non null flow ctl send message filter command.
-                PassThruStructs_Native.PASSTHRU_MSG FlowCtlNoNull = (PassThruStructs_Native.PASSTHRU_MSG)FlowCtl;
+                PassThruStructsNative.PASSTHRU_MSG FlowCtlNoNull = (PassThruStructsNative.PASSTHRU_MSG)FlowCtl;
                 PTCommandError = (J2534Err)this.DelegateSet.PTStartMsgFilter(ChannelId, (uint)FilterType, ref Mask, ref Pattern, ref FlowCtlNoNull, out FilterId);
             }
 

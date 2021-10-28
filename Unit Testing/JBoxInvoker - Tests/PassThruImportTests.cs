@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using JBoxInvoker;
 using JBoxInvoker.PassThruLogic.J2534Api;
+using JBoxInvoker.PassThruLogic.PassThruImport;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit;

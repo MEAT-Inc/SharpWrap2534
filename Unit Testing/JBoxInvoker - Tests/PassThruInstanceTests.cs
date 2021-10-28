@@ -31,8 +31,8 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Building new J2534 instance for Devices 1 and 2...");
 
             // Build instances
-            var LoaderInstanceDev1 = J2534Instance.JApiInstance(JDeviceNumber.PTDevice1);
-            var LoaderInstanceDev2 = J2534Instance.JApiInstance(JDeviceNumber.PTDevice2);
+            var LoaderInstanceDev1 = J2534ApiInstance.JApiInstance(JDeviceNumber.PTDevice1);
+            var LoaderInstanceDev2 = J2534ApiInstance.JApiInstance(JDeviceNumber.PTDevice2);
             Console.WriteLine("--> Built new loader instances OK!");
             
             // Load modules into memory.
@@ -63,7 +63,7 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Building new J2534 instance for Device 1...");
             
             // Build instance
-            var LoaderInstanceDev1 = J2534Instance.JApiInstance(JDeviceNumber.PTDevice1);
+            var LoaderInstanceDev1 = J2534ApiInstance.JApiInstance(JDeviceNumber.PTDevice1);
             Console.WriteLine("--> Built new loader instances OK!");
 
             // Release instance twice to check for fail.
@@ -93,7 +93,7 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Building new J2534 instance for Device 1...");
 
             // Build instances
-            var LoaderInstanceDev1 = J2534Instance.JApiInstance(JDeviceNumber.PTDevice1);
+            var LoaderInstanceDev1 = J2534ApiInstance.JApiInstance(JDeviceNumber.PTDevice1);
             bool ShouldPassLoad = LoaderInstanceDev1.SetupJInstance(PassThruPaths.CarDAQPlus3_0404);
             Assert.IsTrue(ShouldPassLoad, "Failed Loaded DLL for a CDP3! This is a serious issue!");
             Console.WriteLine("--> Loaded initial DLL call for instance OK!");

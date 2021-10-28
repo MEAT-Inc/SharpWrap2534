@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using JBoxInvoker.PassThruLogic.PassThruImport;
+using JBoxInvoker.PassThruLogic.PassThruTypes;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
 namespace JBoxInvoker.PassThruLogic.J2534Api
@@ -39,6 +40,11 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// </summary>
         /// <param name="DeviceId">Device ID returned for this instance.</param>
         public void PassThruOpen(out uint DeviceId) { this.ApiInstance.PassThruOpen(out DeviceId); }
+        /// <summary>
+        /// Runs a new PTOpen command for the provided Device ID
+        /// </summary>
+        /// <param name="DeviceId">Device ID returned for this instance.</param>
+        /// <param name="DeviceName">Name of the device to open</param>
         public void PassThruOpen(string DeviceName, out uint DeviceId)
         {
             IntPtr NameAsPtr = Marshal.StringToHGlobalAnsi(DeviceName);

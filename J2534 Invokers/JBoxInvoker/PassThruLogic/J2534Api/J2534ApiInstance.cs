@@ -151,7 +151,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Runs a new PTOpen command for the provided Device ID
@@ -169,7 +169,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Runs a PTClose for the provided Device ID
@@ -186,7 +186,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Issues a PTConnect method to the device specified.
@@ -207,7 +207,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Issues a PTConnect method to the device specified.
@@ -228,7 +228,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Runs a PassThru disconnect method on the device ID given
@@ -245,7 +245,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Reads messages from the given ChannelID
@@ -265,7 +265,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Sends a message to the given channel ID
@@ -289,7 +289,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Writes a given set of PTMessages out to our JDevice.
@@ -309,7 +309,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Starts a periodic message filter on the given channel with the provided mesasage.
@@ -329,7 +329,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Stops a periodic message.
@@ -347,7 +347,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Stars a non flow control filter.
@@ -392,7 +392,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Runs a PTStopMSg Filter command and returns.
@@ -410,7 +410,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Sets programming voltage on a given pin and device.
@@ -429,7 +429,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Runs a PTRead version command and stores the output.
@@ -449,7 +449,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Builds the last error from our device/DLL Call
@@ -466,7 +466,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
         /// Runs a IOCTL command on the device to setup a new command. 
@@ -486,7 +486,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             PassThruGetLastError(ErrorBuilder);
 
             // Throw exception here.
-            throw new J2534Exception(PTCommandError, ErrorBuilder);
+            throw new PassThruException(PTCommandError, ErrorBuilder);
         }
     }
 }

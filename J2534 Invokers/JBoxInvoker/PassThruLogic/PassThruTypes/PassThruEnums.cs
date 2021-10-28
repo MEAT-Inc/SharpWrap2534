@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JBoxInvoker.PassThruLogic.SupportingLogic
+﻿namespace JBoxInvoker.PassThruLogic.PassThruTypes
 {
     // This is a collection of SAE J2534 Enums needed to configure values for API Commands.
 
@@ -46,12 +40,6 @@ namespace JBoxInvoker.PassThruLogic.SupportingLogic
         ANALOG_IN_1 = 0xC000,
         ANALOG_IN_2 = 0xC001, // Supported on AVIT only
         ANALOG_IN_32 = 0xC01F,  // Not supported
-        DT_ANALOG_IN_1 = 0x800B, // Old Drew Tech Analogs do not use in new designs
-        DT_ANALOG_IN_2 = 0x800C, // Old Drew Tech Analogs do not use in new designs
-        DT_J1708_PS = 0x10000001, // Old Drew Tech J1708 do not use in new designs
-        DT_CEC1_PS = 0x10000002, // supported in TVIT
-        DT_KW82_PS = 0x10000003, // supported in GM II, CarDAQ-M mega K
-        DT_TP1_6_PS = 0x10000004,
     };
     /// <summary>
     /// Baud rate values commonly used for protocols
@@ -183,4 +171,147 @@ namespace JBoxInvoker.PassThruLogic.SupportingLogic
         ERR_INVALID_BAUDRATE = 0x19,
         ERR_INVALID_DEVICE_ID = 0x1A
     }
+    /// <summary>
+    /// Config params for using a ConfigParam struct.
+    /// </summary>
+    public enum ConfigParamId : uint
+    {
+        DATA_RATE = 0x01,
+        LOOPBACK = 0x03,
+        NODE_ADDRESS = 0x04,
+        NETWORK_LINE = 0x05,
+        P1_MIN = 0x06,                      // Don't use
+        P1_MAX = 0x07,
+        P2_MIN = 0x08,                      // Don't use
+        P2_MAX = 0x09,                      // Don't use
+        P3_MIN = 0x0A,
+        P3_MAX = 0x0B,                      // Don't use
+        P4_MIN = 0x0C,
+        P4_MAX = 0x0D,                      // Don't use
+
+        W1 = 0x0E,
+        W2 = 0x0F,
+        W3 = 0x10,
+        W4 = 0x11,
+        W5 = 0x12,
+        TIDLE = 0x13,
+        TINIL = 0x14,
+        TWUP = 0x15,
+        PARITY = 0x16,
+        BIT_SAMPLE_POINT = 0x17,
+        SYNC_JUMP_WIDTH = 0x18,
+        W0 = 0x19,
+        T1_MAX = 0x1A,
+        T2_MAX = 0x1B,
+        T4_MAX = 0x1C,
+
+        T5_MAX = 0x1D,
+        ISO15765_BS = 0x1E,
+        ISO15765_STMIN = 0x1F,
+        DATA_BITS = 0x20,
+        FIVE_BAUD_MOD = 0x21,
+        BS_TX = 0x22,
+        STMIN_TX = 0x23,
+        T3_MAX = 0x24,
+        ISO15765_WFT_MAX = 0x25,
+
+        N_BR_MIN = 0x2A,
+        ISO15765_PAD_VALUE = 0x2B,
+        N_AS_MAX = 0x2C,
+        N_AR_MAX = 0x2D,
+        N_BS_MAX = 0x2E,
+        N_CR_MAX = 0x2F,
+        N_CS_MIN = 0x30,
+
+        // J2534-2
+        CAN_MIXED_FORMAT = 0x8000,
+
+        J1962_PINS = 0x8001,
+        SW_CAN_HS_DATA_RATE = 0x8010,
+        SW_CAN_SPEEDCHANGE_ENABLE = 0x8011,
+        SW_CAN_RES_SWITCH = 0x8012,
+        ACTIVE_CHANNELS = 0x8020,
+        SAMPLE_RATE = 0x8021,
+        SAMPLES_PER_READING = 0x8022,
+        READINGS_PER_MSG = 0x8023,
+        AVERAGING_METHOD = 0x8024,
+        SAMPLE_RESOLUTION = 0x8025,
+        INPUT_RANGE_LOW = 0x8026,
+        INPUT_RANGE_HIGH = 0x8027,
+
+        // J2534-2 UART Echo Byte protocol parameters
+        UEB_T0_MIN = 0x8028,
+
+        UEB_T1_MAX = 0x8029,
+        UEB_T2_MAX = 0x802A,
+        UEB_T3_MAX = 0x802B,
+        UEB_T4_MIN = 0x802C,
+        UEB_T5_MAX = 0x802D,
+        UEB_T6_MAX = 0x802E,
+        UEB_T7_MIN = 0x802F,
+        UEB_T7_MAX = 0x8030,
+        UEB_T9_MIN = 0x8031,
+
+        // Pin selection
+        J1939_PINS = 0x803D,
+
+        J1708_PINS = 0x803E,
+
+        // J2534-2 J1939 config parameters
+        J1939_T1 = 0x803F,
+
+        J1939_T2 = 0x8040,
+        J1939_T3 = 0x8041,
+        J1939_T4 = 0x8042,
+        J1939_BRDCST_MIN_DELAY = 0x8043,
+
+        // J2534-2 TP2.0
+        TP2_0_T_BR_INT = 0x8044,
+
+        TP2_0_T_E = 0x8045,
+        TP2_0_MNTC = 0x8046,
+        TP2_0_T_CTA = 0x8047,
+        TP2_0_MNCT = 0x8048,
+        TP2_0_MNTB = 0x8049,
+        TP2_0_MNT = 0x804A,
+        TP2_0_T_WAIT = 0x804B,
+        TP2_0_T1 = 0x804C,
+        TP2_0_T3 = 0x804D,
+        TP2_0_IDENTIFER = 0x804E,
+        TP2_0_RXIDPASSIVE = 0x804F,
+        TP1_6_T_E = 0x8051,
+        TP1_6_MNTC = 0x8052,
+        TP1_6_MNT = 0x8053,
+        TP1_6_T1 = 0x8054,
+        TP1_6_T2 = 0x8055,
+        TP1_6_T3 = 0x8056,
+        TP1_6_T4 = 0x8057,
+        TP1_6_IDENTIFER = 0x8058,
+        TP1_6_RXIDPASSIVE = 0x8059,
+        TP2_0_ACK_DELAY = 0x805B,
+
+        // J2534-2 Device Config parameters
+        NON_VOLATILE_STORE_1 = 0xC001, /* use SCONFIG_LIST */
+
+        NON_VOLATILE_STORE_2 = 0xC002,
+        NON_VOLATILE_STORE_3 = 0xC003,
+        NON_VOLATILE_STORE_4 = 0xC004,
+        NON_VOLATILE_STORE_5 = 0xC005,
+        NON_VOLATILE_STORE_6 = 0xC006,
+        NON_VOLATILE_STORE_7 = 0xC007,
+        NON_VOLATILE_STORE_8 = 0xC008,
+        NON_VOLATILE_STORE_9 = 0xC009,
+        NON_VOLATILE_STORE_10 = 0xC00A,
+    };
+    /// <summary>
+    /// Contains infos for the type of connector to consume.
+    /// </summary>
+    public enum Connector : uint
+    {
+        ENTIRE_DEVICE = 0,
+        J1962_CONNECTOR = 0x00000001,
+        J1939_CONNECTOR = 0x00010000,
+        J1708_CONNECTOR = 0x00010001
+    }
+
 }

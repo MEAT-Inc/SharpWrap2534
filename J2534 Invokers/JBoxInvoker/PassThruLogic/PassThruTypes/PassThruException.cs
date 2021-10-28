@@ -10,7 +10,7 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
     /// <summary>
     /// Exception object from a J2534 Call
     /// </summary>
-    public class J2534Exception : Exception
+    public class PassThruException : Exception
     {
         // Error Code and string value.
         public J2534Err J2534ErrorCode;
@@ -21,18 +21,18 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
         /// <summary>
         /// Builds a new J2534 CTOR object.
         /// </summary>
-        public J2534Exception() { }
+        public PassThruException() { }
         /// <summary>
         /// Builds a new JException based on an error code.
         /// </summary>
         /// <param name="code"></param>
-        public J2534Exception(J2534Err JErrorCode) { this.J2534ErrorCode = JErrorCode; }
+        public PassThruException(J2534Err JErrorCode) { this.J2534ErrorCode = JErrorCode; }
         /// <summary>
         /// Builds a new JException based on an error code and string.
         /// </summary>
         /// <param name="JErrorCode">Error fro the method</param>
         /// <param name="LastErrorCode">Last error thrown from the Exception</param>
-        public J2534Exception(J2534Err JErrorCode, StringBuilder LastErrorCode)
+        public PassThruException(J2534Err JErrorCode, StringBuilder LastErrorCode)
         {
             this.J2534ErrorCode = JErrorCode;
             this.LastErrorString = LastErrorCode.ToString();
@@ -42,14 +42,14 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
         /// </summary>
         /// <param name="ErrorMessage">Error thrown message</param>
         /// <param name="JErrorCode">J2534 Exception code</param>
-        public J2534Exception(string ErrorMessage, J2534Err JErrorCode) : base(ErrorMessage) { this.J2534ErrorCode = JErrorCode; }
+        public PassThruException(string ErrorMessage, J2534Err JErrorCode) : base(ErrorMessage) { this.J2534ErrorCode = JErrorCode; }
         /// <summary>
         /// Builds a new Exception from a message and error code.
         /// </summary>
         /// <param name="ErrorMessage">Error thrown message</param>
         /// <param name="JErrorCode">J2534 Exception code</param>
         /// <param name="InnerException">Inner exception thrown running</param>
-        public J2534Exception(string ErrorMessage, Exception InnerException, J2534Err JErrorCode) : base(ErrorMessage, InnerException)
+        public PassThruException(string ErrorMessage, Exception InnerException, J2534Err JErrorCode) : base(ErrorMessage, InnerException)
         {
             // Store code value.
             this.J2534ErrorCode = JErrorCode;

@@ -20,7 +20,7 @@ namespace JBoxInvoker___Tests
         [TestMethod]
         [TestCategory("J2534 Instance")]
         [TestCategory("J2534 DLL Import")]
-        public void LoadJ2534DLLs()
+        public void LoadJ2534ApisTest()
         {
             // Results for loading DLLs.
             List<(bool, Exception)> ResultsList = new List<(bool, Exception)>();

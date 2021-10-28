@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,8 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumLibExtensions.cs" />
-    <Compile Include="PassThruImporter.cs" />
+    <Compile Include="PassThruLogic\J2534Api\PassThruImporter.cs" />
+    <Compile Include="PassThruLogic\J2534Api\PassThruDelegates.cs" />
+    <Compile Include="PassThruLogic\J2534Api\PassThruStructs_Native.cs" />
+    <Compile Include="PassThruLogic\J2534Instance.cs" />
+    <Compile Include="PassThruLogic\SupportingLogic\PassThruEnums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PassThruLogic\SupportingLogic\Win32Invokers.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

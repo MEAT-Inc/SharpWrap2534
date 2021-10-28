@@ -14,7 +14,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
     public class J2534ApiMarshaller
     {
         // Class values for the marshall configuration
-        public J2534ApiInstance ApiInstance { get; private set; }
+        internal J2534ApiInstance ApiInstance { get; private set; }
         public PTInstanceStatus MarshallStatus { get; private set; }
 
         // Reflected API Values.

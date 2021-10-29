@@ -38,8 +38,10 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.ApiInstance.SetupJApiInstance(this.DeviceNumber, DllPath);
             this.ApiMarshall = new J2534ApiMarshaller(this.ApiInstance);
 
-            // Set Status.
+            // Build channels, set status output.
             this.DeviceStatus = PTInstanceStatus.INITIALIZED;
+            this.J2534Version = this.ApiInstance.J2534Version;
+            this.DeviceChannels = J2534Channel.BuildDeviceChannels(this);
         }
         /// <summary>
         /// Builds a new SAFE Device instance using a predefined DLL path
@@ -57,37 +59,54 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.ApiInstance.SetupJApiInstance(this.DeviceNumber, InputPath);
             this.ApiMarshall = new J2534ApiMarshaller(this.ApiInstance);
 
-            // Set Status.
+            // Build channels, set status output.
             this.DeviceStatus = PTInstanceStatus.INITIALIZED;
+            this.J2534Version = this.ApiInstance.J2534Version;
+            this.DeviceChannels = J2534Channel.BuildDeviceChannels(this);
         }
+
+        /// <summary>
+        /// Builds a new JDevice without any configuration on it.
+        /// </summary>
+        private J2534Device() { this.DeviceStatus = PTInstanceStatus.FREED; }
         /// <summary>
         /// Deconstructs the device object and members
         /// </summary>
         ~J2534Device()
         {
-            // Null out member values
-            this.ApiInstance = null;
-            this.ApiMarshall = null;
-            this.DeviceStatus = PTInstanceStatus.FREED;
+            // Set this to a new instance with FREED as the status.
+            switch (this.DeviceNumber)
+            {
+                // Device 1
+                case JDeviceNumber.PTDevice1:
+                    _jDeviceInstance1 = new J2534Device() { DeviceStatus = PTInstanceStatus.FREED };
+                    break;
+
+                // Device 2
+                case JDeviceNumber.PTDevice2:
+                    _jDeviceInstance2 = new J2534Device() { DeviceStatus = PTInstanceStatus.FREED };
+                    break;
+            }
         }
 
-        // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
+    // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
 
-        // Device information.
-        public JDeviceNumber DeviceNumber { get; private set; }
+    // Device information.
+    public JDeviceNumber DeviceNumber { get; private set; }
         public PTInstanceStatus DeviceStatus { get; private set; }
+        public JVersion J2534Version { get; private set; }
 
         // Device Members.
         internal J2534Dll JDll;
         internal J2534ApiInstance ApiInstance;
         internal J2534ApiMarshaller ApiMarshall;
+        internal J2534Channel[] DeviceChannels;
 
         // Device Properties
         public uint DeviceId;
         public string DeviceName;
         public bool IsOpen = false;
         public bool IsConnected = false;
-        public readonly uint MaxChannels = 2;
 
         // Version information
         public string DeviceFwVersion { get; private set; }

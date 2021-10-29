@@ -18,7 +18,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         public PTInstanceStatus MarshallStatus { get; private set; }
 
         // Reflected API Values.
-        public JVersion ApiVersion => ApiInstance.ApiVersion;           // Version of the API
+        public JVersion J2534Version => ApiInstance.J2534Version;        // Version of the API
         public PTInstanceStatus ApiStatus => ApiInstance.ApiStatus;     // Status of the API
         public JDeviceNumber DeviceNumber => ApiInstance.DeviceNumber;  // Device Number from the API
 

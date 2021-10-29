@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 using JBoxInvoker.PassThruLogic.J2534Api;
@@ -127,6 +128,74 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             return _jDeviceInstance2 ?? (_jDeviceInstance2 = new J2534Device(DeviceNumber, Dll));
         }
 
-        // ----------------------------- J2534 DEVICE OBJECT METHODS ------------------------
+        // ------------------------- STATIC DEVICE MESSAGE HELPER METHODS --------------------
+
+        /// <summary>
+        /// Builds a new message from a given string value
+        /// </summary>
+        /// <param name="ProtocolId">Message protocol</param>
+        /// <param name="MsgFlags">Flags</param>
+        /// <param name="MessageString">String of message bytes</param>
+        /// <returns>Converted PTMessage</returns>
+        public static PassThruStructs.PassThruMsg CreatePTMsgFromString(ProtocolId ProtocolId, uint MsgFlags, string MessageString)
+        {
+            // Build a soaphex of the message contents.
+            SoapHexBinary SoapHexBin = SoapHexBinary.Parse(MessageString);
+
+            // Built new PTMessage.
+            uint MsgDataSize = (uint)SoapHexBin.Value.Length;
+            PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize);
+            BuiltPtMsg.ProtocolID = ProtocolId;
+            BuiltPtMsg.TxFlags = MsgFlags;
+            BuiltPtMsg.DataSize = MsgDataSize;
+            
+            // Apply message values into here.
+            for (int ByteIndex = 0; ByteIndex < SoapHexBin.Value.Length; ByteIndex++)
+                BuiltPtMsg.Data[ByteIndex] = SoapHexBin.Value[ByteIndex];
+
+            // Return built message.
+            return BuiltPtMsg;
+        }
+        /// <summary>
+        /// Converts a set of bytes into a PTMessage
+        /// </summary>
+        /// <param name="ProtocolId">Protocol to send</param>
+        /// <param name="MessageFlags">Flags for the message</param>
+        /// <param name="MessageBytes">Bytes of the message data</param>
+        /// <returns>Built PTMessage</returns>
+        public static PassThruStructs.PassThruMsg CreatePTMsgFromDataBytes(ProtocolId ProtocolId, uint MessageFlags, byte[] MessageBytes)
+        {
+            // Build new PTMessage
+            PassThruStructs.PassThruMsg BuiltMessage = new PassThruStructs.PassThruMsg((uint)MessageBytes.Length);
+
+            // Store properties onto the message.
+            BuiltMessage.ProtocolID = ProtocolId;
+            BuiltMessage.TxFlags = MessageFlags;
+            BuiltMessage.DataSize = (uint)MessageBytes.Length;
+
+            // Apply message bytes.
+            for (int ByteIndex = 0; ByteIndex < (uint)MessageBytes.Length; ByteIndex++)
+                BuiltMessage.Data[ByteIndex] = MessageBytes[ByteIndex];
+
+            // Return built message.
+            return BuiltMessage;
+        }
+        /// <summary>
+        /// Converts an SByte array into an array
+        /// </summary>
+        /// <param name="SArray">Input SByte array values</param>
+        /// <returns>Byte array of output values.</returns>
+        public static byte[] CreateByteArrayFromSByteArray(PassThruStructs.SByteArray SArray)
+        {
+            // Build array and append input values.
+            byte[] ResultBytes = new byte[SArray.NumberOfBytes];
+            for (int ByteIndex = 0; ByteIndex < SArray.NumberOfBytes; ByteIndex++)
+                ResultBytes[ByteIndex] = SArray.Data[ByteIndex];
+            
+            // Return new output.
+            return ResultBytes;
+        }
+
+        // ----------------------------- J2534 DEVICE OBJECT METHODS -------------------------
     }
 }

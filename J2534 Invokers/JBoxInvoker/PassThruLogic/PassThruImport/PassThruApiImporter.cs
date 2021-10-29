@@ -1,16 +1,15 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Runtime.InteropServices;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
-namespace JBoxInvoker.PassThruLogic.J2534Api
+namespace JBoxInvoker.PassThruLogic.PassThruImport
 {
     /// <summary>
     /// Impors a provided DLL file and maps functions out for the PassThru calls for it. 
     /// This can take any standard V0404 J2534 DLL input and provides basic interfacing for all the 
     /// DLLs native calls.
     /// </summary>
-    public class PassThruImporter
+    public class PassThruApiImporter
     {
         // Class values for the DLL to import.
         public string JDllPath;
@@ -22,7 +21,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// Imports a new JDLL into the project and stores all of its outputs.
         /// </summary>
         /// <param name="DllPath"></param>
-        public PassThruImporter(string DllPath)
+        public PassThruApiImporter(string DllPath)
         {
             // Store the DLL path ehre and import the path as an assy.
             this.JDllPath = DllPath;
@@ -37,7 +36,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// DCTOR For this instance object.
         /// Removes the loaded lib objects
         /// </summary>
-        ~PassThruImporter() { Win32Invokers.FreeLibrary(this.ModulePointer); }
+        ~PassThruApiImporter() { Win32Invokers.FreeLibrary(this.ModulePointer); }
 
         // --------------------------------------------------------------------------------------------------------
 
@@ -50,7 +49,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             // Build Delegate Set.
             DelegateSet = new PassThruDelegates();
 
-            // Mape methods here.
+            // Map methods here.
             try
             {
                 // PASSTHRU OPEN
@@ -143,8 +142,24 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
                     DelegateSet.PTIoctl = (PassThruDelegates.DelegatePassThruIoctl)Marshal.GetDelegateForFunctionPointer(
                         pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruIoctl));
 
+                // ---------------------------------- DELEGATES FOR IMPORTING DEVICES ----------------------------------------------
+
+                // USED FOR INIT NEXT DEVICE SETUP!
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(this.ModulePointer, "PassThruGetNextCarDAQ");
+                if (pAddressOfFunctionToCall != IntPtr.Zero)
+                    DelegateSet.InitNextPassThruDevice = (PassThruDelegates.DelegateInitGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegateInitGetNextCarDAQ));
+
+                // USED FOR INIT NEXT DEVICE SETUP!
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(this.ModulePointer, "PassThruGetNextCarDAQ");
+                if (pAddressOfFunctionToCall != IntPtr.Zero) 
+                    DelegateSet.GetNextPassThruDevice = (PassThruDelegates.DelegateGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall,typeof(PassThruDelegates.DelegateGetNextCarDAQ));
+
+                // -----------------------------------------------------------------------------------------------------------------
+
                 // Store ex value to nothing and return.
-                Win32Invokers.FreeLibrary(this.ModulePointer);
+                // Win32Invokers.FreeLibrary(this.ModulePointer);
                 return true;
             }
             catch (Exception Ex)

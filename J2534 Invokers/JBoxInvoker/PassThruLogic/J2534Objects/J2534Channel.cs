@@ -1,0 +1,455 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using JBoxInvoker.PassThruLogic.PassThruTypes;
+using JBoxInvoker.PassThruLogic.SupportingLogic;
+
+namespace JBoxInvoker.PassThruLogic.J2534Objects
+{
+    /// <summary>
+    /// J2534 Channel object. Used to control device channels.
+    /// THIS IS A SINGLETON CONFIGURED TYPE BASED ON THE DLL VERSION! 
+    /// </summary>
+    public class J2534Channel
+    {
+        // -------------------------- SINGLETON CONFIGURATION ----------------------------
+
+        // Singleton schema for this class object. Max channels type can exist.
+        private static J2534Channel[] _j2534Channels;
+
+        /// <summary>
+        /// Private Singleton instance builder.
+        /// </summary>
+        /// <param name="JDevice">Device to use</param>
+        /// <param name="ChannelId">ChannelId</param>
+        /// <param name="ProtocolId">Protocol Id</param>
+        /// <param name="ConnectFlags">Connection flags</param>
+        /// <param name="ChannelBaud">BaudRate of the channel.</param>
+        private J2534Channel(J2534Device JDevice, uint ChannelId, ProtocolId ProtocolId, uint ConnectFlags, uint ChannelBaud)
+        {
+            // Setup device channel properties.
+            this._jDevice = JDevice;
+            this.ChannelId = ChannelId;
+            this.ProtocolId = ProtocolId;
+            this.ConnectFlags = ConnectFlags;
+            this.ChannelBaud = ChannelBaud;
+
+            // Version and Status.
+            this.J2534Version = this._jDevice.J2534Version;
+            this.ChannelStatus = PTInstanceStatus.INITIALIZED;
+
+            // PTConstants
+            var TypeConstants = new PassThruConstants(JDevice.J2534Version);
+
+            // Setup filters and messages.
+            JChannelFilters = new J2534Filter[TypeConstants.MaxFilters];
+            JChannelPeriodicMessages = new J2534PeriodicMessage[TypeConstants.MaxPeriodicMsgs];
+
+            // Append this to the singleton list object type.
+            if (_j2534Channels == null) { _j2534Channels = new J2534Channel[TypeConstants.MaxChannels]; }
+            this.ChannelIndex = _j2534Channels.ToList().IndexOf(null);
+            _j2534Channels[this.ChannelIndex] = this;
+        }
+        /// <summary>
+        /// Builds a blank J2534 Channel
+        /// </summary>
+        private J2534Channel() { this.ChannelStatus = PTInstanceStatus.FREED; }
+        /// <summary>
+        /// Deconstructs the device object and members
+        /// </summary>
+        ~J2534Channel()
+        {
+            // Null out member values
+            _j2534Channels[this.ChannelIndex] = new J2534Channel();
+        }
+
+        /// <summary>
+        /// Builds a channel Array to use for connecting into.
+        /// </summary>
+        /// <param name="JDevice">Device to build channels for.</param>
+        /// <returns>Array of built J2534 channels.</returns>
+        public static J2534Channel[] BuildDeviceChannels(J2534Device JDevice)
+        {
+            // Append channels into the device here.
+            var JChannelsOut = new J2534Channel[new PassThruConstants(JDevice.J2534Version).MaxChannels];
+            return JChannelsOut;
+        }
+
+        // -------------------------------- INSTANCE VALUES AND SETUP FOR CHANNEL HERE -----------------------------------
+
+        // Status values.
+        public JVersion J2534Version { get; private set; }
+        public PTInstanceStatus ChannelStatus { get; private set; }
+        public int ChannelIndex { get; private set; }
+
+        // Device information
+        private readonly J2534Device _jDevice;
+        public uint ChannelId { get; private set; }
+        public ProtocolId ProtocolId { get; private set; }
+        public uint ConnectFlags { get; private set; }
+        public uint ChannelBaud { get; private set; }
+
+        // Filters and periodic messages.
+        public J2534Filter[] JChannelFilters { get; private set; }
+        public J2534PeriodicMessage[] JChannelPeriodicMessages { get; private set; }
+
+        // ----------------------------------------- STATIC CHANNEL LOCATION METHODS ---------------------------------------
+
+        /// <summary>
+        /// Finds a J2534 channel based on the ID of it.
+        /// </summary>
+        /// <param name="ChannelId">Id of channel to locate</param>
+        /// <returns>A channel found or an empty one.</returns>
+        public bool LocateChannel(uint ChannelId, out J2534Channel ChannelFound)
+        {
+            // Find the channel.
+            ChannelFound = _j2534Channels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId) 
+                               ?? new J2534Channel() { ChannelStatus = PTInstanceStatus.NULL };
+
+            // Return channel object.
+            return ChannelFound.ChannelStatus != PTInstanceStatus.NULL;
+        }
+        /// <summary>
+        /// Gets all of our filters and pulls one that matches.
+        /// </summary>
+        /// <param name="FilterId">Find this filter.</param>
+        /// <param name="FilterFound">Filter located.</param>
+        /// <param name="ChannelId">Use this if you want to only check a specific channel. Set to 0 if not wanted.</param>
+        /// <returns>The filter matched and true, or false and nothing.</returns>
+        public static bool LocateFilter(uint FilterId, out J2534Filter FilterFound, int ChannelId = -1)
+        {
+            // Find the new filter value here.
+            J2534Channel[] LocatedChannels = _j2534Channels.Where(ChannelObj => ChannelObj?.JChannelFilters != null).ToArray();
+            if (ChannelId != -1) LocatedChannels = new[] { LocatedChannels.FirstOrDefault(ChannelObj => ChannelObj?.ChannelId == ChannelId) };
+
+            // Extract just the filters from these channels
+            var AllFilters = LocatedChannels.SelectMany(ChannelObj => ChannelObj?.JChannelFilters).ToArray();
+            FilterFound = AllFilters.FirstOrDefault(FilterObj => FilterObj?.FilterId == FilterId) ??
+                          new J2534Filter() { FilterStatus = PTInstanceStatus.NULL };
+
+            // Return filter found or not.
+            return FilterFound.FilterStatus != PTInstanceStatus.NULL;
+        }
+        /// <summary>
+        /// Gets all of our filters and pulls one that matches.
+        /// </summary>
+        /// <param name="MessageId">Find this message.</param>
+        /// <param name="MessageFound">Message located.</param>
+        /// <param name="ChannelId">Use this if you want to only check a specific channel. Set to 0 if not wanted.</param>
+        /// <returns>The filter matched and true, or false and nothing.</returns>
+        public static bool LocatePeriodicMessage(uint MessageId, out J2534PeriodicMessage MessageFound, int ChannelId = -1)
+        {
+            // Find the new filter value here.
+            J2534Channel[] LocatedChannels = _j2534Channels.Where(ChannelObj => ChannelObj?.JChannelPeriodicMessages != null).ToArray();
+            if (ChannelId != -1) LocatedChannels = new[] { LocatedChannels.FirstOrDefault(ChannelObj => ChannelObj?.ChannelId == ChannelId) };
+
+            // Extract just the filters from these channels
+            var AllMessages = LocatedChannels.SelectMany(ChannelObj => ChannelObj?.JChannelPeriodicMessages).ToArray();
+            MessageFound = AllMessages.FirstOrDefault(MsgObj => MsgObj.MessageId == MessageId) ?? 
+                           new J2534PeriodicMessage() { MessageStatus = PTInstanceStatus.NULL };
+
+            // Return filter found or not.
+            return MessageFound.MessageStatus != PTInstanceStatus.NULL;
+        }
+
+        // ---------------------------------------- INSTANCE CHANNEL LOCATION METHODS ---------------------------------------
+
+        /// <summary>
+        /// Gets all of our filters and pulls one that matches.
+        /// </summary>
+        /// <param name="FilterId">Find this filter.</param>
+        /// <param name="FilterFound">Filter located.</param>
+        /// <returns>The filter matched and true, or false and nothing.</returns>
+        public bool LocateFilter(uint FilterId, out J2534Filter FilterFound)
+        {
+            // Temp return true.
+            FilterFound = new J2534Filter();
+            return true;
+        }
+        /// <summary>
+        /// Gets all of our filters and pulls one that matches.
+        /// </summary>
+        /// <param name="MessageId">Find this message.</param>
+        /// <param name="MessageFound">Message located.</param>
+        /// <returns>The filter matched and true, or false and nothing.</returns>
+        public bool LocatePeriodicMessage(uint MessageId, out J2534PeriodicMessage MessageFound)
+        {
+            // Temp true return.
+            MessageFound = new J2534PeriodicMessage();
+            return true;
+        }
+
+        // ----------------------------------------- INSTANCE CHANNEL FILTER METHODS -----------------------------------------
+
+        /// <summary>
+        /// Builds a new J2534 Filter for the given channel input.
+        /// </summary>
+        /// <param name="FilterType">Filter to store</param>
+        /// <param name="MaskString">Mask value</param>
+        /// <param name="PatternString">Pattern Value</param>
+        /// <param name="FlowControl">Flow Ctl Value</param>
+        /// <param name="FilterFlags">Flags for the filter</param>
+        /// <param name="ForcedIndex">Forces a filter to be applied to a given index.</param>
+        public J2534Filter StartMessageFilter(FilterDef FilterType, string MaskString, string PatternString, string FlowControl, uint FilterFlags = 0, int ForcedIndex = -1)
+        {
+            // Make sure filter array exists and check for the filters being null or if one exists identical to this desired filter.
+            if (ForcedIndex >= 10) { throw new ArgumentOutOfRangeException("Unable to set filter for index over 9!"); }
+            if (this.JChannelFilters == null) { this.JChannelFilters = new J2534Filter[new PassThruConstants(this.J2534Version).MaxFilters]; }
+
+            // Build messages from filter strings.
+            PassThruStructs.PassThruMsg PtMaskMsg = J2534Device.CreatePTMsgFromString(this.ProtocolId, (uint)FilterFlags, MaskString);
+            PassThruStructs.PassThruMsg PtPatternMsg = J2534Device.CreatePTMsgFromString(this.ProtocolId, (uint)FilterFlags, PatternString);
+            PassThruStructs.PassThruMsg PtFlowCtlMsg = J2534Device.CreatePTMsgFromString(ProtocolId, (uint)FilterFlags, FlowControl);
+
+            // Check if we need to override/replace a filter.
+            if (ForcedIndex != -1 && this.JChannelFilters[ForcedIndex] != null)
+            {
+                // Remove old filter.
+                uint OldFilterId = this.JChannelFilters[ForcedIndex].FilterId;
+                this._jDevice.ApiMarshall.PassThruStopMsgFilter(this.ChannelId, OldFilterId);
+            }
+            else
+            {
+                // Check if any of the filters are identical so far.
+                if (this.JChannelFilters.FirstOrDefault(FilterObj => FilterObj.ToString()
+                    .Contains($"MessageData: {(MaskString ?? "NO_MASK")},{(PatternString ?? "NO_PATTERN")},{(FlowControl ?? "NO_FLOW")}")) != null)
+                    throw new PassThruException("Can not apply an already existing filter!", J2534Err.ERR_INVALID_FILTER_ID);
+            }
+
+            // Build new filter here.
+            int NextIndex = ForcedIndex == -1 ? this.JChannelFilters.ToList().IndexOf(null) : ForcedIndex;
+            if (NextIndex == -1) throw new PassThruException("Failed to add new filter since there are no open slots!", J2534Err.ERR_INVALID_FILTER_ID);
+
+            // Issue the new filter here and store onto filter list.
+            this._jDevice.ApiMarshall.PassThruStartMsgFilter(this.ChannelId, FilterType, PtMaskMsg, PtPatternMsg, PtFlowCtlMsg, out uint FilterId);
+            if (FlowControl == null || FilterType != FilterDef.FLOW_CONTROL_FILTER)
+                JChannelFilters[NextIndex] = new J2534Filter(FilterType.ToString(), MaskString, PatternString, (uint)FilterFlags, FilterId);
+            else JChannelFilters[NextIndex] = new J2534Filter(FilterType.ToString(), MaskString, PatternString, FlowControl, (uint)FilterFlags, FilterId);
+
+            // Return the new filter.
+            return this.JChannelFilters[NextIndex];
+        }
+        /// <summary>
+        /// Sets a new J2534 Filter for this channel using the values provided for it.
+        /// </summary>
+        /// <param name="FilterToSet">Filter to apply.</param>
+        /// <param name="ForcedIndex">Forces index for the filter</param>
+        public J2534Filter StartMessageFilter(J2534Filter FilterToSet, int ForcedIndex = -1)
+        {
+            // Set the filter using the above method. Set it up using the stings from our filter.
+            FilterDef FilterType = (FilterDef)Enum.Parse(typeof(FilterDef), FilterToSet.FilterType);
+            return this.StartMessageFilter(FilterType, FilterToSet.FilterMask, FilterToSet.FilterPattern, FilterToSet.FilterFlowCtl, FilterToSet.FilterFlags, ForcedIndex);
+        }
+
+        /// <summary>
+        /// Removes a J2534 Filter object from the channel set.
+        /// </summary>
+        /// <param name="FilterIndex">Index of the filter to remove.</param>
+        public void StopMessageFilter(int FilterIndex)
+        {
+            // Remove filter and update.
+            this._jDevice.ApiMarshall.PassThruStopMsgFilter(this.ChannelId, this.JChannelFilters[FilterIndex].FilterId);
+            this.JChannelFilters[FilterIndex] = null;
+        }
+        /// <summary>
+        /// Removes a J2534 Filter object from the channel set.
+        /// </summary>
+        /// <param name="FilterIndex">Index of the filter to remove.</param>
+        public void StopMessageFilter(J2534Filter FilterToRemove)
+        {
+            // Remove filter and update.
+            int FilterIndex = this.JChannelFilters.ToList().IndexOf(FilterToRemove);
+            if (FilterIndex == -1)
+            {
+                // Try finding via the string values.
+                string[] CastFilterStrings = this.JChannelFilters.Select(FilterObj =>
+                {
+                    // Check if null.
+                    if (FilterObj == null) { return "NULL"; }
+                    return FilterObj.ToString();
+                }).ToArray();
+
+                // Check if the string of the data is inside here.
+                if (!CastFilterStrings.Any(FilterString => FilterString.Contains(FilterToRemove.ToMessageDataString())))
+                    throw new PassThruException("Failed to find a matching filter to remove!", J2534Err.ERR_INVALID_FILTER_ID);
+
+                // Store index for filter.
+                var MatchedFilter = CastFilterStrings.FirstOrDefault(FilterObj => FilterObj.Contains(FilterToRemove.ToMessageDataString()));
+                FilterIndex = CastFilterStrings.ToList().IndexOf(MatchedFilter);
+            }
+
+            // Remove the filter and setup values for new filter.
+            this._jDevice.ApiMarshall.PassThruStopMsgFilter(ChannelId, JChannelFilters[FilterIndex].FilterId);
+            this.JChannelFilters[FilterIndex] = null;
+        }
+
+        // ---------------------------------------- INSTANCE CHANNEL PERIODIC METHODS ----------------------------------------
+
+        /// <summary>
+        /// Starts a new periodic message for the given value and send time.
+        /// </summary>
+        /// <param name="MessageToWrite">Message to send.</param>
+        /// <param name="SendInterval">Delay between sends.</param>
+        /// <param name="ForcedIndex">Index of the filter forced to be set.</param>
+        public J2534PeriodicMessage StartPeriodicMessage(PassThruStructs.PassThruMsg MessageToWrite, uint SendInterval, int ForcedIndex = -1)
+        {
+            // Make sure filter array exists and check for the filters being null or if one exists identical to this desired filter.
+            if (ForcedIndex >= 10) { throw new ArgumentOutOfRangeException("Unable to set filter for index over 9!"); }
+            if (JChannelPeriodicMessages == null) { this.JChannelPeriodicMessages = new J2534PeriodicMessage[new PassThruConstants(this.J2534Version).MaxPeriodicMsgs]; }
+
+            // Check if we need to override/replace a filter.
+            if (ForcedIndex != -1 && this.JChannelPeriodicMessages[ForcedIndex] != null)
+            {
+                // Remove old filter.
+                uint OldFilterId = this.JChannelPeriodicMessages[ForcedIndex].MessageId;
+                this._jDevice.ApiMarshall.PassThruStopMsgFilter(this.ChannelId, OldFilterId);
+            }
+            else
+            {
+                // Check if any of the filters are identical so far.
+                if (this.JChannelPeriodicMessages.FirstOrDefault(FilterObj => FilterObj.ToString()
+                    .Contains($"{string.Join(" ", MessageToWrite.Data.Select(ByteObj => "0x" + ByteObj.ToString("0:x2")))}")) != null)
+                    throw new PassThruException("Can not apply an already existing filter!", J2534Err.ERR_INVALID_FILTER_ID);
+            }
+
+            // Build new filter here.
+            int NextIndex = ForcedIndex == -1 ? JChannelPeriodicMessages.ToList().IndexOf(null) : ForcedIndex;
+            if (NextIndex == -1) throw new PassThruException("Failed to add new filter since there are no open slots!", J2534Err.ERR_INVALID_FILTER_ID);
+
+            // Issue the message here.
+            this._jDevice.ApiMarshall.PassThruStartPeriodicMsg(ChannelId, MessageToWrite, out var MessageId, SendInterval);
+            JChannelPeriodicMessages[NextIndex] = new J2534PeriodicMessage(MessageToWrite, SendInterval, MessageId);
+            return JChannelPeriodicMessages[NextIndex];
+        }
+        /// <summary>
+        /// Issues a new PTStart periodic command for the message string given and the time send.
+        /// </summary>
+        /// <param name="MessageValue"></param>
+        /// <param name="MessageFlags"></param>
+        /// <param name="SendInterval"></param>
+        /// <param name="ForcedIndex"></param>
+        public J2534PeriodicMessage StartPeriodicMessage(string MessageValue, uint MessageFlags, uint SendInterval, int ForcedIndex = -1)
+        {
+            // Build a passthru message then issue it out to our device.
+            PassThruStructs.PassThruMsg NewMessage = J2534Device.CreatePTMsgFromString(this.ProtocolId, MessageFlags, MessageValue); 
+            return this.StartPeriodicMessage(NewMessage, SendInterval, ForcedIndex);
+        }
+        
+        /// <summary>
+        /// Stops a Periodic message on the given index.
+        /// </summary>
+        /// <param name="MessageIndex"></param>
+        public void StopPeriodicMessage(int MessageIndex)
+        {
+            // Remove message and update.
+            this._jDevice.ApiMarshall.PassThruStopPeriodicMsg(ChannelId, JChannelPeriodicMessages[MessageIndex].MessageId);
+            JChannelFilters[MessageIndex] = null;
+        }
+        /// <summary>
+        /// Stops a periodic message based on the message object passed in.
+        /// </summary>
+        /// <param name="MessageToStop"></param>
+        public void StopPeriodicMessage(J2534PeriodicMessage MessageToStop)
+        {
+            // Remove filter and update.
+            int MessageIndex = this.JChannelPeriodicMessages.ToList().IndexOf(MessageToStop);
+            if (MessageIndex == -1)
+            {
+                // Try finding via the string values.
+                string[] CastMessageStrings = this.JChannelPeriodicMessages
+                    .Select(MsgObj => MsgObj == null ? "NULL" : MsgObj.ToString())
+                    .ToArray();
+
+                // Check if the string of the data is inside here.
+                if (!CastMessageStrings.Any(MsgString => MsgString.Contains(MessageToStop.ToMessageDataString())))
+                    throw new PassThruException("Failed to find a matching message to remove!", J2534Err.ERR_INVALID_MSG_ID);
+
+                // Store index for filter.
+                var MatchedFilter = CastMessageStrings.FirstOrDefault(MsgString => MsgString.Contains(MessageToStop.ToMessageDataString()));
+                MessageIndex = CastMessageStrings.ToList().IndexOf(MatchedFilter);
+            }
+
+            // Remove the filter and setup values for new filter.
+            this._jDevice.ApiMarshall.PassThruStopMsgFilter(this.ChannelId, this.JChannelPeriodicMessages[MessageIndex].MessageId);
+            this.JChannelPeriodicMessages[MessageIndex] = null;
+        }
+
+        // ---------------------------------------- CHANNEL COMMANDS FOR WRITE-READ -------------------------------------------
+
+        /// <summary>
+        /// Runs a standard PTRead
+        /// </summary>
+        /// <param name="MessagesToRead">Reads this number of messages and stores them</param>
+        /// <param name="ReadTimeout">Timeout on the read operations</param>
+        /// <returns>Messages read</returns>
+        public PassThruStructs.PassThruMsg[] PTReadMessages(ref uint MessagesToRead, uint ReadTimeout)
+        {
+            // Run the read command here and return them
+            this._jDevice.ApiMarshall.PassThruReadMsgs(this.ChannelId, out var ProcessedMessages, ref MessagesToRead, ReadTimeout);
+            return ProcessedMessages;
+        }
+        /// <summary>
+        /// Writes messages to the device from this channel
+        /// </summary>
+        /// <param name="MessagesToWrite">Sends these values</param>
+        /// <param name="SendTimeout">Times out after waiting this period</param>
+        /// <returns>Number of messages send out.</returns>
+        public uint PTWriteMessages(PassThruStructs.PassThruMsg[] MessagesToWrite, uint SendTimeout)
+        {
+            // Get a ref uint for the number of values being sent.
+            uint MessageCount = (uint)MessagesToWrite.Length;
+
+            // Send out the messages here.
+            this._jDevice.ApiMarshall.PassThruWriteMsgs(ChannelId, MessagesToWrite, ref MessageCount, SendTimeout);
+            return MessageCount;
+        }
+        /// <summary>
+        /// Sends a single PTMessage object.
+        /// </summary>
+        /// <param name="MessageToSend"></param>
+        /// <param name="SendTimeout"></param>
+        /// <returns>Number of messages actually send out.</returns>
+        public uint PTWriteMessages(PassThruStructs.PassThruMsg MessageToSend, uint SendTimeout)
+        {
+            // Should ALWAYS be one for single message.
+            uint MessageCount = 1;
+
+            // Send out the message value here.
+            this._jDevice.ApiMarshall.PassThruWriteMsgs(ChannelId, MessageToSend, ref MessageCount, SendTimeout);
+            return MessageCount;
+        }
+
+        // --------------------------------------- CHANNEL CONFIGURATION METHODS FOR SETUP --------------------------------------
+
+        /// <summary>
+        /// Clears out the RX Buffer on the channel
+        /// </summary>
+        public void ClearRxBuffer() { this._jDevice.ApiInstance.PassThruIoctl(this.ChannelId, IoctlId.CLEAR_RX_BUFFER, IntPtr.Zero, IntPtr.Zero); }
+        /// <summary>
+        /// Clears out the TX Buffer on the channel
+        /// </summary>
+        public void ClearTxBuffer() { this._jDevice.ApiInstance.PassThruIoctl(this.ChannelId, IoctlId.CLEAR_TX_BUFFER, IntPtr.Zero, IntPtr.Zero); }
+
+
+        /*  NOTE! PLEASE READ THIS BEFORE THINKING THIS WRAPPER IS MISSING SHIT!        
+            TODO: INCLUDE THESE METHODS INTO THIS CHANNEL WRAPPER AT SOME POINT IN THE FUTURE!       
+        
+            ----------------------------------------------------------------------------------            
+        
+            The following methods are NOT included in this wrapper yet since I don't need them.
+            \__ FiveBaudInit
+            \__ FastInit
+            \__ SetPins (uint)
+            \__ GetConfig (ConfigParamId)
+            \__ SetConfig (ConfigParamId, uint)
+        */
+
+        public void SetPins(uint PinsToSet) { throw new NotImplementedException("SetPins is not yet built into this wrapper!"); }
+        public uint GetConfig(ConfigParamId configParam) { throw new NotImplementedException("GetConfig is not yet built into this wrapper!"); }
+        public void SetConfig(ConfigParamId configParam, uint val) { throw new NotImplementedException("SetConfig is not yet built into this wrapper!"); }
+        public byte[] FiveBaudInit(byte byteIn) { throw new NotImplementedException("FiveBaudInit is not yet built into this wrapper!"); }
+        public byte[] FastInit(byte[] bytesIn, bool responseRequired) { throw new NotImplementedException("FastInit is not yet built into this wrapper!"); }
+    }
+}

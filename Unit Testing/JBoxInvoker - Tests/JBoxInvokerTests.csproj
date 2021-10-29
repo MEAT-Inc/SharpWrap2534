@@ -55,7 +55,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PassThruInstanceTests.cs" />
+    <Compile Include="PassThruApiMarshallTests.cs" />
+    <Compile Include="PassThruApiTests.cs" />
+    <Compile Include="PassThruDeviceTests.cs" />
     <Compile Include="PassThruImportTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

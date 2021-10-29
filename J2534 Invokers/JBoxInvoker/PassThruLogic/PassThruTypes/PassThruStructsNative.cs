@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace JBoxInvoker.PassThruLogic.J2534Api
+namespace JBoxInvoker.PassThruLogic.PassThruTypes
 {
     /// <summary>
     /// Native structures for Passthru objects.
     /// These need to be marshalled out into the API For real use.
     /// </summary>
-    public class PassThruStructs_Native
+    public class PassThruStructsNative
     {
         [StructLayout(LayoutKind.Sequential, Size = 4152, CharSet = CharSet.Ansi), Serializable]
         public struct PASSTHRU_MSG

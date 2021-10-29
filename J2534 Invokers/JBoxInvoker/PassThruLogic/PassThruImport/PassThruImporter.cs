@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Runtime.InteropServices;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
-namespace JBoxInvoker.PassThruLogic.J2534Api
+namespace JBoxInvoker.PassThruLogic.PassThruImport
 {
     /// <summary>
     /// Impors a provided DLL file and maps functions out for the PassThru calls for it. 

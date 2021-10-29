@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JBoxInvoker.PassThruLogic;
+using JBoxInvoker.PassThruLogic.J2534Api;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,7 +14,8 @@ namespace JBoxInvoker___Tests
     /// Used to test information about the passthru instance object built.
     /// </summary>
     [TestClass]
-    public class PassThruInstanceTests
+    [TestCategory("J2534 Logic")]
+    public class PassThruApiTests
     {
         // Split output string value.
         private static readonly string SepString = "------------------------------------------------------";
@@ -22,7 +24,7 @@ namespace JBoxInvoker___Tests
         /// Builds a V0404 CDP3 and V0500 CDP3 DLL API init method set.
         /// </summary>
         [TestMethod]
-        [TestCategory("J2534 Instance")]
+        [TestCategory("J2534 API Instance")]
         public void SetupJInstanceTest()
         { 
             // Log infos
@@ -30,17 +32,22 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Building new J2534 instance for Devices 1 and 2...");
 
             // Build instances
-            var LoaderInstanceDev1 = J2534Instance.JApiInstance(JDeviceNumber.PTDevice1);
-            var LoaderInstanceDev2 = J2534Instance.JApiInstance(JDeviceNumber.PTDevice2);
+            var LoaderInstanceDev1 = new J2534ApiInstance(JDeviceNumber.PTDevice1);
+            var LoaderInstanceDev2 = new J2534ApiInstance(JDeviceNumber.PTDevice2);
             Console.WriteLine("--> Built new loader instances OK!");
             
             // Load modules into memory.
-            bool Loaded0404 = LoaderInstanceDev1.SetupJInstance(PassThruPaths.CarDAQPlus3_0404);
-            bool Loaded0500 = LoaderInstanceDev2.SetupJInstance(PassThruPaths.CarDAQPlus3_0500);
+            bool Loaded0404 = LoaderInstanceDev1.SetupJApiInstance(PassThruPaths.CarDAQPlus3_0404);
+            bool Loaded0500 = LoaderInstanceDev2.SetupJApiInstance(PassThruPaths.CarDAQPlus3_0500);
             Console.WriteLine("--> Loading process ran without errors!");
 
-            // Check the bool results for loading.
+            // Release devices.
+            LoaderInstanceDev1 = null;
+            LoaderInstanceDev2 = null;
+            Console.WriteLine("--> Released devices 1 and 2 OK!");
             Console.WriteLine("\n" + SepString);
+
+            // Check the bool results for loading.
             Assert.IsTrue(Loaded0404 && Loaded0500, "Setup J2534 instance loader OK for both V0404 and V0500!");
         }
 
@@ -48,7 +55,7 @@ namespace JBoxInvoker___Tests
         /// Tests building an invalid instance type for the given object.
         /// </summary>
         [TestMethod]
-        [TestCategory("J2534 Instance")]
+        [TestCategory("J2534 API Instance")]
         public void CheckExistingDevice()
         {
             // Log infos
@@ -56,16 +63,16 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Building new J2534 instance for Device 1...");
 
             // Build instances
-            var LoaderInstanceDev1 = J2534Instance.JApiInstance(JDeviceNumber.PTDevice1);
-            bool ShouldPassLoad = LoaderInstanceDev1.SetupJInstance(PassThruPaths.CarDAQPlus3_0404);
+            var LoaderInstanceDev1 = new J2534ApiInstance(JDeviceNumber.PTDevice1);
+            bool ShouldPassLoad = LoaderInstanceDev1.SetupJApiInstance(PassThruPaths.CarDAQPlus3_0404);
             Assert.IsTrue(ShouldPassLoad, "Failed Loaded DLL for a CDP3! This is a serious issue!");
             Console.WriteLine("--> Loaded initial DLL call for instance OK!");
 
             // Try building again with incorrect DLL.
-            bool ShouldFailLoad = LoaderInstanceDev1.SetupJInstance(PassThruPaths.CarDAQPlus4_0404);
-            if (ShouldFailLoad) { Assert.Fail("Failed to ensure only one DLL instance can exist for device type!"); }
+            bool ShouldFailLoad = LoaderInstanceDev1.SetupJApiInstance(PassThruPaths.CarDAQPlus4_0404);
+            Assert.IsFalse(ShouldFailLoad, "Failed to ensure only one DLL instance can exist for device type!"); 
             Console.WriteLine("--> Loading procedure failed as expected!");
-            
+
             // Assert true and log split line.
             Console.WriteLine("\n" + SepString);
             Console.WriteLine("Test Results\n");

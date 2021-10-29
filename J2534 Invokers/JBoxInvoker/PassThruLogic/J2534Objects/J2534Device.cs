@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JBoxInvoker.PassThruLogic.J2534Api;
+using JBoxInvoker.PassThruLogic.PassThruTypes;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
 namespace JBoxInvoker.PassThruLogic.J2534Objects
@@ -72,13 +73,30 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
 
         // Device information.
-        public JDeviceNumber DeviceNumber;
-        public PTInstanceStatus DeviceStatus;
+        public JDeviceNumber DeviceNumber { get; private set; }
+        public PTInstanceStatus DeviceStatus { get; private set; }
 
         // Device Members.
-        public J2534Dll JDll;
+        internal J2534Dll JDll;
         internal J2534ApiInstance ApiInstance;
         internal J2534ApiMarshaller ApiMarshall;
+
+        // Device Properties
+        public uint DeviceId;
+        public string DeviceName;
+        public bool IsOpen = false;
+        public bool IsConnected = false;
+        public readonly uint MaxChannels = 2;
+
+        // Version information
+        public string DeviceFwVersion { get; private set; }
+        public string DeviceDLLVersion { get; private set; }
+        public string DeviceApiVersion { get; private set; }
+
+        // Connection Information
+        public uint ConnectFlags { get; set; }                  // Used by ConnectStrategy
+        public uint ConnectBaud { get; set; }                   // Used by ConnectStrategy
+        public ProtocolId ConnectProtocol { get; set; }         // Used by ConnectStrategy
 
         // ------------------- J2534 DEVICE OBJECT CTOR WITH SINGLETON ----------------------
 

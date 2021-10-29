@@ -49,6 +49,7 @@
     <Compile Include="PassThruLogic\J2534Objects\J2534Dll.cs" />
     <Compile Include="PassThruLogic\J2534Objects\J2534Filter.cs" />
     <Compile Include="PassThruLogic\J2534Objects\J2534PeriodicMessage.cs" />
+    <Compile Include="PassThruLogic\PassThruImport\PassThruImportDLLs.cs" />
     <Compile Include="PassThruLogic\PassThruImport\PassThruImporter.cs" />
     <Compile Include="PassThruLogic\PassThruImport\PassThruDelegates.cs" />
     <Compile Include="PassThruLogic\PassThruTypes\PassThruConstants.cs" />

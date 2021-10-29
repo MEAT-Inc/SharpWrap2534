@@ -13,8 +13,12 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
     public class PassThruConstants
     {
         // Registry Keys for PassThruSupport.
-        public static readonly string PASSTHRU_REGISTRY_PATH = "Software\\PassThruSupport.04.04";
-        public static readonly string PASSTHRU_REGISTRY_PATH_6432 = "Software\\Wow6432Node\\PassThruSupport.04.04";
+        public static readonly string V0404_PASSTHRU_REGISTRY_PATH = "Software\\PassThruSupport.04.04";
+        public static readonly string V0404_PASSTHRU_REGISTRY_PATH_6432 = "Software\\Wow6432Node\\PassThruSupport.04.04";
+
+        // Registry Keys for PassThruSupport.
+        public static readonly string V0500_PASSTHRU_REGISTRY_PATH = "Software\\PassThruSupport.05.00";
+        public static readonly string V0500_PASSTHRU_REGISTRY_PATH_6432 = "Software\\Wow6432Node\\PassThruSupport.05.00";
 
         // JVersion.
         public JVersion Version { get; private set; }

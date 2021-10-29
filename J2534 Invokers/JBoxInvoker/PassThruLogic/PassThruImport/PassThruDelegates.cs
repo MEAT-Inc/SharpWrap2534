@@ -10,6 +10,20 @@ namespace JBoxInvoker.PassThruLogic.PassThruImport
     /// </summary>
     public class PassThruDelegates
     {
+        // ------------------------------------ API DELEGATES FOR DEVUCE SEARCHING --------------------------------
+
+        // DELEGATE INITNEXTPASSTHRU DEVICE
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegateInitGetNextCarDAQ(IntPtr name, IntPtr pVersion, IntPtr pIPAddress);
+        public DelegateInitGetNextCarDAQ InitNextPassThruDevice;
+
+        // DELEGATE GETNEXTPASSTHRU DEVICE
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegateGetNextCarDAQ([In, Out] ref IntPtr name, out uint pVersion, [In, Out] ref IntPtr pIPAddress);
+        public DelegateGetNextCarDAQ GetNextPassThruDevice;
+
+        // ------------------------------------- API DELEGATES FOR PASSTHRU FUNCTIONS -------------------------------
+
         // DELEGATE: PASSTHRU OPEN
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         public delegate int DelegatePassThruOpen(IntPtr DllPointer, out uint DeviceId);

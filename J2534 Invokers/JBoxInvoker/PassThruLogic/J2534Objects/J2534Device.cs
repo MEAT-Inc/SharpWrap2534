@@ -20,7 +20,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         // Singleton schema for this class object. Two total instances can exist. Device 1/2
         private static J2534Device _jDeviceInstance1;
         private static J2534Device _jDeviceInstance2;
-        
+
         /// <summary>
         /// PRIVATE CTOR FOR SINGLETON USE ONLY!
         /// </summary>
@@ -33,10 +33,11 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.DeviceNumber = DeviceNumber;
 
             // Build API and marshall.
-            var DllPath = Dll.FunctionLibrary.FromDescriptionString<PassThruPaths>();
-            this.ApiInstance = new J2534ApiInstance(this.DeviceNumber);
-            this.ApiInstance.SetupJApiInstance(this.DeviceNumber, DllPath);
+            this.ApiInstance = new J2534ApiInstance(Dll.FunctionLibrary);
             this.ApiMarshall = new J2534ApiMarshaller(this.ApiInstance);
+
+            // Build API Instance.
+            this.ApiInstance.SetupJApiInstance();
 
             // Build channels, set status output.
             this.DeviceStatus = PTInstanceStatus.INITIALIZED;
@@ -49,15 +50,17 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         /// <param name="DeviceNumber"></param>
         /// <param name="DllPath"></param>
         private J2534Device(JDeviceNumber DeviceNumber, PassThruPaths InputPath)
-        {          
+        {
             // Store DLL Value and build marshall.
-            this.JDll = new J2534Dll(InputPath.ToString());
+            this.JDll = new J2534Dll(InputPath);
             this.DeviceNumber = DeviceNumber;
 
             // Build API and marshall.
-            this.ApiInstance = new J2534ApiInstance(this.DeviceNumber);
-            this.ApiInstance.SetupJApiInstance(this.DeviceNumber, InputPath);
+            this.ApiInstance = new J2534ApiInstance(InputPath.ToDescriptionString());
             this.ApiMarshall = new J2534ApiMarshaller(this.ApiInstance);
+
+            // Build API Instance.
+            this.ApiInstance.SetupJApiInstance();
 
             // Build channels, set status output.
             this.DeviceStatus = PTInstanceStatus.INITIALIZED;
@@ -89,10 +92,10 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             }
         }
 
-    // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
+        // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
 
-    // Device information.
-    public JDeviceNumber DeviceNumber { get; private set; }
+        // Device information.
+        public JDeviceNumber DeviceNumber { get; private set; }
         public PTInstanceStatus DeviceStatus { get; private set; }
         public JVersion J2534Version { get; private set; }
 
@@ -100,7 +103,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         internal J2534Dll JDll;
         internal J2534ApiInstance ApiInstance;
         internal J2534ApiMarshaller ApiMarshall;
-        internal J2534Channel[] DeviceChannels;
+        public J2534Channel[] DeviceChannels;
 
         // Device Properties
         public uint DeviceId;
@@ -124,30 +127,38 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         /// Builds a new Device instance using the DLL Given
         /// </summary>
         /// <param name="Dll">DLL To build from</param>
-        public static J2534Device BuildJ2534Device(JDeviceNumber DeviceNumber, J2534Dll Dll)
-        {
-            // Return device one instance
-            if (DeviceNumber == JDeviceNumber.PTDevice1)
-                return _jDeviceInstance1 ?? (_jDeviceInstance1 = new J2534Device(DeviceNumber, Dll));
+        public static J2534Device BuildJ2534Device(J2534Dll Dll)
+        { 
+            // Return Device 1 instance.
+            if (_jDeviceInstance1?.DeviceStatus != PTInstanceStatus.INITIALIZED)
+                return _jDeviceInstance1 ?? (_jDeviceInstance1 = new J2534Device(JDeviceNumber.PTDevice1, Dll));
 
             // Return device 2 instance
-            return _jDeviceInstance2 ?? (_jDeviceInstance2 = new J2534Device(DeviceNumber, Dll));
+            if (_jDeviceInstance2?.DeviceStatus != PTInstanceStatus.INITIALIZED)
+                return _jDeviceInstance2 ?? (_jDeviceInstance2 = new J2534Device(JDeviceNumber.PTDevice2, Dll));
+
+            // Throw if here since none of our slots are open.
+            throw new AccessViolationException("Can not build instance of a third J2534 Device object!");
         }
         /// <summary>
         /// Builds a new Device instance using the DLL Given
         /// </summary>
         /// <param name="Dll">DLL To build from</param>
-        public static J2534Device BuildJ2534Device(JDeviceNumber DeviceNumber, PassThruPaths Dll)
+        public static J2534Device BuildJ2534Device(PassThruPaths Dll)
         {
-            // Return device one instance
-            if (DeviceNumber == JDeviceNumber.PTDevice1)
-                return _jDeviceInstance1 ?? (_jDeviceInstance1 = new J2534Device(DeviceNumber, Dll));
+            // Return Device 1 instance.
+            if (_jDeviceInstance1?.DeviceStatus != PTInstanceStatus.INITIALIZED)
+                return _jDeviceInstance1 ?? (_jDeviceInstance1 = new J2534Device(JDeviceNumber.PTDevice1, Dll));
 
             // Return device 2 instance
-            return _jDeviceInstance2 ?? (_jDeviceInstance2 = new J2534Device(DeviceNumber, Dll));
+            if (_jDeviceInstance2?.DeviceStatus != PTInstanceStatus.INITIALIZED)
+                return _jDeviceInstance2 ?? (_jDeviceInstance2 = new J2534Device(JDeviceNumber.PTDevice2, Dll));
+
+            // Throw if here since none of our slots are open.
+            throw new AccessViolationException("Can not build instance of a third J2534 Device object!");
         }
 
-        // ------------------------- STATIC DEVICE MESSAGE HELPER METHODS --------------------
+        // ---------------------------- STATIC DEVICE MESSAGE HELPER METHODS -----------------------
 
         /// <summary>
         /// Builds a new message from a given string value
@@ -167,7 +178,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             BuiltPtMsg.ProtocolID = ProtocolId;
             BuiltPtMsg.TxFlags = MsgFlags;
             BuiltPtMsg.DataSize = MsgDataSize;
-            
+
             // Apply message values into here.
             for (int ByteIndex = 0; ByteIndex < SoapHexBin.Value.Length; ByteIndex++)
                 BuiltPtMsg.Data[ByteIndex] = SoapHexBin.Value[ByteIndex];
@@ -210,11 +221,11 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             byte[] ResultBytes = new byte[SArray.NumberOfBytes];
             for (int ByteIndex = 0; ByteIndex < SArray.NumberOfBytes; ByteIndex++)
                 ResultBytes[ByteIndex] = SArray.Data[ByteIndex];
-            
+
             // Return new output.
             return ResultBytes;
         }
 
-        // ----------------------------- J2534 DEVICE OBJECT METHODS -------------------------
+        // --------------------------------- J2534 DEVICE OBJECT METHODS ----------------------------
     }
 }

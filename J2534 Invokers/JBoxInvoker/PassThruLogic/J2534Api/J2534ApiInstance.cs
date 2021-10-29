@@ -39,7 +39,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         public JDeviceNumber DeviceNumber { get; private set; }
 
         // Version of the DLL for the J2534 DLL
-        public JVersion ApiVersion { get; private set; }
+        public JVersion J2534Version { get; private set; }
         public string J2534DllPath { get; private set; }
         public PassThruPaths J2534DllType { get; private set; }
 
@@ -63,7 +63,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             this.J2534DllType = JApiDllType;
             this.DeviceNumber = DeviceNumber;
             this.J2534DllPath = this.J2534DllType.ToDescriptionString();
-            this.ApiVersion = this.J2534DllPath.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
+            this.J2534Version = this.J2534DllPath.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
 
             // Build instance values for delegates and importer
             this._delegateSet = new PassThruDelegates();

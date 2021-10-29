@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Text;
 using JBoxInvoker.PassThruLogic.PassThruImport;
 using JBoxInvoker.PassThruLogic.PassThruTypes;
@@ -14,12 +15,15 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <summary>
         /// Builds a new instance of this J2534 Api
         /// </summary>
-        /// <param name="DeviceNumber"></param>
-        public J2534ApiInstance(JDeviceNumber DeviceNumber)
+        /// <param name="ApiDllPath"></param>
+        public J2534ApiInstance(string ApiDllPath)
         {
             // Store Number and status values.
-            this.DeviceNumber = DeviceNumber;
+            this.J2534DllPath = ApiDllPath;
             this.ApiStatus = PTInstanceStatus.NULL;
+
+            // Set the version and build our delegate/Importer objects
+            this.J2534Version = this.J2534DllPath.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
         } 
         
         /// <summary>
@@ -36,15 +40,13 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
 
         // JDevice Number.
         public PTInstanceStatus ApiStatus { get; private set; }
-        public JDeviceNumber DeviceNumber { get; private set; }
 
         // Version of the DLL for the J2534 DLL
         public JVersion J2534Version { get; private set; }
         public string J2534DllPath { get; private set; }
-        public PassThruPaths J2534DllType { get; private set; }
 
         // PassThru method delegates
-        private PassThruImporter _jDllImporter;
+        private PassThruApiImporter _jDllImporter;
         private PassThruDelegates _delegateSet;
 
         // ------------------------------ CONSTRUCTOR INIT METHOD FOR INSTANCE -----------------------------
@@ -52,29 +54,76 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <summary>
         /// Builds a new JInstance setup based
         /// </summary>
-        /// <param name="JApiDllType">J2534 DLL object to use</param>
         /// <returns>True if setup. False if not.</returns>
-        public bool SetupJApiInstance(JDeviceNumber DeviceNumber, PassThruPaths JApiDllType)
+        public bool SetupJApiInstance()
         {
             // Check status value.
             if (this.ApiStatus == PTInstanceStatus.INITIALIZED) return false;
 
-            // Set the version and build our delegate/Importer objects
-            this.J2534DllType = JApiDllType;
-            this.DeviceNumber = DeviceNumber;
-            this.J2534DllPath = this.J2534DllType.ToDescriptionString();
-            this.J2534Version = this.J2534DllPath.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
-
             // Build instance values for delegates and importer
-            this._delegateSet = new PassThruDelegates();
-            this._jDllImporter = new PassThruImporter(this.J2534DllPath);
-            this._jDllImporter.MapDelegateMethods(out this._delegateSet);
+            this._jDllImporter = new PassThruApiImporter(this.J2534DllPath);
+            if (!this._jDllImporter.MapDelegateMethods(out this._delegateSet)) return false;
 
             // Set the status value.
             this.ApiStatus = PTInstanceStatus.INITIALIZED;
-
-            // Return passed.
             return true;
+        }
+
+        // --------------------------------- J2534 DEVICE INIT METHOD CALLS ---------------------------------
+
+        /// <summary>
+        /// This wrapper is used to initiate the GetNextPassThruDevice sequence, this will cause the DLL to "discover" currently connected devices
+        /// (This must be called before repeatedly calling GetNextPassThruDevice to get the list list of devices one by one)
+        /// </summary>
+        public void InitNexTPassThruDevice()
+        {
+            // Passing in NULLs for any one of the parameters will initiate a re-enumeration procedure and return immediately
+            J2534Err PTCommandError = (J2534Err)this._delegateSet.InitNextPassThruDevice(IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+
+            // If the error is not a NOERROR Response then throw it.
+            if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
+            var ErrorBuilder = new StringBuilder(100);
+            PassThruGetLastError(ErrorBuilder);
+
+            // Throw exception here.
+            throw new PassThruException(PTCommandError, ErrorBuilder);
+        }
+        /// <summary>
+        /// function wrapper to get the list of connected devices, one be one, until parameters come back as empty strings("")
+        /// (DTInitGetNextCarDAQ must be called to initialize the procedure)
+        /// </summary>
+        public void GetNextPassThruDevice(out string DeviceName, out uint DeviceVersion, out string DeviceAddress)
+        {
+            // Sizes of the name and the address. (Aka the pointers)
+            int NamePointerSize = 0; int AddressPointerSize = 0;
+
+            // Build pointers for name and the address.
+            IntPtr MarshallPointerName = Marshal.AllocHGlobal(Marshal.SizeOf(NamePointerSize));
+            IntPtr MarshallAddressValue = Marshal.AllocHGlobal(Marshal.SizeOf(AddressPointerSize));
+
+            // Marshall it out.
+            Marshal.StructureToPtr(NamePointerSize, MarshallPointerName, true);
+            Marshal.StructureToPtr(AddressPointerSize, MarshallAddressValue, true);
+
+            // We need clones since the GetNextPassthru call changes our pointers.
+            IntPtr CopiedNameMarshall = MarshallPointerName;
+            IntPtr CopiedAddressMarshall = MarshallAddressValue;
+
+            // If the error is not a NOERROR Response then throw it.
+            J2534Err PTCommandError = (J2534Err)this._delegateSet.GetNextPassThruDevice(ref MarshallPointerName, out DeviceVersion, ref MarshallAddressValue);
+            if (PTCommandError != J2534Err.STATUS_NOERROR)
+            {
+                var ErrorBuilder = new StringBuilder(100);
+                PassThruGetLastError(ErrorBuilder);
+            }
+
+            //Marshal.FreeHGlobal(ppName);
+            DeviceName = Marshal.PtrToStringAnsi(MarshallPointerName);
+            DeviceAddress = Marshal.PtrToStringAnsi(MarshallAddressValue);
+
+            // Release the marshall structures.
+            Marshal.FreeHGlobal(CopiedNameMarshall);
+            Marshal.FreeHGlobal(CopiedAddressMarshall);
         }
 
         // ---------------------------------- J2534 PUBLIC FACING API CALLS ---------------------------------

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JBoxInvoker;
 using JBoxInvoker.PassThruLogic.J2534Api;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -28,13 +29,13 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("--> Building new J2534 API Marshall instance for Devices 1 and 2...");
 
             // Build instances
-            var LoaderInstanceDev1 = new J2534ApiInstance(JDeviceNumber.PTDevice1);
+            var LoaderInstanceDev1 = new J2534ApiInstance(PassThruPaths.CarDAQPlus3_0404.ToDescriptionString());
             var MarshallInstanceDev1 = new J2534ApiMarshaller(LoaderInstanceDev1);
+
+            // Build API Instance.
+            bool BuiltOK = LoaderInstanceDev1.SetupJApiInstance();
             Console.WriteLine("--> Built new loader instances OK!");
             Console.WriteLine("--> Built new API Marshalling instances OK!");
-
-            // Load modules into memory.
-            bool Loaded0404 = LoaderInstanceDev1.SetupJApiInstance(JDeviceNumber.PTDevice1, PassThruPaths.CarDAQPlus3_0404);
             Console.WriteLine("--> Loading process ran without errors!");
 
             // Release devices.
@@ -43,7 +44,7 @@ namespace JBoxInvoker___Tests
             Console.WriteLine("\n" + SepString);
 
             // Check the bool results for loading.
-            Assert.IsTrue(Loaded0404 && (MarshallInstanceDev1.ApiStatus == PTInstanceStatus.INITIALIZED && MarshallInstanceDev1.MarshallStatus == PTInstanceStatus.INITIALIZED),
+            Assert.IsTrue(BuiltOK && (MarshallInstanceDev1.ApiStatus == PTInstanceStatus.INITIALIZED && MarshallInstanceDev1.MarshallStatus == PTInstanceStatus.INITIALIZED), 
                 "Setup J2534 instance loader OK!");
         }
     }

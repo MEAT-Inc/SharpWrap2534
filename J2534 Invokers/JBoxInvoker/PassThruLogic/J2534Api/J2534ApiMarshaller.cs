@@ -20,18 +20,17 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         // Reflected API Values.
         public JVersion J2534Version => ApiInstance.J2534Version;        // Version of the API
         public PTInstanceStatus ApiStatus => ApiInstance.ApiStatus;     // Status of the API
-        public JDeviceNumber DeviceNumber => ApiInstance.DeviceNumber;  // Device Number from the API
 
         // -------------------------------- CONSTRUCTOR FOR A NEW J2534 API MARSHALL -------------------------------
 
         /// <summary>
         /// Builds a new J2354 API Marshalling object.
         /// </summary>
-        /// <param name="Api">Api to marshall out.</param>
-        public J2534ApiMarshaller(J2534ApiInstance Api)
+        /// <param name="ApiInstance">Api to marshall out.</param>
+        public J2534ApiMarshaller(J2534ApiInstance ApiInstance)
         {
             // Store API Values.
-            this.ApiInstance = Api;
+            this.ApiInstance = ApiInstance;
             this.MarshallStatus = PTInstanceStatus.INITIALIZED;
         }
 

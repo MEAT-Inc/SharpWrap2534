@@ -45,6 +45,8 @@ namespace JBoxInvoker___Tests
             var Cdp3Device = J2534Device.BuildJ2534Device(CarDAQ3_0404Dll);
             Console.WriteLine("--> Built new CarDAQ Plus 3 device OK!");
             Assert.IsTrue(Cdp3Device.DeviceChannels != null, "CarDAQ Plus 3 instance failed to startup!");
+            Assert.IsTrue(Cdp3Device.DeviceName != null, "Device name was null!");
+            Console.WriteLine($"--> Device opened was named {Cdp3Device.DeviceName}");
 
             // Write infos out to console
             Console.WriteLine(SepString);

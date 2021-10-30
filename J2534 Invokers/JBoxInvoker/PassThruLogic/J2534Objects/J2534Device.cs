@@ -43,6 +43,10 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.DeviceStatus = PTInstanceStatus.INITIALIZED;
             this.J2534Version = this.ApiInstance.J2534Version;
             this.DeviceChannels = J2534Channel.BuildDeviceChannels(this);
+
+            // Open and close the device.
+            this.PTOpen();
+            this.PTClose();
         }
         /// <summary>
         /// Builds a new SAFE Device instance using a predefined DLL path
@@ -66,6 +70,10 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.DeviceStatus = PTInstanceStatus.INITIALIZED;
             this.J2534Version = this.ApiInstance.J2534Version;
             this.DeviceChannels = J2534Channel.BuildDeviceChannels(this);
+
+            // Open and close the device.
+            this.PTOpen();
+            this.PTClose();
         }
 
         /// <summary>
@@ -227,5 +235,58 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         }
 
         // --------------------------------- J2534 DEVICE OBJECT METHODS ----------------------------
+        
+        /// <summary>
+        /// Opens this instance of a passthru device.
+        /// </summary>
+        /// <param name="DeviceName">Name of the device to be opened.</param>
+        public void PTOpen(string DeviceName = "")
+        {
+            // Check for no name gvien.
+            if (DeviceName == "")
+            {
+                // Pull all device names out and find next open one.
+                var FreeDevice = this.JDll.FindConnectedDeviceNames().FirstOrDefault(Name => !Name.ToUpper().Contains("IN USE"));
+                DeviceName = FreeDevice ?? throw new AccessViolationException("No free J2534 devices could be located!");
+            }
+
+            // Stet name and open the device here.
+            this.DeviceName = DeviceName;
+            this.ApiMarshall.PassThruOpen(this.DeviceName, out this.DeviceId);
+            this.IsOpen = true;
+        }
+        /// <summary>
+        /// Closes the currently open device object.
+        /// </summary>
+        public void PTClose()
+        {
+            // Close device using the marshall.
+            this.ApiMarshall.PassThruClose(this.DeviceId);
+            this.IsOpen = false;
+        }
+
+        /// <summary>
+        /// Builds a new PTChannel for this device object.
+        /// </summary>
+        /// <param name="ChannelIndex">Index of channel</param>
+        /// <param name="Protocol">Channel protocol</param>
+        /// <param name="ChannelFlags">Connect flags</param>
+        /// <param name="ChannelBaud">Channel baud rate</param>
+        public void PTConnect(int ChannelIndex, ProtocolId Protocol, uint ChannelFlags, uint ChannelBaud)
+        {
+            // Issue the connect command and store our channel
+            this.ApiMarshall.PassThruConnect(this.DeviceId, Protocol, ChannelFlags, ChannelBaud, out uint ChannelId);
+            this.DeviceChannels[ChannelIndex].ConnectChannel(ChannelId, ConnectProtocol, ChannelFlags, ChannelBaud);
+        }
+        /// <summary>
+        /// Disconnects the channel values.
+        /// </summary>
+        /// <param name="ChannelIndex">Channel to remove</param>
+        public void PTDisconnect(int ChannelIndex)
+        {
+            // Disconnect from marshall and remove from channel set.
+            this.ApiMarshall.PassThruDisconnect(this.DeviceChannels[ChannelIndex].ChannelId);
+            this.DeviceChannels[ChannelIndex].DisconnectChannel();
+        }
     }
 }

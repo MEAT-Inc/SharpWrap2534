@@ -20,23 +20,22 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         private static J2534Channel[] _j2534Channels;
 
         /// <summary>
+        /// Builds a blank J2534 Channel
+        /// </summary>
+        private J2534Channel() { this.ChannelStatus = PTInstanceStatus.FREED; }
+        /// <summary>
         /// Private Singleton instance builder.
+        /// THESE CHANNELS BUILT ARE NOT TRACKED BY THE SINGLETON INSTANCE!
         /// </summary>
         /// <param name="JDevice">Device to use</param>
         /// <param name="ChannelId">ChannelId</param>
         /// <param name="ProtocolId">Protocol Id</param>
         /// <param name="ConnectFlags">Connection flags</param>
         /// <param name="ChannelBaud">BaudRate of the channel.</param>
-        private J2534Channel(J2534Device JDevice, uint ChannelId, ProtocolId ProtocolId, uint ConnectFlags, uint ChannelBaud)
+        private J2534Channel(J2534Device JDevice)
         {
             // Setup device channel properties.
             this._jDevice = JDevice;
-            this.ChannelId = ChannelId;
-            this.ProtocolId = ProtocolId;
-            this.ConnectFlags = ConnectFlags;
-            this.ChannelBaud = ChannelBaud;
-
-            // Version and Status.
             this.J2534Version = this._jDevice.J2534Version;
             this.ChannelStatus = PTInstanceStatus.INITIALIZED;
 
@@ -52,10 +51,6 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.ChannelIndex = _j2534Channels.ToList().IndexOf(null);
             _j2534Channels[this.ChannelIndex] = this;
         }
-        /// <summary>
-        /// Builds a blank J2534 Channel
-        /// </summary>
-        private J2534Channel() { this.ChannelStatus = PTInstanceStatus.FREED; }
         /// <summary>
         /// Deconstructs the device object and members
         /// </summary>
@@ -74,6 +69,11 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         {
             // Append channels into the device here.
             var JChannelsOut = new J2534Channel[new PassThruConstants(JDevice.J2534Version).MaxChannels];
+            for (int ChannelIndex = 0; ChannelIndex < JChannelsOut.Length; ChannelIndex += 1)
+                JChannelsOut[ChannelIndex] = new J2534Channel(JDevice);
+
+            // Return built channels and store them onto the device object
+            JDevice.DeviceChannels = JChannelsOut;
             return JChannelsOut;
         }
 
@@ -95,6 +95,45 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public J2534Filter[] JChannelFilters { get; private set; }
         public J2534PeriodicMessage[] JChannelPeriodicMessages { get; private set; }
 
+        // ----------------------------------------- CHANNEL OPEN AND CLOSE METHODS ---------------------------------------
+
+        /// <summary>
+        /// Connects/subscribes this channels values with the values given
+        /// </summary>
+        /// <param name="ChannelId">ID of channel</param>
+        /// <param name="ChannelProtocol">Protocol of channel</param>
+        /// <param name="ChannelFlags">Flags of channel</param>
+        /// <param name="ChannelBaud">Baudrate of channel</param>
+        /// <returns></returns>
+        public bool ConnectChannel(uint ChannelId, ProtocolId ChannelProtocol, uint ChannelFlags, uint ChannelBaud)
+        {
+            // Store channel values.
+            this.ChannelId = ChannelId;
+            this.ProtocolId = ChannelProtocol;
+            this.ConnectFlags = ChannelFlags;
+            this.ChannelBaud = ChannelBaud;
+
+            // Return stored ok
+            return true;
+        }
+        /// <summary>
+        /// Disconnects the provided channel
+        /// </summary>
+        /// <returns>True if removed. False if not.</returns>
+        public bool DisconnectChannel()
+        {
+            // Disconnect based on channel Id.
+            var ChannelToDisconnect = _j2534Channels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == this.ChannelId);
+            if (ChannelToDisconnect == null) { throw new InvalidOperationException("Failed to disconnect channel value!"); }
+
+            // Disconnect and reinit here.
+            int IndexOfChannel = _j2534Channels.ToList().IndexOf(ChannelToDisconnect);
+            _j2534Channels[IndexOfChannel] = new J2534Channel();
+
+            // Return passed.
+            return true;
+        }
+
         // ----------------------------------------- STATIC CHANNEL LOCATION METHODS ---------------------------------------
 
         /// <summary>
@@ -102,7 +141,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         /// </summary>
         /// <param name="ChannelId">Id of channel to locate</param>
         /// <returns>A channel found or an empty one.</returns>
-        public bool LocateChannel(uint ChannelId, out J2534Channel ChannelFound)
+        public static bool LocateChannel(uint ChannelId, out J2534Channel ChannelFound)
         {
             // Find the channel.
             ChannelFound = _j2534Channels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId) 

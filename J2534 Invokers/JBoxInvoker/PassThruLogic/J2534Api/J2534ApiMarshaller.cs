@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using JBoxInvoker.PassThruLogic.PassThruImport;
 using JBoxInvoker.PassThruLogic.PassThruTypes;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.J2534Api
 {
     /// <summary>
     /// Used to marshall out API methods from an instance of the DLL Api
     /// </summary>
-    public class J2534ApiMarshaller
+    internal class J2534ApiMarshaller
     {
         // Class values for the marshall configuration
         internal J2534ApiInstance ApiInstance { get; private set; }

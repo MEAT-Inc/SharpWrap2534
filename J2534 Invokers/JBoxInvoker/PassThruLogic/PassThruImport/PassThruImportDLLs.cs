@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using JBoxInvoker.PassThruLogic.J2534Objects;
@@ -8,6 +9,7 @@ using JBoxInvoker.PassThruLogic.PassThruTypes;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.Win32;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.PassThruImport
 {
     /// <summary>
@@ -31,7 +33,7 @@ namespace JBoxInvoker.PassThruLogic.PassThruImport
         /// <summary>
         /// Builds a new DLL importing object.
         /// </summary>
-        public PassThruImportDLLs()
+        internal PassThruImportDLLs()
         {
             // Build fresh list object and init the registry values. (0404)
             PassThruSupportKey_0404 = Registry.LocalMachine.OpenSubKey(PassThruConstants.V0404_PASSTHRU_REGISTRY_PATH, false) ??
@@ -90,6 +92,7 @@ namespace JBoxInvoker.PassThruLogic.PassThruImport
             return BuiltDLLs;
         }
 
+        // ----------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Finds the DLL provided based on the function lib name.
@@ -100,6 +103,22 @@ namespace JBoxInvoker.PassThruLogic.PassThruImport
             // Build list of DLLs here.
             var DLLsInstalled = new PassThruImportDLLs().LocatedJ2534DLLs;
             DllFound = DLLsInstalled.FirstOrDefault(DllObj => DllObj.FunctionLibrary == PathOfDll.ToDescriptionString());
+
+            // Return output based on DLL Value.
+            return DllFound != null;
+        }
+        /// <summary>
+        /// Finds a DLL for the given nmame and version.
+        /// </summary>
+        /// <param name="DllName">Name to find</param>
+        /// <param name="Version">DLL Version</param>
+        /// <param name="DllFound">DLL Located</param>
+        /// <returns>True if a DLL is located. False if not.</returns>
+        public static bool FindDllByName(string DllName, JVersion Version, out J2534Dll DllFound)
+        {
+            // Build list of DLLs here.
+            var DLLsInstalled = new PassThruImportDLLs().LocatedJ2534DLLs;
+            DllFound = DLLsInstalled.FirstOrDefault(DllObj => DllObj.LongName.Contains(DllName) && DllObj.DllVersion == Version);
 
             // Return output based on DLL Value.
             return DllFound != null;

@@ -6,7 +6,7 @@ namespace JBoxInvoker.PassThruLogic.SupportingLogic
     /// <summary>
     /// Static methods for running Win32 importing calls.
     /// </summary>
-    public static class Win32Invokers
+    internal static class Win32Invokers
     {
         // Loads a DLL into the memory.
         [DllImport("kernel32.dll", EntryPoint = "LoadLibrary", SetLastError = true)]

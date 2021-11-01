@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.PassThruTypes
 {
     /// <summary>
     /// Native structures for Passthru objects.
     /// These need to be marshalled out into the API For real use.
     /// </summary>
-    public class PassThruStructsNative
+    internal class PassThruStructsNative
     {
         [StructLayout(LayoutKind.Sequential, Size = 4152, CharSet = CharSet.Ansi), Serializable]
         public struct PASSTHRU_MSG

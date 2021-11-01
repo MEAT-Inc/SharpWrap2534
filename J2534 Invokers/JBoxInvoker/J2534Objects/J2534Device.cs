@@ -6,7 +6,6 @@ using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 using JBoxInvoker.J2534Api;
-using JBoxInvoker.PassThruLogic.J2534Api;
 using JBoxInvoker.PassThruTypes;
 using JBoxInvoker.SupportingLogic;
 

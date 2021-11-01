@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JBoxInvoker;
-using JBoxInvoker.PassThruLogic.PassThruImport;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit;
 using NUnit.Framework;
+using JBoxInvoker;
 
 namespace JBoxInvokerTests
 {
@@ -18,7 +17,7 @@ namespace JBoxInvokerTests
         public void BuildNewJ2534Session()
         {
             // Builds a new J2534 Session object using a CarDAQ Plus 3 DLL.
-            var JSessionInstance = new J2534S
+            var JSessionInstance = new J25334Session();
         }
     }
 }

@@ -83,5 +83,36 @@ namespace JBoxInvokerTests
             // Assert conditions for test outcome
             Assert.IsFalse(ShouldFailLoad, "Setup J2534 instance loader and passed type setup test!");
         }
+
+        /// <summary>
+        /// Builds a V0404 CDP3 and V0500 CDP3 DLL API init method set.
+        /// </summary>
+        [TestMethod]
+        [TestCategory("J2534 API Marshall Instance")]
+        public void SetupJApiMarshallTest()
+        {
+            // Log infos
+            Console.WriteLine(SepString + "\nTests Running...\n");
+            Console.WriteLine("--> Building new J2534 API Marshall instance for Devices 1 and 2...");
+
+            // Build instances
+            var LoaderInstanceDev1 = new J2534ApiInstance(PassThruPaths.CarDAQPlus3_0404.ToDescriptionString());
+            var MarshallInstanceDev1 = new J2534ApiMarshaller(LoaderInstanceDev1);
+
+            // Build API Instance.
+            bool BuiltOK = LoaderInstanceDev1.SetupJApiInstance();
+            Console.WriteLine("--> Built new loader instances OK!");
+            Console.WriteLine("--> Built new API Marshalling instances OK!");
+            Console.WriteLine("--> Loading process ran without errors!");
+
+            // Release devices.
+            LoaderInstanceDev1 = null;
+            Console.WriteLine("--> Released API and DLL for device 1 OK!");
+            Console.WriteLine("\n" + SepString);
+
+            // Check the bool results for loading.
+            Assert.IsTrue(BuiltOK && (MarshallInstanceDev1.ApiStatus == PTInstanceStatus.INITIALIZED && MarshallInstanceDev1.MarshallStatus == PTInstanceStatus.INITIALIZED),
+                "Setup J2534 instance loader OK!");
+        }
     }
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruTypes

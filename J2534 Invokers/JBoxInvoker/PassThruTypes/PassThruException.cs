@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruLogic.PassThruTypes
+namespace JBoxInvoker.PassThruTypes
 {
     /// <summary>
     /// Exception object from a J2534 Call
@@ -28,7 +28,7 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
         /// Builds a new JException based on an error code.
         /// </summary>
         /// <param name="code"></param>
-        public PassThruException(J2534Err JErrorCode) { this.J2534ErrorCode = JErrorCode; }
+        public PassThruException(J2534Err JErrorCode) { J2534ErrorCode = JErrorCode; }
         /// <summary>
         /// Builds a new JException based on an error code and string.
         /// </summary>
@@ -36,15 +36,15 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
         /// <param name="LastErrorCode">Last error thrown from the Exception</param>
         public PassThruException(J2534Err JErrorCode, StringBuilder LastErrorCode)
         {
-            this.J2534ErrorCode = JErrorCode;
-            this.LastErrorString = LastErrorCode.ToString();
+            J2534ErrorCode = JErrorCode;
+            LastErrorString = LastErrorCode.ToString();
         }
         /// <summary>
         /// Builds a new Exception from a message and error code.
         /// </summary>
         /// <param name="ErrorMessage">Error thrown message</param>
         /// <param name="JErrorCode">J2534 Exception code</param>
-        public PassThruException(string ErrorMessage, J2534Err JErrorCode) : base(ErrorMessage) { this.J2534ErrorCode = JErrorCode; }
+        public PassThruException(string ErrorMessage, J2534Err JErrorCode) : base(ErrorMessage) { J2534ErrorCode = JErrorCode; }
         /// <summary>
         /// Builds a new Exception from a message and error code.
         /// </summary>
@@ -54,7 +54,7 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
         public PassThruException(string ErrorMessage, Exception InnerException, J2534Err JErrorCode) : base(ErrorMessage, InnerException)
         {
             // Store code value.
-            this.J2534ErrorCode = JErrorCode;
+            J2534ErrorCode = JErrorCode;
         }
 
         // ------------------------------------- STRING CONVERSIONS FOR ERROR OBJECTS ----------------------------------
@@ -72,6 +72,6 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
         /// Gets a simple output string for this error object.
         /// </summary>
         /// <returns>Simple description</returns>
-        public string SimpleDescription() { return TargetSite.Name + " " + this.J2534ErrorCode; }
+        public string SimpleDescription() { return TargetSite.Name + " " + J2534ErrorCode; }
     }
 }

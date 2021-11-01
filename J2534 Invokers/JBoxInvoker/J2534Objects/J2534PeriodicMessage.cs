@@ -4,11 +4,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using JBoxInvoker.PassThruLogic.PassThruTypes;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
+using JBoxInvoker.PassThruTypes;
+using JBoxInvoker.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruLogic.J2534Objects
+namespace JBoxInvoker.J2534Objects
 {
     /// <summary>
     /// Holds information about a J2534 Periodic Message object.
@@ -28,7 +28,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         /// <summary>
         /// Builds and empty PTPeriodic Message object.
         /// </summary>
-        public J2534PeriodicMessage() { this.MessageStatus = PTInstanceStatus.NULL; }
+        public J2534PeriodicMessage() { MessageStatus = PTInstanceStatus.NULL; }
         /// <summary>
         /// Builds a new message.
         /// </summary>
@@ -43,7 +43,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.MessageId = MessageId;
 
             // Set Status
-            this.MessageStatus = PTInstanceStatus.INITIALIZED;
+            MessageStatus = PTInstanceStatus.INITIALIZED;
         }
 
         // ----------------------------------- OVERRIDES FOR STRING AND COMPARISON ----------------------------------------
@@ -55,9 +55,9 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public override string ToString()
         {
             // Build string to convert with.
-            string BytesAsData = string.Join(" ", this.Message.Data.Select(ByteObj => "0x" + ByteObj.ToString("0:x2")));
-            string OutputString = $"MessageId: {this.MessageId} -- Send Interval: {this.SendInterval}ms -- Message Data: {BytesAsData}";
-            
+            string BytesAsData = string.Join(" ", Message.Data.Select(ByteObj => "0x" + ByteObj.ToString("0:x2")));
+            string OutputString = $"MessageId: {MessageId} -- Send Interval: {SendInterval}ms -- Message Data: {BytesAsData}";
+
             // Return string built.
             return OutputString;
         }
@@ -68,7 +68,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public string ToMessageDataString()
         {
             // Build and return string.
-            return $"MessageData: {string.Join(" ", this.Message.Data.Select(ByteObj => "0x" + ByteObj.ToString("0:x2")))}";
+            return $"MessageData: {string.Join(" ", Message.Data.Select(ByteObj => "0x" + ByteObj.ToString("0:x2")))}";
         }
 
         /// <summary>

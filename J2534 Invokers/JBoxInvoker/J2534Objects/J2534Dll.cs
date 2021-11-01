@@ -4,16 +4,16 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using JBoxInvoker.PassThruLogic.J2534Api;
-using JBoxInvoker.PassThruLogic.PassThruImport;
-using JBoxInvoker.PassThruLogic.PassThruTypes;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
+using JBoxInvoker.J2534Api;
+using JBoxInvoker.PassThruImport;
+using JBoxInvoker.PassThruTypes;
+using JBoxInvoker.SupportingLogic;
 
 // For comparing name values
 using static System.String;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruLogic.J2534Objects
+namespace JBoxInvoker.J2534Objects
 {
     public class J2534Dll : IComparable
     {
@@ -41,12 +41,12 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
                 throw new InvalidOperationException($"Failed to locate any DLLs with the path provided! ({PathOfDLL.ToDescriptionString()})");
 
             // Store values onto here.
-            this.Name = LocatedDll.Name;
-            this.Vendor = LocatedDll.Vendor;
-            this.LongName = LocatedDll.LongName;
-            this.DllVersion = LocatedDll.DllVersion;
-            this.JDllStatus = PTInstanceStatus.INITIALIZED;
-            this.FunctionLibrary = PathOfDLL.ToDescriptionString();
+            Name = LocatedDll.Name;
+            Vendor = LocatedDll.Vendor;
+            LongName = LocatedDll.LongName;
+            DllVersion = LocatedDll.DllVersion;
+            JDllStatus = PTInstanceStatus.INITIALIZED;
+            FunctionLibrary = PathOfDLL.ToDescriptionString();
         }
         /// <summary>
         /// Builds a new J2534 DLL based on the provided values.
@@ -58,15 +58,15 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         internal J2534Dll(string NameOfDLL, string VendorValue, string ShortName, string FunctionLib, List<ProtocolId> ProtocolList)
         {
             // Store DLL Values.
-            this.Name = ShortName;
-            this.Vendor = VendorValue;
-            this.LongName = NameOfDLL;
-            this.FunctionLibrary = FunctionLib;
-            this.SupportedProtocols = ProtocolList;
+            Name = ShortName;
+            Vendor = VendorValue;
+            LongName = NameOfDLL;
+            FunctionLibrary = FunctionLib;
+            SupportedProtocols = ProtocolList;
 
             // Set Version.
-            this.JDllStatus = PTInstanceStatus.INITIALIZED;
-            this.DllVersion = this.FunctionLibrary.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
+            JDllStatus = PTInstanceStatus.INITIALIZED;
+            DllVersion = FunctionLibrary.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
         }
 
         // ---------------------- DEVICE LOCATION HELPERS FOR DLLS ----------------------
@@ -81,7 +81,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             List<PassThruStructs.SDevice> PossibleDevices = new List<PassThruStructs.SDevice>();
 
             // Build temp device and init the value type output of it.
-            var ApiInstance = new J2534ApiInstance(this.FunctionLibrary);
+            var ApiInstance = new J2534ApiInstance(FunctionLibrary);
             var NextName = ""; uint NextVersion = 0; var NextAddress = "";
 
             try
@@ -113,8 +113,8 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
 
             // Return device list and free device instance.
             ApiInstance = null;
-            if (PossibleDevices.Count == 0) this.JDllStatus = PTInstanceStatus.NULL;
-            return PossibleDevices.Where(DeviceObj => !string.IsNullOrWhiteSpace(DeviceObj.DeviceName))
+            if (PossibleDevices.Count == 0) JDllStatus = PTInstanceStatus.NULL;
+            return PossibleDevices.Where(DeviceObj => !IsNullOrWhiteSpace(DeviceObj.DeviceName))
                 .Select(DeviceObj => DeviceObj)
                 .ToList();
         }
@@ -125,7 +125,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public List<string> FindConnectedDeviceNames()
         {
             // Builds a string list from an SDeviceList.
-            return this.FindConnectedSDevices().Select(DeviceObj => DeviceObj.DeviceName).ToList();
+            return FindConnectedSDevices().Select(DeviceObj => DeviceObj.DeviceName).ToList();
         }
 
         // --------------------- COMPARATOR AND STRING OPERATIONS ------------------------
@@ -144,17 +144,17 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             // Build output string.
             string[] OutputStrings = new string[]
             {
-                $"J2534 DLL: {this.Name} ({this.DllVersion.ToDescriptionString()})",
+                $"J2534 DLL: {Name} ({DllVersion.ToDescriptionString()})",
                 $"--> DLL Information:",
-                $"    \\__ Version: {this.DllVersion.ToDescriptionString()}",
-                $"    \\__ DLL Vendor: {this.Vendor}",
-                $"    \\__ DLL Long Name: {this.LongName}",
-                $"    \\__ DLL Function Library: {this.FunctionLibrary}",
-                $"    \\__ DLL Supported Protocols: {this.SupportedProtocols.Count}"
+                $"    \\__ Version: {DllVersion.ToDescriptionString()}",
+                $"    \\__ DLL Vendor: {Vendor}",
+                $"    \\__ DLL Long Name: {LongName}",
+                $"    \\__ DLL Function Library: {FunctionLibrary}",
+                $"    \\__ DLL Supported Protocols: {SupportedProtocols.Count}"
             };
 
             // Combine into string and return.
-            return string.Join("\n", OutputStrings);
+            return Join("\n", OutputStrings);
         }
         /// <summary>
         /// Useful for comparing DLL Types in a combobox/array
@@ -162,7 +162,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public int CompareTo(object DLLAsObject)
         {
             J2534Dll DllObj = (J2534Dll)DLLAsObject;
-            return CompareOrdinal(this.Name, DllObj.Name);
+            return CompareOrdinal(Name, DllObj.Name);
         }
     }
 }

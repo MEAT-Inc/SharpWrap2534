@@ -4,10 +4,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
+using JBoxInvoker.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruLogic.PassThruTypes
+namespace JBoxInvoker.PassThruTypes
 {
     /// <summary>
     /// Contains constants for PassThru types here.
@@ -36,6 +36,6 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
         /// Builds a new set of PassThru constants based on the JVersion
         /// </summary>
         /// <param name="J2524Version">Version of the API</param>
-        public PassThruConstants(JVersion J2524Version) { this.Version = J2524Version; }
+        public PassThruConstants(JVersion J2524Version) { Version = J2524Version; }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JBoxInvoker.PassThruLogic.SupportingLogic
+namespace JBoxInvoker.SupportingLogic
 {
     /// <summary>
     /// Extension class for pulling description attributes from the enums

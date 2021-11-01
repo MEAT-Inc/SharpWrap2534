@@ -4,13 +4,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using JBoxInvoker.PassThruLogic.J2534Objects;
-using JBoxInvoker.PassThruLogic.PassThruTypes;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
+using JBoxInvoker.J2534Objects;
+using JBoxInvoker.PassThruTypes;
+using JBoxInvoker.SupportingLogic;
 using Microsoft.Win32;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruLogic.PassThruImport
+namespace JBoxInvoker.PassThruImport
 {
     /// <summary>
     /// This class contains the logic needed to build and use new PassThru DLLs from the J2534 DLL object type.
@@ -44,18 +44,18 @@ namespace JBoxInvoker.PassThruLogic.PassThruImport
                                       Registry.LocalMachine.OpenSubKey(PassThruConstants.V0500_PASSTHRU_REGISTRY_PATH_6432, false);
 
             // Get our DLL Key values here.
-            this.DllKeyValues_0404 = PassThruSupportKey_0404?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray();
-            this.DllKeyValues_0500 = PassThruSupportKey_0500?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray();
+            DllKeyValues_0404 = PassThruSupportKey_0404?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray();
+            DllKeyValues_0500 = PassThruSupportKey_0500?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray();
 
             // Store located key values.
-            this.LocatedJ2534DLLs = new []
+            LocatedJ2534DLLs = new[]
             {
-                this.GetDLLsForKeyList(PassThruSupportKey_0404, DllKeyValues_0404),
-                this.GetDLLsForKeyList(PassThruSupportKey_0500, DllKeyValues_0500),
+                GetDLLsForKeyList(PassThruSupportKey_0404, DllKeyValues_0404),
+                GetDLLsForKeyList(PassThruSupportKey_0500, DllKeyValues_0500),
             }.SelectMany(DllSet => DllSet).ToArray();
 
             // Filter dupes out of this set. Remove any values without names.
-            this.LocatedJ2534DLLs = LocatedJ2534DLLs?.GroupBy(DllObj => DllObj?.FunctionLibrary)
+            LocatedJ2534DLLs = LocatedJ2534DLLs?.GroupBy(DllObj => DllObj?.FunctionLibrary)
                 .Select(Dll => Dll.First())
                 .Where(Dll => !string.IsNullOrWhiteSpace(Dll?.Name))
                 .ToArray();
@@ -81,7 +81,7 @@ namespace JBoxInvoker.PassThruLogic.PassThruImport
 
                 // Build protocol List
                 List<ProtocolId> SupportedProtocols = Enum.GetValues(typeof(ProtocolId)).Cast<ProtocolId>()
-                    .Where(ProcId => ((int)DeviceKey.GetValue(ProcId.ToString(), 0)) == 1)
+                    .Where(ProcId => (int)DeviceKey.GetValue(ProcId.ToString(), 0) == 1)
                     .ToList();
 
                 // Build and return.

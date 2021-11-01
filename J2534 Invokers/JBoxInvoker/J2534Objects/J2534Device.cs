@@ -5,12 +5,13 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
+using JBoxInvoker.J2534Api;
 using JBoxInvoker.PassThruLogic.J2534Api;
-using JBoxInvoker.PassThruLogic.PassThruTypes;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
+using JBoxInvoker.PassThruTypes;
+using JBoxInvoker.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruLogic.J2534Objects
+namespace JBoxInvoker.J2534Objects
 {
     /// <summary>
     /// J2534 Device object used to control the API, the Marshall, and other methods of it.
@@ -31,26 +32,26 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         private J2534Device(JDeviceNumber DeviceNumber, J2534Dll Dll, string NameFilter = "")
         {
             // Store DLL Value and build marshall.
-            this.JDll = Dll;
+            JDll = Dll;
             this.DeviceNumber = DeviceNumber;
 
             // Build API and marshall.
-            this.ApiInstance = new J2534ApiInstance(Dll.FunctionLibrary);
-            this.ApiMarshall = new J2534ApiMarshaller(this.ApiInstance);
+            ApiInstance = new J2534ApiInstance(Dll.FunctionLibrary);
+            ApiMarshall = new J2534ApiMarshaller(ApiInstance);
 
             // Build API Instance.
-            this.ApiInstance.SetupJApiInstance();
+            ApiInstance.SetupJApiInstance();
 
             // Build channels, set status output.
-            this.DeviceStatus = PTInstanceStatus.INITIALIZED;
-            this.J2534Version = this.ApiInstance.J2534Version;
-            this.DeviceChannels = J2534Channel.BuildDeviceChannels(this);
+            DeviceStatus = PTInstanceStatus.INITIALIZED;
+            J2534Version = ApiInstance.J2534Version;
+            DeviceChannels = J2534Channel.BuildDeviceChannels(this);
 
             // Open and close the device. Read version while open.
-            this.PTOpen(NameFilter);
-            this.ApiMarshall.PassThruReadVersion(this.DeviceId, out string FwVer, out string DllVer, out string JApiVer);
-            this.DeviceFwVersion = FwVer; this.DeviceDLLVersion = DllVer; this.DeviceApiVersion = JApiVer;
-            this.PTClose();
+            PTOpen(NameFilter);
+            ApiMarshall.PassThruReadVersion(DeviceId, out string FwVer, out string DllVer, out string JApiVer);
+            DeviceFwVersion = FwVer; DeviceDLLVersion = DllVer; DeviceApiVersion = JApiVer;
+            PTClose();
         }
         /// <summary>
         /// Builds a new SAFE Device instance using a predefined DLL path
@@ -60,39 +61,39 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         private J2534Device(JDeviceNumber DeviceNumber, PassThruPaths InputPath, string NameFilter = "")
         {
             // Store DLL Value and build marshall.
-            this.JDll = new J2534Dll(InputPath);
+            JDll = new J2534Dll(InputPath);
             this.DeviceNumber = DeviceNumber;
 
             // Build API and marshall.
-            this.ApiInstance = new J2534ApiInstance(InputPath.ToDescriptionString());
-            this.ApiMarshall = new J2534ApiMarshaller(this.ApiInstance);
+            ApiInstance = new J2534ApiInstance(InputPath.ToDescriptionString());
+            ApiMarshall = new J2534ApiMarshaller(ApiInstance);
 
             // Build API Instance.
-            this.ApiInstance.SetupJApiInstance();
+            ApiInstance.SetupJApiInstance();
 
             // Build channels, set status output.
-            this.DeviceStatus = PTInstanceStatus.INITIALIZED;
-            this.J2534Version = this.ApiInstance.J2534Version;
-            this.DeviceChannels = J2534Channel.BuildDeviceChannels(this);
+            DeviceStatus = PTInstanceStatus.INITIALIZED;
+            J2534Version = ApiInstance.J2534Version;
+            DeviceChannels = J2534Channel.BuildDeviceChannels(this);
 
             // Open and close the device. Read version while open.
-            this.PTOpen(NameFilter);
-            this.ApiMarshall.PassThruReadVersion(this.DeviceId, out string FwVer, out string DllVer, out string JApiVer);
-            this.DeviceFwVersion = FwVer; this.DeviceDLLVersion = DllVer; this.DeviceApiVersion = JApiVer;
-            this.PTClose();
+            PTOpen(NameFilter);
+            ApiMarshall.PassThruReadVersion(DeviceId, out string FwVer, out string DllVer, out string JApiVer);
+            DeviceFwVersion = FwVer; DeviceDLLVersion = DllVer; DeviceApiVersion = JApiVer;
+            PTClose();
         }
 
         /// <summary>
         /// Builds a new JDevice without any configuration on it.
         /// </summary>
-        private J2534Device() { this.DeviceStatus = PTInstanceStatus.FREED; }
+        private J2534Device() { DeviceStatus = PTInstanceStatus.FREED; }
         /// <summary>
         /// Deconstructs the device object and members
         /// </summary>
         ~J2534Device()
         {
             // Set this to a new instance with FREED as the status.
-            switch (this.DeviceNumber)
+            switch (DeviceNumber)
             {
                 // Device 1
                 case JDeviceNumber.PTDevice1:
@@ -145,7 +146,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public override string ToString()
         {
             // Build return string and store it.
-            return $"J2534 Device: {this.DeviceName} ({this.J2534Version.ToDescriptionString()})";
+            return $"J2534 Device: {DeviceName} ({J2534Version.ToDescriptionString()})";
         }
         /// <summary>
         /// builds a detailed output information string about the J2534 device in question
@@ -154,21 +155,21 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public string ToDetailedString()
         {
             // Build string information here.
-            string OutputDetailsString = 
-                $"Device: {this.DeviceName} ({this.J2534Version.ToDescriptionString()})" +
+            string OutputDetailsString =
+                $"Device: {DeviceName} ({J2534Version.ToDescriptionString()})" +
                 $"\n--> Instance Infromation: " +
-                $"\n    \\__ Device Id:      {this.DeviceId}" +
-                $"\n    \\__ Device Name:    {this.DeviceName}" +
-                $"\n    \\__ Device Version: {this.J2534Version.ToDescriptionString()}" +
-                $"\n    \\__ Device Status:  {(this.IsOpen ? "OPEN - " : "NOT OPEN - ")} {(this.IsConnected ? " CONNECTED" : " NOT CONNECTED")}" +
+                $"\n    \\__ Device Id:      {DeviceId}" +
+                $"\n    \\__ Device Name:    {DeviceName}" +
+                $"\n    \\__ Device Version: {J2534Version.ToDescriptionString()}" +
+                $"\n    \\__ Device Status:  {(IsOpen ? "OPEN - " : "NOT OPEN - ")} {(IsConnected ? " CONNECTED" : " NOT CONNECTED")}" +
                 $"\n--> Device Setup Information:" +
-                $"\n    \\__ DLL Version:    {this.DeviceDLLVersion}" +
-                $"\n    \\__ FW Version:     {this.DeviceFwVersion}" +
-                $"\n    \\__ API Version:    {this.DeviceApiVersion}" +
+                $"\n    \\__ DLL Version:    {DeviceDLLVersion}" +
+                $"\n    \\__ FW Version:     {DeviceFwVersion}" +
+                $"\n    \\__ API Version:    {DeviceApiVersion}" +
                 $"\n--> Device Channel Information:" +
-                $"\n    \\__ Channel Count:  {this.DeviceChannels.Length} Channels" +
-                $"\n    \\__ Filter Count:   {this.DeviceChannels.Length * new PassThruConstants(this.J2534Version).MaxFilters} Filters Max" +
-                $"\n    \\__ Periodic Count: {this.DeviceChannels.Length * new PassThruConstants(this.J2534Version).MaxPeriodicMsgs} Periodic Msgs Max";
+                $"\n    \\__ Channel Count:  {DeviceChannels.Length} Channels" +
+                $"\n    \\__ Filter Count:   {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxFilters} Filters Max" +
+                $"\n    \\__ Periodic Count: {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxPeriodicMsgs} Periodic Msgs Max";
 
             // Return the output stirng here.
             return OutputDetailsString;
@@ -182,7 +183,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         /// </summary>
         /// <param name="Dll">DLL To build from</param>
         internal static J2534Device BuildJ2534Device(J2534Dll Dll, string DeviceNameFilter = "")
-        { 
+        {
             // Return Device 1 instance.
             if (_jDeviceInstance1?.DeviceStatus != PTInstanceStatus.INITIALIZED)
                 return _jDeviceInstance1 ?? (_jDeviceInstance1 = new J2534Device(JDeviceNumber.PTDevice1, Dll, DeviceNameFilter));
@@ -281,7 +282,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         }
 
         // --------------------------------- J2534 DEVICE OBJECT METHODS ----------------------------
-        
+
         /// <summary>
         /// Opens this instance of a passthru device.
         /// </summary>
@@ -292,14 +293,14 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             if (DeviceName == "")
             {
                 // Pull all device names out and find next open one.
-                var FreeDevice = this.JDll.FindConnectedDeviceNames().FirstOrDefault(Name => !Name.ToUpper().Contains("IN USE"));
+                var FreeDevice = JDll.FindConnectedDeviceNames().FirstOrDefault(Name => !Name.ToUpper().Contains("IN USE"));
                 DeviceName = FreeDevice ?? throw new AccessViolationException("No free J2534 devices could be located!");
             }
 
             // Stet name and open the device here.
             this.DeviceName = DeviceName;
-            this.ApiMarshall.PassThruOpen(this.DeviceName, out this.DeviceId);
-            this.IsOpen = true;
+            ApiMarshall.PassThruOpen(this.DeviceName, out DeviceId);
+            IsOpen = true;
         }
         /// <summary>
         /// Closes the currently open device object.
@@ -307,8 +308,8 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public void PTClose()
         {
             // Close device using the marshall.
-            this.ApiMarshall.PassThruClose(this.DeviceId);
-            this.IsOpen = false;
+            ApiMarshall.PassThruClose(DeviceId);
+            IsOpen = false;
         }
 
         /// <summary>
@@ -321,8 +322,8 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public void PTConnect(int ChannelIndex, ProtocolId Protocol, uint ChannelFlags, uint ChannelBaud)
         {
             // Issue the connect command and store our channel
-            this.ApiMarshall.PassThruConnect(this.DeviceId, Protocol, ChannelFlags, ChannelBaud, out uint ChannelId);
-            this.DeviceChannels[ChannelIndex].ConnectChannel(ChannelId, ConnectProtocol, ChannelFlags, ChannelBaud);
+            ApiMarshall.PassThruConnect(DeviceId, Protocol, ChannelFlags, ChannelBaud, out uint ChannelId);
+            DeviceChannels[ChannelIndex].ConnectChannel(ChannelId, ConnectProtocol, ChannelFlags, ChannelBaud);
         }
         /// <summary>
         /// Disconnects the channel values.
@@ -331,8 +332,8 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public void PTDisconnect(int ChannelIndex)
         {
             // Disconnect from marshall and remove from channel set.
-            this.ApiMarshall.PassThruDisconnect(this.DeviceChannels[ChannelIndex].ChannelId);
-            this.DeviceChannels[ChannelIndex].DisconnectChannel();
+            ApiMarshall.PassThruDisconnect(DeviceChannels[ChannelIndex].ChannelId);
+            DeviceChannels[ChannelIndex].DisconnectChannel();
         }
     }
 }

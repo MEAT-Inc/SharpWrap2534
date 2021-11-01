@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JBoxInvoker.PassThruLogic.SupportingLogic
+namespace JBoxInvoker.SupportingLogic
 {
     // Enum types for standard DLL values.
     public enum PassThruPaths

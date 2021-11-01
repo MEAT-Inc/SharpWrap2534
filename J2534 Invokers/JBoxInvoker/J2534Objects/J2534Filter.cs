@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
+using JBoxInvoker.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruLogic.J2534Objects
+namespace JBoxInvoker.J2534Objects
 {
     /// <summary>
     /// J2534 filter object for PassThru channels.
@@ -26,8 +26,8 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         /// <summary>
         /// Empty CTOR For filter type output.
         /// </summary>
-        public J2534Filter() { this.FilterStatus = PTInstanceStatus.NULL; }
-            
+        public J2534Filter() { FilterStatus = PTInstanceStatus.NULL; }
+
         /// <summary>
         /// Builds a new filter using a mask, pattern, and the Id of it.
         /// </summary>
@@ -112,7 +112,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         {
             // Build string to convert with.
             string OutputString = $"Type: {FilterType} -- Flags: 0x{FilterFlags.ToString("X8").ToUpper()}";
-            OutputString += $"-- MessageData: {(FilterMask ?? "NO_MASK")},{(FilterPattern ?? "NO_PATTERN")},{(FilterFlowCtl ?? "NO_FLOW")}";
+            OutputString += $"-- MessageData: {FilterMask ?? "NO_MASK"},{FilterPattern ?? "NO_PATTERN"},{FilterFlowCtl ?? "NO_FLOW"}";
 
             // Return string built.
             return OutputString;
@@ -124,7 +124,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public string ToMessageDataString()
         {
             // Build and return string.
-            return $"MessageData: {(FilterMask ?? "NO_MASK")},{(FilterPattern ?? "NO_PATTERN")},{(FilterFlowCtl ?? "NO_FLOW")}";
+            return $"MessageData: {FilterMask ?? "NO_MASK"},{FilterPattern ?? "NO_PATTERN"},{FilterFlowCtl ?? "NO_FLOW"}";
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         public int CompareTo(object FilterObj)
         {
             // Make sure the type is correctly setup
-            if (FilterObj.GetType() != typeof(J2534Filter)) 
+            if (FilterObj.GetType() != typeof(J2534Filter))
                 throw new InvalidCastException($"Can not convert a type of {FilterObj.GetType().Name} to a J2534 Filter!");
 
             // Compare here.

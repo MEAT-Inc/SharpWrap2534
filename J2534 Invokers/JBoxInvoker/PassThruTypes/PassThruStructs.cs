@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruLogic.PassThruTypes
+namespace JBoxInvoker.PassThruTypes
 {
     /// <summary>
     /// Set of structure objects without signed value sets.

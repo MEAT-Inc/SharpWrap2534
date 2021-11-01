@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruImport;
 using SharpWrap2534.SupportingLogic;
 
-namespace JBoxInvokerTests
+namespace SharpWrap2534Tests
 {
     [TestClass]
     [TestCategory("J2534 Logic")]

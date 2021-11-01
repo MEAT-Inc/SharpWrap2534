@@ -52,8 +52,36 @@ namespace SharpWrap2534.PassThruImport
             // Map methods here.
             try
             {
+                // ---------------------------------- DELEGATES FOR IMPORTING DEVICES ----------------------------------------------
+
+                // USED FOR INIT NEXT DEVICE SETUP!
+                IntPtr pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruGetNextCarDAQ");
+                if (pAddressOfFunctionToCall != IntPtr.Zero)
+                    DelegateSet.PTInitNextPassThruDevice = (PassThruDelegates.DelegateInitGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegateInitGetNextCarDAQ));
+
+                // USED FOR INIT NEXT DEVICE SETUP!
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruGetNextCarDAQ");
+                if (pAddressOfFunctionToCall != IntPtr.Zero)
+                    DelegateSet.PTGetNextPassThruDevice = (PassThruDelegates.DelegateGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegateGetNextCarDAQ));
+
+                // USED FOR SCAN NEXT DEVICES (V0500 ONLY!)
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruScanForDevices");
+                if (pAddressOfFunctionToCall != IntPtr.Zero)
+                    DelegateSet.PTScanForDevices = (PassThruDelegates.DelegatePassThruScanForDevices)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruScanForDevices));
+
+                // USED FOR GET NEXT DEVICES (V0500 ONLY!)
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruGetNextDevice");
+                if (pAddressOfFunctionToCall != IntPtr.Zero)
+                    DelegateSet.PTGetNextDevice = (PassThruDelegates.DelegatePassThruGetNextDevice)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruGetNextDevice));
+
+                // -----------------------------------------------------------------------------------------------------------------
+
                 // PASSTHRU OPEN
-                IntPtr pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruOpen");
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruOpen");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
                     DelegateSet.PTOpen = (PassThruDelegates.DelegatePassThruOpen)Marshal.GetDelegateForFunctionPointer(
                         pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruOpen));
@@ -142,21 +170,9 @@ namespace SharpWrap2534.PassThruImport
                     DelegateSet.PTIoctl = (PassThruDelegates.DelegatePassThruIoctl)Marshal.GetDelegateForFunctionPointer(
                         pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruIoctl));
 
-                // ---------------------------------- DELEGATES FOR IMPORTING DEVICES ----------------------------------------------
+                // ------------------------------------------ METHODS FOR THE V0500 DLLS ONLY! ------------------------------------------
 
-                // USED FOR INIT NEXT DEVICE SETUP!
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruGetNextCarDAQ");
-                if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.InitNextPassThruDevice = (PassThruDelegates.DelegateInitGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegateInitGetNextCarDAQ));
 
-                // USED FOR INIT NEXT DEVICE SETUP!
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruGetNextCarDAQ");
-                if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.GetNextPassThruDevice = (PassThruDelegates.DelegateGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegateGetNextCarDAQ));
-
-                // -----------------------------------------------------------------------------------------------------------------
 
                 // Store ex value to nothing and return.
                 // Win32Invokers.FreeLibrary(this.ModulePointer);

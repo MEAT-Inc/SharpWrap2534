@@ -49,11 +49,6 @@ namespace SharpWrap2534.PassThruImport
                 GetDLLsForKeyList(PassThruSupportKey_0404, DllKeyValues_0404),
                 GetDLLsForKeyList(PassThruSupportKey_0500, DllKeyValues_0500),
             }.SelectMany(DllSet => DllSet).ToArray();
-
-            // Filter dupes out of this set. Remove any values without names.
-            LocatedJ2534DLLs = LocatedJ2534DLLs?.GroupBy(DllObj => DllObj?.FunctionLibrary)
-                .Select(Dll => Dll.First())
-                .ToArray();
         }
         /// <summary>
         /// Builds an array of new J2534 DLLs

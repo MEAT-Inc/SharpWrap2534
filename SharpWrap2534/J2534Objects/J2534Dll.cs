@@ -34,7 +34,7 @@ namespace SharpWrap2534.J2534Objects
         internal J2534Dll(PassThruPaths PathOfDLL)
         {
             // Build new importing object and apply values to it.
-            if (PassThruImportDLLs.FindDllFromPath(PathOfDLL, out var LocatedDll))
+            if (!PassThruImportDLLs.FindDllFromPath(PathOfDLL, out var LocatedDll))
                 throw new InvalidOperationException($"Failed to locate any DLLs with the path provided! ({PathOfDLL.ToDescriptionString()})");
 
             // Store values onto here.
@@ -81,6 +81,9 @@ namespace SharpWrap2534.J2534Objects
             var ApiInstance = new J2534ApiInstance(FunctionLibrary);
             var NextName = ""; uint NextVersion = 0; var NextAddress = "";
 
+            // Temp no error output for failed setup
+            PassThruException JExThrown = new PassThruException(J2534Err.STATUS_NOERROR);
+
             try
             {
                 // Setup temp values for name, address, and version
@@ -106,11 +109,13 @@ namespace SharpWrap2534.J2534Objects
                     });
                 }
             }
-            catch { }
+            // TODO: DO SOMETHING WITH THIS EXCEPTION INFO!
+            catch (PassThruException JEx) { JExThrown = JEx; }
+
+            // If no devices found, set our DLL to null. This will help compare later on
+            if (PossibleDevices.Count == 0) { JDllStatus = PTInstanceStatus.NULL; }
 
             // Return device list and free device instance.
-            ApiInstance = null;
-            if (PossibleDevices.Count == 0) JDllStatus = PTInstanceStatus.NULL;
             return PossibleDevices.Where(DeviceObj => !IsNullOrWhiteSpace(DeviceObj.DeviceName))
                 .Select(DeviceObj => DeviceObj)
                 .ToList();

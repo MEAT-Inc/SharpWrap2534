@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
-namespace JBoxInvoker.SupportingLogic
+namespace SharpWrap2534.SupportingLogic
 {
     // Enum types for standard DLL values.
     public enum PassThruPaths

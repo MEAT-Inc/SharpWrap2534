@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PassThru Logic", "PassThru Logic", "{E8D72138-4FA8-453E-A1BF-081B11B21571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JBoxInvoker", "J2534 Invokers\JBoxInvoker\JBoxInvoker.csproj", "{E4508BD6-9045-4840-A659-BE40CC205C78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrap2534", "J2534 Invokers\JBoxInvoker\SharpWrap2534.csproj", "{E4508BD6-9045-4840-A659-BE40CC205C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JBoxInvokerTests", "Unit Testing\JBoxInvoker - Tests\JBoxInvokerTests.csproj", "{E3479A59-E1E6-4962-A980-46A0B08D3A86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrap2534Tests", "Unit Testing\JBoxInvoker - Tests\SharpWrap2534Tests.csproj", "{E3479A59-E1E6-4962-A980-46A0B08D3A86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

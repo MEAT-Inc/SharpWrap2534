@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using JBoxInvoker;
-using JBoxInvoker.PassThruLogic;
-using JBoxInvoker.PassThruLogic.J2534Api;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SharpWrap2534.J2534Api;
+using SharpWrap2534.SupportingLogic;
 
 namespace JBoxInvokerTests
 {

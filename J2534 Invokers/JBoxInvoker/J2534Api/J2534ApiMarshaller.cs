@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using JBoxInvoker.PassThruTypes;
-using JBoxInvoker.SupportingLogic;
+using SharpWrap2534.PassThruTypes;
+using SharpWrap2534.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.J2534Api
+namespace SharpWrap2534.J2534Api
 {
     /// <summary>
     /// Used to marshall out API methods from an instance of the DLL Api

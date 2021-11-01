@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using JBoxInvoker.J2534Objects;
-using JBoxInvoker.PassThruTypes;
-using JBoxInvoker.SupportingLogic;
 using Microsoft.Win32;
+using SharpWrap2534.J2534Objects;
+using SharpWrap2534.PassThruTypes;
+using SharpWrap2534.SupportingLogic;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruImport
+namespace SharpWrap2534.PassThruImport
 {
     /// <summary>
     /// This class contains the logic needed to build and use new PassThru DLLs from the J2534 DLL object type.

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using JBoxInvoker.J2534Objects;
-using JBoxInvoker.PassThruImport;
-using JBoxInvoker.SupportingLogic;
+using SharpWrap2534.J2534Objects;
+using SharpWrap2534.PassThruImport;
+using SharpWrap2534.SupportingLogic;
 
-namespace JBoxInvoker
+namespace SharpWrap2534
 {
     /// <summary>
     /// Contains the base information about our J2534 instance objects and types.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace JBoxInvoker.SupportingLogic
+namespace SharpWrap2534.SupportingLogic
 {
     /// <summary>
     /// Static methods for running Win32 importing calls.

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using JBoxInvoker.SupportingLogic;
+using SharpWrap2534.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.J2534Objects
+namespace SharpWrap2534.J2534Objects
 {
     /// <summary>
     /// J2534 filter object for PassThru channels.

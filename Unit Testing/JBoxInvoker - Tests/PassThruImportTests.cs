@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using JBoxInvoker;
-using JBoxInvoker.PassThruLogic.PassThruImport;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit;
 using NUnit.Framework;
+using SharpWrap2534.PassThruImport;
+using SharpWrap2534.SupportingLogic;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace JBoxInvokerTests

@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruTypes
+namespace SharpWrap2534.PassThruTypes
 {
     // This is a collection of SAE J2534 Enums needed to configure values for API Commands.
 

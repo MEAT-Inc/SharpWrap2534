@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using JBoxInvoker.SupportingLogic;
+using SharpWrap2534.SupportingLogic;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruImport
+namespace SharpWrap2534.PassThruImport
 {
     /// <summary>
     /// Impors a provided DLL file and maps functions out for the PassThru calls for it. 

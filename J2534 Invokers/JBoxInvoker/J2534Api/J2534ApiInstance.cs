@@ -2,12 +2,12 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using JBoxInvoker.PassThruImport;
-using JBoxInvoker.PassThruTypes;
-using JBoxInvoker.SupportingLogic;
+using SharpWrap2534.PassThruImport;
+using SharpWrap2534.PassThruTypes;
+using SharpWrap2534.SupportingLogic;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.J2534Api
+[assembly: InternalsVisibleTo("JBoxInvokerTests.PassThruApiTests")]
+namespace SharpWrap2534.J2534Api
 {
     /// <summary>
     /// Instance object for the API built in the PassThru logic class.

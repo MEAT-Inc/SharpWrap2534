@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using JBoxInvoker.SupportingLogic;
+﻿using System.Runtime.CompilerServices;
+using SharpWrap2534.SupportingLogic;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruTypes
+namespace SharpWrap2534.PassThruTypes
 {
     /// <summary>
     /// Contains constants for PassThru types here.

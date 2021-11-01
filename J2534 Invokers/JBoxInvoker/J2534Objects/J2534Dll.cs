@@ -1,19 +1,16 @@
-﻿using System;
+﻿// For comparing name values
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using JBoxInvoker.J2534Api;
-using JBoxInvoker.PassThruImport;
-using JBoxInvoker.PassThruTypes;
-using JBoxInvoker.SupportingLogic;
-
-// For comparing name values
+using SharpWrap2534.J2534Api;
+using SharpWrap2534.PassThruImport;
+using SharpWrap2534.PassThruTypes;
+using SharpWrap2534.SupportingLogic;
 using static System.String;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.J2534Objects
+namespace SharpWrap2534.J2534Objects
 {
     public class J2534Dll : IComparable
     {

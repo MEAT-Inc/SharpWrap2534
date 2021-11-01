@@ -2,10 +2,10 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using JBoxInvoker.PassThruTypes;
+using SharpWrap2534.PassThruTypes;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruImport
+namespace SharpWrap2534.PassThruImport
 {
     /// <summary>
     /// Delegates used for controlling API Logic.

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace JBoxInvoker.SupportingLogic
+namespace SharpWrap2534.SupportingLogic
 {
     /// <summary>
     /// Extension class for pulling description attributes from the enums

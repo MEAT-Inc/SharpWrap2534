@@ -4,11 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using JBoxInvoker;
-using JBoxInvoker.PassThruLogic.J2534Objects;
-using JBoxInvoker.PassThruLogic.PassThruImport;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SharpWrap2534.J2534Objects;
+using SharpWrap2534.PassThruImport;
+using SharpWrap2534.SupportingLogic;
 
 namespace JBoxInvokerTests
 {

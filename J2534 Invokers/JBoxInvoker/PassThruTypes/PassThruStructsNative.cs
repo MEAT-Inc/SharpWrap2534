@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.PassThruTypes
+namespace SharpWrap2534.PassThruTypes
 {
     /// <summary>
     /// Native structures for Passthru objects.

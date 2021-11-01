@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using JBoxInvoker;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit;
 using NUnit.Framework;
-using JBoxInvoker;
 
 namespace JBoxInvokerTests
 {

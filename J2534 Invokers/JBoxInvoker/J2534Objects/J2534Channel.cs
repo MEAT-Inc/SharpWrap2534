@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using JBoxInvoker.PassThruTypes;
-using JBoxInvoker.SupportingLogic;
+using SharpWrap2534.PassThruTypes;
+using SharpWrap2534.SupportingLogic;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests")]
-namespace JBoxInvoker.J2534Objects
+namespace SharpWrap2534.J2534Objects
 {
     /// <summary>
     /// J2534 Channel object. Used to control device channels.

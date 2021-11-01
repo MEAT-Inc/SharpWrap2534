@@ -1,38 +1,37 @@
 ﻿using System;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using JBoxInvoker.PassThruLogic.PassThruImport;
-using JBoxInvoker.PassThruLogic.PassThruTypes;
-using JBoxInvoker.PassThruLogic.SupportingLogic;
+using SharpWrap2534.PassThruTypes;
+using SharpWrap2534.SupportingLogic;
 
-namespace JBoxInvoker.PassThruLogic.J2534Api
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
+namespace SharpWrap2534.J2534Api
 {
     /// <summary>
     /// Used to marshall out API methods from an instance of the DLL Api
     /// </summary>
-    public class J2534ApiMarshaller
+    internal class J2534ApiMarshaller
     {
         // Class values for the marshall configuration
         internal J2534ApiInstance ApiInstance { get; private set; }
         public PTInstanceStatus MarshallStatus { get; private set; }
 
         // Reflected API Values.
-        public JVersion ApiVersion => ApiInstance.ApiVersion;           // Version of the API
+        public JVersion J2534Version => ApiInstance.J2534Version;        // Version of the API
         public PTInstanceStatus ApiStatus => ApiInstance.ApiStatus;     // Status of the API
-        public JDeviceNumber DeviceNumber => ApiInstance.DeviceNumber;  // Device Number from the API
 
         // -------------------------------- CONSTRUCTOR FOR A NEW J2534 API MARSHALL -------------------------------
 
         /// <summary>
         /// Builds a new J2354 API Marshalling object.
         /// </summary>
-        /// <param name="Api">Api to marshall out.</param>
-        public J2534ApiMarshaller(J2534ApiInstance Api)
+        /// <param name="ApiInstance">Api to marshall out.</param>
+        public J2534ApiMarshaller(J2534ApiInstance ApiInstance)
         {
             // Store API Values.
-            this.ApiInstance = Api;
-            this.MarshallStatus = PTInstanceStatus.INITIALIZED;
+            this.ApiInstance = ApiInstance;
+            MarshallStatus = PTInstanceStatus.INITIALIZED;
         }
 
         /// <summary>
@@ -41,8 +40,8 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         ~J2534ApiMarshaller()
         {
             // Breakdown values.
-            this.ApiInstance = null;
-            this.MarshallStatus = PTInstanceStatus.FREED;
+            ApiInstance = null;
+            MarshallStatus = PTInstanceStatus.FREED;
         }
 
         // -------------------------------- PASSTHRU MESSAGE SUPPORTING METHODS ------------------------------------
@@ -93,7 +92,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// Runs a new PTOpen command for the provided Device ID
         /// </summary>
         /// <param name="DeviceId">Device ID returned for this instance.</param>
-        public void PassThruOpen(out uint DeviceId) { this.ApiInstance.PassThruOpen(out DeviceId); }
+        public void PassThruOpen(out uint DeviceId) { ApiInstance.PassThruOpen(out DeviceId); }
         /// <summary>
         /// Runs a new PTOpen command for the provided Device ID
         /// </summary>
@@ -102,14 +101,14 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         public void PassThruOpen(string DeviceName, out uint DeviceId)
         {
             IntPtr NameAsPtr = Marshal.StringToHGlobalAnsi(DeviceName);
-            try { this.ApiInstance.PassThruOpen(NameAsPtr, out DeviceId); }
+            try { ApiInstance.PassThruOpen(NameAsPtr, out DeviceId); }
             finally { Marshal.FreeHGlobal(NameAsPtr); }
         }
         /// <summary>
         /// Runs a PTClose for the provided Device ID
         /// </summary>
         /// <param name="DeviceId">ID of device to close down</param>
-        public void PassThruClose(uint DeviceId) { this.ApiInstance.PassThruClose(DeviceId); }
+        public void PassThruClose(uint DeviceId) { ApiInstance.PassThruClose(DeviceId); }
         /// <summary>
         /// Issues a PTConnect method to the device specified.
         /// </summary>
@@ -120,7 +119,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <param name="ChannelId">ID Of the oppened channel>/param>
         public void PassThruConnect(uint DeviceId, ProtocolId Protocol, uint ConnectFlags, BaudRate ConnectBaud, out uint ChannelId)
         {
-            this.ApiInstance.PassThruConnect(DeviceId, Protocol, ConnectFlags, ConnectBaud, out ChannelId);
+            ApiInstance.PassThruConnect(DeviceId, Protocol, ConnectFlags, ConnectBaud, out ChannelId);
         }
         /// <summary>
         /// Issues a PTConnect method to the device specified.
@@ -132,13 +131,13 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
         /// <param name="ChannelId">ID Of the oppened channel>/param>
         public void PassThruConnect(uint DeviceId, ProtocolId Protocol, uint ConnectFlags, uint ConnectBaud, out uint ChannelId)
         {
-            this.ApiInstance.PassThruConnect(DeviceId, Protocol, ConnectFlags, ConnectBaud, out ChannelId);
+            ApiInstance.PassThruConnect(DeviceId, Protocol, ConnectFlags, ConnectBaud, out ChannelId);
         }
         /// <summary>
         /// Runs a PassThru disconnect method on the device ID given
         /// </summary>
         /// <param name="ChannelId">ID Of the channel to drop out.</param>
-        public void PassThruDisconnect(uint ChannelId) { this.ApiInstance.PassThruDisconnect(ChannelId); }
+        public void PassThruDisconnect(uint ChannelId) { ApiInstance.PassThruDisconnect(ChannelId); }
         /// <summary>
         /// Reads messages from the given ChannelID
         /// </summary>
@@ -156,7 +155,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             try
             {
                 // Pull messages from device now.
-                this.ApiInstance.PassThruReadMsgs(ChannelId, MessagesNative, out MsgCount, ReadTimeout);
+                ApiInstance.PassThruReadMsgs(ChannelId, MessagesNative, out MsgCount, ReadTimeout);
                 if (MsgCount == 0) { return; }
 
                 // Loop the messages and build new values.
@@ -190,7 +189,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             // Build native and copy to device.
             PassThruStructsNative.PASSTHRU_MSG[] NativeMessage = new PassThruStructsNative.PASSTHRU_MSG[1];
             NativeMessage[0] = new PassThruStructsNative.PASSTHRU_MSG(-1);
-            this.ApiInstance.PassThruReadMsgs(ChannelId, NativeMessage, out MsgCount, ReadTimeout);
+            ApiInstance.PassThruReadMsgs(ChannelId, NativeMessage, out MsgCount, ReadTimeout);
             CopyPassThruMsgFromNative(ref Message, NativeMessage[0]);
         }
         /// <summary>
@@ -214,7 +213,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             }
 
             // Write values.
-            this.ApiInstance.PassThruWriteMsgs(ChannelId, MessagesNative, ref MsgCount, SendTimeout);
+            ApiInstance.PassThruWriteMsgs(ChannelId, MessagesNative, ref MsgCount, SendTimeout);
         }
         /// <summary>
         /// Sends a message to the given channel ID
@@ -234,7 +233,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             CopyPassThruMsgToNative(ref MessagesNative[0], Message);
 
             // Write to device.
-            this.ApiInstance.PassThruWriteMsgs(ChannelId, MessagesNative, ref MsgCount, SendTimeout);
+            ApiInstance.PassThruWriteMsgs(ChannelId, MessagesNative, ref MsgCount, SendTimeout);
         }
         /// <summary>
         /// Starts a periodic message filter on the given channel with the provided mesasage.
@@ -250,14 +249,14 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             CopyPassThruMsgToNative(ref NativeMessage, Message);
 
             // Send to device.
-            this.ApiInstance.PassThruStartPeriodicMsg(ChannelId, NativeMessage, out MessageId, MessageInterval);
+            ApiInstance.PassThruStartPeriodicMsg(ChannelId, NativeMessage, out MessageId, MessageInterval);
         }
         /// <summary>
         /// Stops a periodic message.
         /// </summary>
         /// <param name="ChannelId">Channel to stop on</param>
         /// <param name="MessageId">Message Id to stop</param>
-        public void PassThruStopPeriodicMsg(uint ChannelId, uint MessageId) { this.ApiInstance.PassThruStopPeriodicMsg(ChannelId, MessageId); }
+        public void PassThruStopPeriodicMsg(uint ChannelId, uint MessageId) { ApiInstance.PassThruStopPeriodicMsg(ChannelId, MessageId); }
         /// <summary>
         /// Stars a non flow control filter.
         /// </summary>
@@ -282,26 +281,26 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
                 // Send out a flow ctl filter command here.
                 PassThruStructsNative.PASSTHRU_MSG flowControlMsgNative = new PassThruStructsNative.PASSTHRU_MSG(-1);
                 CopyPassThruMsgToNative(ref flowControlMsgNative, FlowCtl);
-                this.ApiInstance.PassThruStartMsgFilter(ChannelId, FilterType, maskMsgNative, patternMsgNative, flowControlMsgNative, out FilterId);
+                ApiInstance.PassThruStartMsgFilter(ChannelId, FilterType, maskMsgNative, patternMsgNative, flowControlMsgNative, out FilterId);
                 return;
             }
 
             // Issue non flow ctl filter.
-            this.ApiInstance.PassThruStartMsgFilter(ChannelId, FilterType, maskMsgNative, patternMsgNative, null, out FilterId);
+            ApiInstance.PassThruStartMsgFilter(ChannelId, FilterType, maskMsgNative, patternMsgNative, null, out FilterId);
         }
         /// <summary>
         /// Runs a PTStopMSg Filter command and returns.
         /// </summary>
         /// <param name="ChannelId">Channel To stop filter on</param>
         /// <param name="FilterId">Filter ID to stop</param>
-        public void PassThruStopMsgFilter(uint ChannelId, uint FilterId) { this.ApiInstance.PassThruStopMsgFilter(ChannelId, FilterId); }
+        public void PassThruStopMsgFilter(uint ChannelId, uint FilterId) { ApiInstance.PassThruStopMsgFilter(ChannelId, FilterId); }
         /// <summary>
         /// Sets programming voltage on a given pin and device.
         /// </summary>
         /// <param name="DeviceId">Device to apply to</param>
         /// <param name="PinNumber">Pin to set</param>
         /// <param name="Voltage">Voltage to set on pin</param>
-        public void PassThruSetProgrammingVoltage(uint DeviceId, uint PinNumber, uint Voltage) { this.ApiInstance.PassThruSetProgrammingVoltage(DeviceId, PinNumber, Voltage); }
+        public void PassThruSetProgrammingVoltage(uint DeviceId, uint PinNumber, uint Voltage) { ApiInstance.PassThruSetProgrammingVoltage(DeviceId, PinNumber, Voltage); }
         /// <summary>
         /// Runs a PTRead version command and stores the output.
         /// </summary>
@@ -317,7 +316,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Api
             StringBuilder ApiVersionBuilder = new StringBuilder(100);
 
             // Issue the command to the device
-            this.ApiInstance.PassThruReadVersion(DeviceID, FwVersionBuilder, DllVersionBuilder, ApiVersionBuilder);
+            ApiInstance.PassThruReadVersion(DeviceID, FwVersionBuilder, DllVersionBuilder, ApiVersionBuilder);
 
             // Store results.
             FirmwareVersion = FwVersionBuilder.ToString();

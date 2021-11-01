@@ -1,26 +1,28 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace JBoxInvoker.PassThruLogic.PassThruTypes
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
+namespace SharpWrap2534.PassThruTypes
 {
     /// <summary>
     /// Native structures for Passthru objects.
     /// These need to be marshalled out into the API For real use.
     /// </summary>
-    public class PassThruStructsNative
+    internal class PassThruStructsNative
     {
         [StructLayout(LayoutKind.Sequential, Size = 4152, CharSet = CharSet.Ansi), Serializable]
         public struct PASSTHRU_MSG
         {
-            public UInt32 ProtocolID;
-            public UInt32 RxStatus;
-            public UInt32 TxFlags;
-            public UInt32 Timestamp;
-            public UInt32 DataSize;
-            public UInt32 ExtraDataIndex;
+            public uint ProtocolID;
+            public uint RxStatus;
+            public uint TxFlags;
+            public uint Timestamp;
+            public uint DataSize;
+            public uint ExtraDataIndex;
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4128)]
-            public Byte[] Data;
+            public byte[] Data;
 
             public PASSTHRU_MSG(int dummy)
             {
@@ -30,40 +32,40 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
                 Timestamp = 0;
                 DataSize = 0;
                 ExtraDataIndex = 0;
-                Data = new Byte[4128];
+                Data = new byte[4128];
             }
         };
         [StructLayout(LayoutKind.Sequential, Size = 4152, CharSet = CharSet.Ansi), Serializable]
         public struct PASSTHRU_RO_MSG
         {
-            public UInt32 ProtocolID;
-            public UInt32 RxStatus;
-            public UInt32 TxFlags;
-            public UInt32 Timestamp;
-            public UInt32 DataSize;
-            public UInt32 ExtraDataIndex;
+            public uint ProtocolID;
+            public uint RxStatus;
+            public uint TxFlags;
+            public uint Timestamp;
+            public uint DataSize;
+            public uint ExtraDataIndex;
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4128)]
-            public Byte[] Data;
+            public byte[] Data;
         };
         [Serializable]
         [StructLayout(LayoutKind.Sequential)]
         public struct RESOURCE_STRUCT
         {
-            public UInt32 Connector;
-            public UInt32 NumOfResources;
+            public uint Connector;
+            public uint NumOfResources;
             public IntPtr ptrResourceList;
         };
         [Serializable]
         [StructLayout(LayoutKind.Sequential)]
         public struct MPASSTHRU_RO_MSG
         {
-            public UInt32 ProtocolID;
-            public UInt32 RxStatus;
-            public UInt32 TxFlags;
-            public UInt32 Timestamp;
-            public UInt32 DataSize;
-            public UInt32 ExtraDataIndex;
+            public uint ProtocolID;
+            public uint RxStatus;
+            public uint TxFlags;
+            public uint Timestamp;
+            public uint DataSize;
+            public uint ExtraDataIndex;
 
             public IntPtr Data;
 
@@ -83,50 +85,50 @@ namespace JBoxInvoker.PassThruLogic.PassThruTypes
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct SCONFIG
         {
-            public UInt32 Parameter;
-            public UInt32 Value;
+            public uint Parameter;
+            public uint Value;
         };
         [Serializable]
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct SCONFIG_LIST
         {
-            public UInt32 NumOfParams;
+            public uint NumOfParams;
             public IntPtr ConfigPtr;
         };
         [Serializable]
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct SBYTE_ARRAY
         {
-            public UInt32 NumOfBytes;
+            public uint NumOfBytes;
             public IntPtr BytePtr;
         };
         [Serializable]
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct SPARAM_LIST
         {
-            public UInt32 NumOfParameters;
+            public uint NumOfParameters;
             public IntPtr SParamPtr;
         };
         [Serializable]
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct SPARAM
         {
-            public UInt32 Parameter;
-            public UInt32 Value;
-            public UInt32 Supported;
+            public uint Parameter;
+            public uint Value;
+            public uint Supported;
         };
         [Serializable]
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct INT32_WRAPPER
         {
-            public UInt32 Number;
+            public uint Number;
         };
         [Serializable]
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct INT32_ARRAY100_WRAPPER
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 100)]
-            public UInt32[] Data;
+            public uint[] Data;
         };
     }
 }

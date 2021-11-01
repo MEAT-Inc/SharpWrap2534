@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace JBoxInvoker.PassThruLogic.SupportingLogic
+namespace SharpWrap2534.SupportingLogic
 {
     /// <summary>
     /// Static methods for running Win32 importing calls.
     /// </summary>
-    public static class Win32Invokers
+    internal static class Win32Invokers
     {
         // Loads a DLL into the memory.
         [DllImport("kernel32.dll", EntryPoint = "LoadLibrary", SetLastError = true)]
@@ -15,7 +15,7 @@ namespace JBoxInvoker.PassThruLogic.SupportingLogic
         // Gets function address in the memory.
         [DllImport("kernel32.dll", EntryPoint = "GetProcAddress")]
         public static extern IntPtr GetProcAddress(IntPtr hModule, [MarshalAs(UnmanagedType.LPStr)] string lpProcName);
-        
+
         // Unloads the lib object.
         [DllImport("kernel32.dll", EntryPoint = "FreeLibrary")]
         public static extern bool FreeLibrary(IntPtr hModule);

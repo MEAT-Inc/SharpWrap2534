@@ -85,6 +85,28 @@ namespace SharpWrap2534.J2534Api
             // Copy message data using a buffer.
             Buffer.BlockCopy(NativeMessage.Data, 0, ManagedMessage.Data, 0, (int)NativeMessage.DataSize);
         }
+        /// <summary>
+        /// Takes an SDevice struct and copies it into a managed SDevice struct for use later on.
+        /// </summary>
+        /// <param name="NativeSDevice">Device to copy from native</param>
+        /// <returns>Managed SDevice object</returns>
+        internal PassThruStructs.SDevice CopySDeviceFromNative(PassThruStructsNative.SDEVICE NativeSDevice)
+        {
+            // Build the new managed device object.
+            PassThruStructs.SDevice ManagedSDevice = new PassThruStructs.SDevice();
+
+            // Apply properties here.
+            ManagedSDevice.DeviceName = NativeSDevice.DeviceName;
+            ManagedSDevice.DeviceAvailable = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceDllFWStatus = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceConnectMedia = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceConnectSpeed = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceSignalQuality = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceSignalStrength = NativeSDevice.DeviceAvailable;
+
+            // Return it here.
+            return ManagedSDevice;
+        }
 
         // ----------------------------- MARSHALL API CALLS GENERATED FROM THE API --------------------------------
 
@@ -323,5 +345,7 @@ namespace SharpWrap2534.J2534Api
             JDllVersion = DllVersionBuilder.ToString();
             JApiVersion = ApiVersionBuilder.ToString();
         }
+
+        // -------------------------------------------------------------------------------------------------------------------------------------
     }
 }

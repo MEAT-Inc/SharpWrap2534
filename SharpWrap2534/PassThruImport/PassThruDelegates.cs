@@ -14,15 +14,35 @@ namespace SharpWrap2534.PassThruImport
     {
         // ------------------------------------ API DELEGATES FOR DEVUCE SEARCHING --------------------------------
 
-        // DELEGATE INITNEXTPASSTHRU DEVICE
+        // DELEGATE: INITNEXTPASSTHRU DEVICE
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         public delegate int DelegateInitGetNextCarDAQ(IntPtr name, IntPtr pVersion, IntPtr pIPAddress);
         public DelegateInitGetNextCarDAQ InitNextPassThruDevice;
 
-        // DELEGATE GETNEXTPASSTHRU DEVICE
+        // DELEGATE: GETNEXTPASSTHRU DEVICE
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         public delegate int DelegateGetNextCarDAQ([In, Out] ref IntPtr name, out uint pVersion, [In, Out] ref IntPtr pIPAddress);
         public DelegateGetNextCarDAQ GetNextPassThruDevice;
+
+        // DELEGATE: SCAN FOR DEVICES (V0500 ONLY!)
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruScanForDevices(out uint deviceCount);
+        public DelegatePassThruScanForDevices PTScanForDevices;
+
+        // DELEGATE: SCAN FOR DEVICES PTR (V0500 ONLY!)
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruScanForDevicesPtr(IntPtr p);
+        public DelegatePassThruScanForDevicesPtr PTScanForDevicesPtr;
+
+        // DELEGATE: GETS THE NEXT PASSTHRU DEVICE USING IT's DEVICE STRUCT
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruGetNextDevice(out PassThruStructsNative.SDEVICE InputSDevice);
+        public DelegatePassThruGetNextDevice PTGetNextDevice;
+
+        // DELEGATE: GETS NEXT PASSTHRU DEVICE USING POINTER REFS
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruGetNextDevicePtr(IntPtr SDevicePointer);
+        public DelegatePassThruGetNextDevicePtr PTGetNextDevicePtr;
 
         // ------------------------------------- API DELEGATES FOR PASSTHRU FUNCTIONS -------------------------------
 

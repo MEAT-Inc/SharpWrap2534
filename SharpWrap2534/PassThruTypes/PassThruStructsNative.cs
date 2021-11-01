@@ -130,5 +130,17 @@ namespace SharpWrap2534.PassThruTypes
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 100)]
             public uint[] Data;
         };
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi), Serializable]
+        public struct SDEVICE
+        {
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+            public string DeviceName;
+            public UInt32 DeviceAvailable;
+            public UInt32 DeviceDLLFWStatus;
+            public UInt32 DeviceConnectMedia;
+            public UInt32 DeviceConnectSpeed;
+            public UInt32 DeviceSignalQuality;
+            public UInt32 DeviceSignalStrength;
+        };
     }
 }

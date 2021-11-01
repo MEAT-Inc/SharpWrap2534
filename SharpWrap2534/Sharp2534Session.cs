@@ -9,11 +9,11 @@ namespace SharpWrap2534
     /// <summary>
     /// Contains the base information about our J2534 instance objects and types.
     /// </summary>
-    public class J2534Session
+    public class Sharp2534Session
     {
         // DLL and Device Instance for our J2534 Box.       
-        public readonly J2534Dll JDeviceDll;                // The DLL Instance in use.
-        public readonly J2534Device JDeviceInstance;        // The Device instance in use.
+        public J2534Dll JDeviceDll { get; set; }               // The DLL Instance in use.
+        public J2534Device JDeviceInstance { get; set; }       // The Device instance in use.
 
         // ---------------------------------------------------------------------------------------------------------------------
 
@@ -36,12 +36,12 @@ namespace SharpWrap2534
 
         // ---------------------------------------------------------------------------------------------------------------------
 
-        // The Tostring override will return a combination of the following configuraiton setups.
+        // The ToString override will return a combination of the following configuraiton setups.
         public string DeviceDllInfoString => JDeviceDll.ToDetailedString();
         public string DeviceInfoString => JDeviceInstance.ToDetailedString();
 
         /// <summary>
-        /// Tostring override which contains detailed information about this instance object.
+        /// ToString override which contains detailed information about this instance object.
         /// </summary>
         /// <returns>String of the instance session</returns>
         public override string ToString()
@@ -77,17 +77,16 @@ namespace SharpWrap2534
         /// <param name="DllNameFilter">Dll to use</param>
         /// <param name="DeviceNameFilter">Name of the device To use.</param>
         /// <param name="Version">Version of the API</param>
-        public J2534Session(JVersion Version, string DllNameFilter, string DeviceNameFilter = "")
+        public Sharp2534Session(JVersion Version, string DllNameFilter, string DeviceNameFilter = "")
         {
             // Build new J2534 DLL For the version and DLL name provided first.
-            if (!PassThruImportDLLs.FindDllByName(DllNameFilter, Version, out JDeviceDll))
-                throw new NullReferenceException($"No J2534 DLLs with the name filter '{DllNameFilter}' were located matching the version given!");
+            if (PassThruImportDLLs.FindDllByName(DllNameFilter, Version, out J2534Dll BuiltJDll)) this.JDeviceDll = BuiltJDll;
+            else { throw new NullReferenceException($"No J2534 DLLs with the name filter '{DllNameFilter}' were located matching the version given!"); }
 
             // Now build our new device object. Find a possible device based on the filter given.
             var LocatedDevicesForDLL = JDeviceDll.FindConnectedDeviceNames();
-            if (LocatedDevicesForDLL.Count == 0)
-                throw new NullReferenceException("No devices for the DLL specified exist on the system at this time!");
-            if (DeviceNameFilter != "" && LocatedDevicesForDLL.FirstOrDefault(NameValue => NameValue.Contains(DeviceNameFilter)) == null)
+            if (LocatedDevicesForDLL.Count == 0) throw new NullReferenceException("No devices for the DLL specified exist on the system at this time!");
+            if (DeviceNameFilter != "" && LocatedDevicesForDLL.FirstOrDefault(NameValue => NameValue.Contains(DeviceNameFilter)) == null) 
                 throw new NullReferenceException($"No devices were found matching the name filter of '{DeviceNameFilter}' provided!");
 
             // Build device now using the name value desired.
@@ -96,7 +95,7 @@ namespace SharpWrap2534
                 LocatedDevicesForDLL.FirstOrDefault(DeviceName => DeviceName.Contains(DeviceNameFilter));
 
             // Try to build the new session object inside try/catch for when it naturally fails out for some reason.
-            try { JDeviceInstance = J2534Device.BuildJ2534Device(JDeviceDll); }
+            try { JDeviceInstance = J2534Device.BuildJ2534Device(JDeviceDll, NewDeviceName); }
             catch (Exception InitJ2534FailureEx)
             {
                 // Build new compound init Exception and throw it.
@@ -104,7 +103,22 @@ namespace SharpWrap2534
                     "Failed to build new Device Session for the provided device and DLL configuration!",
                     InitJ2534FailureEx
                 );
+
+                // Throw the exception built.
+                throw FailedInitException;
             }
         }
+
+        /// <summary>
+        /// Releases an instance of the J2534 Session objects.
+        /// </summary>
+        ~Sharp2534Session()
+        {
+            // Begin with device, then the DLL.
+            this.JDeviceInstance = null;
+            this.JDeviceDll = null;
+        }
+
+        // ----------------------------------------------------------------------------------------------------------------------
     }
 }

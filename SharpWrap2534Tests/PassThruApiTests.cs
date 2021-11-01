@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpWrap2534.J2534Api;
 using SharpWrap2534.SupportingLogic;
 
-namespace JBoxInvokerTests
+namespace SharpWrap2534Tests
 {
     /// <summary>
     /// Used to test information about the passthru instance object built.

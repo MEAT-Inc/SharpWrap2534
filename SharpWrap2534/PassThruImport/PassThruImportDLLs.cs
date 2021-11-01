@@ -22,7 +22,7 @@ namespace SharpWrap2534.PassThruImport
         public string[] DllKeyValues_0500 { get; private set; }
 
         // List of all located DLL Values
-        public J2534Dll[] LocatedJ2534DLLs { get; private set; }
+        public J2534Dll[] LocatedJ2534DLLs;
 
         // --------------------------------------------------------------------------------
 
@@ -53,7 +53,6 @@ namespace SharpWrap2534.PassThruImport
             // Filter dupes out of this set. Remove any values without names.
             LocatedJ2534DLLs = LocatedJ2534DLLs?.GroupBy(DllObj => DllObj?.FunctionLibrary)
                 .Select(Dll => Dll.First())
-                .Where(Dll => !string.IsNullOrWhiteSpace(Dll?.Name))
                 .ToArray();
         }
         /// <summary>
@@ -114,7 +113,7 @@ namespace SharpWrap2534.PassThruImport
         {
             // Build list of DLLs here.
             var DLLsInstalled = new PassThruImportDLLs().LocatedJ2534DLLs;
-            DllFound = DLLsInstalled.FirstOrDefault(DllObj => DllObj.LongName.Contains(DllName) && DllObj.DllVersion == Version);
+            DllFound = DLLsInstalled.FirstOrDefault(DllObj => DllObj.Name.ToUpper().Contains(DllName.ToUpper()) && DllObj.DllVersion == Version);
 
             // Return output based on DLL Value.
             return DllFound != null;

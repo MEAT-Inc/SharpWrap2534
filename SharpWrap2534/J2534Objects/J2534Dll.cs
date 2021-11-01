@@ -34,7 +34,7 @@ namespace SharpWrap2534.J2534Objects
         internal J2534Dll(PassThruPaths PathOfDLL)
         {
             // Build new importing object and apply values to it.
-            if (!PassThruImportDLLs.FindDllFromPath(PathOfDLL, out var LocatedDll))
+            if (PassThruImportDLLs.FindDllFromPath(PathOfDLL, out var LocatedDll))
                 throw new InvalidOperationException($"Failed to locate any DLLs with the path provided! ({PathOfDLL.ToDescriptionString()})");
 
             // Store values onto here.

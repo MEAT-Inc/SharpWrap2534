@@ -59,7 +59,7 @@ namespace SharpWrap2534
         public string ToDetailedString()
         {
             // Builds combo string of detailed output information about the DLL now.
-            return DeviceDllInfoString + "\n" + DeviceInfoString;
+            return DeviceDllInfoString + "\n\n" + DeviceInfoString;
         }
 
         // ---------------------------------------------------------------------------------------------------------------------

@@ -6,15 +6,15 @@ namespace SharpWrap2534.SupportingLogic
     public enum PassThruPaths
     {
         // CDP3
-        [Description(@"C:\Program Files (x86)\Drew Technologies, Inc\J2534\CarDAQ Plus 3\cardaqplus3_0404_32.dll")]
+        [Description("C:\\Program Files (x86)\\Drew Technologies, Inc\\J2534\\CarDAQ Plus 3\\cardaqplus3_0404_32.dll")]
         CarDAQPlus3_0404 = 0x10,
-        [Description(@"C:\Program Files (x86)\Drew Technologies, Inc\J2534\CarDAQ Plus 3\0500\cardaqplus3_0500_32.dll")]
+        [Description("C:\\Program Files (x86)\\Drew Technologies, Inc\\J2534\\CarDAQ Plus 3\\0500\\cardaqplus3_0500_32.dll")]
         CarDAQPlus3_0500 = 0x11,
 
         // CDP4
-        [Description(@"C:\Program Files (x86)\Drew Technologies, Inc\J2534\CarDAQ Plus 4\cardaqplus4_0404_32.dll")]
+        [Description("C:\\Program Files (x86)\\Drew Technologies, Inc\\J2534\\CarDAQ Plus 4\\cardaqplus4_0404_32.dll")]
         CarDAQPlus4_0404 = 0x21,
-        [Description(@"C:\Program Files (x86)\Drew Technologies, Inc\J2534\CarDAQ Plus 4\0500\cardaqplus4_0500_32.dll")]
+        [Description("C:\\Program Files (x86)\\Drew Technologies, Inc\\J2534\\CarDAQ Plus 4\\0500\\cardaqplus4_0500_32.dll")]
         CarDAQPlus4_0500 = 0x22,
     }
 

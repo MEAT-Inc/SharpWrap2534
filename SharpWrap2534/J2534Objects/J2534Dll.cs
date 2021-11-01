@@ -34,7 +34,7 @@ namespace SharpWrap2534.J2534Objects
         internal J2534Dll(PassThruPaths PathOfDLL)
         {
             // Build new importing object and apply values to it.
-            if (PassThruImportDLLs.FindDllFromPath(PathOfDLL, out var LocatedDll))
+            if (!PassThruImportDLLs.FindDllFromPath(PathOfDLL, out var LocatedDll))
                 throw new InvalidOperationException($"Failed to locate any DLLs with the path provided! ({PathOfDLL.ToDescriptionString()})");
 
             // Store values onto here.
@@ -79,38 +79,67 @@ namespace SharpWrap2534.J2534Objects
 
             // Build temp device and init the value type output of it.
             var ApiInstance = new J2534ApiInstance(FunctionLibrary);
+            var ApiMarshall = new J2534ApiMarshaller(ApiInstance);
             var NextName = ""; uint NextVersion = 0; var NextAddress = "";
 
-            try
+            // Temp no error output for failed setup
+            PassThruException JExThrown = new PassThruException(J2534Err.STATUS_NOERROR);
+
+            switch (this.DllVersion)
             {
-                // Setup temp values for name, address, and version
-                ApiInstance.SetupJApiInstance();
-                ApiInstance.InitNexTPassThruDevice();
-                while (NextName != null)
-                {
-
-                    // Build Temp Device object and init the next PTDevice.
-                    ApiInstance.GetNextPassThruDevice(out NextName, out NextVersion, out NextAddress);
-
-                    // Store new SDevice instance values.
-                    PossibleDevices.Add(new PassThruStructs.SDevice
+                // FOR VERSION 0.404 ONLY!
+                case JVersion.V0404:
+                    try
                     {
-                        // Set name values and other infos.
-                        DeviceName = NextName,
-                        DeviceAvailable = 1,
-                        DeviceConnectMedia = 1,
-                        DeviceConnectSpeed = 1,
-                        DeviceDllFWStatus = 1,
-                        DeviceSignalQuality = 1,
-                        DeviceSignalStrength = 1
-                    });
-                }
+                        // Setup temp values for name, address, and version
+                        ApiInstance.SetupJApiInstance();
+                        ApiInstance.InitNexTPassThruDevice();
+                        while (NextName != null)
+                        {
+                            // Build Temp Device object and init the next PTDevice.
+                            ApiInstance.GetNextPassThruDevice(out NextName, out NextVersion, out NextAddress);
+
+                            // Store new SDevice instance values.
+                            PossibleDevices.Add(new PassThruStructs.SDevice
+                            {
+                                // Set name values and other infos.
+                                DeviceName = NextName,
+                                DeviceAvailable = 1,
+                                DeviceConnectMedia = 1,
+                                DeviceConnectSpeed = 1,
+                                DeviceDllFWStatus = 1,
+                                DeviceSignalQuality = 1,
+                                DeviceSignalStrength = 1
+                            });
+                        }
+                    }
+
+                    // TODO: DO SOMETHING WITH THIS EXCEPTION INFO!
+                    catch (PassThruException JEx) { JExThrown = JEx; }
+                    break;
+
+                // FOR VERSION 0.500 ONLY!
+                case JVersion.V0500:
+                    try
+                    {
+                        // Find device count. Then get the devices.
+                        ApiInstance.PassThruScanForDevices(out uint LocatedDeviceCount);
+                        for (int SDeviceIndex = 0; SDeviceIndex < LocatedDeviceCount; SDeviceIndex++)
+                        {
+                            // Build new SDevice from Marshall call and store it into the list of devices now.
+                            ApiInstance.PassThruGetNextDevice(out PassThruStructsNative.SDEVICE NextSDevice);
+                            PossibleDevices.Add(ApiMarshall.CopySDeviceFromNative(NextSDevice));
+                        }
+                    }
+                    // TODO: DO SOMETHING WITH THIS EXCEPTION INFO!
+                    catch (PassThruException JEx) { JExThrown = JEx; }
+                    break;
             }
-            catch { }
+
+            // If no devices found, set our DLL to null. This will help compare later on
+            if (PossibleDevices.Count == 0) { JDllStatus = PTInstanceStatus.NULL; }
 
             // Return device list and free device instance.
-            ApiInstance = null;
-            if (PossibleDevices.Count == 0) JDllStatus = PTInstanceStatus.NULL;
             return PossibleDevices.Where(DeviceObj => !IsNullOrWhiteSpace(DeviceObj.DeviceName))
                 .Select(DeviceObj => DeviceObj)
                 .ToList();

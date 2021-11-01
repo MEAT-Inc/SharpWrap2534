@@ -156,6 +156,17 @@ namespace SharpWrap2534.PassThruImport
                     DelegateSet.GetNextPassThruDevice = (PassThruDelegates.DelegateGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
                         pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegateGetNextCarDAQ));
 
+                // USED FOR SCAN NEXT DEVICES (V0500 ONLY!)
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruScanForDevices");
+                if (pAddressOfFunctionToCall != IntPtr.Zero)
+                    DelegateSet.PTScanForDevices = (PassThruDelegates.DelegatePassThruScanForDevices)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruScanForDevices));
+
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruScanForDevices");
+                if (pAddressOfFunctionToCall != IntPtr.Zero) 
+                    DelegateSet.PTScanForDevicesPtr = (PassThruDelegates.DelegatePassThruScanForDevicesPtr)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruScanForDevicesPtr));
+
                 // -----------------------------------------------------------------------------------------------------------------
 
                 // Store ex value to nothing and return.

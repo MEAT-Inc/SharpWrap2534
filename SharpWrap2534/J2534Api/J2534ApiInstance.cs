@@ -148,24 +148,6 @@ namespace SharpWrap2534.J2534Api
             throw new PassThruException(PTCommandError, ErrorBuilder);
         }
         /// <summary>
-        /// VERSION 05.00 ONLY!
-        /// Used to scan for new PassThru devices. Returns the number of devices found.
-        /// </summary>
-        /// <returns></returns>
-        public void PassThruScanForDevices(IntPtr DeviceCountPtr)
-        {
-            // Issue the scan for devices call
-            J2534Err PTCommandError = (J2534Err)_delegateSet.PTScanForDevicesPtr(DeviceCountPtr);
-
-            // If the error is not a NOERROR Response then throw it.
-            if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
-            var ErrorBuilder = new StringBuilder(100);
-            PassThruGetLastError(ErrorBuilder);
-
-            // Throw exception here.
-            throw new PassThruException(PTCommandError, ErrorBuilder);
-        }
-        /// <summary>
         /// V0500 CALL ONLY! Used to get the next PTDevice as an SDevice object.
         /// </summary>
         /// <param name="SDevice"></param>
@@ -173,24 +155,6 @@ namespace SharpWrap2534.J2534Api
         {
             // Get the next PassThru Device here.
             J2534Err PTCommandError = (J2534Err)_delegateSet.PTGetNextDevice(out SDevice);
-
-            // If the error is not a NOERROR Response then throw it.
-            if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
-            var ErrorBuilder = new StringBuilder(100);
-            PassThruGetLastError(ErrorBuilder);
-
-            // Throw exception here.
-            throw new PassThruException(PTCommandError, ErrorBuilder);
-        }
-        /// <summary>
-        /// V0500 CALL ONLY!
-        /// Gets the next Device as an SDEVICE from a pointer value.
-        /// </summary>
-        /// <param name="SDevicePointer"></param>
-        public void PassThruGetNextDevice(IntPtr SDevicePointer)
-        {
-            // Get the next passthru device here.
-            J2534Err PTCommandError = (J2534Err)_delegateSet.PTGetNextDevicePtr(SDevicePointer);
 
             // If the error is not a NOERROR Response then throw it.
             if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }

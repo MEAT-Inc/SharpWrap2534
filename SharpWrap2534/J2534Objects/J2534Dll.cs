@@ -79,7 +79,6 @@ namespace SharpWrap2534.J2534Objects
 
             // Build temp device and init the value type output of it.
             var ApiInstance = new J2534ApiInstance(FunctionLibrary);
-            var ApiMarshall = new J2534ApiMarshaller(ApiInstance);
             var NextName = ""; uint NextVersion = 0; var NextAddress = "";
 
             // Temp no error output for failed setup
@@ -123,12 +122,13 @@ namespace SharpWrap2534.J2534Objects
                     try
                     {
                         // Find device count. Then get the devices.
+                        ApiInstance.SetupJApiInstance();
                         ApiInstance.PassThruScanForDevices(out uint LocatedDeviceCount);
                         for (int SDeviceIndex = 0; SDeviceIndex < LocatedDeviceCount; SDeviceIndex++)
                         {
                             // Build new SDevice from Marshall call and store it into the list of devices now.
                             ApiInstance.PassThruGetNextDevice(out PassThruStructsNative.SDEVICE NextSDevice);
-                            PossibleDevices.Add(ApiMarshall.CopySDeviceFromNative(NextSDevice));
+                            PossibleDevices.Add(J2534ApiMarshaller.CopySDeviceFromNative(NextSDevice));
                         }
                     }
                     // TODO: DO SOMETHING WITH THIS EXCEPTION INFO!

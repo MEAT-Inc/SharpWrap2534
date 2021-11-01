@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using JBoxInvoker.PassThruLogic.PassThruTypes;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.PassThruImport
 {
     /// <summary>
     /// Delegates used for controlling API Logic.
     /// </summary>
-    public class PassThruDelegates
+    internal class PassThruDelegates
     {
         // ------------------------------------ API DELEGATES FOR DEVUCE SEARCHING --------------------------------
 

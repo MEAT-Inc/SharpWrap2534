@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.J2534Objects
 {
     /// <summary>

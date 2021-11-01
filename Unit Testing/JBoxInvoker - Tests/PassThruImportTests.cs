@@ -10,7 +10,7 @@ using NUnit;
 using NUnit.Framework;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace JBoxInvoker___Tests
+namespace JBoxInvokerTests
 {
     /// <summary>
     /// Test class to configure DLL importing
@@ -113,13 +113,13 @@ namespace JBoxInvoker___Tests
                     Console.WriteLine($"    --> Setup new DLL Loader OK!");
                     
                     // Add into list of bools.
-                    ResultsList.Add(new (true, null));
+                    ResultsList.Add(new Tuple<bool, Exception>(true, null));
                 }
                 catch (Exception LoadEx)
                 {
                     // Add failure results.
                     Console.WriteLine($"    --> FAILED TO LOAD DLL: {PTPath}!");
-                    ResultsList.Add(new (false, LoadEx));
+                    ResultsList.Add(new Tuple<bool, Exception>(false, LoadEx));
                 }
             }
 

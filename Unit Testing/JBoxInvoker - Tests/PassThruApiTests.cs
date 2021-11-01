@@ -9,7 +9,7 @@ using JBoxInvoker.PassThruLogic.J2534Api;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JBoxInvoker___Tests
+namespace JBoxInvokerTests
 {
     /// <summary>
     /// Used to test information about the passthru instance object built.

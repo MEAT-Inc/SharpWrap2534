@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using JBoxInvoker.PassThruLogic.PassThruTypes;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.J2534Objects
 {
     /// <summary>
     /// J2534 Channel object. Used to control device channels.
     /// THIS IS A SINGLETON CONFIGURED TYPE BASED ON THE DLL VERSION! 
     /// </summary>
-    public class J2534Channel
+    public sealed class J2534Channel
     {
         // -------------------------- SINGLETON CONFIGURATION ----------------------------
 
@@ -65,7 +67,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         /// </summary>
         /// <param name="JDevice">Device to build channels for.</param>
         /// <returns>Array of built J2534 channels.</returns>
-        public static J2534Channel[] BuildDeviceChannels(J2534Device JDevice)
+        internal static J2534Channel[] BuildDeviceChannels(J2534Device JDevice)
         {
             // Append channels into the device here.
             var JChannelsOut = new J2534Channel[new PassThruConstants(JDevice.J2534Version).MaxChannels];

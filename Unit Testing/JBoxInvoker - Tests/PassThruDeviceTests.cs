@@ -10,7 +10,7 @@ using JBoxInvoker.PassThruLogic.PassThruImport;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JBoxInvoker___Tests
+namespace JBoxInvokerTests
 {
     [TestClass]
     [TestCategory("J2534 Logic")]

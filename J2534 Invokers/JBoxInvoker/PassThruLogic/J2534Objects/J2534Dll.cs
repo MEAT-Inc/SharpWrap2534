@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using JBoxInvoker.PassThruLogic.J2534Api;
@@ -11,12 +12,14 @@ using JBoxInvoker.PassThruLogic.SupportingLogic;
 // For comparing name values
 using static System.String;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.J2534Objects
 {
     public class J2534Dll : IComparable
     {
         // DLL Version.
         public JVersion DllVersion { get; private set; }
+        public PTInstanceStatus JDllStatus { get; private set; }
 
         // DLL Class values.
         public string Name { get; private set; }
@@ -31,7 +34,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         /// Builds a new instance of a J2534 DLL
         /// </summary>
         /// <param name="NameOfDLL"></param>
-        public J2534Dll(PassThruPaths PathOfDLL)
+        internal J2534Dll(PassThruPaths PathOfDLL)
         {
             // Build new importing object and apply values to it.
             if (!PassThruImportDLLs.FindDllFromPath(PathOfDLL, out var LocatedDll))
@@ -42,6 +45,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.Vendor = LocatedDll.Vendor;
             this.LongName = LocatedDll.LongName;
             this.DllVersion = LocatedDll.DllVersion;
+            this.JDllStatus = PTInstanceStatus.INITIALIZED;
             this.FunctionLibrary = PathOfDLL.ToDescriptionString();
         }
         /// <summary>
@@ -51,7 +55,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
         /// <param name="VendorValue"></param>
         /// <param name="ShortName"></param>
         /// <param name="FunctionLib"></param>
-        public J2534Dll(string NameOfDLL, string VendorValue, string ShortName, string FunctionLib, List<ProtocolId> ProtocolList)
+        internal J2534Dll(string NameOfDLL, string VendorValue, string ShortName, string FunctionLib, List<ProtocolId> ProtocolList)
         {
             // Store DLL Values.
             this.Name = ShortName;
@@ -61,6 +65,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             this.SupportedProtocols = ProtocolList;
 
             // Set Version.
+            this.JDllStatus = PTInstanceStatus.INITIALIZED;
             this.DllVersion = this.FunctionLibrary.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
         }
 
@@ -108,6 +113,7 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
 
             // Return device list and free device instance.
             ApiInstance = null;
+            if (PossibleDevices.Count == 0) this.JDllStatus = PTInstanceStatus.NULL;
             return PossibleDevices.Where(DeviceObj => !string.IsNullOrWhiteSpace(DeviceObj.DeviceName))
                 .Select(DeviceObj => DeviceObj)
                 .ToList();
@@ -138,12 +144,13 @@ namespace JBoxInvoker.PassThruLogic.J2534Objects
             // Build output string.
             string[] OutputStrings = new string[]
             {
-                $"J2534 DLL: {this.Name}",
-                $"\\__ Version: {this.DllVersion.ToDescriptionString()}",
-                $"\\__ DLL Vendor: {this.Vendor}",
-                $"\\__ DLL Long Name: {this.LongName}",
-                $"\\__ DLL Function Library: {this.FunctionLibrary}",
-                $"\\__ DLL Supported Protocols: {this.SupportedProtocols.Count}"
+                $"J2534 DLL: {this.Name} ({this.DllVersion.ToDescriptionString()})",
+                $"--> DLL Information:",
+                $"    \\__ Version: {this.DllVersion.ToDescriptionString()}",
+                $"    \\__ DLL Vendor: {this.Vendor}",
+                $"    \\__ DLL Long Name: {this.LongName}",
+                $"    \\__ DLL Function Library: {this.FunctionLibrary}",
+                $"    \\__ DLL Supported Protocols: {this.SupportedProtocols.Count}"
             };
 
             // Combine into string and return.

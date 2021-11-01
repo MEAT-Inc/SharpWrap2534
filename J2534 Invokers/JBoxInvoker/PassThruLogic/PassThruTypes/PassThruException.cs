@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.PassThruTypes
 {
     /// <summary>
     /// Exception object from a J2534 Call
     /// </summary>
-    public class PassThruException : Exception
+    internal class PassThruException : Exception
     {
         // Error Code and string value.
         public J2534Err J2534ErrorCode;

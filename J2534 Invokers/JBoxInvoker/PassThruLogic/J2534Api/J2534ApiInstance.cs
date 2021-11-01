@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using JBoxInvoker.PassThruLogic.PassThruImport;
 using JBoxInvoker.PassThruLogic.PassThruTypes;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.J2534Api
 {
     /// <summary>
     /// Instance object for the API built in the PassThru logic class.
     /// </summary>
-    public class J2534ApiInstance
+    internal class J2534ApiInstance
     {
         /// <summary>
         /// Builds a new instance of this J2534 Api

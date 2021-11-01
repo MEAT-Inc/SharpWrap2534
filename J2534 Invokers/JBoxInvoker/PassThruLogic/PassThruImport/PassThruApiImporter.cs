@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using JBoxInvoker.PassThruLogic.SupportingLogic;
 
+[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace JBoxInvoker.PassThruLogic.PassThruImport
 {
     /// <summary>
@@ -9,7 +11,7 @@ namespace JBoxInvoker.PassThruLogic.PassThruImport
     /// This can take any standard V0404 J2534 DLL input and provides basic interfacing for all the 
     /// DLLs native calls.
     /// </summary>
-    public class PassThruApiImporter
+    internal class PassThruApiImporter
     {
         // Class values for the DLL to import.
         public string JDllPath;

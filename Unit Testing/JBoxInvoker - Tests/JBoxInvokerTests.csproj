@@ -9,7 +9,7 @@
     <ProjectGuid>{E3479A59-E1E6-4962-A980-46A0B08D3A86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JBoxInvoker___Tests</RootNamespace>
+    <RootNamespace>JBoxInvokerTests</RootNamespace>
     <AssemblyName>JBoxInvoker - Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -28,7 +28,15 @@ namespace SharpWrap2534Tests
 
             // Open and connect now then disconnect
             SharpSession.PTOpen();
-            SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000);
+            var OpenedChannel = SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000);
+            Console.WriteLine("--> Pulled new channel instance out OK!");
+
+            // Test operations
+            OpenedChannel.ClearRxBuffer(); 
+            OpenedChannel.ClearTxBuffer(); 
+            Console.WriteLine("--> Clear TX and RX buffers passed OK!");
+
+            // Disconnect and close object.
             SharpSession.PTDisconnect(0);
             SharpSession.PTClose(); 
             Console.WriteLine("--> Session opened and built a new CarDAQ Plus 3 device instance without issues!");

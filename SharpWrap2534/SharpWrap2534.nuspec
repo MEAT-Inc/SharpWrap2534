@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.2.88</version>
+    <title>SharpWrap2534</title>
+    <Authors>Zachary Walsh - MEAT Inc</Authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">Copyright</license>
+    <projectUrl>https://github.com/MEAT-Inc/Sharp2534Wrapper</projectUrl>
+    <repository type="git" url="https://github.com/MEAT-Inc/Sharp2534Wrapper/"/>
+    <Description>A C# Based J2534 Wrapper. Complete with V0404 and V0500 API calls, and an easy to use session class for one line J2534 instance creation</Description>
+    <releaseNotes>Version 1.0.2.88-alpha. The first complete build of this package!</releaseNotes>
+    <copyright>MEAT Inc (2021)</copyright>
+    <tags>1.0.2.88-alpha</tags>
+  </metadata>
+</package>

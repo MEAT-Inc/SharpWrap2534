@@ -226,7 +226,7 @@ namespace SharpWrap2534.J2534Objects
         /// Opens this instance of a passthru device.
         /// </summary>
         /// <param name="DeviceName">Name of the device to be opened.</param>
-        public void PTOpen(string DeviceName = "")
+        internal void PTOpen(string DeviceName = "")
         {
             // Make sure we exist in here.
             if (_jDeviceInstance[this.DeviceNumber - 1]?.DeviceName != this.DeviceName)
@@ -251,7 +251,7 @@ namespace SharpWrap2534.J2534Objects
         /// <summary>
         /// Closes the currently open device object.
         /// </summary>
-        public void PTClose()
+        internal void PTClose()
         {
             // Check if currently open and close.
             ApiMarshall.PassThruClose(DeviceId);
@@ -265,7 +265,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="Protocol">Channel protocol</param>
         /// <param name="ChannelFlags">Connect flags</param>
         /// <param name="ChannelBaud">Channel baud rate</param>
-        public void PTConnect(int ChannelIndex, ProtocolId Protocol, uint ChannelFlags, uint ChannelBaud)
+        internal void PTConnect(int ChannelIndex, ProtocolId Protocol, uint ChannelFlags, uint ChannelBaud)
         {
             // Issue the connect command and store our channel
             ApiMarshall.PassThruConnect(DeviceId, Protocol, ChannelFlags, ChannelBaud, out uint ChannelId);
@@ -275,7 +275,7 @@ namespace SharpWrap2534.J2534Objects
         /// Disconnects the channel values.
         /// </summary>
         /// <param name="ChannelIndex">Channel to remove</param>
-        public void PTDisconnect(int ChannelIndex)
+        internal void PTDisconnect(int ChannelIndex)
         {
             // Disconnect from marshall and remove from channel set.
             ApiMarshall.PassThruDisconnect(DeviceChannels[ChannelIndex].ChannelId);

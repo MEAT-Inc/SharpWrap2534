@@ -15,7 +15,7 @@ if (len(args_array) < 3):
 # Arg 3 - Change Notes
 
 # Store nuspec file and version value
-template_nuspec_file = ".\NupkgConfig\\_SharpWrap2534.nuspec.base"
+template_nuspec_file = ".\\NupkgConfig\\_SharpWrap2534.nuspec.base"
 version_value = "<version>" + args_array[1] + "</version>"
 version_tag_value = "<tags>" + args_array[2] + "</tags>"
 if (len(args_array) == 3): changelog_contents = ""
@@ -43,7 +43,7 @@ with open (output_spec_file, "w") as nuspec_file:
     nuspec_file.close()
 
 # Run the pack command now.
-nuget_pack_command = 'nuget pack ' + output_spec_file + ' -OutputDirectory NupkgOutput'
+nuget_pack_command = 'nuget pack ' + output_spec_file + ' -OutputDirectory .\\NupkgOutput'
 print ('Running nuget pack command: ' + nuget_pack_command)
 os.popen(nuget_pack_command)
 
@@ -51,8 +51,8 @@ os.popen(nuget_pack_command)
 print ('-------------------------------------------------------------')
 
 # Push the package into the repo
-nuget_package_file = '.\NupkgOutput\SharpWrap2534.' + version_value + '.nupkg'
-nuget_push_command = 'nuget push ' + nuget_package_file + '-Source \"github\" -ConfigFile .\NupkgConfig\\_SharpWrap2534.nuget.config'
+nuget_package_file = '.\\NupkgOutput\\SharpWrap2534.' + version_value + '.nupkg'
+nuget_push_command = 'nuget push ' + nuget_package_file + '-Source \"github\" -ConfigFile .\\NupkgConfig\\_SharpWrap2534.nuget.config'
 print ('Running nuget push command: ' + nuget_push_command) 
 os.popen(nuget_push_command)
 

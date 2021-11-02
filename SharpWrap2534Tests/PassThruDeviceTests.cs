@@ -23,7 +23,7 @@ namespace SharpWrap2534Tests
         {
             // Build new J2534 DLL from the import path.
             Console.WriteLine(SepString + "\nTests Running...\n");
-            J2534Dll CarDAQ3_0404Dll = new J2534Dll(PassThruPaths.CarDAQPlus3_0404);
+            J2534Dll CarDAQ3_0404Dll = new J2534Dll(PassThruPaths.CarDAQPlus3_0404.ToDescriptionString());
             Assert.IsTrue(CarDAQ3_0404Dll.FunctionLibrary != null, "CarDAQ 3 DLL was not built correctly!");
 
             // Log info
@@ -73,7 +73,7 @@ namespace SharpWrap2534Tests
             {
                 // Find the DLL object for the current DLL
                 Console.WriteLine($"Testing Path: {PTPath.ToDescriptionString()}");
-                if (!PassThruImportDLLs.FindDllFromPath(PTPath, out var NextDLL))
+                if (!PassThruImportDLLs.FindDllFromPath(PTPath.ToDescriptionString(), out var NextDLL))
                 {
                     // Log failures.
                     Console.WriteLine("--> Failed to import DLL!");

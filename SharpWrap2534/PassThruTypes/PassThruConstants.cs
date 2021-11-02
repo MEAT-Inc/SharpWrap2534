@@ -20,6 +20,9 @@ namespace SharpWrap2534.PassThruTypes
         // JVersion.
         public JVersion Version { get; private set; }
 
+        // Max Device Instances
+        public int MaxDeviceCount => 2;
+
         // Channel Configurations
         public uint MaxChannels => (uint)(Version == JVersion.V0404 ? 2 : 4);
         public uint MaxChannelsLogical => (uint)(Version == JVersion.V0404 ? 0 : 10); 

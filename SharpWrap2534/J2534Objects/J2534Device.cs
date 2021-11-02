@@ -151,21 +151,22 @@ namespace SharpWrap2534.J2534Objects
             // Build string information here.
             string OutputDetailsString =
                 $"Device: {DeviceName} ({J2534Version.ToDescriptionString()})" +
-                $"\n--> Instance Infromation: " +
+                $"\n--> Instance Information: " +
                 $"\n    \\__ Device Id:      {DeviceId}" +
                 $"\n    \\__ Device Name:    {DeviceName}" +
                 $"\n    \\__ Device Version: {J2534Version.ToDescriptionString()}" +
-                $"\n    \\__ Device Status:  {(IsOpen ? "OPEN - " : "NOT OPEN - ")} {(IsConnected ? " CONNECTED" : " NOT CONNECTED")}" +
+                $"\n    \\__ Device Status:  {(IsOpen ? "OPEN - " : "NOT OPEN - ")} AND {(IsConnected ? " CONNECTED" : " NOT CONNECTED")}" +
                 $"\n--> Device Setup Information:" +
                 $"\n    \\__ DLL Version:    {DeviceDLLVersion}" +
                 $"\n    \\__ FW Version:     {DeviceFwVersion}" +
                 $"\n    \\__ API Version:    {DeviceApiVersion}" +
                 $"\n--> Device Channel Information:" +
                 $"\n    \\__ Channel Count:  {DeviceChannels.Length} Channels" +
+                $"\n    \\__ Logical Chan:   {(J2534Version == JVersion.V0404 ? "NOT SUPPORTED!" : "SUPPORTED!")}" +
                 $"\n    \\__ Filter Count:   {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxFilters} Filters Max" +
                 $"\n    \\__ Periodic Count: {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxPeriodicMsgs} Periodic Msgs Max";
 
-            // Return the output stirng here.
+            // Return the output string here.
             return OutputDetailsString;
         }
 

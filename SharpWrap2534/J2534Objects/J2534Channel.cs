@@ -86,7 +86,7 @@ namespace SharpWrap2534.J2534Objects
         ~J2534Channel()
         {
             // Null out member values for this channel
-            try { _j2534Channels[(int)this._jDevice.DeviceNumber - 1][ChannelIndex] = new J2534Channel(); }
+            try { _j2534Channels[(int)this._jDevice.DeviceNumber - 1][ChannelIndex] = null; }
             catch { } 
         }
 
@@ -164,7 +164,7 @@ namespace SharpWrap2534.J2534Objects
 
             // Disconnect and reinit here.
             int IndexOfChannel = _j2534Channels[this._jDevice.DeviceNumber - 1].ToList().IndexOf(ChannelToDisconnect);
-            _j2534Channels[this._jDevice.DeviceNumber][IndexOfChannel] = new J2534Channel();
+            _j2534Channels[this._jDevice.DeviceNumber - 1][IndexOfChannel] = new J2534Channel();
 
             // Return passed.
             return true;

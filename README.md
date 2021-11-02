@@ -54,9 +54,9 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
             // Once the Session exists, connecting to a channel is as simple as issuing the 
             // PTConnect call from the session.
             // Once a channel is opened, you can send messages on it by calling the index of it.
-            SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000);
-            SharpSession.DeviceChannels[0].ClearRxBuffer();
-            SharpSession.DeviceChannels[0].ClearRxBuffer();
+            var OpenedChannel = SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000);
+            OpenedChannel.ClearRxBuffer();
+            OpenedChannel.ClearRxBuffer();
 
             // Then once done with a channel, issue a PTDisconnect on the index provided.
             // When done with the session object, issue a PTClose to clean up the device.

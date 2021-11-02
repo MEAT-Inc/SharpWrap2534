@@ -13,8 +13,8 @@ namespace SharpWrap2534
     public class Sharp2534Session
     {
         // DLL and Device Instance for our J2534 Box.       
-        public J2534Dll JDeviceDll { get; set; }                 // The DLL Instance in use.
-        public J2534Device JDeviceInstance { get; set; }       // The Device instance in use.
+        public J2534Dll JDeviceDll { get; private set; }                 // The DLL Instance in use.
+        public J2534Device JDeviceInstance { get; private set; }         // The Device instance in use.
 
         // ---------------------------------------------------------------------------------------------------------------------
 
@@ -139,10 +139,11 @@ namespace SharpWrap2534
         /// <param name="Protocol">Protocol to use</param>
         /// <param name="Flags">Flags to use</param>
         /// <param name="ChannelBaud">Baudrate</param>
-        public void PTConnect(int ChannelIndex, ProtocolId Protocol, uint Flags, uint ChannelBaud)
+        public J2534Channel PTConnect(int ChannelIndex, ProtocolId Protocol, uint Flags, uint ChannelBaud)
         {
             // Issue the PassThru connect
             this.JDeviceInstance.PTConnect(ChannelIndex, Protocol, Flags, ChannelBaud);
+            return this.JDeviceInstance.DeviceChannels[ChannelIndex];
         }
         /// <summary>
         /// Runs a PTDisconnect

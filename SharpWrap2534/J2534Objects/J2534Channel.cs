@@ -29,7 +29,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="ProtocolId">Protocol Id</param>
         /// <param name="ConnectFlags">Connection flags</param>
         /// <param name="ChannelBaud">BaudRate of the channel.</param>
-        private J2534Channel(J2534Device JDevice)
+        private J2534Channel(J2534Device JDevice, J2534Channel PhysicalParent = null)
         {
             // Setup device channel properties.
             _jDevice = JDevice;
@@ -38,6 +38,18 @@ namespace SharpWrap2534.J2534Objects
 
             // PTConstants
             var TypeConstants = new PassThruConstants(JDevice.J2534Version);
+
+            // Check for logical.
+            if (PhysicalParent != null)
+            {
+                // Set logical on and store parent value.
+                this.PhysicalParent = PhysicalParent;
+
+                // Set Logical values.
+                int MaxLogicalChannels = (int)new PassThruConstants(JVersion.V0500).MaxChannelsLogical;
+                for (int ChannelIndex = 0; ChannelIndex < MaxLogicalChannels; ChannelIndex++)
+                    _logicalChannels[ChannelIndex] = new J2534Channel(JDevice, PhysicalParent);
+            }
 
             // Setup filters and messages.
             JChannelFilters = new J2534Filter[TypeConstants.MaxFilters];
@@ -69,6 +81,21 @@ namespace SharpWrap2534.J2534Objects
             for (int ChannelIndex = 0; ChannelIndex < JChannelsOut.Length; ChannelIndex += 1)
                 JChannelsOut[ChannelIndex] = new J2534Channel(JDevice);
 
+            // Check if 0500 
+            if (JDevice.J2534Version == JVersion.V0500)
+            {
+                // Loop the channels made, then apply values into the logical channels.
+                int MaxLogicalChannels = (int)new PassThruConstants(JVersion.V0500).MaxChannelsLogical;
+                foreach (var ChannelObject in JChannelsOut)
+                {
+                    // Init logical set with an empty array then populate them all
+                    ChannelObject._logicalChannels = new J2534Channel[MaxLogicalChannels];
+                    for (int ChannelIndex = 0; ChannelIndex < MaxLogicalChannels; ChannelIndex++)
+                        // Build new channel using the ctor for a logical configuration.
+                        ChannelObject._logicalChannels[ChannelIndex] = new J2534Channel(JDevice, ChannelObject);
+                }
+            }
+            
             // Return built channels and store them onto the device object
             JDevice.DeviceChannels = JChannelsOut;
             return JChannelsOut;
@@ -87,6 +114,12 @@ namespace SharpWrap2534.J2534Objects
         public ProtocolId ProtocolId { get; private set; }
         public uint ConnectFlags { get; private set; }
         public uint ChannelBaud { get; private set; }
+
+        // Logical Channels if possible.
+        public J2534Channel PhysicalParent { get; private set; }
+        public bool IsLogicalChannel => this.PhysicalParent != null;
+        private J2534Channel[] _logicalChannels;
+        public J2534Channel[] LogicalChannels => this.J2534Version == JVersion.V0500 ? _logicalChannels : null;
 
         // Filters and periodic messages.
         public J2534Filter[] JChannelFilters { get; private set; }
@@ -487,5 +520,30 @@ namespace SharpWrap2534.J2534Objects
         public void SetConfig(ConfigParamId configParam, uint val) { throw new NotImplementedException("SetConfig is not yet built into this wrapper!"); }
         public byte[] FiveBaudInit(byte byteIn) { throw new NotImplementedException("FiveBaudInit is not yet built into this wrapper!"); }
         public byte[] FastInit(byte[] bytesIn, bool responseRequired) { throw new NotImplementedException("FastInit is not yet built into this wrapper!"); }
+
+        // ----------------------------------------- VERSION 0500 CHANNEL SPECIFIC METHOD SET HERE --------------------------------
+
+        /// <summary>
+        /// Runs a logical select on the channel
+        /// </summary>
+        /// <returns>Logical channels on this physical channel</returns>
+        public PassThruStructs.SChannelSet? PTSelect()
+        {
+            // Check if this can be done. Must be 0500 and must be logical
+            if (this.J2534Version == JVersion.V0404)
+                throw new InvalidOperationException("Can not issue a PTSelect on a version 0404 object!");
+            if (!this.IsLogicalChannel)
+                throw new InvalidOperationException("Can not issue a PTSelect on a non logical channel!");
+
+            // Build channel set struct
+            PassThruStructs.SChannelSet ResultingChannels = new PassThruStructs.SChannelSet();
+            ResultingChannels.ChannelThreshold = 0;
+            ResultingChannels.ChannelList.Add((int)this.ChannelId);
+            ResultingChannels.ChannelCount = (uint)ResultingChannels.ChannelList.Count;
+
+            // Issue command to the API and return the struct output.
+            _jDevice.ApiMarshall.PassThruSelect(ref ResultingChannels, 0);
+            return ResultingChannels;
+        }
     }
 }

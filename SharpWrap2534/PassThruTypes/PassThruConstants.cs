@@ -21,7 +21,8 @@ namespace SharpWrap2534.PassThruTypes
         public JVersion Version { get; private set; }
 
         // Channel Configurations
-        public uint MaxChannels => (uint)(Version == JVersion.V0404 ? 2 : 10);
+        public uint MaxChannels => (uint)(Version == JVersion.V0404 ? 2 : 4);
+        public uint MaxChannelsLogical => (uint)(Version == JVersion.V0404 ? 0 : 10); 
         public readonly uint MaxFilters = 10;
         public readonly uint MaxPeriodicMsgs = 10;
 

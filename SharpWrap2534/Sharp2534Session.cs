@@ -66,6 +66,7 @@ namespace SharpWrap2534
 
         // Device Channel Information, filters, and periodic messages.
         public J2534Channel[] DeviceChannels => JDeviceInstance.DeviceChannels;
+        public J2534Channel[][] DeviceLogicalChannels => JDeviceInstance.DeviceChannels.Select(ChObj => ChObj.LogicalChannels).ToArray();
         public J2534Filter[][] ChannelFilters => JDeviceInstance.DeviceChannels.Select(ChObj => ChObj.JChannelFilters).ToArray();
         public J2534PeriodicMessage[][] ChannelPeriodicMsgs => JDeviceInstance.DeviceChannels.Select(ChObj => ChObj.JChannelPeriodicMessages).ToArray();
 

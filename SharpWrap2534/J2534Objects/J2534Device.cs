@@ -15,8 +15,7 @@ namespace SharpWrap2534.J2534Objects
         // -------------------------- SINGLETON CONFIGURATION ----------------------------
 
         // Singleton schema for this class object. Two total instances can exist. Device 1/2
-        private static J2534Device _jDeviceInstance1;
-        private static J2534Device _jDeviceInstance2;
+        private static J2534Device[] _jDeviceInstance;
 
         /// <summary>
         /// PRIVATE CTOR FOR SINGLETON USE ONLY!
@@ -78,7 +77,11 @@ namespace SharpWrap2534.J2534Objects
         /// <summary>
         /// Builds a new JDevice without any configuration on it.
         /// </summary>
-        private J2534Device() { DeviceStatus = PTInstanceStatus.FREED; }
+        private J2534Device()
+        {
+            // Set status, clean out
+            DeviceStatus = PTInstanceStatus.FREED;
+        }
         /// <summary>
         /// Deconstructs the device object and members
         /// </summary>
@@ -178,9 +181,14 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="Dll">DLL To build from</param>
         internal static J2534Device BuildJ2534Device(J2534Dll Dll, string DeviceNameFilter = "")
         {
-            // Return Device 1 instance.
-            if (_jDeviceInstance1?.DeviceStatus != PTInstanceStatus.INITIALIZED)
-                return _jDeviceInstance1 ?? (_jDeviceInstance1 = new J2534Device(JDeviceNumber.PTDevice1, Dll, DeviceNameFilter));
+            // Check if an array of devices exists
+            if (_jDeviceInstance == null) _jDeviceInstance = new J2534Device[new PassThruConstants(Dll.DllVersion).MaxDeviceCount];
+
+            // Check for an empty spot.
+            int NextFreeDeviceIndex = _jDeviceInstance.ToList().IndexOf(null);
+            if (NextFreeDeviceIndex == -1) throw new InvalidOperationException("No free device slots exist at this time!");
+
+            // Build new instance.
 
             // Return device 2 instance
             if (_jDeviceInstance2?.DeviceStatus != PTInstanceStatus.INITIALIZED)

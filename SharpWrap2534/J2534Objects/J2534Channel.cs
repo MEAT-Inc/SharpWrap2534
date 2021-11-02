@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
@@ -14,7 +15,7 @@ namespace SharpWrap2534.J2534Objects
         // -------------------------- SINGLETON CONFIGURATION ----------------------------
 
         // Singleton schema for this class object. Max channels type can exist.
-        private static J2534Channel[] _j2534Channels;
+        private static J2534Channel[][] _j2534Channels;
 
         /// <summary>
         /// Builds a blank J2534 Channel
@@ -58,9 +59,24 @@ namespace SharpWrap2534.J2534Objects
             else
             {
                 // Append this to the singleton list object type.
-                if (_j2534Channels == null) { _j2534Channels = new J2534Channel[TypeConstants.MaxChannels]; }
-                ChannelIndex = _j2534Channels.ToList().IndexOf(null);
-                _j2534Channels[ChannelIndex] = this;
+                if (_j2534Channels == null)
+                {
+                    // Init List of channels here.
+                    _j2534Channels = new J2534Channel[new PassThruConstants(JDevice.J2534Version).MaxDeviceCount][];
+                    _j2534Channels[(int)JDevice.DeviceNumber] = new J2534Channel[TypeConstants.MaxChannels];
+                }
+                
+                // Find next open channel object
+                ChannelIndex = _j2534Channels[(int)JDevice.DeviceNumber].ToList().IndexOf(null);
+                if (ChannelIndex == -1)
+                {
+                    // Build the open channel on our set of devices.
+                    var OpenChannel = _j2534Channels[(int)JDevice.DeviceNumber].FirstOrDefault(ChObj => ChObj.ChannelStatus == PTInstanceStatus.FREED);
+                    ChannelIndex = _j2534Channels[(int)JDevice.DeviceNumber].ToList().IndexOf(OpenChannel);
+                }
+                
+                // Set channel index now.
+                _j2534Channels[(int)JDevice.DeviceNumber][ChannelIndex] = this;
             }
         }
         /// <summary>
@@ -68,8 +84,8 @@ namespace SharpWrap2534.J2534Objects
         /// </summary>
         ~J2534Channel()
         {
-            // Null out member values
-            _j2534Channels[ChannelIndex] = new J2534Channel();
+            // Null out member values for this channel
+            _j2534Channels[(int)this._jDevice.DeviceNumber][ChannelIndex] = new J2534Channel();
         }
 
         /// <summary>
@@ -84,21 +100,6 @@ namespace SharpWrap2534.J2534Objects
             for (int ChannelIndex = 0; ChannelIndex < JChannelsOut.Length; ChannelIndex += 1)
                 JChannelsOut[ChannelIndex] = new J2534Channel(JDevice);
 
-            // Check if 0500 
-            if (JDevice.J2534Version == JVersion.V0500)
-            {
-                // Loop the channels made, then apply values into the logical channels.
-                int MaxLogicalChannels = (int)new PassThruConstants(JVersion.V0500).MaxChannelsLogical;
-                foreach (var ChannelObject in JChannelsOut)
-                {
-                    // Init logical set with an empty array then populate them all
-                    ChannelObject._logicalChannels = new J2534Channel[MaxLogicalChannels];
-                    for (int ChannelIndex = 0; ChannelIndex < MaxLogicalChannels; ChannelIndex++)
-                        // Build new channel using the ctor for a logical configuration.
-                        ChannelObject._logicalChannels[ChannelIndex] = new J2534Channel(JDevice, ChannelObject);
-                }
-            }
-            
             // Return built channels and store them onto the device object
             JDevice.DeviceChannels = JChannelsOut;
             return JChannelsOut;

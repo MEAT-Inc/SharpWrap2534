@@ -92,7 +92,7 @@ namespace SharpWrap2534
 
             // Build device now using the name value desired.
             string NewDeviceName = DeviceNameFilter == "" ?
-                LocatedDevicesForDLL.FirstOrDefault() :
+                LocatedDevicesForDLL.FirstOrDefault(DeviceObj => !DeviceObj.ToUpper().Contains("IN USE")) :
                 LocatedDevicesForDLL.FirstOrDefault(DeviceName => DeviceName.Contains(DeviceNameFilter));
 
             // Try to build the new session object inside try/catch for when it naturally fails out for some reason.

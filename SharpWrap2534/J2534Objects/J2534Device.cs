@@ -22,7 +22,7 @@ namespace SharpWrap2534.J2534Objects
         /// </summary>
         /// <param name="DeviceNumber"></param>
         /// <param name="Dll"></param>
-        private J2534Device(JDeviceNumber DeviceNumber, J2534Dll Dll, string NameFilter = "")
+        private J2534Device(int DeviceNumber, J2534Dll Dll, string NameFilter = "")
         {
             // Store DLL Value and build marshall.
             JDll = Dll;
@@ -44,68 +44,23 @@ namespace SharpWrap2534.J2534Objects
             PTOpen(NameFilter);
             ApiMarshall.PassThruReadVersion(DeviceId, out string FwVer, out string DllVer, out string JApiVer);
             DeviceFwVersion = FwVer; DeviceDLLVersion = DllVer; DeviceApiVersion = JApiVer;
-        }
-        /// <summary>
-        /// Builds a new SAFE Device instance using a predefined DLL path
-        /// </summary>
-        /// <param name="DeviceNumber"></param>
-        /// <param name="DllPath"></param>
-        private J2534Device(JDeviceNumber DeviceNumber, PassThruPaths InputPath, string NameFilter = "")
-        {
-            // Store DLL Value and build marshall.
-            JDll = new J2534Dll(InputPath);
-            this.DeviceNumber = DeviceNumber;
-
-            // Build API and marshall.
-            ApiInstance = new J2534ApiInstance(InputPath.ToDescriptionString());
-            ApiMarshall = new J2534ApiMarshaller(ApiInstance);
-
-            // Build API Instance.
-            ApiInstance.SetupJApiInstance();
-
-            // Build channels, set status output.
-            DeviceStatus = PTInstanceStatus.INITIALIZED;
-            J2534Version = ApiInstance.J2534Version;
-            DeviceChannels = J2534Channel.BuildDeviceChannels(this);
-
-            // Open and close the device. Read version while open.
-            PTOpen(NameFilter);
-            ApiMarshall.PassThruReadVersion(DeviceId, out string FwVer, out string DllVer, out string JApiVer);
-            DeviceFwVersion = FwVer; DeviceDLLVersion = DllVer; DeviceApiVersion = JApiVer;
+            PTClose();
         }
 
-        /// <summary>
-        /// Builds a new JDevice without any configuration on it.
-        /// </summary>
-        private J2534Device()
-        {
-            // Set status, clean out
-            DeviceStatus = PTInstanceStatus.FREED;
-        }
         /// <summary>
         /// Deconstructs the device object and members
         /// </summary>
         ~J2534Device()
         {
-            // Set this to a new instance with FREED as the status.
-            switch (DeviceNumber)
-            {
-                // Device 1
-                case JDeviceNumber.PTDevice1:
-                    _jDeviceInstance1 = new J2534Device() { DeviceStatus = PTInstanceStatus.FREED };
-                    break;
-
-                // Device 2
-                case JDeviceNumber.PTDevice2:
-                    _jDeviceInstance2 = new J2534Device() { DeviceStatus = PTInstanceStatus.FREED };
-                    break;
-            }
+            // Set this to a new instance with FREED as the status. Pull based on device status value.
+            if (this.IsOpen) { this.PTClose(); }
+            _jDeviceInstance[DeviceNumber - 1] = null;
         }
 
         // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
 
         // Device information.
-        public JDeviceNumber DeviceNumber { get; private set; }
+        internal int DeviceNumber { get; private set; }
         public PTInstanceStatus DeviceStatus { get; private set; }
         public JVersion J2534Version { get; private set; }
 
@@ -118,7 +73,7 @@ namespace SharpWrap2534.J2534Objects
         // Device Properties
         public uint DeviceId;
         public string DeviceName;
-        public bool IsOpen = false;
+        public bool IsOpen => this.DeviceName != null && this.DeviceName.ToUpper().Contains("IN USE");
         public bool IsConnected = false;
 
         // Version information
@@ -153,6 +108,7 @@ namespace SharpWrap2534.J2534Objects
             string OutputDetailsString =
                 $"Device: {DeviceName} ({J2534Version.ToDescriptionString()})" +
                 $"\n--> Instance Information: " +
+                $"\n    \\__ Max Devices:    {_jDeviceInstance.Length} Device instances" +
                 $"\n    \\__ Device Id:      {DeviceId}" +
                 $"\n    \\__ Device Name:    {DeviceName}" +
                 $"\n    \\__ Device Version: {J2534Version.ToDescriptionString()}" +
@@ -185,34 +141,15 @@ namespace SharpWrap2534.J2534Objects
             if (_jDeviceInstance == null) _jDeviceInstance = new J2534Device[new PassThruConstants(Dll.DllVersion).MaxDeviceCount];
 
             // Check for an empty spot.
-            int NextFreeDeviceIndex = _jDeviceInstance.ToList().IndexOf(null);
-            if (NextFreeDeviceIndex == -1) throw new InvalidOperationException("No free device slots exist at this time!");
+            var FreeDevice = _jDeviceInstance.FirstOrDefault(DeviceObj => DeviceObj?.DeviceStatus == PTInstanceStatus.FREED);
+            int NextFreeDeviceIndex = _jDeviceInstance.ToList().IndexOf(FreeDevice ?? null);
 
-            // Build new instance.
+            // If still -1, we're just out of spots
+            if (NextFreeDeviceIndex == -1) throw new InvalidOperationException($"No free device slots exist at this time! A max of {_jDeviceInstance.Length} devices can exist at once!");
 
-            // Return device 2 instance
-            if (_jDeviceInstance2?.DeviceStatus != PTInstanceStatus.INITIALIZED)
-                return _jDeviceInstance2 ?? (_jDeviceInstance2 = new J2534Device(JDeviceNumber.PTDevice2, Dll, DeviceNameFilter));
-
-            // Throw if here since none of our slots are open.
-            throw new AccessViolationException("Can not build instance of a third J2534 Device object!");
-        }
-        /// <summary>
-        /// Builds a new Device instance using the DLL Given
-        /// </summary>
-        /// <param name="Dll">DLL To build from</param>
-        internal static J2534Device BuildJ2534Device(PassThruPaths Dll, string DeviceNameFilter = "")
-        {
-            // Return Device 1 instance.
-            if (_jDeviceInstance1?.DeviceStatus != PTInstanceStatus.INITIALIZED)
-                return _jDeviceInstance1 ?? (_jDeviceInstance1 = new J2534Device(JDeviceNumber.PTDevice1, Dll, DeviceNameFilter));
-
-            // Return device 2 instance
-            if (_jDeviceInstance2?.DeviceStatus != PTInstanceStatus.INITIALIZED)
-                return _jDeviceInstance2 ?? (_jDeviceInstance2 = new J2534Device(JDeviceNumber.PTDevice2, Dll, DeviceNameFilter));
-
-            // Throw if here since none of our slots are open.
-            throw new AccessViolationException("Can not build instance of a third J2534 Device object!");
+            // Build new instance and return it.
+            _jDeviceInstance[NextFreeDeviceIndex] = new J2534Device(NextFreeDeviceIndex + 1, Dll, DeviceNameFilter);
+            return _jDeviceInstance[NextFreeDeviceIndex];
         }
 
         // ---------------------------- STATIC DEVICE MESSAGE HELPER METHODS -----------------------
@@ -291,7 +228,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="DeviceName">Name of the device to be opened.</param>
         public void PTOpen(string DeviceName = "")
         {
-            // Check for no name gvien.
+            // Check for no name given.
             if (DeviceName == "")
             {
                 // Pull all device names out and find next open one.
@@ -299,19 +236,18 @@ namespace SharpWrap2534.J2534Objects
                 DeviceName = FreeDevice ?? throw new AccessViolationException("No free J2534 devices could be located!");
             }
 
-            // Stet name and open the device here.
+            // Set name and open the device here.
             this.DeviceName = DeviceName;
             ApiMarshall.PassThruOpen(this.DeviceName, out DeviceId);
-            IsOpen = true;
         }
         /// <summary>
         /// Closes the currently open device object.
         /// </summary>
         public void PTClose()
         {
-            // Close device using the marshall.
+            // Check if currently open and close.
             ApiMarshall.PassThruClose(DeviceId);
-            IsOpen = false;
+            _jDeviceInstance[this.DeviceNumber - 1] = null;
         }
 
         /// <summary>

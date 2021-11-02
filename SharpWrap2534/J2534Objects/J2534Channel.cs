@@ -62,21 +62,22 @@ namespace SharpWrap2534.J2534Objects
                 if (_j2534Channels == null)
                 {
                     // Init List of channels here.
-                    _j2534Channels = new J2534Channel[new PassThruConstants(JDevice.J2534Version).MaxDeviceCount][];
-                    _j2534Channels[(int)JDevice.DeviceNumber] = new J2534Channel[TypeConstants.MaxChannels];
+                    _j2534Channels = new J2534Channel[TypeConstants.MaxDeviceCount][];
+                    for (int InstanceIndex = 0; InstanceIndex < TypeConstants.MaxDeviceCount; InstanceIndex ++)
+                        _j2534Channels[InstanceIndex] = new J2534Channel[TypeConstants.MaxChannels];
                 }
                 
                 // Find next open channel object
-                ChannelIndex = _j2534Channels[(int)JDevice.DeviceNumber].ToList().IndexOf(null);
+                ChannelIndex = _j2534Channels[(int)JDevice.DeviceNumber - 1].ToList().IndexOf(null);
                 if (ChannelIndex == -1)
                 {
                     // Build the open channel on our set of devices.
-                    var OpenChannel = _j2534Channels[(int)JDevice.DeviceNumber].FirstOrDefault(ChObj => ChObj.ChannelStatus == PTInstanceStatus.FREED);
-                    ChannelIndex = _j2534Channels[(int)JDevice.DeviceNumber].ToList().IndexOf(OpenChannel);
+                    var OpenChannel = _j2534Channels[(int)JDevice.DeviceNumber - 1].FirstOrDefault(ChObj => ChObj.ChannelStatus == PTInstanceStatus.FREED);
+                    ChannelIndex = _j2534Channels[(int)JDevice.DeviceNumber - 1].ToList().IndexOf(OpenChannel);
                 }
                 
                 // Set channel index now.
-                _j2534Channels[(int)JDevice.DeviceNumber][ChannelIndex] = this;
+                _j2534Channels[(int)JDevice.DeviceNumber - 1][ChannelIndex] = this;
             }
         }
         /// <summary>
@@ -85,7 +86,8 @@ namespace SharpWrap2534.J2534Objects
         ~J2534Channel()
         {
             // Null out member values for this channel
-            _j2534Channels[(int)this._jDevice.DeviceNumber][ChannelIndex] = new J2534Channel();
+            try { _j2534Channels[(int)this._jDevice.DeviceNumber - 1][ChannelIndex] = new J2534Channel(); }
+            catch { } 
         }
 
         /// <summary>
@@ -157,12 +159,12 @@ namespace SharpWrap2534.J2534Objects
         public bool DisconnectChannel()
         {
             // Disconnect based on channel Id.
-            var ChannelToDisconnect = _j2534Channels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId);
+            var ChannelToDisconnect = _j2534Channels[this._jDevice.DeviceNumber - 1].FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId);
             if (ChannelToDisconnect == null) { throw new InvalidOperationException("Failed to disconnect channel value!"); }
 
             // Disconnect and reinit here.
-            int IndexOfChannel = _j2534Channels.ToList().IndexOf(ChannelToDisconnect);
-            _j2534Channels[IndexOfChannel] = new J2534Channel();
+            int IndexOfChannel = _j2534Channels[this._jDevice.DeviceNumber - 1].ToList().IndexOf(ChannelToDisconnect);
+            _j2534Channels[this._jDevice.DeviceNumber][IndexOfChannel] = new J2534Channel();
 
             // Return passed.
             return true;
@@ -178,8 +180,8 @@ namespace SharpWrap2534.J2534Objects
         public static bool LocateChannel(uint ChannelId, out J2534Channel ChannelFound)
         {
             // Find the channel.
-            ChannelFound = _j2534Channels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId)
-                               ?? new J2534Channel() { ChannelStatus = PTInstanceStatus.NULL };
+            ChannelFound = _j2534Channels.SelectMany(ChSet => ChSet).FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId)
+                           ?? new J2534Channel() { ChannelStatus = PTInstanceStatus.NULL };
 
             // Return channel object.
             return ChannelFound.ChannelStatus != PTInstanceStatus.NULL;
@@ -194,7 +196,11 @@ namespace SharpWrap2534.J2534Objects
         public static bool LocateFilter(uint FilterId, out J2534Filter FilterFound, int ChannelId = -1)
         {
             // Find the new filter value here.
-            J2534Channel[] LocatedChannels = _j2534Channels.Where(ChannelObj => ChannelObj?.JChannelFilters != null).ToArray();
+            J2534Channel[] LocatedChannels = _j2534Channels.SelectMany(ChSet => ChSet)
+                .Where(ChannelObj => ChannelObj?.JChannelFilters != null)
+                .ToArray();
+            
+            // Check index value
             if (ChannelId != -1) LocatedChannels = new[] { LocatedChannels.FirstOrDefault(ChannelObj => ChannelObj?.ChannelId == ChannelId) };
 
             // Extract just the filters from these channels
@@ -215,7 +221,11 @@ namespace SharpWrap2534.J2534Objects
         public static bool LocatePeriodicMessage(uint MessageId, out J2534PeriodicMessage MessageFound, int ChannelId = -1)
         {
             // Find the new filter value here.
-            J2534Channel[] LocatedChannels = _j2534Channels.Where(ChannelObj => ChannelObj?.JChannelPeriodicMessages != null).ToArray();
+            J2534Channel[] LocatedChannels = _j2534Channels.SelectMany(ChSet => ChSet)
+                .Where(ChannelObj => ChannelObj?.JChannelPeriodicMessages != null)
+                .ToArray();
+            
+            // Check index value
             if (ChannelId != -1) LocatedChannels = new[] { LocatedChannels.FirstOrDefault(ChannelObj => ChannelObj?.ChannelId == ChannelId) };
 
             // Extract just the filters from these channels

@@ -48,9 +48,10 @@ namespace SharpWrap2534.J2534Objects
             {
                 // Set logical on and store parent value.
                 this.PhysicalParent = PhysicalParent;
-
-                // Set Logical values.
                 int MaxLogicalChannels = (int)new PassThruConstants(JVersion.V0500).MaxChannelsLogical;
+
+                // Set Logical values. Build new logical array set.
+                _logicalChannels = new J2534Channel[MaxLogicalChannels];
                 for (int ChannelIndex = 0; ChannelIndex < MaxLogicalChannels; ChannelIndex++)
                     _logicalChannels[ChannelIndex] = new J2534Channel(JDevice, PhysicalParent);
             }

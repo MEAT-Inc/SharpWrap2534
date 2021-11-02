@@ -155,16 +155,17 @@ namespace SharpWrap2534.J2534Objects
                 $"\n    \\__ Device Id:      {DeviceId}" +
                 $"\n    \\__ Device Name:    {DeviceName}" +
                 $"\n    \\__ Device Version: {J2534Version.ToDescriptionString()}" +
-                $"\n    \\__ Device Status:  {(IsOpen ? "OPEN - " : "NOT OPEN - ")} AND {(IsConnected ? " CONNECTED" : " NOT CONNECTED")}" +
+                $"\n    \\__ Device Status:  {(IsOpen ? "OPEN - " : "NOT OPEN - ")} AND {(IsConnected ? "CONNECTED" : "NOT CONNECTED")}" +
                 $"\n--> Device Setup Information:" +
                 $"\n    \\__ DLL Version:    {DeviceDLLVersion}" +
                 $"\n    \\__ FW Version:     {DeviceFwVersion}" +
                 $"\n    \\__ API Version:    {DeviceApiVersion}" +
                 $"\n--> Device Channel Information:" +
                 $"\n    \\__ Channel Count:  {DeviceChannels.Length} Channels" +
-                $"\n    \\__ Logical Chan:   {(J2534Version == JVersion.V0404 ? "NOT SUPPORTED!" : "SUPPORTED!")}" +
-                $"\n    \\__ Filter Count:   {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxFilters} Filters Max" +
-                $"\n    \\__ Periodic Count: {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxPeriodicMsgs} Periodic Msgs Max";
+                $"\n    \\__ Logical Chan:   {(J2534Version == JVersion.V0404 ? "NOT SUPPORTED!" : "SUPPORTED!")}" + 
+                $"\n    \\__ Logical Count:  {(new PassThruConstants(J2534Version).MaxChannelsLogical)} Logical Channels on each physical channel" +
+                $"\n    \\__ Filter Count:   {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxFilters} Filters Max across (Evenly Split On All Channels)" +
+                $"\n    \\__ Periodic Count: {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxPeriodicMsgs} Periodic Msgs Max (Evenly Split On All Channels)";
 
             // Return the output string here.
             return OutputDetailsString;

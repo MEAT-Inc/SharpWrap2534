@@ -18,10 +18,6 @@ namespace SharpWrap2534.J2534Objects
         private static J2534Channel[][] _j2534Channels;
 
         /// <summary>
-        /// Builds a blank J2534 Channel
-        /// </summary>
-        private J2534Channel() { ChannelStatus = PTInstanceStatus.FREED; }
-        /// <summary>
         /// Private Singleton instance builder.
         /// THESE CHANNELS BUILT ARE NOT TRACKED BY THE SINGLETON INSTANCE!
         /// </summary>
@@ -164,7 +160,7 @@ namespace SharpWrap2534.J2534Objects
 
             // Disconnect and reinit here.
             int IndexOfChannel = _j2534Channels[this._jDevice.DeviceNumber - 1].ToList().IndexOf(ChannelToDisconnect);
-            _j2534Channels[this._jDevice.DeviceNumber - 1][IndexOfChannel] = new J2534Channel();
+            _j2534Channels[this._jDevice.DeviceNumber - 1][IndexOfChannel] = null;
 
             // Return passed.
             return true;
@@ -181,10 +177,10 @@ namespace SharpWrap2534.J2534Objects
         {
             // Find the channel.
             ChannelFound = _j2534Channels.SelectMany(ChSet => ChSet).FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId)
-                           ?? new J2534Channel() { ChannelStatus = PTInstanceStatus.NULL };
+                           ?? null;
 
             // Return channel object.
-            return ChannelFound.ChannelStatus != PTInstanceStatus.NULL;
+            return ChannelFound?.ChannelStatus != PTInstanceStatus.NULL;
         }
         /// <summary>
         /// Gets all of our filters and pulls one that matches.

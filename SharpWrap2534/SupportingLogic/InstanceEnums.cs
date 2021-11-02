@@ -21,15 +21,15 @@ namespace SharpWrap2534.SupportingLogic
     // Enums for J2534 Version
     public enum JVersion
     {
-        [Description("Version 0.404")] V0404,
-        [Description("Version 0.500")] V0500,
+        [Description("Version 04.04")] V0404,
+        [Description("Version 05.00")] V0500,
     }
 
     // Enums to describe the status for the instance.
     public enum PTInstanceStatus
     {
         [Description("Not Configured")] NULL,
-        [Description("DLL Loaded")] INITIALIZED,
+        [Description("Instance Loaded")] INITIALIZED,
         [Description("Freed")] FREED,
     }
 }

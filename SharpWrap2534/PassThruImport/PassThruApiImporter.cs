@@ -172,7 +172,31 @@ namespace SharpWrap2534.PassThruImport
 
                 // ------------------------------------------ METHODS FOR THE V0500 DLLS ONLY! ------------------------------------------
 
+                // PASSTHRU LOGICAL CONNECT
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruLogicalConnect");
+                if (pAddressOfFunctionToCall != IntPtr.Zero)
+                    DelegateSet.PTLogicalConnect = (PassThruDelegates.DelegatePassThruLogicalConnect)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruLogicalConnect));
 
+                // PASSTHRU LOGICAL DISCONNECT
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruLogicalDisconnect");
+                if (pAddressOfFunctionToCall != IntPtr.Zero)
+                    DelegateSet.PTLogicalDisconnect = (PassThruDelegates.DelegatePassThruLogicalDisconnect)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruLogicalDisconnect));
+
+                // PASSTHRU SELECT
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruSelect");
+                if (pAddressOfFunctionToCall != IntPtr.Zero)
+                    DelegateSet.PTSelect = (PassThruDelegates.DelegatePassThruSelect)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruSelect));
+                
+                // PASSTHRU QUEUE MESSAGES
+                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruQueueMsgs");
+                if (pAddressOfFunctionToCall != IntPtr.Zero) 
+                    DelegateSet.PTQueueMsgs = (PassThruDelegates.DelegatePassThruQueueMsgs)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruQueueMsgs));
+
+                // ----------------------------------------------------------------------------------------------------------------------
 
                 // Store ex value to nothing and return.
                 // Win32Invokers.FreeLibrary(this.ModulePointer);

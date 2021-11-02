@@ -522,5 +522,87 @@ namespace SharpWrap2534.J2534Api
 
         // ------------------------------------- J2534 V0500 ONLY! API CALLS (MARSHALL RELAY) -------------------------------------
 
+        /// <summary>
+        /// VERSION 0500 ONLY!
+        /// Issues a PTLogical Connect
+        /// </summary>
+        /// <param name="PhysicalChannelId">Physical ID</param>
+        /// <param name="ProtocolId">Protocol of channel</param>
+        /// <param name="Flags">Flags of message</param>
+        /// <param name="Descriptor">Channel Descriptor</param>
+        /// <param name="ChannelId">ChannelId connected to</param>
+        public void PassThruLogicalConnect(uint PhysicalChannelId, uint ProtocolId, uint Flags, PassThruStructsNative.ISO15765_CHANNEL_DESCRIPTOR Descriptor, out uint ChannelId)
+        {
+            // Build pointer for channel object
+            IntPtr DescriptorPointer = Marshal.AllocHGlobal(Marshal.SizeOf(Descriptor));
+            Marshal.StructureToPtr(Descriptor, DescriptorPointer, true);
+
+            // Issue the logical connect method here.
+            J2534Err PTCommandError = (J2534Err)_delegateSet.PTLogicalConnect(PhysicalChannelId, ProtocolId, Flags, DescriptorPointer, out ChannelId);
+            Marshal.FreeHGlobal(DescriptorPointer);
+
+            // If the error is not a NOERROR Response then throw it.
+            if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
+            var ErrorBuilder = new StringBuilder(100);
+            PassThruGetLastError(ErrorBuilder);
+
+            // Throw exception here.
+            throw new PassThruException(PTCommandError, ErrorBuilder);
+        }
+        /// <summary>
+        /// Disconnects from a logical channel based on the ID of it.
+        /// </summary>
+        /// <param name="ChannelId"></param>
+        public void PassThruLogicalDisconnect(uint ChannelId)
+        {
+            // Issue the Logical disconnect command here.
+            J2534Err PTCommandError = (J2534Err)_delegateSet.PTLogicalDisconnect(ChannelId);
+
+            // If the error is not a NOERROR Response then throw it.
+            if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
+            var ErrorBuilder = new StringBuilder(100);
+            PassThruGetLastError(ErrorBuilder);
+
+            // Throw exception here.
+            throw new PassThruException(PTCommandError, ErrorBuilder);
+        }
+        /// <summary>
+        /// Runs a PassThruSelect command on the channel provided 
+        /// </summary>
+        /// <param name="ChannelPointer">Channel pointer set</param>
+        /// <param name="SelectType">Select method</param>
+        /// <param name="Timeout">Timeout for the command</param>
+        public void PassThruSelect(IntPtr ChannelPointer, SelectType SelectType, uint Timeout)
+        {
+            // Issue the PTSelect command
+            J2534Err PTCommandError = (J2534Err)_delegateSet.PTSelect(ChannelPointer, (uint)SelectType, Timeout);
+
+            // If the error is not a NOERROR Response then throw it.
+            if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
+            var ErrorBuilder = new StringBuilder(100);
+            PassThruGetLastError(ErrorBuilder);
+
+            // Throw exception here.
+            throw new PassThruException(PTCommandError, ErrorBuilder);
+        }
+        /// <summary>
+        /// Queues messages to be sent out.
+        /// </summary>
+        /// <param name="ChannelId">ID Of channel to apply to</param>
+        /// <param name="Messages">Messages to queue</param>
+        /// <param name="MessageCount">Number of messages to send</param>
+        public void PassThruQueueMsgs(uint ChannelId, PassThruStructsNative.PASSTHRU_MSG[] Messages, ref uint MessageCount)
+        {
+            // Run the PTQueue command here.
+            J2534Err PTCommandError = (J2534Err)_delegateSet.PTQueueMsgs(ChannelId, Messages, ref MessageCount);
+
+            // If the error is not a NOERROR Response then throw it.
+            if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
+            var ErrorBuilder = new StringBuilder(100);
+            PassThruGetLastError(ErrorBuilder);
+
+            // Throw exception here.
+            throw new PassThruException(PTCommandError, ErrorBuilder);
+        }
     }
 }

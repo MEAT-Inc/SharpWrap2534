@@ -13,8 +13,8 @@ namespace SharpWrap2534
     public class Sharp2534Session
     {
         // DLL and Device Instance for our J2534 Box.       
-        public J2534Dll JDeviceDll { get; set; }                 // The DLL Instance in use.
-        public J2534Device JDeviceInstance { get; set; }         // The Device instance in use.
+        public J2534Dll JDeviceDll { get; private set; }                 // The DLL Instance in use.
+        public J2534Device JDeviceInstance { get; private set; }         // The Device instance in use.
 
         // ---------------------------------------------------------------------------------------------------------------------
 

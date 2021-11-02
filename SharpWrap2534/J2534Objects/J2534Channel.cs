@@ -137,7 +137,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="ChannelFlags">Flags of channel</param>
         /// <param name="ChannelBaud">Baudrate of channel</param>
         /// <returns></returns>
-        public bool ConnectChannel(uint ChannelId, ProtocolId ChannelProtocol, uint ChannelFlags, uint ChannelBaud)
+        internal bool ConnectChannel(uint ChannelId, ProtocolId ChannelProtocol, uint ChannelFlags, uint ChannelBaud)
         {
             // Store channel values.
             this.ChannelId = ChannelId;
@@ -152,7 +152,7 @@ namespace SharpWrap2534.J2534Objects
         /// Disconnects the provided channel
         /// </summary>
         /// <returns>True if removed. False if not.</returns>
-        public bool DisconnectChannel()
+        internal bool DisconnectChannel()
         {
             // Disconnect based on channel Id.
             var ChannelToDisconnect = _j2534Channels[this._jDevice.DeviceNumber - 1].FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId);

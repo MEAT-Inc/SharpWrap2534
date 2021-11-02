@@ -18,28 +18,6 @@ namespace SharpWrap2534
 
         // ---------------------------------------------------------------------------------------------------------------------
 
-        /// <summary>
-        /// Gets a current device channel.
-        /// </summary>
-        /// <param name="ChannelIndex">Index of the channel to pull</param>
-        /// <returns>Channel at the provided index</returns>
-        public J2534Channel SelectChannel(int ChannelIndex) { return this.JDeviceInstance.DeviceChannels[ChannelIndex]; }
-        /// <summary>
-        /// Pulls out a logical channel for the instance
-        /// </summary>
-        /// <param name="ChannelIndex">Physical index</param>
-        /// <param name="LogicalIndex">Logical index</param>
-        /// <returns></returns>
-        public J2534Channel SelectLogicalChannel(int ChannelIndex, int LogicalIndex)
-        {
-            // Check if logical is possible.
-            return this.JDeviceInstance.J2534Version == JVersion.V0500 ?
-                this.JDeviceInstance.DeviceChannels[ChannelIndex].LogicalChannels[LogicalIndex] :
-                null;
-        }
-
-        // ---------------------------------------------------------------------------------------------------------------------
-
         // Status of this session instance, device, and DLL objects
         public PTInstanceStatus SessionStatus =>
             DllStatus == PTInstanceStatus.INITIALIZED && DeviceStatus == PTInstanceStatus.INITIALIZED ?

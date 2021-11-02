@@ -87,10 +87,6 @@
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(SolutionDir)\SharpWrap2534Nuget"
-mkdir "$(SolutionDir)\SharpWrap2534Nuget\lib"
-mkdir "$(SolutionDir)\SharpWrap2534Nuget\lib\net472"
-
-copy /Y /S "$(OutDir)\*" "$(SolutionDir)\SharpWrap2534Nuget\lib\net472"</PostBuildEvent>
+    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(SolutionDir)SharpWrap2534Nuget\lib\net472"</PostBuildEvent>
   </PropertyGroup>
 </Project>

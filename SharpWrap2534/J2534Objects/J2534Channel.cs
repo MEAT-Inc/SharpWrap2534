@@ -86,7 +86,7 @@ namespace SharpWrap2534.J2534Objects
         ~J2534Channel()
         {
             // Null out member values for this channel
-            try { _j2534Channels[(int)this._jDevice.DeviceNumber - 1][ChannelIndex] = new J2534Channel(); }
+            try { _j2534Channels[(int)this._jDevice.DeviceNumber - 1][ChannelIndex] = null; }
             catch { } 
         }
 

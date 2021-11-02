@@ -15,10 +15,7 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
    -   These methods include the PTGetNextDevice() PTGetNextCarDAQ() PTScanForDevice() and more.
    -   Each of these methods are mapped using their pointer delegates for unmanaged access and when called, are passed through an API Marshall to convert them into managed types.
   
-<br>
-
 ---
-<br>
 
 ## **Installing SharpWrap**
 - SharpWrap can either be manually imported into a project using the DLLs (and debugging symbols for best results) under the releases page. Or, the package is published on Nuget for easy updates and other support.
@@ -28,10 +25,7 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
     
     ` dotnet add PROJECT package SharpWrap2534 --version 1.0.2.88 `
 
-<br>
-
 --- 
-<br>
 
 ## **Using a New SharpSession**
 - Running a new SharpSession is as simple as calling a new instance of a SharpJ2534Session and building it using a JVersion value, and the name of the DLL you wish to pick.

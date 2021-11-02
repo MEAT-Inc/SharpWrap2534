@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpWrap2534</id>
-    <version>1.0.2.89</version>
+    <version>1.0.2.101</version>
     <title>SharpWrap2534</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -10,9 +10,9 @@
     <projectUrl>https://github.com/MEAT-Inc/Sharp2534Wrapper</projectUrl>
     <repository type="git" url="https://github.com/MEAT-Inc/Sharp2534Wrapper/"/>
     <description>A C# Based J2534 Wrapper. Complete with V0404 and V0500 API calls, and an easy to use session class for one line J2534 instance creation</description>
-    <releaseNotes>Testing</releaseNotes>
+    <releaseNotes>Fixed a few issues with access modifiers and included new code changes for Main branch</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>1.0.2.89-aplha</tags>
+    <tags>1.0.2.101-aplha</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2"/>      
     </dependencies>

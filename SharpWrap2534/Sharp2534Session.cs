@@ -19,35 +19,6 @@ namespace SharpWrap2534
         // ---------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// PTOpen command passed thru
-        /// </summary>
-        public void PTOpen() { this.JDeviceInstance.PTOpen(); }
-        /// <summary>
-        /// PTClose command passed thr
-        /// </summary>
-        public void PTClose() { this.JDeviceInstance.PTClose(); }
-
-        /// <summary>
-        /// PassThru Connect passed thru.
-        /// </summary>
-        /// <param name="ChannelIndex">Index of channel</param>
-        /// <param name="Protocol">Protocol to use</param>
-        /// <param name="Flags">Flags to use</param>
-        /// <param name="ChannelBaud">Baudrate</param>
-        public void PTConnect(int ChannelIndex, ProtocolId Protocol, uint Flags, uint ChannelBaud)
-        {
-            // Issue the PassThru connect
-            this.JDeviceInstance.PTConnect(ChannelIndex, Protocol, Flags, ChannelBaud);
-        }
-        /// <summary>
-        /// Runs a PTDisconnect
-        /// </summary>
-        /// <param name="ChannelIndex">Index to disconnect</param>
-        public void PTDisconnect(int ChannelIndex) { this.JDeviceInstance.PTDisconnect(ChannelIndex); }
-
-        // ---------------------------------------------------------------------------------------------------------------------
-
-        /// <summary>
         /// Gets a current device channel.
         /// </summary>
         /// <param name="ChannelIndex">Index of the channel to pull</param>
@@ -173,5 +144,35 @@ namespace SharpWrap2534
         }
 
         // ----------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// PTOpen command passed thru
+        /// </summary>
+        public void PTOpen() { this.JDeviceInstance.PTOpen(); }
+        /// <summary>
+        /// PTClose command passed thr
+        /// </summary>
+        public void PTClose() { this.JDeviceInstance.PTClose(); }
+
+        /// <summary>
+        /// PassThru Connect passed thru.
+        /// </summary>
+        /// <param name="ChannelIndex">Index of channel</param>
+        /// <param name="Protocol">Protocol to use</param>
+        /// <param name="Flags">Flags to use</param>
+        /// <param name="ChannelBaud">Baudrate</param>
+        public void PTConnect(int ChannelIndex, ProtocolId Protocol, uint Flags, uint ChannelBaud)
+        {
+            // Issue the PassThru connect
+            this.JDeviceInstance.PTConnect(ChannelIndex, Protocol, Flags, ChannelBaud);
+        }
+        /// <summary>
+        /// Runs a PTDisconnect
+        /// </summary>
+        /// <param name="ChannelIndex">Index to disconnect</param>
+        public void PTDisconnect(int ChannelIndex) { this.JDeviceInstance.PTDisconnect(ChannelIndex); }
+
+        // ---------------------------------------------------------------------------------------------------------------------
+
     }
 }

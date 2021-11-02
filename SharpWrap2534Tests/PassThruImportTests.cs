@@ -53,7 +53,7 @@ namespace SharpWrap2534Tests
             {
                 // Find the DLL object for the current DLL
                 Console.WriteLine($"Testing Path: {PTPath.ToDescriptionString()}");
-                ResultsList.Add(PassThruImportDLLs.FindDllFromPath(PTPath, out var NextDLL));
+                ResultsList.Add(PassThruImportDLLs.FindDllFromPath(PTPath.ToDescriptionString(), out var NextDLL));
 
                 // Check to see if passed or not.
                 if (!ResultsList.Last())

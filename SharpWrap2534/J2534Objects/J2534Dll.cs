@@ -1,4 +1,4 @@
-﻿// For comparing name values
+// For comparing name values
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +31,11 @@ namespace SharpWrap2534.J2534Objects
         /// Builds a new instance of a J2534 DLL
         /// </summary>
         /// <param name="NameOfDLL"></param>
-        internal J2534Dll(PassThruPaths PathOfDLL)
+        internal J2534Dll(string PathOfDLL)
         {
             // Build new importing object and apply values to it.
             if (!PassThruImportDLLs.FindDllFromPath(PathOfDLL, out var LocatedDll))
-                throw new InvalidOperationException($"Failed to locate any DLLs with the path provided! ({PathOfDLL.ToDescriptionString()})");
+                throw new InvalidOperationException($"Failed to locate any DLLs with the path provided! ({PathOfDLL})");
 
             // Store values onto here.
             Name = LocatedDll.Name;
@@ -43,7 +43,7 @@ namespace SharpWrap2534.J2534Objects
             LongName = LocatedDll.LongName;
             DllVersion = LocatedDll.DllVersion;
             JDllStatus = PTInstanceStatus.INITIALIZED;
-            FunctionLibrary = PathOfDLL.ToDescriptionString();
+            FunctionLibrary = PathOfDLL;
         }
         /// <summary>
         /// Builds a new J2534 DLL based on the provided values.

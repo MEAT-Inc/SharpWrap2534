@@ -16,11 +16,11 @@ using System.Resources;
 
 // Internal Visibility for testing
 [assembly: ComVisible(false)]
-[assembly: InternalsVisibleTo("SharpWrap2534Tests")]
 [assembly: Guid("e4508bd6-9045-4840-a659-be40cc205c78")]
+[assembly: InternalsVisibleTo("SharpWrap2534Tests")]
 
 // Version information
-[assembly: AssemblyVersion("1.0.0.32")]
-[assembly: AssemblyFileVersion("1.0.0.32")]
+[assembly: AssemblyVersion("1.0.1.75")]
+[assembly: AssemblyFileVersion("1.0.1.75")]
 [assembly: NeutralResourcesLanguageAttribute( "en-US" )]
 

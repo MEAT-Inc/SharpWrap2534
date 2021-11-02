@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
@@ -14,12 +15,8 @@ namespace SharpWrap2534.J2534Objects
         // -------------------------- SINGLETON CONFIGURATION ----------------------------
 
         // Singleton schema for this class object. Max channels type can exist.
-        private static J2534Channel[] _j2534Channels;
+        private static J2534Channel[][] _j2534Channels;
 
-        /// <summary>
-        /// Builds a blank J2534 Channel
-        /// </summary>
-        private J2534Channel() { ChannelStatus = PTInstanceStatus.FREED; }
         /// <summary>
         /// Private Singleton instance builder.
         /// THESE CHANNELS BUILT ARE NOT TRACKED BY THE SINGLETON INSTANCE!
@@ -29,7 +26,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="ProtocolId">Protocol Id</param>
         /// <param name="ConnectFlags">Connection flags</param>
         /// <param name="ChannelBaud">BaudRate of the channel.</param>
-        private J2534Channel(J2534Device JDevice)
+        private J2534Channel(J2534Device JDevice, J2534Channel PhysicalParent = null)
         {
             // Setup device channel properties.
             _jDevice = JDevice;
@@ -43,18 +40,50 @@ namespace SharpWrap2534.J2534Objects
             JChannelFilters = new J2534Filter[TypeConstants.MaxFilters];
             JChannelPeriodicMessages = new J2534PeriodicMessage[TypeConstants.MaxPeriodicMsgs];
 
-            // Append this to the singleton list object type.
-            if (_j2534Channels == null) { _j2534Channels = new J2534Channel[TypeConstants.MaxChannels]; }
-            ChannelIndex = _j2534Channels.ToList().IndexOf(null);
-            _j2534Channels[ChannelIndex] = this;
+            // Check for logical. If not, add this to our list of channel objects.
+            if (PhysicalParent != null)
+            {
+                // Set logical on and store parent value.
+                this.PhysicalParent = PhysicalParent;
+                int MaxLogicalChannels = (int)new PassThruConstants(JVersion.V0500).MaxChannelsLogical;
+
+                // Set Logical values. Build new logical array set.
+                _logicalChannels = new J2534Channel[MaxLogicalChannels];
+                for (int ChannelIndex = 0; ChannelIndex < MaxLogicalChannels; ChannelIndex++)
+                    _logicalChannels[ChannelIndex] = new J2534Channel(JDevice, PhysicalParent);
+            }
+            else
+            {
+                // Append this to the singleton list object type.
+                if (_j2534Channels == null)
+                {
+                    // Init List of channels here.
+                    _j2534Channels = new J2534Channel[TypeConstants.MaxDeviceCount][];
+                    for (int InstanceIndex = 0; InstanceIndex < TypeConstants.MaxDeviceCount; InstanceIndex ++)
+                        _j2534Channels[InstanceIndex] = new J2534Channel[TypeConstants.MaxChannels];
+                }
+                
+                // Find next open channel object
+                ChannelIndex = _j2534Channels[(int)JDevice.DeviceNumber - 1].ToList().IndexOf(null);
+                if (ChannelIndex == -1)
+                {
+                    // Build the open channel on our set of devices.
+                    var OpenChannel = _j2534Channels[(int)JDevice.DeviceNumber - 1].FirstOrDefault(ChObj => ChObj.ChannelStatus == PTInstanceStatus.FREED);
+                    ChannelIndex = _j2534Channels[(int)JDevice.DeviceNumber - 1].ToList().IndexOf(OpenChannel);
+                }
+                
+                // Set channel index now.
+                _j2534Channels[(int)JDevice.DeviceNumber - 1][ChannelIndex] = this;
+            }
         }
         /// <summary>
         /// Deconstructs the device object and members
         /// </summary>
         ~J2534Channel()
         {
-            // Null out member values
-            _j2534Channels[ChannelIndex] = new J2534Channel();
+            // Null out member values for this channel
+            try { _j2534Channels[(int)this._jDevice.DeviceNumber - 1][ChannelIndex] = null; }
+            catch { } 
         }
 
         /// <summary>
@@ -88,6 +117,12 @@ namespace SharpWrap2534.J2534Objects
         public uint ConnectFlags { get; private set; }
         public uint ChannelBaud { get; private set; }
 
+        // Logical Channels if possible.
+        public J2534Channel PhysicalParent { get; private set; }
+        public bool IsLogicalChannel => this.PhysicalParent != null;
+        private J2534Channel[] _logicalChannels;
+        public J2534Channel[] LogicalChannels => this.J2534Version == JVersion.V0500 ? _logicalChannels : null;
+
         // Filters and periodic messages.
         public J2534Filter[] JChannelFilters { get; private set; }
         public J2534PeriodicMessage[] JChannelPeriodicMessages { get; private set; }
@@ -120,12 +155,12 @@ namespace SharpWrap2534.J2534Objects
         public bool DisconnectChannel()
         {
             // Disconnect based on channel Id.
-            var ChannelToDisconnect = _j2534Channels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId);
+            var ChannelToDisconnect = _j2534Channels[this._jDevice.DeviceNumber - 1].FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId);
             if (ChannelToDisconnect == null) { throw new InvalidOperationException("Failed to disconnect channel value!"); }
 
             // Disconnect and reinit here.
-            int IndexOfChannel = _j2534Channels.ToList().IndexOf(ChannelToDisconnect);
-            _j2534Channels[IndexOfChannel] = new J2534Channel();
+            int IndexOfChannel = _j2534Channels[this._jDevice.DeviceNumber - 1].ToList().IndexOf(ChannelToDisconnect);
+            _j2534Channels[this._jDevice.DeviceNumber - 1][IndexOfChannel] = null;
 
             // Return passed.
             return true;
@@ -141,11 +176,11 @@ namespace SharpWrap2534.J2534Objects
         public static bool LocateChannel(uint ChannelId, out J2534Channel ChannelFound)
         {
             // Find the channel.
-            ChannelFound = _j2534Channels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId)
-                               ?? new J2534Channel() { ChannelStatus = PTInstanceStatus.NULL };
+            ChannelFound = _j2534Channels.SelectMany(ChSet => ChSet).FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId)
+                           ?? null;
 
             // Return channel object.
-            return ChannelFound.ChannelStatus != PTInstanceStatus.NULL;
+            return ChannelFound?.ChannelStatus != PTInstanceStatus.NULL;
         }
         /// <summary>
         /// Gets all of our filters and pulls one that matches.
@@ -157,7 +192,11 @@ namespace SharpWrap2534.J2534Objects
         public static bool LocateFilter(uint FilterId, out J2534Filter FilterFound, int ChannelId = -1)
         {
             // Find the new filter value here.
-            J2534Channel[] LocatedChannels = _j2534Channels.Where(ChannelObj => ChannelObj?.JChannelFilters != null).ToArray();
+            J2534Channel[] LocatedChannels = _j2534Channels.SelectMany(ChSet => ChSet)
+                .Where(ChannelObj => ChannelObj?.JChannelFilters != null)
+                .ToArray();
+            
+            // Check index value
             if (ChannelId != -1) LocatedChannels = new[] { LocatedChannels.FirstOrDefault(ChannelObj => ChannelObj?.ChannelId == ChannelId) };
 
             // Extract just the filters from these channels
@@ -178,7 +217,11 @@ namespace SharpWrap2534.J2534Objects
         public static bool LocatePeriodicMessage(uint MessageId, out J2534PeriodicMessage MessageFound, int ChannelId = -1)
         {
             // Find the new filter value here.
-            J2534Channel[] LocatedChannels = _j2534Channels.Where(ChannelObj => ChannelObj?.JChannelPeriodicMessages != null).ToArray();
+            J2534Channel[] LocatedChannels = _j2534Channels.SelectMany(ChSet => ChSet)
+                .Where(ChannelObj => ChannelObj?.JChannelPeriodicMessages != null)
+                .ToArray();
+            
+            // Check index value
             if (ChannelId != -1) LocatedChannels = new[] { LocatedChannels.FirstOrDefault(ChannelObj => ChannelObj?.ChannelId == ChannelId) };
 
             // Extract just the filters from these channels
@@ -487,5 +530,30 @@ namespace SharpWrap2534.J2534Objects
         public void SetConfig(ConfigParamId configParam, uint val) { throw new NotImplementedException("SetConfig is not yet built into this wrapper!"); }
         public byte[] FiveBaudInit(byte byteIn) { throw new NotImplementedException("FiveBaudInit is not yet built into this wrapper!"); }
         public byte[] FastInit(byte[] bytesIn, bool responseRequired) { throw new NotImplementedException("FastInit is not yet built into this wrapper!"); }
+
+        // ----------------------------------------- VERSION 0500 CHANNEL SPECIFIC METHOD SET HERE --------------------------------
+
+        /// <summary>
+        /// Runs a logical select on the channel
+        /// </summary>
+        /// <returns>Logical channels on this physical channel</returns>
+        public PassThruStructs.SChannelSet? PTSelect()
+        {
+            // Check if this can be done. Must be 0500 and must be logical
+            if (this.J2534Version == JVersion.V0404)
+                throw new InvalidOperationException("Can not issue a PTSelect on a version 0404 object!");
+            if (!this.IsLogicalChannel)
+                throw new InvalidOperationException("Can not issue a PTSelect on a non logical channel!");
+
+            // Build channel set struct
+            PassThruStructs.SChannelSet ResultingChannels = new PassThruStructs.SChannelSet();
+            ResultingChannels.ChannelThreshold = 0;
+            ResultingChannels.ChannelList.Add((int)this.ChannelId);
+            ResultingChannels.ChannelCount = (uint)ResultingChannels.ChannelList.Count;
+
+            // Issue command to the API and return the struct output.
+            _jDevice.ApiMarshall.PassThruSelect(ref ResultingChannels, 0);
+            return ResultingChannels;
+        }
     }
 }

@@ -130,5 +130,49 @@ namespace SharpWrap2534.PassThruTypes
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 100)]
             public uint[] Data;
         };
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public struct SDEVICE
+        {
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+            public string DeviceName;
+            public UInt32 DeviceAvailable;
+            public UInt32 DeviceDLLFWStatus;
+            public UInt32 DeviceConnectMedia;
+            public UInt32 DeviceConnectSpeed;
+            public UInt32 DeviceSignalQuality;
+            public UInt32 DeviceSignalStrength;
+        };
+
+        // ----------------------------------------------------- VERSION 0500 USE CASES ONLY! ----------------------------------
+
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct ISO15765_CHANNEL_DESCRIPTOR
+        {
+            public UInt32 LocalTxFlags;
+            public UInt32 RemoteTxFlags;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
+            public Byte[] LocalAddress;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
+            public Byte[] RemoteAddress;
+
+            public ISO15765_CHANNEL_DESCRIPTOR(UInt32 localTxFlags, UInt32 remoteTxFlags, Byte[] localAdd, Byte[] remoteAdd)
+            {
+                LocalTxFlags = localTxFlags;
+                RemoteTxFlags = remoteTxFlags;
+                LocalAddress = localAdd;
+                RemoteAddress = remoteAdd;
+            }
+        };
+
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SCHANNELSET
+        {
+            public UInt32 ChannelCount;
+            public UInt32 ChannelThreshold;
+            public IntPtr ChannelListPointer;
+        };
     }
 }

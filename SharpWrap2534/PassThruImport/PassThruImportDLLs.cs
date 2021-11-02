@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Win32;
@@ -22,7 +22,7 @@ namespace SharpWrap2534.PassThruImport
         public string[] DllKeyValues_0500 { get; private set; }
 
         // List of all located DLL Values
-        public J2534Dll[] LocatedJ2534DLLs { get; private set; }
+        public J2534Dll[] LocatedJ2534DLLs;
 
         // --------------------------------------------------------------------------------
 
@@ -49,12 +49,6 @@ namespace SharpWrap2534.PassThruImport
                 GetDLLsForKeyList(PassThruSupportKey_0404, DllKeyValues_0404),
                 GetDLLsForKeyList(PassThruSupportKey_0500, DllKeyValues_0500),
             }.SelectMany(DllSet => DllSet).ToArray();
-
-            // Filter dupes out of this set. Remove any values without names.
-            LocatedJ2534DLLs = LocatedJ2534DLLs?.GroupBy(DllObj => DllObj?.FunctionLibrary)
-                .Select(Dll => Dll.First())
-                .Where(Dll => !string.IsNullOrWhiteSpace(Dll?.Name))
-                .ToArray();
         }
         /// <summary>
         /// Builds an array of new J2534 DLLs
@@ -94,11 +88,11 @@ namespace SharpWrap2534.PassThruImport
         /// Finds the DLL provided based on the function lib name.
         /// </summary>
         /// <returns>True if a DLL is found. False if not.</returns>
-        public static bool FindDllFromPath(PassThruPaths PathOfDll, out J2534Dll DllFound)
+        public static bool FindDllFromPath(string PathOfDll, out J2534Dll DllFound)
         {
             // Build list of DLLs here.
             var DLLsInstalled = new PassThruImportDLLs().LocatedJ2534DLLs;
-            DllFound = DLLsInstalled.FirstOrDefault(DllObj => DllObj.FunctionLibrary == PathOfDll.ToDescriptionString());
+            DllFound = DLLsInstalled.FirstOrDefault(DllObj => DllObj.FunctionLibrary == PathOfDll);
 
             // Return output based on DLL Value.
             return DllFound != null;
@@ -114,7 +108,7 @@ namespace SharpWrap2534.PassThruImport
         {
             // Build list of DLLs here.
             var DLLsInstalled = new PassThruImportDLLs().LocatedJ2534DLLs;
-            DllFound = DLLsInstalled.FirstOrDefault(DllObj => DllObj.LongName.Contains(DllName) && DllObj.DllVersion == Version);
+            DllFound = DLLsInstalled.FirstOrDefault(DllObj => DllObj.Name.ToUpper().Contains(DllName.ToUpper()) && DllObj.DllVersion == Version);
 
             // Return output based on DLL Value.
             return DllFound != null;

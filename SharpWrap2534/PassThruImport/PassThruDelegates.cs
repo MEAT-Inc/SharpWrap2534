@@ -12,17 +12,27 @@ namespace SharpWrap2534.PassThruImport
     /// </summary>
     internal class PassThruDelegates
     {
-        // ------------------------------------ API DELEGATES FOR DEVUCE SEARCHING --------------------------------
+        // ------------------------------------ API DELEGATES FOR DEVICE SEARCHING --------------------------------
 
-        // DELEGATE INITNEXTPASSTHRU DEVICE
+        // DELEGATE: INITNEXTPASSTHRU DEVICE
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int DelegateInitGetNextCarDAQ(IntPtr name, IntPtr pVersion, IntPtr pIPAddress);
-        public DelegateInitGetNextCarDAQ InitNextPassThruDevice;
+        public delegate int DelegateInitGetNextCarDAQ(IntPtr DeviceName, IntPtr Version, IntPtr IPAddress);
+        public DelegateInitGetNextCarDAQ PTInitNextPassThruDevice;
 
-        // DELEGATE GETNEXTPASSTHRU DEVICE
+        // DELEGATE: GETNEXTPASSTHRU DEVICE
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int DelegateGetNextCarDAQ([In, Out] ref IntPtr name, out uint pVersion, [In, Out] ref IntPtr pIPAddress);
-        public DelegateGetNextCarDAQ GetNextPassThruDevice;
+        public delegate int DelegateGetNextCarDAQ([In, Out] ref IntPtr DeviceName, out uint Version, [In, Out] ref IntPtr IPAddress);
+        public DelegateGetNextCarDAQ PTGetNextPassThruDevice;
+
+        // DELEGATE: SCAN FOR DEVICES (V0500 ONLY!)
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruScanForDevices(out uint DeviceCont);
+        public DelegatePassThruScanForDevices PTScanForDevices;
+
+        // DELEGATE: GETS THE NEXT PASSTHRU DEVICE USING IT's DEVICE STRUCT
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruGetNextDevice(out PassThruStructsNative.SDEVICE InputSDevice);
+        public DelegatePassThruGetNextDevice PTGetNextDevice;
 
         // ------------------------------------- API DELEGATES FOR PASSTHRU FUNCTIONS -------------------------------
 
@@ -100,5 +110,29 @@ namespace SharpWrap2534.PassThruImport
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         public delegate int DelegatePassThruIoctl(uint ChannelId, uint IoctlId, IntPtr InputPtr, IntPtr OutputPtr);
         public DelegatePassThruIoctl PTIoctl;
+
+        // ------------------------------------- API DELEGATES FOR VERSION 0500 PASSTHRU FUNCTIONS ONLY! -------------------------------
+
+        // DELEGATE PASSTHRU LOGICAL CONNECT
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruLogicalConnect(uint PhysicalChannelId, uint ProtocolId, uint Flags, IntPtr ChannelDescriptor, out uint ChannelId);
+        public DelegatePassThruLogicalConnect PTLogicalConnect;
+
+        // DELEGATE: PASSTHRU LOGCIAL DISCONNECT
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruLogicalDisconnect(uint PhysicalChannelId);
+        public DelegatePassThruLogicalDisconnect PTLogicalDisconnect;
+
+        // DELEGATE: PASSTHRU SELECT MESSAGE
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruSelect(IntPtr ChannelSetPointer, uint SelectType, uint Timeout);
+        public DelegatePassThruSelect PTSelect;
+
+        // DELEGATE: PASSTHRU QUEUE MESSAGE
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePassThruQueueMsgs(uint ChannelId, [In] PassThruStructsNative.PASSTHRU_MSG[] MessagePointer, ref uint MessageCount);
+        public DelegatePassThruQueueMsgs PTQueueMsgs;
+
+        // -------------------------------------------------------------------------------------------------------------------------
     }
 }

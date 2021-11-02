@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruImport;
 using SharpWrap2534.SupportingLogic;
 
-namespace JBoxInvokerTests
+namespace SharpWrap2534Tests
 {
     [TestClass]
     [TestCategory("J2534 Logic")]
@@ -25,7 +23,7 @@ namespace JBoxInvokerTests
         {
             // Build new J2534 DLL from the import path.
             Console.WriteLine(SepString + "\nTests Running...\n");
-            J2534Dll CarDAQ3_0404Dll = new J2534Dll(PassThruPaths.CarDAQPlus3_0404);
+            J2534Dll CarDAQ3_0404Dll = new J2534Dll(PassThruPaths.CarDAQPlus3_0404.ToDescriptionString());
             Assert.IsTrue(CarDAQ3_0404Dll.FunctionLibrary != null, "CarDAQ 3 DLL was not built correctly!");
 
             // Log info
@@ -75,7 +73,7 @@ namespace JBoxInvokerTests
             {
                 // Find the DLL object for the current DLL
                 Console.WriteLine($"Testing Path: {PTPath.ToDescriptionString()}");
-                if (!PassThruImportDLLs.FindDllFromPath(PTPath, out var NextDLL))
+                if (!PassThruImportDLLs.FindDllFromPath(PTPath.ToDescriptionString(), out var NextDLL))
                 {
                     // Log failures.
                     Console.WriteLine("--> Failed to import DLL!");

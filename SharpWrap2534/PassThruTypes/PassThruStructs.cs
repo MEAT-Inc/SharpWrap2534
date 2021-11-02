@@ -115,11 +115,61 @@ namespace SharpWrap2534.PassThruTypes
             public uint ResourceCount;
             public List<int> ResourceList;
 
+            /// <summary>
+            /// Builds a new resource struct object
+            /// </summary>
+            /// <param name="NumResources"></param>
             public ResourceStruct(int NumResources = 0)
             {
                 ResourceCount = (uint)NumResources;
                 ResourceList = new List<int>(NumResources);
                 ConnectorType = default;
+            }
+        }
+
+        // ---------------------------------------------- VERSION 0500 USE CASES ONLY! ----------------------------------------
+
+        /// <summary>
+        /// ISO15765 Channel Descriptor for Logical commands
+        /// </summary>
+        public struct ISO15765ChannelDescriptor
+        {
+            public uint LocalTxFlags;
+            public uint RemoteTxFlags;
+            public byte[] LocalAddress;
+            public byte[] RemoteAddress;
+
+            /// <summary>
+            /// Builds a new Channel descriptor
+            /// </summary>
+            public ISO15765ChannelDescriptor(byte[] LocalAddress, byte[] RemoteAddress, uint LocalFlags, uint RemoteFlags)
+            {
+                // Store the values here.
+                this.LocalAddress = LocalAddress;
+                this.RemoteAddress = RemoteAddress;
+                this.LocalTxFlags = LocalFlags;
+                this.RemoteTxFlags = RemoteFlags;
+            }
+        }
+        /// <summary>
+        /// SChannel set object for logical operations
+        /// </summary>
+        public struct SChannelSet
+        {
+            public uint ChannelCount;
+            public uint ChannelThreshold;
+            public List<int> ChannelList;
+
+            /// <summary>
+            /// Builds a new Channel set object
+            /// </summary>
+            /// <param name="ChannelCount"></param>
+            public SChannelSet(uint ChannelCount, uint ChannelThreshold)
+            {
+                // Store the values here.
+                this.ChannelList = new List<int>();
+                this.ChannelCount = ChannelCount;
+                this.ChannelThreshold = ChannelThreshold;
             }
         }
     }

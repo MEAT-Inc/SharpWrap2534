@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit;
-using NUnit.Framework;
 using SharpWrap2534.PassThruImport;
 using SharpWrap2534.SupportingLogic;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace JBoxInvokerTests
+namespace SharpWrap2534Tests
 {
     /// <summary>
     /// Test class to configure DLL importing
@@ -55,7 +53,7 @@ namespace JBoxInvokerTests
             {
                 // Find the DLL object for the current DLL
                 Console.WriteLine($"Testing Path: {PTPath.ToDescriptionString()}");
-                ResultsList.Add(PassThruImportDLLs.FindDllFromPath(PTPath, out var NextDLL));
+                ResultsList.Add(PassThruImportDLLs.FindDllFromPath(PTPath.ToDescriptionString(), out var NextDLL));
 
                 // Check to see if passed or not.
                 if (!ResultsList.Last())
@@ -93,7 +91,7 @@ namespace JBoxInvokerTests
         public void LoadJ2534ApisTest()
         {
             // Results for loading DLLs.
-            List<(bool, Exception)> ResultsList = new List<(bool, Exception)>();
+            var ResultsList = new List<(bool, Exception)>();
             var PathsToLoop = Enum.GetValues(typeof(PassThruPaths));
 
             // Loop all the PTPath Values.
@@ -112,13 +110,13 @@ namespace JBoxInvokerTests
                     Console.WriteLine($"    --> Setup new DLL Loader OK!");
                     
                     // Add into list of bools.
-                    ResultsList.Add(new Tuple<bool, Exception>(true, null));
+                    ResultsList.Add(new ValueTuple<bool, Exception>(true, null));
                 }
                 catch (Exception LoadEx)
                 {
                     // Add failure results.
                     Console.WriteLine($"    --> FAILED TO LOAD DLL: {PTPath}!");
-                    ResultsList.Add(new Tuple<bool, Exception>(false, LoadEx));
+                    ResultsList.Add(new ValueTuple<bool, Exception>(false, LoadEx));
                 }
             }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -51,7 +53,7 @@ namespace SharpWrap2534.J2534Api
         /// </summary>
         /// <param name="NativeMessage"></param>
         /// <param name="ManagedMessage"></param>
-        internal void CopyPassThruMsgToNative(ref PassThruStructsNative.PASSTHRU_MSG NativeMessage, PassThruStructs.PassThruMsg ManagedMessage)
+        internal static void CopyPassThruMsgToNative(ref PassThruStructsNative.PASSTHRU_MSG NativeMessage, PassThruStructs.PassThruMsg ManagedMessage)
         {
             // Set the values from the native message to the managed one.
             NativeMessage.ProtocolID = (uint)ManagedMessage.ProtocolID;
@@ -69,7 +71,7 @@ namespace SharpWrap2534.J2534Api
         /// </summary>
         /// <param name="ManagedMessage"></param>
         /// <param name="NativeMessage"></param>
-        internal void CopyPassThruMsgFromNative(ref PassThruStructs.PassThruMsg ManagedMessage, PassThruStructsNative.PASSTHRU_MSG NativeMessage)
+        internal static void CopyPassThruMsgFromNative(ref PassThruStructs.PassThruMsg ManagedMessage, PassThruStructsNative.PASSTHRU_MSG NativeMessage)
         {
             // Copy the values from our managed message to the native one.
             ManagedMessage = new PassThruStructs.PassThruMsg(NativeMessage.DataSize)
@@ -84,6 +86,28 @@ namespace SharpWrap2534.J2534Api
 
             // Copy message data using a buffer.
             Buffer.BlockCopy(NativeMessage.Data, 0, ManagedMessage.Data, 0, (int)NativeMessage.DataSize);
+        }
+        /// <summary>
+        /// Takes an SDevice struct and copies it into a managed SDevice struct for use later on.
+        /// </summary>
+        /// <param name="NativeSDevice">Device to copy from native</param>
+        /// <returns>Managed SDevice object</returns>
+        internal static PassThruStructs.SDevice CopySDeviceFromNative(PassThruStructsNative.SDEVICE NativeSDevice)
+        {
+            // Build the new managed device object.
+            PassThruStructs.SDevice ManagedSDevice = new PassThruStructs.SDevice();
+
+            // Apply properties here.
+            ManagedSDevice.DeviceName = NativeSDevice.DeviceName;
+            ManagedSDevice.DeviceAvailable = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceDllFWStatus = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceConnectMedia = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceConnectSpeed = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceSignalQuality = NativeSDevice.DeviceAvailable;
+            ManagedSDevice.DeviceSignalStrength = NativeSDevice.DeviceAvailable;
+
+            // Return it here.
+            return ManagedSDevice;
         }
 
         // ----------------------------- MARSHALL API CALLS GENERATED FROM THE API --------------------------------
@@ -323,5 +347,126 @@ namespace SharpWrap2534.J2534Api
             JDllVersion = DllVersionBuilder.ToString();
             JApiVersion = ApiVersionBuilder.ToString();
         }
+
+        // ---------------------------------------------------- VERSION 0500 API MARSHALLS -----------------------------------------------------
+
+        /// <summary>
+        /// VERSION 0500 ONLY!
+        /// Issues a PTLogical Connect
+        /// </summary>
+        /// <param name="PhysicalChannelId">Physical ID</param>
+        /// <param name="ProtocolId">Protocol of channel</param>
+        /// <param name="Flags">Flags of message</param>
+        /// <param name="Descriptor">Channel Descriptor</param>
+        /// <param name="ChannelId">ChannelId connected to</param>
+        public void PassThruLogicalConnect(uint PhysicalChannelId, ProtocolId ProtocolId, uint Flags, PassThruStructs.ISO15765ChannelDescriptor ChannelDescriptor, out uint ChannelId)
+        {
+            // Build descriptor on native side first.
+            var DescriptorBuilt = new PassThruStructsNative.ISO15765_CHANNEL_DESCRIPTOR(
+                ChannelDescriptor.LocalTxFlags,
+                ChannelDescriptor.RemoteTxFlags, 
+                ChannelDescriptor.LocalAddress,
+                ChannelDescriptor.RemoteAddress
+            );
+
+            // Issue command to API
+            ApiInstance.PassThruLogicalConnect(PhysicalChannelId, (uint)ProtocolId, Flags, DescriptorBuilt, out ChannelId);
+        }
+        /// <summary>
+        /// Disconnects from a logical channel based on the ID of it.
+        /// </summary>
+        /// <param name="ChannelId"></param>
+        public void PassThruLogicalDisconnect(uint ChannelId) { ApiInstance.PassThruLogicalDisconnect(ChannelId); }
+        /// <summary>
+        /// Runs a PassThruSelect command on the channel provided 
+        /// </summary>
+        /// <param name="ChannelSet">Channel set method</param>
+        /// <param name="Timeout">Timeout for the command</param>
+        public void PassThruSelect(ref PassThruStructs.SChannelSet ChannelSet, uint Timeout)
+        {
+            // Make sure list of channels matches up with the count of channels
+            if (ChannelSet.ChannelList.Count != ChannelSet.ChannelCount)
+                throw new Exception("PassThruSelect, SChannelSet.channelList count different than SChannelSet.channelCount");
+            
+            // Built native SchannelSet
+            PassThruStructsNative.SCHANNELSET ChannelSetNative = new PassThruStructsNative.SCHANNELSET
+            {
+                ChannelCount = ChannelSet.ChannelCount,
+                ChannelThreshold = ChannelSet.ChannelThreshold
+            };
+
+            // Allocate unmanaged memory and create pointer for the ChannelList
+            IntPtr ChannelListPointer = Marshal.AllocHGlobal((int)(sizeof(uint) * ChannelSet.ChannelCount));
+            int[] ArrayIntChannels = ChannelSet.ChannelList.ToArray();
+            Marshal.Copy(ArrayIntChannels, 0, ChannelListPointer, (int)ChannelSet.ChannelCount);
+            
+            // Create a pointer to the channelset
+            ChannelSetNative.ChannelListPointer = ChannelListPointer;
+            IntPtr ptrChannelSet = Marshal.AllocHGlobal(Marshal.SizeOf(ChannelSetNative));
+            Marshal.StructureToPtr(ChannelSetNative, ptrChannelSet, true);
+
+            // Issue the command to the API here and copy the channel set back in
+            ApiInstance.PassThruSelect(ptrChannelSet, SelectType.READABLE_TYPE, Timeout);
+            ChannelSetNative = (PassThruStructsNative.SCHANNELSET)Marshal.PtrToStructure(ptrChannelSet, typeof(PassThruStructsNative.SCHANNELSET));
+            if (ChannelSetNative.ChannelCount == 0) { ArrayIntChannels = Array.Empty<int>(); }
+            else 
+            {
+                // Populate values here.
+                ArrayIntChannels = new int[ChannelSetNative.ChannelCount];
+                Marshal.Copy(ChannelListPointer, ArrayIntChannels, 0, (int)ChannelSetNative.ChannelCount);
+            }
+
+            // Copy SCHANNELSET NATIVE to SChannelSet
+            ChannelSet.ChannelCount = ChannelSetNative.ChannelCount;
+            ChannelSet.ChannelThreshold = ChannelSetNative.ChannelThreshold;
+            ChannelSet.ChannelList = ArrayIntChannels.ToList();
+
+            // Free unmanaged memory from the instance now.
+            Marshal.DestroyStructure(ptrChannelSet, typeof(PassThruStructsNative.SCHANNELSET));
+            Marshal.FreeHGlobal(ChannelListPointer);
+        }
+        /// <summary>
+        /// Queues messages to be sent out.
+        /// </summary>
+        /// <param name="ChannelId">ID Of channel to apply to</param>
+        /// <param name="Messages">Messages to queue</param>
+        /// <param name="MessageCount">Number of messages to send</param>
+        public void PassThruQueueMsgs(uint ChannelId, PassThruStructs.PassThruMsg[] Messages, ref uint MessageCount)
+        {
+            // Make sure the message count lines up
+            if (Messages.Length < MessageCount) throw new Exception("PassThruQueueMsgs, PassThruMsg array size smaller than MessageCount to write");
+
+            // Build native message structure now.
+            PassThruStructsNative.PASSTHRU_MSG[] SendMessagesNative = new PassThruStructsNative.PASSTHRU_MSG[MessageCount];
+            for (var MessageIndex = 0; MessageIndex < Messages.Length; MessageIndex++)
+            {
+                SendMessagesNative[MessageIndex] = new PassThruStructsNative.PASSTHRU_MSG();
+                CopyPassThruMsgToNative(ref SendMessagesNative[MessageIndex], Messages[MessageIndex]);
+            }
+
+            // Issue command to the API
+            ApiInstance.PassThruQueueMsgs(ChannelId, SendMessagesNative, ref MessageCount);
+        }
+        /// <summary>
+        /// Sends a single PassThrumessage using the Queue command
+        /// </summary>
+        /// <param name="ChannelId">Channel to send on</param>
+        /// <param name="Message">Message to send</param>
+        /// <param name="MessageCount">Number of messages to send.</param>
+        public void PassThruQueueMsgs(uint ChannelId, PassThruStructs.PassThruMsg Message, ref uint MessageCount)
+        {
+            // Check the message count vs messages being sent
+            if (MessageCount > 1) throw new Exception("PassThruQueueMsgs, for this function overload, MessageCount to read must be 1");
+            
+            // Build native messages.
+            PassThruStructs.PassThruMsg[] MessageSetNative = new PassThruStructs.PassThruMsg[1];
+            MessageSetNative[0] = Message;
+
+            // Send to the API 
+            PassThruQueueMsgs(ChannelId, MessageSetNative, ref MessageCount);
+        }
+
+        // -------------------------------------------------------------------------------------------------------------------------------------
+
     }
 }

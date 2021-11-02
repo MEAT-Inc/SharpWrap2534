@@ -316,5 +316,8 @@ namespace SharpWrap2534.PassThruTypes
         J1939_CONNECTOR = 0x00010000,
         J1708_CONNECTOR = 0x00010001
     }
-
+    public enum SelectType : uint
+    {
+        READABLE_TYPE = 1
+    }
 }

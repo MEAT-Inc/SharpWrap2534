@@ -10,8 +10,10 @@
     <RootNamespace>SharpWrap2534</RootNamespace>
     <AssemblyName>SharpWrap2534</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <RepositoryUrl>"https://github.com/MEAT-Inc/Sharp2534Wrapper"</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,12 +27,14 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -81,5 +85,12 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(SolutionDir)\SharpWrap2534Nuget"
+mkdir "$(SolutionDir)\SharpWrap2534Nuget\lib"
+mkdir "$(SolutionDir)\SharpWrap2534Nuget\lib\net472"
+
+copy /Y /S "$(OutDir)\*" "$(SolutionDir)\SharpWrap2534Nuget\lib\net472"</PostBuildEvent>
   </PropertyGroup>
 </Project>

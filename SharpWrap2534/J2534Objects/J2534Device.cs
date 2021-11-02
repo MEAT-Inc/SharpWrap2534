@@ -112,7 +112,7 @@ namespace SharpWrap2534.J2534Objects
                 $"\n    \\__ Device Id:      {DeviceId}" +
                 $"\n    \\__ Device Name:    {DeviceName}" +
                 $"\n    \\__ Device Version: {J2534Version.ToDescriptionString()}" +
-                $"\n    \\__ Device Status:  {(IsOpen ? "OPEN - " : "NOT OPEN - ")} AND {(IsConnected ? "CONNECTED" : "NOT CONNECTED")}" +
+                $"\n    \\__ Device Status:  {(IsOpen ? "OPEN - " : "NOT OPEN -")} AND {(IsConnected ? "CONNECTED" : "NOT CONNECTED")}" +
                 $"\n--> Device Setup Information:" +
                 $"\n    \\__ DLL Version:    {DeviceDLLVersion}" +
                 $"\n    \\__ FW Version:     {DeviceFwVersion}" +

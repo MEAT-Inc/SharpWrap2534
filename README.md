@@ -55,7 +55,7 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
             // PTConnect call from the session.
             // Once a channel is opened, you can send messages on it by calling the index of it.
             var OpenedChannel = SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000);
-            OpenedChannel.ClearRxBuffer();
+            OpenedChannel.ClearTxBuffer();
             OpenedChannel.ClearRxBuffer();
 
             // Then once done with a channel, issue a PTDisconnect on the index provided.

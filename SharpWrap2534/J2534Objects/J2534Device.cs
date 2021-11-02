@@ -45,7 +45,6 @@ namespace SharpWrap2534.J2534Objects
             PTOpen(NameFilter);
             ApiMarshall.PassThruReadVersion(DeviceId, out string FwVer, out string DllVer, out string JApiVer);
             DeviceFwVersion = FwVer; DeviceDLLVersion = DllVer; DeviceApiVersion = JApiVer;
-            PTClose();
         }
         /// <summary>
         /// Builds a new SAFE Device instance using a predefined DLL path
@@ -74,7 +73,6 @@ namespace SharpWrap2534.J2534Objects
             PTOpen(NameFilter);
             ApiMarshall.PassThruReadVersion(DeviceId, out string FwVer, out string DllVer, out string JApiVer);
             DeviceFwVersion = FwVer; DeviceDLLVersion = DllVer; DeviceApiVersion = JApiVer;
-            PTClose();
         }
 
         /// <summary>

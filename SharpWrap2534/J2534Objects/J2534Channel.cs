@@ -39,7 +39,11 @@ namespace SharpWrap2534.J2534Objects
             // PTConstants
             var TypeConstants = new PassThruConstants(JDevice.J2534Version);
 
-            // Check for logical.
+            // Setup filters and messages.
+            JChannelFilters = new J2534Filter[TypeConstants.MaxFilters];
+            JChannelPeriodicMessages = new J2534PeriodicMessage[TypeConstants.MaxPeriodicMsgs];
+
+            // Check for logical. If not, add this to our list of channel objects.
             if (PhysicalParent != null)
             {
                 // Set logical on and store parent value.
@@ -50,15 +54,13 @@ namespace SharpWrap2534.J2534Objects
                 for (int ChannelIndex = 0; ChannelIndex < MaxLogicalChannels; ChannelIndex++)
                     _logicalChannels[ChannelIndex] = new J2534Channel(JDevice, PhysicalParent);
             }
-
-            // Setup filters and messages.
-            JChannelFilters = new J2534Filter[TypeConstants.MaxFilters];
-            JChannelPeriodicMessages = new J2534PeriodicMessage[TypeConstants.MaxPeriodicMsgs];
-
-            // Append this to the singleton list object type.
-            if (_j2534Channels == null) { _j2534Channels = new J2534Channel[TypeConstants.MaxChannels]; }
-            ChannelIndex = _j2534Channels.ToList().IndexOf(null);
-            _j2534Channels[ChannelIndex] = this;
+            else
+            {
+                // Append this to the singleton list object type.
+                if (_j2534Channels == null) { _j2534Channels = new J2534Channel[TypeConstants.MaxChannels]; }
+                ChannelIndex = _j2534Channels.ToList().IndexOf(null);
+                _j2534Channels[ChannelIndex] = this;
+            }
         }
         /// <summary>
         /// Deconstructs the device object and members

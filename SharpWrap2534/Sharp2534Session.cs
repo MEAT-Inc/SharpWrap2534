@@ -2,6 +2,7 @@
 using System.Linq;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruImport;
+using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
 
 namespace SharpWrap2534
@@ -12,8 +13,37 @@ namespace SharpWrap2534
     public class Sharp2534Session
     {
         // DLL and Device Instance for our J2534 Box.       
-        public J2534Dll JDeviceDll { get; set; }               // The DLL Instance in use.
+        public J2534Dll JDeviceDll { get; set; }                 // The DLL Instance in use.
         public J2534Device JDeviceInstance { get; set; }       // The Device instance in use.
+
+        // ---------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// PTOpen command passed thru
+        /// </summary>
+        public void PTOpen() { this.JDeviceInstance.PTOpen(); }
+        /// <summary>
+        /// PTClose command passed thr
+        /// </summary>
+        public void PTClose() { this.JDeviceInstance.PTClose(); }
+
+        /// <summary>
+        /// PassThru Connect passed thru.
+        /// </summary>
+        /// <param name="ChannelIndex">Index of channel</param>
+        /// <param name="Protocol">Protocol to use</param>
+        /// <param name="Flags">Flags to use</param>
+        /// <param name="ChannelBaud">Baudrate</param>
+        public void PTConnect(int ChannelIndex, ProtocolId Protocol, uint Flags, uint ChannelBaud)
+        {
+            // Issue the PassThru connect
+            this.JDeviceInstance.PTConnect(ChannelIndex, Protocol, Flags, ChannelBaud);
+        }
+        /// <summary>
+        /// Runs a PTDisconnect
+        /// </summary>
+        /// <param name="ChannelIndex">Index to disconnect</param>
+        public void PTDisconnect(int ChannelIndex) { this.JDeviceInstance.PTDisconnect(ChannelIndex); }
 
         // ---------------------------------------------------------------------------------------------------------------------
 
@@ -22,14 +52,14 @@ namespace SharpWrap2534
         /// </summary>
         /// <param name="ChannelIndex">Index of the channel to pull</param>
         /// <returns>Channel at the provided index</returns>
-        public J2534Channel DeviceChannel(int ChannelIndex) { return this.JDeviceInstance.DeviceChannels[ChannelIndex]; }
+        public J2534Channel SelectChannel(int ChannelIndex) { return this.JDeviceInstance.DeviceChannels[ChannelIndex]; }
         /// <summary>
         /// Pulls out a logical channel for the instance
         /// </summary>
         /// <param name="ChannelIndex">Physical index</param>
         /// <param name="LogicalIndex">Logical index</param>
         /// <returns></returns>
-        public J2534Channel LogicalDeviceChannel(int ChannelIndex, int LogicalIndex)
+        public J2534Channel SelectLogicalChannel(int ChannelIndex, int LogicalIndex)
         {
             // Check if logical is possible.
             return this.JDeviceInstance.J2534Version == JVersion.V0500 ?

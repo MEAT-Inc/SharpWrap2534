@@ -24,7 +24,7 @@ namespace SharpWrap2534.PassThruLogging.PassThruLoggerTypes
 
         // Log Level Info (0 is Trace, 6 Is Off)
         internal bool DisableLogging = false;             // Toggle to turn logging on or off.
-        internal LogLevel MinLevel = System.LogLevel.Trace;      // Lowest level
+        internal LogLevel MinLevel = LogLevel.Trace;      // Lowest level
         internal LogLevel MaxLevel = LogLevel.Fatal;      // Top most level
 
         // Time, name, and other info for logger.

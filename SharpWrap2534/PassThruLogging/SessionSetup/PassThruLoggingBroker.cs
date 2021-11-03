@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using NLog;
+using NLog.Config;
 using SharpWrap2534.PassThruLogging.PassThruLoggerTypes;
 
 namespace SharpWrap2534.PassThruLogging.SessionSetup

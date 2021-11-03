@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+using NLog;
 using SharpWrap2534.PassThruLogging.SessionSetup;
 
 namespace SharpWrap2534.PassThruLogging.PassThruLoggerTypes

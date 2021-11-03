@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using NLog;
+using NLog.Config;
 using SharpWrap2534.PassThruLogging.SessionSetup;
 
 namespace SharpWrap2534.PassThruLogging.PassThruLoggerTypes
@@ -22,7 +24,7 @@ namespace SharpWrap2534.PassThruLogging.PassThruLoggerTypes
 
         // Log Level Info (0 is Trace, 6 Is Off)
         internal bool DisableLogging = false;             // Toggle to turn logging on or off.
-        internal LogLevel MinLevel = LogLevel.Trace;      // Lowest level
+        internal LogLevel MinLevel = System.LogLevel.Trace;      // Lowest level
         internal LogLevel MaxLevel = LogLevel.Fatal;      // Top most level
 
         // Time, name, and other info for logger.

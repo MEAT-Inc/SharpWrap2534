@@ -23,7 +23,7 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
     ### Install from PackageManager CLI
   - From the Nuget PackageManager CLI or other Nuget interface, run the following command.  The package itself does not have any third party depenednecies so version conflicts should't be an issue any any point.
     
-    ` dotnet add PROJECT package SharpWrap2534 --version 1.0.2.88 `
+    ` dotnet add PROJECT package SharpWrap2534 --version 1.1.2.104 `
 
 --- 
 
@@ -55,7 +55,7 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
             // PTConnect call from the session.
             // Once a channel is opened, you can send messages on it by calling the index of it.
             var OpenedChannel = SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000);
-            OpenedChannel.ClearRxBuffer();
+            OpenedChannel.ClearTxBuffer();
             OpenedChannel.ClearRxBuffer();
 
             // Then once done with a channel, issue a PTDisconnect on the index provided.

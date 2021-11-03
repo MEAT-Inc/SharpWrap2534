@@ -37,8 +37,16 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="J2534Api\J2534ApiMarshaller.cs" />
+    <Compile Include="PassThruLogging\SessionSetup\PassThruLoggerQueue.cs" />
+    <Compile Include="PassThruLogging\SessionSetup\PassThruLoggingBroker.cs" />
+    <Compile Include="PassThruLogging\PassThruLoggerTypes.cs" />
+    <Compile Include="PassThruLogging\PassThruLoggerTypes\PassThruLoggerFactory.cs" />
+    <Compile Include="PassThruLogging\PassThruLoggerTypes\PassThruSessionInfoLogger.cs" />
+    <Compile Include="PassThruLogging\PassThruLoggerTypes\PassThruSessionJ2534Logger.cs" />
+    <Compile Include="PassThruLogging\PassThruLoggerTypes\PassThruSessionLoggerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -75,7 +90,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

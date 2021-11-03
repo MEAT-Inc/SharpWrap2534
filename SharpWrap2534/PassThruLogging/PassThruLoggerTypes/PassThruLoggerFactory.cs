@@ -1,4 +1,7 @@
-﻿namespace SharpWrap2534.PassThruLogging.PassThruLoggerTypes
+﻿using NLog.Layouts;
+using NLog.Targets;
+
+namespace SharpWrap2534.PassThruLogging.PassThruLoggerTypes
 {
     /// <summary>
     /// Used to build new logger objects.

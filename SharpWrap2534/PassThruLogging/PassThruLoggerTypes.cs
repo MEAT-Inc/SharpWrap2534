@@ -1,4 +1,5 @@
 ﻿using System;
+using LogLevel = NLog.LogLevel;
 
 namespace SharpWrap2534.PassThruLogging
 {

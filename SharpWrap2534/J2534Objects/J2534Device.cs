@@ -228,13 +228,19 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="DeviceName">Name of the device to be opened.</param>
         internal void PTOpen(string DeviceName = "")
         {
-            // Make sure we exist in here.
-            if (_jDeviceInstance[this.DeviceNumber - 1]?.DeviceName != this.DeviceName)
+            try
             {
-                // Check if it can
-                if (_jDeviceInstance[this.DeviceNumber - 1] == null) _jDeviceInstance[this.DeviceNumber - 1] = this;
-                throw new ObjectDisposedException("Can not use a sharp device which has been previously closed out!");
+                // Make sure we exist in here.
+                if ((bool)!_jDeviceInstance[this.DeviceNumber - 1]?.DeviceName.Contains(this.DeviceName))
+                {
+
+                    // Check if it can
+                    if (_jDeviceInstance[this.DeviceNumber - 1] == null) _jDeviceInstance[this.DeviceNumber - 1] = this;
+                    throw new ObjectDisposedException("Can not use a sharp device which has been previously closed out!");
+                }
             }
+            // Do nothing here.
+            catch (Exception Ex) { }
 
             // Check for no name given.
             if (DeviceName == "")

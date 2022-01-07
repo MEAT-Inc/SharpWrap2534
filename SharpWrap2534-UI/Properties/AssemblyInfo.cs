@@ -20,7 +20,7 @@ using System.Resources;
 [assembly: InternalsVisibleTo("SharpWrap2534Tests")]
 
 // Version information
-[assembly: AssemblyVersion("1.0.1.9")]
-[assembly: AssemblyFileVersion("1.0.1.9")]
+[assembly: AssemblyVersion("1.2.1.13")]
+[assembly: AssemblyFileVersion("1.2.1.13")]
 [assembly: NeutralResourcesLanguageAttribute( "en-US" )]
 

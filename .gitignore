@@ -389,5 +389,5 @@ FodyWeavers.xsd
 FalconMainAPI/SwaggerDocGenerator/_secrets.js
 
 # Nuget Package Folder
-**/SharpWrap2534Nuget
-**/SharpWrap2534-UINuget
+SharpWrap2534/SharpWrap2534_Nuget
+SharpWrap2534-UI/SharpWrap2534-UI_Nuget

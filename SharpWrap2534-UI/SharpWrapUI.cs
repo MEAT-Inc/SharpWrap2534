@@ -62,7 +62,7 @@ namespace SharpWrap2534_UI
         /// <param name="UserContent"></param>
         /// <param name="ViewModel"></param>
         /// <returns>True if added. False if it already exists</returns>
-        public static void RegisterContentView(UserControl UserContent, SharpWrapViewModel ViewModel)
+        internal static void RegisterContentView(UserControl UserContent, SharpWrapViewModel ViewModel)
         {
             // Log the type information being added in here.
             SetupLogger.WriteLog($"APPENDING NEW USER CONTROL TYPE OF {UserContent.GetType().Name} TO LIST OF CONTENT NOW...", LogType.TraceLog);

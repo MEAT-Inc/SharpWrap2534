@@ -27,7 +27,7 @@ namespace SharpWrap2534_UI.SharpWrapViewModels
         // Private control values
         private J2534Dll[] _locatedJ2534DLLs;
         private J2534Dll[] _selectedJ2534DLLs;
-        private JVersion[] _selectedVersions = new JVersion[] { JVersion.V0404, JVersion.V0500 };
+        private readonly JVersion[] _selectedVersions = { JVersion.V0404, JVersion.V0500 };
 
         // Public values for our view to bind to
         public PassThruImportDLLs DllImportHelper;     // DLL Importing helper object

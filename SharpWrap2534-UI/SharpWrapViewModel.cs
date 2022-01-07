@@ -14,7 +14,7 @@ namespace SharpWrap2534_UI
     /// <summary>
     /// Base class for Model objects on the UI
     /// </summary>
-    public class ViewModelControlBase : INotifyPropertyChanged
+    public class SharpWrapViewModel : INotifyPropertyChanged
     {
         // Logger object.
         private static SubServiceLogger ViewModelPropLogger => (SubServiceLogger)LogBroker.LoggerQueue.GetLoggers(LoggerActions.SubServiceLogger)
@@ -29,7 +29,7 @@ namespace SharpWrap2534_UI
         /// <summary>
         /// Builds a new view model instance and stores a new GUID for it.
         /// </summary>
-        public ViewModelControlBase() 
+        public SharpWrapViewModel() 
         {
             // Log information and store a new GUID.
             this.ViewModelGuid = Guid.NewGuid();
@@ -46,7 +46,16 @@ namespace SharpWrap2534_UI
         {
             // Store content view and register
             BaseViewControl = ContentView;
-            SharpWrapUI.RegisterContentView(ContentView, this);
+            SharpWrapUi.RegisterContentView(ContentView, this);
+
+            // Now add in a new Resource set into our user control for themes if needed.
+            if (SharpWrapUi.AppThemeResources == null) ViewModelPropLogger.WriteLog("WARNING: APP RESOURCES THEME OBJECT WAS NOT SET!");
+            else
+            {
+                // Store new theme set and apply output information to it.
+                this.BaseViewControl.Resources.MergedDictionaries.Add(SharpWrapUi.AppThemeResources);
+                ViewModelPropLogger.WriteLog("REGISTERED NEW THEME SET CONTENT INTO OUR OUTPUT APPLICATION CORRECTLY!", LogType.InfoLog);
+            }
         }
 
         // --------------------------------------------------------------------------------------------------------------------------
@@ -131,10 +140,10 @@ namespace SharpWrap2534_UI
         /// Updates the globals with the new values configured into this object 
         /// </summary>
         /// <param name="ViewModelObject">Object to update</param>
-        private bool UpdateViewModelPropertyValue(ViewModelControlBase ViewModelObject)
+        private bool UpdateViewModelPropertyValue(SharpWrapViewModel ViewModelObject)
         {
             // If the main window isn't null keep going.
-            var MemberToUpdate = SharpWrapUI.ActiveUserControls
+            var MemberToUpdate = SharpWrapUi.ActiveUserControls
                 .FirstOrDefault(ObjSet => ObjSet.Item2.ViewModelGuid == ViewModelObject.ViewModelGuid)?.Item2;
             if (MemberToUpdate == null) {
                 ViewModelPropLogger.WriteLog($"WARNING: THE MEMBER WITH GUID {ViewModelObject.ViewModelGuid} COULD NOT BE FOUND!", LogType.WarnLog);
@@ -142,16 +151,16 @@ namespace SharpWrap2534_UI
             }
 
             // Now update the existing instance here.
-            var ActiveMemberListCopy = SharpWrapUI.ActiveUserControls.ToList();
+            var ActiveMemberListCopy = SharpWrapUi.ActiveUserControls.ToList();
             int IndexOfMember = ActiveMemberListCopy.FindIndex(ObjSet => ObjSet.Item2 == MemberToUpdate);
 
             // Remove existing instance and insert back into the list.
             var CurrentUserControl = ActiveMemberListCopy[IndexOfMember].Item1;
-            var ModifiedTupleSet = new Tuple<UserControl, ViewModelControlBase>(CurrentUserControl, ViewModelObject);
+            var ModifiedTupleSet = new Tuple<UserControl, SharpWrapViewModel>(CurrentUserControl, ViewModelObject);
             ActiveMemberListCopy.RemoveAt(IndexOfMember); ActiveMemberListCopy.Insert(IndexOfMember, ModifiedTupleSet);
 
             // Return Changed Value True and set new contents of the controls list
-            SharpWrapUI.ActiveUserControls = ActiveMemberListCopy.ToArray();
+            SharpWrapUi.ActiveUserControls = ActiveMemberListCopy.ToArray();
             return true;
         }
     }

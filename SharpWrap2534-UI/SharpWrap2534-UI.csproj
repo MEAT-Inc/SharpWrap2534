@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,8 +54,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
+    <Compile Include="SharpWrapStyles\ColorMatchingHelper.cs" />
+    <Compile Include="SharpWrapStyles\CustomColorShader.cs" />
     <Compile Include="SharpWrapUI.cs" />
-    <Compile Include="ViewModelControlBase.cs" />
+    <Compile Include="SharpWrapViewModel.cs" />
+    <Page Include="SharpWrapStyles\AppColorTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SharpWrapViews\SharpWrapInstalledDLLsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -86,11 +93,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro">
+      <Version>2.4.9</Version>
+    </PackageReference>
     <PackageReference Include="SharpLogger">
       <Version>1.4.10.109</Version>
     </PackageReference>
     <PackageReference Include="SharpWrap2534">
-      <Version>1.1.4.105</Version>
+      <Version>2.1.5.109</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

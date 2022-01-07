@@ -23,7 +23,18 @@ namespace SharpWrap2534_UI
         // --------------------------------------------------------------------------------------------------------------------------
 
         // View object to setup and custom setter
+        internal readonly Guid ViewModelGuid;
         internal UserControl BaseViewControl;
+
+        /// <summary>
+        /// Builds a new view model instance and stores a new GUID for it.
+        /// </summary>
+        public ViewModelControlBase() 
+        {
+            // Log information and store a new GUID.
+            this.ViewModelGuid = Guid.NewGuid();
+            ViewModelPropLogger.WriteLog($"BUILT NEW VIEW MODEL CONTROL BASE WITH GUID VALUE {ViewModelGuid.ToString("D").ToUpper()}", LogType.TraceLog);
+        }
 
         // --------------------------------------------------------------------------------------------------------------------------
 
@@ -31,7 +42,12 @@ namespace SharpWrap2534_UI
         /// Configures a new instance of our view model control methods
         /// </summary>
         /// <param name="ContentView"></param>
-        public virtual void SetupViewControl(UserControl ContentView) { BaseViewControl = ContentView; }
+        public virtual void SetupViewControl(UserControl ContentView)
+        {
+            // Store content view and register
+            BaseViewControl = ContentView;
+            SharpWrapUI.RegisterContentView(ContentView, this);
+        }
 
         // --------------------------------------------------------------------------------------------------------------------------
 
@@ -117,58 +133,26 @@ namespace SharpWrap2534_UI
         /// <param name="ViewModelObject">Object to update</param>
         private bool UpdateViewModelPropertyValue(ViewModelControlBase ViewModelObject)
         {
-            // Get the types on the globals first.
-            var AppViewStoreType = typeof(CanaPlotConstants);
-            var ViewModelTypeName = Type.GetType(ViewModelObject.ToString());
-            if (AppViewStoreType == null) { throw new NullReferenceException($"THE TYPE {typeof(CanaPlotConstants).ToString()} COULD NOT BE FOUND!"); }
-
-            // Gets all the members and sets one to update
-            var AppStoreMembers = AppViewStoreType.GetMembers();
-            if (CanaPlotConstants.CanaPlotMainWindow == null) { return false; }
-
             // If the main window isn't null keep going.
-            var MemberToUpdate = AppStoreMembers.FirstOrDefault((MemberObj) =>
-            {
-                // Remove the viewmodel text and search.
-                string ComponentTypeRemoved = ViewModelTypeName.Name.Replace("ViewModel", string.Empty);
-                return MemberObj.Name.StartsWith(ComponentTypeRemoved) && MemberObj.Name.Contains("ViewModel");
-            });
-            if (MemberToUpdate == null) { throw new NullReferenceException($"THE MEMBER {ViewModelTypeName.Name} COULD NOT BE FOUND!"); }
-
-            // Set the value here
-            string NewJson = "";
-            bool ValueChanged = false;
-
-            // Try serialization here. Set if failed.
-            try { NewJson = JsonConvert.SerializeObject(ViewModelObject); }
-            catch (Exception ExThrown) { ValueChanged = false; }
-
-            // Set Value
-            switch (MemberToUpdate.MemberType)
-            {
-                // Sets the value on the class into the current invoking object
-                case MemberTypes.Field:
-                    FieldInfo MemberAsField = (FieldInfo)MemberToUpdate;
-                    try { ValueChanged = NewJson != JsonConvert.SerializeObject(MemberAsField.GetValue(ViewModelObject)); }
-                    catch { ValueChanged = false; }
-                    MemberAsField.SetValue(null, ViewModelObject);
-                    break;
-
-                case MemberTypes.Property:
-                    PropertyInfo MemberAsProperty = (PropertyInfo)MemberToUpdate;
-                    try { ValueChanged = NewJson != JsonConvert.SerializeObject(MemberAsProperty.GetValue(ViewModelObject)); }
-                    catch { ValueChanged = false; }
-                    MemberAsProperty.SetValue(null, ViewModelObject);
-                    break;
-
-                // If neither field or property fail out
-                default:
-                    ValueChanged = false;
-                    throw new NotImplementedException($"THE REQUESTED MEMBER {nameof(ViewModelObject)} COULD NOT BE FOUND!");
+            var MemberToUpdate = SharpWrapUI.ActiveUserControls
+                .FirstOrDefault(ObjSet => ObjSet.Item2.ViewModelGuid == ViewModelObject.ViewModelGuid)?.Item2;
+            if (MemberToUpdate == null) {
+                ViewModelPropLogger.WriteLog($"WARNING: THE MEMBER WITH GUID {ViewModelObject.ViewModelGuid} COULD NOT BE FOUND!", LogType.WarnLog);
+                return false;
             }
 
-            // Return Changed Value
-            return ValueChanged;
+            // Now update the existing instance here.
+            var ActiveMemberListCopy = SharpWrapUI.ActiveUserControls.ToList();
+            int IndexOfMember = ActiveMemberListCopy.FindIndex(ObjSet => ObjSet.Item2 == MemberToUpdate);
+
+            // Remove existing instance and insert back into the list.
+            var CurrentUserControl = ActiveMemberListCopy[IndexOfMember].Item1;
+            var ModifiedTupleSet = new Tuple<UserControl, ViewModelControlBase>(CurrentUserControl, ViewModelObject);
+            ActiveMemberListCopy.RemoveAt(IndexOfMember); ActiveMemberListCopy.Insert(IndexOfMember, ModifiedTupleSet);
+
+            // Return Changed Value True and set new contents of the controls list
+            SharpWrapUI.ActiveUserControls = ActiveMemberListCopy.ToArray();
+            return true;
         }
     }
 }

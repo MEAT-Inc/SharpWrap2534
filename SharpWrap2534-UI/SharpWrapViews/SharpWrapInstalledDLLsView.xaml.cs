@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
+using SharpWrap2534.SupportingLogic;
 using SharpWrap2534_UI.SharpWrapViewModels;
 
-namespace SharpWrap2534_UI
+namespace SharpWrap2534_UI.SharpWrapViews
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml
@@ -31,13 +21,23 @@ namespace SharpWrap2534_UI
         // ViewModel object
         public SharpWrapInstalledDLLsViewModel ViewModel { get; set; }     // ViewModel object to bind onto
 
+        // Values configured for the Versions of DLLs to show.
+
+        // --------------------------------------------------------------------------------------------------------------------------
+
         /// <summary>
         /// Builds a new instance of a DLL view for our output content
         /// </summary>
-        public SharpWrapInstalledDLLsView()
+        public SharpWrapInstalledDLLsView(JVersion? VersionSet = null)
         {
+            // Find our version type based on input value
             InitializeComponent();
-            this.ViewModel = new SharpWrapInstalledDLLsViewModel();
+            string VersionString = VersionSet != null ? 
+                VersionSet.ToString() : 
+                "ALL_VERSIONS";
+
+            // Now build a new viewmodel from the given versions
+            this.ViewModel = new SharpWrapInstalledDLLsViewModel(VersionString);
         }
 
         /// <summary>

@@ -1,55 +1,26 @@
-﻿using System.Reflection;
-using System.Resources;
+﻿// Using calls for Assembly Info updating
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Windows;
+using System.Resources;
 
-// General Information about an assembly is controlled through the following
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
+// General Information
 [assembly: AssemblyTitle("SharpWrap2534-UI")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A Set of UI Components for the SharpWrap2534 library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("MEAT Inc")]
 [assembly: AssemblyProduct("SharpWrap2534-UI")]
-[assembly: AssemblyCopyright("Copyright ©  2022")]
+[assembly: AssemblyCopyright("Copyright ©MEAT INC 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible
-// to COM components.  If you need to access a type in this assembly from
-// COM, set the ComVisible attribute to true on that type.
+// Internal Visibility for testing
 [assembly: ComVisible(false)]
+[assembly: Guid("ff8a98bb-97f5-495c-9b88-0d93a500db48")]
+[assembly: InternalsVisibleTo("SharpWrap2534Tests")]
 
-//In order to begin building localizable applications, set
-//<UICulture>CultureYouAreCodingWith</UICulture> in your .csproj file
-//inside a <PropertyGroup>.  For example, if you are using US english
-//in your source files, set the <UICulture> to en-US.  Then uncomment
-//the NeutralResourceLanguage attribute below.  Update the "en-US" in
-//the line below to match the UICulture setting in the project file.
+// Version information
+[assembly: AssemblyVersion("1.0.1.9")]
+[assembly: AssemblyFileVersion("1.0.1.9")]
+[assembly: NeutralResourcesLanguageAttribute( "en-US" )]
 
-//[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
-
-
-[assembly:ThemeInfo(
-    ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
-                             //(used if a resource is not found in the page,
-                             // or application resource dictionaries)
-    ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
-                                      //(used if a resource is not found in the page,
-                                      // app, or any theme specific resource dictionaries)
-)]
-
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]

@@ -56,13 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="J2534Api\J2534ApiMarshaller.cs" />
-    <Compile Include="PassThruLogging\SessionSetup\PassThruLoggerQueue.cs" />
-    <Compile Include="PassThruLogging\SessionSetup\PassThruLoggingBroker.cs" />
-    <Compile Include="PassThruLogging\PassThruLoggerTypes.cs" />
-    <Compile Include="PassThruLogging\PassThruLoggerTypes\PassThruLoggerFactory.cs" />
-    <Compile Include="PassThruLogging\PassThruLoggerTypes\PassThruSessionInfoLogger.cs" />
-    <Compile Include="PassThruLogging\PassThruLoggerTypes\PassThruSessionJ2534Logger.cs" />
-    <Compile Include="PassThruLogging\PassThruLoggerTypes\PassThruSessionLoggerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

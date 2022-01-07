@@ -9,7 +9,8 @@ namespace SharpWrap2534_UI.SharpWrapViewModels
     /// <summary>
     /// View model for a list of SharpWrap DLL instances
     /// </summary>
-    public class SharpWrapInstalledDLLsViewModel
+    public class SharpWrapInstalledDLLsViewModel : ViewModelControlBase
     {
+
     }
 }

@@ -48,6 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModelControlBase.cs" />
     <Page Include="SharpWrapViews\SharpWrapInstalledDLLsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,11 +83,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpWrap2534\SharpWrap2534.csproj">
-      <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
-      <Name>SharpWrap2534</Name>
-    </ProjectReference>
+    <PackageReference Include="SharpLogger">
+      <Version>1.4.9.108</Version>
+    </PackageReference>
+    <PackageReference Include="SharpWrap2534">
+      <Version>1.1.4.105</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

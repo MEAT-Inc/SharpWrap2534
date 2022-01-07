@@ -14,22 +14,22 @@ namespace SharpWrap2534.PassThruImport
     public class PassThruImportDLLs
     {
         // PT Support key value.
-        public RegistryKey PassThruSupportKey_0404 { get; private set; }
-        public RegistryKey PassThruSupportKey_0500 { get; private set; }
+        public readonly RegistryKey PassThruSupportKey_0404; 
+        public readonly RegistryKey PassThruSupportKey_0500; 
 
         // Key information and DLL Values.
-        public string[] DllKeyValues_0404 { get; private set; }
-        public string[] DllKeyValues_0500 { get; private set; }
+        public readonly string[] DllKeyValues_0404;
+        public readonly string[] DllKeyValues_0500;
 
         // List of all located DLL Values
-        public J2534Dll[] LocatedJ2534DLLs;
+        public readonly J2534Dll[] LocatedJ2534DLLs;
 
         // --------------------------------------------------------------------------------
 
         /// <summary>
         /// Builds a new DLL importing object.
         /// </summary>
-        internal PassThruImportDLLs()
+        public PassThruImportDLLs()
         {
             // Build fresh list object and init the registry values. (0404)
             PassThruSupportKey_0404 = Registry.LocalMachine.OpenSubKey(PassThruConstants.V0404_PASSTHRU_REGISTRY_PATH, false) ??

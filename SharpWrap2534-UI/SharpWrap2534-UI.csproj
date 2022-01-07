@@ -34,7 +34,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -93,9 +95,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.9</Version>
-    </PackageReference>
     <PackageReference Include="SharpLogger">
       <Version>1.4.10.109</Version>
     </PackageReference>

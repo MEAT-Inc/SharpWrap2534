@@ -2,21 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--Main color for whole theme here-->
-    <SolidColorBrush x:Key="PrimaryColor" Color="White"/>
-    <SolidColorBrush x:Key="SecondaryColor" Color="White"/>
+    <SolidColorBrush x:Key="PrimaryColor" Color="#076620"/>
+    <SolidColorBrush x:Key="SecondaryColor" Color="#097A7A"/>
     <SolidColorBrush x:Key="TextColorBase" Color="White"/>
 
     <!--Variations of the main color scheme-->
-    <SolidColorBrush x:Key="PrimaryColor_Darker_35"  Color="White"/>
-    <SolidColorBrush x:Key="PrimaryColor_Lighter_35" Color="White"/>
-    <SolidColorBrush x:Key="PrimaryColor_Darker_65"  Color="White"/>
-    <SolidColorBrush x:Key="PrimaryColor_Lighter_65" Color="White"/>
+    <SolidColorBrush x:Key="PrimaryColor_Darker_35"  Color="#1274C0"/>
+    <SolidColorBrush x:Key="PrimaryColor_Lighter_35" Color="#EF519D"/>
+    <SolidColorBrush x:Key="PrimaryColor_Darker_65"  Color="#1274C0"/>
+    <SolidColorBrush x:Key="PrimaryColor_Lighter_65" Color="#FF3FBF"/>
 
     <!--Variations of the secondary color scheme-->
-    <SolidColorBrush x:Key="SecondaryColor_Darker_35"  Color="White"/>
-    <SolidColorBrush x:Key="SecondaryColor_Lighter_35" Color="White"/>
-    <SolidColorBrush x:Key="SecondaryColor_Lighter_65" Color="White"/>
-    <SolidColorBrush x:Key="SecondaryColor_Darker_65"  Color="White"/>
+    <SolidColorBrush x:Key="SecondaryColor_Darker_35"  Color="#CECCCC"/>
+    <SolidColorBrush x:Key="SecondaryColor_Lighter_35" Color="#ABA9A9"/>
+    <SolidColorBrush x:Key="SecondaryColor_Lighter_65" Color="#7F3F3F"/>
+    <SolidColorBrush x:Key="SecondaryColor_Darker_65"  Color="#7F3F3F"/>
 
     <!--Custom grey color used in a lot of places-->
     <SolidColorBrush x:Key="DarkGreyThemeColor" Color="#FF878787"/>

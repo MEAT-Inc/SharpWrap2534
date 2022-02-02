@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using SharpWrap2534.J2534Api;
@@ -46,7 +47,6 @@ namespace SharpWrap2534.J2534Objects
             DeviceFwVersion = FwVer; DeviceDLLVersion = DllVer; DeviceApiVersion = JApiVer;
             PTClose();
         }
-
         /// <summary>
         /// Deconstructs the device object and members
         /// </summary>
@@ -60,9 +60,9 @@ namespace SharpWrap2534.J2534Objects
         // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
 
         // Device information.
-        internal int DeviceNumber { get; private set; }
-        public PTInstanceStatus DeviceStatus { get; private set; }
-        public JVersion J2534Version { get; private set; }
+        internal int DeviceNumber { get; }
+        public JVersion J2534Version { get; }
+        public PTInstanceStatus DeviceStatus { get; }
 
         // Device Members.
         internal J2534Dll JDll;
@@ -73,13 +73,13 @@ namespace SharpWrap2534.J2534Objects
         // Device Properties
         public uint DeviceId;
         public string DeviceName;
-        public bool IsOpen => this.DeviceName != null && this.DeviceName.ToUpper().Contains("IN USE");
         public bool IsConnected = false;
+        public bool IsOpen => this.DeviceName != null && this.DeviceName.ToUpper().Contains("IN USE");
 
         // Version information
-        public string DeviceFwVersion { get; private set; }
-        public string DeviceDLLVersion { get; private set; }
-        public string DeviceApiVersion { get; private set; }
+        public string DeviceFwVersion { get; }
+        public string DeviceDLLVersion { get; }
+        public string DeviceApiVersion { get; }
 
         // Connection Information
         public uint ConnectFlags { get; set; }                  // Used by ConnectStrategy
@@ -127,7 +127,6 @@ namespace SharpWrap2534.J2534Objects
             // Return the output string here.
             return OutputDetailsString;
         }
-
 
         // ------------------- J2534 DEVICE OBJECT CTOR WITH SINGLETON ----------------------
 
@@ -220,13 +219,54 @@ namespace SharpWrap2534.J2534Objects
             return ResultBytes;
         }
 
+
+        /// <summary>
+        /// Pulls the values of a Message object and converts them into a string table.
+        /// </summary>
+        /// <param name="InputMessage"></param>
+        /// <returns></returns>
+        public static string PTMessageToTableString(PassThruStructs.PassThruMsg InputMessage)
+        {
+            // Build an output tuple array for the message object here.
+            Tuple<string, string>[] FieldsAndValues = InputMessage.GetType().GetFields()
+                .Select(FieldObj => new Tuple<string, string>(FieldObj.Name, FieldObj.GetValue(InputMessage).ToString()))
+                .ToArray();
+
+            // Now make our table string.
+            return FieldsAndValues.ToStringTable(new[] { "Property", "Message Value" });
+        }
+        /// <summary>
+        /// Pulls the values of a Message object and converts them into a string table.
+        /// </summary>
+        /// <param name="InputMessages">Input messages to convert over</param>
+        /// <returns>String set of messages built.</returns>
+        public static string PTMessageToTableString(PassThruStructs.PassThruMsg[] InputMessages)
+        {
+            // Build our set of message values.
+            var MessageStringSet = InputMessages.Select(MsgObj =>
+            {
+                // Build an output tuple array for the message object here.
+                List<Tuple<string, string>> FieldsAndValues = InputMessages.GetType().GetFields()
+                    .Select(FieldObj => new Tuple<string, string>(FieldObj.Name, FieldObj.GetValue(MsgObj).ToString()))
+                    .ToList();
+
+                // Insert Message Number at the front of the list and make the output table string.
+                FieldsAndValues.Prepend(new Tuple<string, string>("Message Number", "Message {InputMessages.ToList().IndexOf(MsgObj)}"));
+                return FieldsAndValues.ToStringTable(new[] { "Property", "Message Value" });
+            });
+
+            // Build output string and return it.
+            string OutputString = string.Join("\n", MessageStringSet);
+            return OutputString;
+        }
+
         // --------------------------------- J2534 DEVICE OBJECT METHODS ----------------------------
 
         /// <summary>
         /// Opens this instance of a passthru device.
         /// </summary>
         /// <param name="DeviceName">Name of the device to be opened.</param>
-        internal void PTOpen(string DeviceName = "")
+        public void PTOpen(string DeviceName = "")
         {
             try
             {
@@ -257,13 +297,12 @@ namespace SharpWrap2534.J2534Objects
         /// <summary>
         /// Closes the currently open device object.
         /// </summary>
-        internal void PTClose()
+        public void PTClose()
         {
             // Check if currently open and close.
             ApiMarshall.PassThruClose(DeviceId);
             _jDeviceInstance[this.DeviceNumber - 1] = null;
         }
-
         /// <summary>
         /// Builds a new PTChannel for this device object.
         /// </summary>
@@ -271,7 +310,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="Protocol">Channel protocol</param>
         /// <param name="ChannelFlags">Connect flags</param>
         /// <param name="ChannelBaud">Channel baud rate</param>
-        internal void PTConnect(int ChannelIndex, ProtocolId Protocol, uint ChannelFlags, uint ChannelBaud)
+        public void PTConnect(int ChannelIndex, ProtocolId Protocol, uint ChannelFlags, uint ChannelBaud)
         {
             // Issue the connect command and store our channel
             ApiMarshall.PassThruConnect(DeviceId, Protocol, ChannelFlags, ChannelBaud, out uint ChannelId);
@@ -281,7 +320,7 @@ namespace SharpWrap2534.J2534Objects
         /// Disconnects the channel values.
         /// </summary>
         /// <param name="ChannelIndex">Channel to remove</param>
-        internal void PTDisconnect(int ChannelIndex)
+        public void PTDisconnect(int ChannelIndex)
         {
             // Disconnect from marshall and remove from channel set.
             ApiMarshall.PassThruDisconnect(DeviceChannels[ChannelIndex].ChannelId);

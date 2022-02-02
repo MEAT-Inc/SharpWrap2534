@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using SharpWrap2534.SupportingLogic;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace SharpWrap2534.J2534Objects
 {
     /// <summary>
@@ -11,30 +10,29 @@ namespace SharpWrap2534.J2534Objects
     public class J2534Filter : IComparable
     {
         // Filter Type info
-        public string FilterType;
         public uint FilterFlags;
+        public string FilterType;
         public PTInstanceStatus FilterStatus;
 
         // Filter values.
+        public uint FilterId;
         public string FilterMask;
         public string FilterPattern;
         public string FilterFlowCtl;
-        public uint FilterId;
 
         // ---------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Empty CTOR For filter type output.
         /// </summary>
-        public J2534Filter() { FilterStatus = PTInstanceStatus.NULL; }
-
+        internal J2534Filter() { FilterStatus = PTInstanceStatus.NULL; }
         /// <summary>
         /// Builds a new filter using a mask, pattern, and the Id of it.
         /// </summary>
         /// <param name="FilterMask"></param>
         /// <param name="FilterPattern"></param>
         /// <param name="FilterId"></param>
-        public J2534Filter(string FilterMask, string FilterPattern, uint FilterId)
+        internal J2534Filter(string FilterMask, string FilterPattern, uint FilterId)
         {
             // Store filter values
             this.FilterMask = FilterMask;
@@ -53,7 +51,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FilterFlowCtl"></param>
         /// <param name="FilterFlags"></param>
         /// <param name="FilterId"></param>
-        public J2534Filter(string FilterType, string FilterMask, string FilterPattern, string FilterFlowCtl, uint FilterFlags, uint FilterId)
+        internal J2534Filter(string FilterType, string FilterMask, string FilterPattern, string FilterFlowCtl, uint FilterFlags, uint FilterId)
         {
             // Store filter values.
             this.FilterType = FilterType;
@@ -74,7 +72,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FilterPattern"></param>
         /// <param name="FilterFlags"></param>
         /// <param name="FilterId"></param>
-        public J2534Filter(string FilterType, string FilterMask, string FilterPattern, uint FilterFlags, uint FilterId)
+        internal J2534Filter(string FilterType, string FilterMask, string FilterPattern, uint FilterFlags, uint FilterId)
         {
             // Set filter values
             this.FilterType = FilterType;
@@ -91,7 +89,7 @@ namespace SharpWrap2534.J2534Objects
         /// </summary>
         /// <param name="FilterMask"></param>
         /// <param name="FilterPattern"></param>
-        public J2534Filter(string FilterMask, string FilterPattern)
+        internal J2534Filter(string FilterMask, string FilterPattern)
         {
             // Set filter values.
             this.FilterMask = FilterMask;
@@ -126,7 +124,6 @@ namespace SharpWrap2534.J2534Objects
             // Build and return string.
             return $"MessageData: {FilterMask ?? "NO_MASK"},{FilterPattern ?? "NO_PATTERN"},{FilterFlowCtl ?? "NO_FLOW"}";
         }
-
         /// <summary>
         /// Compares two filter values.
         /// </summary>

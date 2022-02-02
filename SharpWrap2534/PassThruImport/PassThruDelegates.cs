@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using SharpWrap2534.PassThruTypes;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace SharpWrap2534.PassThruImport
 {
     /// <summary>

@@ -6,7 +6,6 @@ using SharpWrap2534.PassThruImport;
 using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests.PassThruApiTests")]
 namespace SharpWrap2534.J2534Api
 {
     /// <summary>

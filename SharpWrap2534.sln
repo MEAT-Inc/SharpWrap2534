@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrap2534Tests", "Sharp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrap2534", "SharpWrap2534\SharpWrap2534.csproj", "{E4508BD6-9045-4840-A659-BE40CC205C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrap2534-UI", "SharpWrap2534-UI\SharpWrap2534-UI.csproj", "{D0072046-5FCE-41B4-B5F8-9B36534AE186}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharpWrap", "SharpWrap", "{14FEC665-4FEB-44B7-8B65-1482A1EAD997}"
 EndProject
 Global
@@ -25,17 +23,12 @@ Global
 		{E4508BD6-9045-4840-A659-BE40CC205C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4508BD6-9045-4840-A659-BE40CC205C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4508BD6-9045-4840-A659-BE40CC205C78}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0072046-5FCE-41B4-B5F8-9B36534AE186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0072046-5FCE-41B4-B5F8-9B36534AE186}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0072046-5FCE-41B4-B5F8-9B36534AE186}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0072046-5FCE-41B4-B5F8-9B36534AE186}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E4508BD6-9045-4840-A659-BE40CC205C78} = {14FEC665-4FEB-44B7-8B65-1482A1EAD997}
-		{D0072046-5FCE-41B4-B5F8-9B36534AE186} = {14FEC665-4FEB-44B7-8B65-1482A1EAD997}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9FF76CD-E2BD-4A81-93B6-6EBCF2CEC566}

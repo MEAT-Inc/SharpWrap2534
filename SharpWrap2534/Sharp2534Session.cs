@@ -177,12 +177,9 @@ namespace SharpWrap2534
             this.JDeviceInstance = null;
         }
 
-        // ------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------- PassThru Command Routines/Methods ------------------------------------------------------
 
-        #region Method Defines for Session
-
-        // -------------------------------------------------- PassThru Open and PassThru Close ------------------------------------------------------
-
+        #region PassThruOpen - PassThruClose
         /// <summary>
         /// PTOpen command passed thru
         /// </summary>
@@ -210,9 +207,9 @@ namespace SharpWrap2534
             // Return if the the device is closed
             return this.JDeviceInstance.IsOpen == false;
         }
+        #endregion
 
-        // ------------------------------------------------- PassThru Connect and PassThru Disconnect -----------------------------------------------
-
+        #region PassThruConnect - PassThruDisconnect
         /// <summary>
         /// PassThru Connect passed thru.
         /// </summary>
@@ -244,9 +241,9 @@ namespace SharpWrap2534
             this.WriteCommandLog($"DISCONNECTING CHANNEL INDEX: {ChannelIndex}", LogType.WarnLog);
             this.JDeviceInstance.PTDisconnect(ChannelIndex);
         }
+        #endregion
 
-        // ------------------------------------------------------ PassThru Read and PassThru Write --------------------------------------------------
-
+        #region PassThruWriteMessages - PassThruReadMessages
         /// <summary>
         /// Sends a message on the first possible channel found.
         /// </summary>
@@ -424,9 +421,9 @@ namespace SharpWrap2534
             if (MessagesToRead != ReadMessages.Length) this.WriteCommandLog("WARNING! READ MISMATCH ON MESSAGE COUNT!", LogType.WarnLog);
             return ReadMessages;
         }
+        #endregion
 
-        // ----------------------------------------------------- PassThru Start and Stop Filter -----------------------------------------------------
-
+        #region PassThruStartMsgFilter - PassThruStopMessageFilter
         /// <summary>
         /// Builds a new Message filter from a set of input data and returns it. Passed out the Id of the filter built.
         /// </summary>
@@ -540,7 +537,6 @@ namespace SharpWrap2534
             this.DeviceChannels[IndexOfChannel].StopMessageFilter(FilterInstance);
             return true;
         }
-
         #endregion
     }
 }

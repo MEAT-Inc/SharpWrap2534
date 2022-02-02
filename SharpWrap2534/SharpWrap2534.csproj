@@ -84,6 +84,7 @@
     <Compile Include="J2534Api\J2534ApiInstance.cs" />
     <Compile Include="PassThruTypes\PassThruEnums.cs" />
     <Compile Include="SupportingLogic\InstanceEnums.cs" />
+    <Compile Include="SupportingLogic\TextTableGenerator.cs" />
     <Compile Include="SupportingLogic\Win32Invokers.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +104,6 @@
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)NugetPublish\lib\net472"</PostBuildEvent>
+    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(SolutionDir)SharpWrap2534Nuget\lib\net472"</PostBuildEvent>
   </PropertyGroup>
 </Project>

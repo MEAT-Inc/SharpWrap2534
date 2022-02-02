@@ -390,3 +390,5 @@ FalconMainAPI/SwaggerDocGenerator/_secrets.js
 
 # Nuget Package Folder
 **/NugetPublish
+
+SharpWrap2534Nuget/

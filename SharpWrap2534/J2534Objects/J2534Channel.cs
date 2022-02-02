@@ -106,21 +106,21 @@ namespace SharpWrap2534.J2534Objects
         // -------------------------------- INSTANCE VALUES AND SETUP FOR CHANNEL HERE -----------------------------------
 
         // Status values.
-        public JVersion J2534Version { get; private set; }
-        public PTInstanceStatus ChannelStatus { get; private set; }
-        public int ChannelIndex { get; private set; }
+        public int ChannelIndex { get; }
+        public JVersion J2534Version { get; }
+        public PTInstanceStatus ChannelStatus { get; }
 
         // Device information
         private readonly J2534Device _jDevice;
         public uint ChannelId { get; private set; }
-        public ProtocolId ProtocolId { get; private set; }
-        public uint ConnectFlags { get; private set; }
         public uint ChannelBaud { get; private set; }
+        public uint ConnectFlags { get; private set; }
+        public ProtocolId ProtocolId { get; private set; }
 
         // Logical Channels if possible.
-        public J2534Channel PhysicalParent { get; private set; }
+        public J2534Channel PhysicalParent { get; }
+        private readonly J2534Channel[] _logicalChannels;
         public bool IsLogicalChannel => this.PhysicalParent != null;
-        private J2534Channel[] _logicalChannels;
         public J2534Channel[] LogicalChannels => this.J2534Version == JVersion.V0500 ? _logicalChannels : null;
 
         // Filters and periodic messages.
@@ -271,16 +271,17 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FlowControl">Flow Ctl Value</param>
         /// <param name="FilterFlags">Flags for the filter</param>
         /// <param name="ForcedIndex">Forces a filter to be applied to a given index.</param>
-        public J2534Filter StartMessageFilter(FilterDef FilterType, string MaskString, string PatternString, string FlowControl, uint FilterFlags = 0, int ForcedIndex = -1)
+        public J2534Filter StartMessageFilter(FilterDef FilterType, string MaskString, string PatternString, string FlowControl, uint FilterFlags = 0, ProtocolId FilterProtocol = default, int ForcedIndex = -1)
         {
             // Make sure filter array exists and check for the filters being null or if one exists identical to this desired filter.
             if (ForcedIndex >= 10) { throw new ArgumentOutOfRangeException("Unable to set filter for index over 9!"); }
             if (JChannelFilters == null) { JChannelFilters = new J2534Filter[new PassThruConstants(J2534Version).MaxFilters]; }
 
             // Build messages from filter strings.
-            PassThruStructs.PassThruMsg PtMaskMsg = J2534Device.CreatePTMsgFromString(ProtocolId, FilterFlags, MaskString);
-            PassThruStructs.PassThruMsg PtPatternMsg = J2534Device.CreatePTMsgFromString(ProtocolId, FilterFlags, PatternString);
-            PassThruStructs.PassThruMsg PtFlowCtlMsg = J2534Device.CreatePTMsgFromString(ProtocolId, FilterFlags, FlowControl);
+            FilterProtocol = FilterProtocol == default ? ProtocolId : FilterProtocol;
+            PassThruStructs.PassThruMsg PtMaskMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, MaskString);
+            PassThruStructs.PassThruMsg PtPatternMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, PatternString);
+            PassThruStructs.PassThruMsg PtFlowCtlMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, FlowControl);
 
             // Check if we need to override/replace a filter.
             if (ForcedIndex != -1 && JChannelFilters[ForcedIndex] != null)
@@ -319,7 +320,7 @@ namespace SharpWrap2534.J2534Objects
         {
             // Set the filter using the above method. Set it up using the stings from our filter.
             FilterDef FilterType = (FilterDef)Enum.Parse(typeof(FilterDef), FilterToSet.FilterType);
-            return StartMessageFilter(FilterType, FilterToSet.FilterMask, FilterToSet.FilterPattern, FilterToSet.FilterFlowCtl, FilterToSet.FilterFlags, ForcedIndex);
+            return StartMessageFilter(FilterType, FilterToSet.FilterMask, FilterToSet.FilterPattern, FilterToSet.FilterFlowCtl, FilterToSet.FilterFlags, ForcedIndex: ForcedIndex);
         }
 
         /// <summary>

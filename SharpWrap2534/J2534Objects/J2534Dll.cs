@@ -9,21 +9,20 @@ using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
 using static System.String;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace SharpWrap2534.J2534Objects
 {
     public class J2534Dll : IComparable
     {
         // DLL Version.
-        public JVersion DllVersion { get; private set; }
+        public JVersion DllVersion { get; }
         public PTInstanceStatus JDllStatus { get; private set; }
 
         // DLL Class values.
-        public string Name { get; private set; }
-        public string LongName { get; private set; }
-        public string FunctionLibrary { get; private set; }
-        public string Vendor { get; private set; }
-        public List<ProtocolId> SupportedProtocols = new List<ProtocolId>();
+        public string Name { get; }
+        public string Vendor { get; }
+        public string LongName { get; }
+        public string FunctionLibrary { get; }
+        public List<ProtocolId> SupportedProtocols { get; }
 
         // --------------------- DLL OBJECT CTOR AND OVERLOAD VALUES -------------------
 
@@ -40,10 +39,11 @@ namespace SharpWrap2534.J2534Objects
             // Store values onto here.
             Name = LocatedDll.Name;
             Vendor = LocatedDll.Vendor;
+            FunctionLibrary = PathOfDLL;
             LongName = LocatedDll.LongName;
             DllVersion = LocatedDll.DllVersion;
             JDllStatus = PTInstanceStatus.INITIALIZED;
-            FunctionLibrary = PathOfDLL;
+            SupportedProtocols = LocatedDll.SupportedProtocols;
         }
         /// <summary>
         /// Builds a new J2534 DLL based on the provided values.

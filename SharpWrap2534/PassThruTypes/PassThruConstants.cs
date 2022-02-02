@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using SharpWrap2534.SupportingLogic;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace SharpWrap2534.PassThruTypes
 {
     /// <summary>

@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
 
-[assembly: InternalsVisibleTo("JBoxInvokerTests")]
 namespace SharpWrap2534.J2534Objects
 {
     /// <summary>
@@ -25,14 +24,14 @@ namespace SharpWrap2534.J2534Objects
         /// <summary>
         /// Builds and empty PTPeriodic Message object.
         /// </summary>
-        public J2534PeriodicMessage() { MessageStatus = PTInstanceStatus.NULL; }
+        internal J2534PeriodicMessage() { MessageStatus = PTInstanceStatus.NULL; }
         /// <summary>
         /// Builds a new message.
         /// </summary>
         /// <param name="Message">Msg to send</param>
         /// <param name="SendInterval">Time between sends</param>
         /// <param name="MessageId">ID of the built message</param>
-        public J2534PeriodicMessage(PassThruStructs.PassThruMsg Message, uint SendInterval, uint MessageId = 0)
+        internal J2534PeriodicMessage(PassThruStructs.PassThruMsg Message, uint SendInterval, uint MessageId = 0)
         {
             // Set values and status.
             this.Message = Message;
@@ -67,7 +66,6 @@ namespace SharpWrap2534.J2534Objects
             // Build and return string.
             return $"MessageData: {string.Join(" ", Message.Data.Select(ByteObj => "0x" + ByteObj.ToString("0:x2")))}";
         }
-
         /// <summary>
         /// Compares two filter values.
         /// </summary>

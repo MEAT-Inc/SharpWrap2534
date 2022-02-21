@@ -23,6 +23,7 @@ namespace SharpWrap2534.SupportingLogic
     {
         [Description("Version 04.04")] V0404,
         [Description("Version 05.00")] V0500,
+        [Description("Any Version")] ALL_VERSIONS,      // Added 2/21/22 - Used for universal searching
     }
 
     // Enums to describe the status for the instance.

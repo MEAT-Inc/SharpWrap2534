@@ -52,7 +52,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpWrap2534\SharpWrap2534.csproj">
+    <ProjectReference Include="..\SharpWrapper\SharpWrap2534.csproj">
       <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
       <Name>SharpWrap2534</Name>
     </ProjectReference>

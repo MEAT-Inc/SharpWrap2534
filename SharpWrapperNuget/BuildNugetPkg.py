@@ -7,7 +7,7 @@ import time
 # Store the args here and check if there's enough of them
 args_array = sys.argv
 if (len(args_array) < 4): 
-    print ("Arguments are App Name, Version, Tag Value, [Changes]") 
+    print ("Arguments are App Name, Version, Tag Value, [Changes. Use '-- (Note/Entry)' to split lines of input into bullet points]") 
     exit(0)
 
 # Arg setup

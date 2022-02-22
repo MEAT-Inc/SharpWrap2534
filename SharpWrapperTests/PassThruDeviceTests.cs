@@ -67,20 +67,20 @@ namespace SharpWrap2534Tests
 
             // Print the infos for the base ones.
             List<bool> ResultsList = new List<bool>();
-            var PathsToLoop = Enum.GetValues(typeof(PassThruPaths));
             Console.WriteLine($"\n{SepString}\nLooping Basic DLLs and finding their devices now...\n");
-            foreach (PassThruPaths PTPath in PathsToLoop)
+            foreach (string PTPath in DLLImporter.LocatedJ2534DLLs.Select(DLLObj => DLLObj.FunctionLibrary))
             {
                 // Find the DLL object for the current DLL
-                Console.WriteLine($"Testing Path: {PTPath.ToDescriptionString()}");
-                if (!PassThruImportDLLs.FindDllFromPath(PTPath.ToDescriptionString(), out var NextDLL))
+                if (PTPath.Contains("Fulcrum") || PTPath.Contains("BDS")) continue;
+                Console.WriteLine($"Testing Path: {PTPath}");
+                if (!PassThruImportDLLs.FindDllFromPath(PTPath, out var NextDLL))
                 {
                     // Log failures.
                     Console.WriteLine("--> Failed to import DLL!");
                     Console.WriteLine("--> No Dll was returned from the import call!");
 
                     // Check if our file is real or not.
-                    if (!File.Exists(PTPath.ToDescriptionString()))
+                    if (!File.Exists(PTPath))
                         Console.WriteLine("--> The file specified at the path value given could not be found!");
 
                     // Print newline.

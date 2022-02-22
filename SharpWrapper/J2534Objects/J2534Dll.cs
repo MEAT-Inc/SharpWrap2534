@@ -90,15 +90,15 @@ namespace SharpWrap2534.J2534Objects
                 case JVersion.V0404:
                     try
                     {
-                        // Setup temp values for name, address, and version
-                        ApiInstance.SetupJApiInstance();
-                        ApiInstance.InitNexTPassThruDevice();
+                        // Build API instance and get our next PT Device instance. 
+                        if (ApiInstance.SetupJApiInstance()) ApiInstance.InitNexTPassThruDevice();
+                        else break; 
+
+                        // Loop all the name values pulled out of our init routine
                         while (NextName != null)
                         {
                             // Build Temp Device object and init the next PTDevice.
                             ApiInstance.GetNextPassThruDevice(out NextName, out NextVersion, out NextAddress);
-
-                            // Store new SDevice instance values.
                             PossibleDevices.Add(new PassThruStructs.SDevice
                             {
                                 // Set name values and other infos.
@@ -122,7 +122,10 @@ namespace SharpWrap2534.J2534Objects
                     try
                     {
                         // Find device count. Then get the devices.
-                        ApiInstance.SetupJApiInstance();
+                        if (ApiInstance.SetupJApiInstance()) ApiInstance.InitNexTPassThruDevice();
+                        else break;
+
+                        // Check our Device count value here and build output JDevices
                         ApiInstance.PassThruScanForDevices(out uint LocatedDeviceCount);
                         for (int SDeviceIndex = 0; SDeviceIndex < LocatedDeviceCount; SDeviceIndex++)
                         {

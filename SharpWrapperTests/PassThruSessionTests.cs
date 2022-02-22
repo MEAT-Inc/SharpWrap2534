@@ -28,7 +28,7 @@ namespace SharpWrap2534Tests
 
             // Open and connect now then disconnect
             SharpSession.PTOpen();
-            var OpenedChannel = SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000);
+            var OpenedChannel = SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000, out uint ChannelId);
             Console.WriteLine("--> Pulled new channel instance out OK!");
 
             // Test operations

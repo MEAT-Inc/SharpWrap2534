@@ -61,9 +61,17 @@ namespace SharpWrap2534.J2534Api
             // Check status value.
             if (ApiStatus == PTInstanceStatus.INITIALIZED) return false;
 
-            // Build instance values for delegates and importer
-            _jDllImporter = new PassThruApiImporter(J2534DllPath);
-            if (!_jDllImporter.MapDelegateMethods(out _delegateSet)) return false;
+            try
+            {
+                // Build instance values for delegates and importer
+                _jDllImporter = new PassThruApiImporter(J2534DllPath);
+                if (!_jDllImporter.MapDelegateMethods(out _delegateSet)) return false;
+            }
+            catch
+            {
+                // If failed to import DLL value, then exit this routine
+                return false;
+            }
 
             // Set the status value.
             ApiStatus = PTInstanceStatus.INITIALIZED;
@@ -79,7 +87,9 @@ namespace SharpWrap2534.J2534Api
         public void InitNexTPassThruDevice()
         {
             // Passing in NULLs for any one of the parameters will initiate a re-enumeration procedure and return immediately
-            J2534Err PTCommandError = (J2534Err)_delegateSet.PTInitNextPassThruDevice(IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+            J2534Err PTCommandError;
+            try { PTCommandError = (J2534Err)_delegateSet.PTInitNextPassThruDevice(IntPtr.Zero, IntPtr.Zero, IntPtr.Zero); }
+            catch { PTCommandError = J2534Err.ERR_DEVICE_NOT_CONNECTED; }
 
             // If the error is not a NOERROR Response then throw it.
             if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
@@ -111,7 +121,19 @@ namespace SharpWrap2534.J2534Api
             IntPtr CopiedAddressMarshall = MarshallAddressValue;
 
             // If the error is not a NOERROR Response then throw it.
-            J2534Err PTCommandError = (J2534Err)_delegateSet.PTGetNextPassThruDevice(ref MarshallPointerName, out DeviceVersion, ref MarshallAddressValue);
+            J2534Err PTCommandError; DeviceVersion = 0;
+            try { PTCommandError = (J2534Err)_delegateSet.PTGetNextPassThruDevice(ref MarshallPointerName, out DeviceVersion, ref MarshallAddressValue); }
+            catch
+            {
+                // Store error, throw it out.
+                PTCommandError = J2534Err.ERR_DEVICE_NOT_CONNECTED;
+                var NoDeviceErrorBuilder = new StringBuilder(100);
+
+                // Build error here and throw
+                PassThruGetLastError(NoDeviceErrorBuilder);
+            }
+
+            // Check our error code here and build error if needed
             if (PTCommandError != J2534Err.STATUS_NOERROR)
             {
                 var ErrorBuilder = new StringBuilder(100);
@@ -136,7 +158,9 @@ namespace SharpWrap2534.J2534Api
         public void PassThruScanForDevices(out uint DeviceCount)
         {
             // Issue the scan for devices call
-            J2534Err PTCommandError = (J2534Err)_delegateSet.PTScanForDevices(out DeviceCount);
+            J2534Err PTCommandError;
+            try { PTCommandError = (J2534Err)_delegateSet.PTScanForDevices(out DeviceCount); }
+            catch { PTCommandError = J2534Err.ERR_DEVICE_NOT_CONNECTED; DeviceCount = 0; }
 
             // If the error is not a NOERROR Response then throw it.
             if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }
@@ -153,7 +177,9 @@ namespace SharpWrap2534.J2534Api
         public void PassThruGetNextDevice(out PassThruStructsNative.SDEVICE SDevice)
         {
             // Get the next PassThru Device here.
-            J2534Err PTCommandError = (J2534Err)_delegateSet.PTGetNextDevice(out SDevice);
+            J2534Err PTCommandError;
+            try { PTCommandError = (J2534Err)_delegateSet.PTGetNextDevice(out SDevice); }
+            catch { PTCommandError = J2534Err.ERR_DEVICE_NOT_CONNECTED; SDevice = default; }
 
             // If the error is not a NOERROR Response then throw it.
             if (PTCommandError == J2534Err.STATUS_NOERROR) { return; }

@@ -248,6 +248,88 @@ namespace SharpWrap2534
         }
         #endregion
 
+        #region PTIoctl (Voltage, TX, RX Buffers)
+        /// <summary>
+        /// Clears out the RX buffer on a current device instance
+        /// </summary>
+        public void PassThruClearRxBuffer(int ChannelId = -1)
+        {
+            // Log Clearing RX buffer, clear it and return 
+            this.WriteCommandLog($"CLEARING RX BUFFER FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            if (ChannelId == -1)
+            {
+                // Check our Device Channel ID
+                var ChannelFound = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelFound == null) { this.WriteCommandLog("CAN NOT CLEAR RX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog); return; }
+                ChannelId = (int)ChannelFound.ChannelId;
+            }
+
+            // Clear out the channel RX Buffer by the ID here
+            if (ChannelId == -1) { this.WriteCommandLog("CHANNEL ID WAS -1! CAN NOT CLEAR!", LogType.ErrorLog); return; }
+            this.WriteCommandLog($"CLEARING RX BUFFER FROM CHANNEL ID: {ChannelId}!", LogType.WarnLog);
+            this.JDeviceInstance.ApiInstance.PassThruIoctl((uint)ChannelId, IoctlId.CLEAR_RX_BUFFER, IntPtr.Zero, IntPtr.Zero);
+        }
+        /// <summary>
+        /// Clears out the TX buffer on a current device instance
+        /// </summary>
+        public void PassThruClearTxBuffer(int ChannelId = -1)
+        {
+            // Log Clearing RX buffer, clear it and return 
+            this.WriteCommandLog($"CLEARING TX BUFFER FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            if (ChannelId == -1)
+            {
+                // Check our Device Channel ID
+                var ChannelFound = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelFound == null) { this.WriteCommandLog("CAN NOT CLEAR TX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog); return; }
+                ChannelId = (int)ChannelFound.ChannelId;
+            }
+
+            // Clear out the channel RX Buffer by the ID here
+            if (ChannelId == -1) { this.WriteCommandLog("CHANNEL ID WAS -1! CAN NOT CLEAR!", LogType.ErrorLog); return; }
+            this.WriteCommandLog($"CLEARING TX BUFFER FROM CHANNEL ID: {ChannelId}!", LogType.WarnLog);
+            this.JDeviceInstance.ApiInstance.PassThruIoctl((uint)ChannelId, IoctlId.CLEAR_TX_BUFFER, IntPtr.Zero, IntPtr.Zero);
+        }
+        /// <summary>
+        /// Reads our voltage value from a PTDevice instance connected via a channel.
+        /// </summary>
+        /// <param name="VoltageRead">Value of voltage pulled</param>
+        /// <param name="ChannelId">ID Of channel to issue from</param>
+        /// <param name="SilentRead">Sets if we need to silent pull or not. Useful for when running in a loop</param>
+        public void PassThruReadVoltage(out double VoltageRead, int ChannelId = -1, bool SilentRead = false)
+        {
+            // Log Pulling Voltage, find channel ID, and return it.
+            VoltageRead = 0.00; 
+            if (!SilentRead) this.WriteCommandLog($"READING VOLTAGE FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            if (ChannelId == -1)
+            {
+                // Check our Device Channel ID
+                var ChannelFound = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelFound != null) ChannelId = (int)ChannelFound.ChannelId;
+                else
+                {
+                    // Check for silent request flag.
+                    if (!SilentRead) this.WriteCommandLog("CAN NOT READ VOLTAGE FROM NULL CHANNELS!", LogType.ErrorLog); 
+                    return;
+                }
+            }
+
+            // Pull in our voltage reading here.
+            if (ChannelId == -1) {
+                if (!SilentRead) this.WriteCommandLog("CHANNEL ID WAS -1! CAN NOT READ VOLTAGE!", LogType.ErrorLog);
+                return;
+            }
+
+            // Issue our command here.
+            if (!SilentRead) this.WriteCommandLog($"READING VOLTAGE FROM CHANNEL: {ChannelId}!", LogType.WarnLog);
+            this.JDeviceInstance.ApiInstance.PassThruIoctl((uint)ChannelId, IoctlId.READ_PIN_VOLTAGE, out uint VoltageUint);
+            VoltageRead = ((double)VoltageUint / (double)1000);
+
+            // Print the value pulled form our command here.
+            if (!SilentRead) this.WriteCommandLog($"PULLED VOLTAGE UINT VALUE OF {VoltageUint} OK!", LogType.InfoLog);
+            return;
+        }
+        #endregion
+
         #region PassThruWriteMessages - PassThruReadMessages
         /// <summary>
         /// Sends a message on the first possible channel found.
@@ -560,38 +642,6 @@ namespace SharpWrap2534
             this.DeviceChannels[IndexOfChannel].StopMessageFilter(FilterInstance);
             return true;
         }
-        #endregion
-
-        #region PassThruClearRX - PassThruClearTX
-        /// <summary>
-        /// Clears out the RX buffer on a current device instance
-        /// </summary>
-        public void PassThruClearRxBuffer(int ChannelId = -1)
-        {
-            // Log Clearing RX buffer, clear it and return 
-            this.WriteCommandLog($"CLEARING RX BUFFER FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
-            if (ChannelId == -1)
-            {
-                // Check our Device Channel ID
-                var ChannelFound = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
-                if (ChannelFound == null) { this.WriteCommandLog("CAN NOT CLEAR RX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog); return; }
-                ChannelId = (int)ChannelFound.ChannelId;
-            }
-
-            // Clear out the channel RX Buffer by the ID here
-            if (ChannelId == -1) { this.WriteCommandLog("CHANNEL ID WAS -1! CAN NOT CLEAR!", LogType.ErrorLog); return; }
-            this.WriteCommandLog($"CLEARING RX BUFFER FROM CHANNEL ID: {ChannelId}!", LogType.WarnLog);
-            this.JDeviceInstance.ApiInstance.PassThruIoctl((uint)ChannelId, IoctlId.CLEAR_RX_BUFFER, IntPtr.Zero, IntPtr.Zero);
-        }
-
-        /// <summary>
-        /// Clears out the TX buffer on a current device instance
-        /// </summary>
-        public void PassThruClearTxBuffer()
-        {
-
-        }
-
         #endregion
     }
 }

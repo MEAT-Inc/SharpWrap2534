@@ -53,7 +53,7 @@ namespace SharpWrap2534.PassThruTypes
         {
             public uint Connector;
             public uint NumOfResources;
-            public IntPtr ptrResourceList;
+            public IntPtr ResourceListPointer;
         };
         [Serializable]
         [StructLayout(LayoutKind.Sequential)]

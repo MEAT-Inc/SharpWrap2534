@@ -227,7 +227,6 @@ namespace SharpWrap2534.PassThruTypes
 
         // J2534-2
         CAN_MIXED_FORMAT = 0x8000,
-
         J1962_PINS = 0x8001,
         SW_CAN_HS_DATA_RATE = 0x8010,
         SW_CAN_SPEEDCHANGE_ENABLE = 0x8011,
@@ -256,12 +255,10 @@ namespace SharpWrap2534.PassThruTypes
 
         // Pin selection
         J1939_PINS = 0x803D,
-
         J1708_PINS = 0x803E,
 
         // J2534-2 J1939 config parameters
         J1939_T1 = 0x803F,
-
         J1939_T2 = 0x8040,
         J1939_T3 = 0x8041,
         J1939_T4 = 0x8042,
@@ -269,7 +266,6 @@ namespace SharpWrap2534.PassThruTypes
 
         // J2534-2 TP2.0
         TP2_0_T_BR_INT = 0x8044,
-
         TP2_0_T_E = 0x8045,
         TP2_0_MNTC = 0x8046,
         TP2_0_T_CTA = 0x8047,
@@ -294,7 +290,6 @@ namespace SharpWrap2534.PassThruTypes
 
         // J2534-2 Device Config parameters
         NON_VOLATILE_STORE_1 = 0xC001, /* use SCONFIG_LIST */
-
         NON_VOLATILE_STORE_2 = 0xC002,
         NON_VOLATILE_STORE_3 = 0xC003,
         NON_VOLATILE_STORE_4 = 0xC004,
@@ -315,8 +310,64 @@ namespace SharpWrap2534.PassThruTypes
         J1939_CONNECTOR = 0x00010000,
         J1708_CONNECTOR = 0x00010001
     }
+    /// <summary>
+    /// Select Type for Uint connections
+    /// </summary>
     public enum SelectType : uint
     {
         READABLE_TYPE = 1
     }
+    /// <summary>
+    /// Flags for connecting on a new channel during a PassThruConnect
+    /// </summary>
+    public enum PassThroughConnect : uint
+    {
+        CAN_29BIT_ID = 0x00000100,
+        ISO9141_NO_CHECKSUM = 0x00000200,
+        NO_CHECKSUM = ISO9141_NO_CHECKSUM,
+        CAN_ID_BOTH = 0x00000800,
+        ISO9141_K_LINE_ONLY = 0x00001000,
+        SNIFF_MODE = 0x10000000,
+        LISTEN_ONLY_DT = SNIFF_MODE,
+        ISO9141_FORD_HEADER = 0x20000000, 
+        ISO9141_NO_CHECKSUM_DT = 0x40000000
+    };
+    /// <summary>
+    /// RX Status flags for inbound messages
+    /// </summary>
+    public enum RxStatus
+    {
+        TX_MSG_TYPE = 0x00000001,
+        START_OF_MESSAGE = 0x00000002,
+        ISO15765_FIRST_FRAME = 0x00000002,
+        RX_BREAK = 0x00000004,
+        TX_DONE = 0x00000008,
+        ISO15765_PADDING_ERROR = 0x00000010,
+        ISO15765_ADDR_TYPE = 0x00000080,
+        ISO15765_EXT_ADDR = 0x00000080,
+        CAN_29BIT_ID = 0x00000100,
+        SW_CAN_NS_RX = 0x00040000,
+        SW_CAN_HS_RX = 0x00020000,
+        SW_CAN_HV_RX = 0x00010000,
+
+        // TP2.0
+        CONNECTION_ESTABLISHED = 0x10000,
+        CONNECTION_LOST = 0x20000,
+    };
+    /// <summary>
+    /// TX flags for outbound messages.
+    /// </summary>
+    public enum TxFlags : uint
+    {
+        ISO15765_FRAME_PAD = 0x00000040,
+        CAN_29BIT_ID = 0x00000100,
+        WAIT_P3_MIN_ONLY = 0x00000200,
+        SW_CAN_HV_TX = 0x00000400,
+        TP_NOACKREQ_MSG = 0x00020000,
+        TP_SEQCOUNT_RESET = 0x00040000,
+        SCI_MODE = 0x00400000,
+        SCI_TX_VOLTAGE = 0x00800000,
+        DT_PERIODIC_UPDATE = 0x10000000,
+        DT_DO_NOT_USE_BITS = 0x43000000,
+    };
 }

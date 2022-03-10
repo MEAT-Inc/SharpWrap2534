@@ -252,7 +252,7 @@ namespace SharpWrap2534
         /// <summary>
         /// Clears out the RX buffer on a current device instance
         /// </summary>
-        public void PassThruClearRxBuffer(int ChannelId = -1)
+        public void PTClearRxBuffer(int ChannelId = -1)
         {
             // Log Clearing RX buffer, clear it and return 
             this.WriteCommandLog($"CLEARING RX BUFFER FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
@@ -272,7 +272,7 @@ namespace SharpWrap2534
         /// <summary>
         /// Clears out the TX buffer on a current device instance
         /// </summary>
-        public void PassThruClearTxBuffer(int ChannelId = -1)
+        public void PTClearTxBuffer(int ChannelId = -1)
         {
             // Log Clearing RX buffer, clear it and return 
             this.WriteCommandLog($"CLEARING TX BUFFER FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
@@ -295,7 +295,7 @@ namespace SharpWrap2534
         /// <param name="VoltageRead">Value of voltage pulled</param>
         /// <param name="ChannelId">ID Of channel to issue from</param>
         /// <param name="SilentRead">Sets if we need to silent pull or not. Useful for when running in a loop</param>
-        public void PassThruReadVoltage(out double VoltageRead, int ChannelId = -1, bool SilentRead = false)
+        public void PTReadVoltage(out double VoltageRead, int ChannelId = -1, bool SilentRead = false)
         {
             // Log Pulling Voltage, find channel ID, and return it.
             VoltageRead = 0.00; 

@@ -610,7 +610,7 @@ namespace SharpWrap2534.J2534Api
             throw new PassThruException(PTCommandError, ErrorBuilder);
         }
 
-        // ------------------------------------------- J2534 V0404/V0500 IOCTL API CALLS! -------------==-------------------------
+        // ------------------------------------------- J2534 V0404/V0500 IOCTL API CALLS! -------------------------------------------
 
         /// <summary>
         /// Runs a IOCTL command on the device to setup a new command. 

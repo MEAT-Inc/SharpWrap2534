@@ -526,7 +526,7 @@ namespace SharpWrap2534
         /// Builds a new Message filter from a set of input data and returns it. Passed out the Id of the filter built.
         /// </summary>
         /// <returns>Filter object built from this command.</returns>
-        public J2534Filter PTStartMessageFilter(FilterDef FilterType, string Mask, string Pattern, string FlowControl = null, uint FilterFlags = 0x00)
+        public J2534Filter PTStartMessageFilter(FilterDef FilterType, string Mask, string Pattern, string FlowControl = null, uint FilterFlags = 0x00, uint FilterProtocol = 0x00)
         {
             // Log information, build our filter object, and issue command to start it.
             this.WriteCommandLog($"ISSUING A PASSTHRU FILTER ({FilterType}) COMMAND NOW", LogType.InfoLog);
@@ -540,7 +540,7 @@ namespace SharpWrap2534
             this.WriteCommandLog($"STARTING FILTER ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
 
             // Issue command, log output and return.
-            J2534Filter OutputFilter = ChannelInstance.StartMessageFilter(FilterType, Mask, Pattern, FlowControl);
+            J2534Filter OutputFilter = ChannelInstance.StartMessageFilter(FilterType, Mask, Pattern, FlowControl, FilterFlags, (ProtocolId)FilterProtocol);
             if (OutputFilter != null) this.WriteCommandLog($"STARTED NEW FILTER CORRECTLY! FILTER ID: {OutputFilter.FilterId}", LogType.InfoLog);
             this.WriteCommandLog("FILTER OBJECT HAS BEEN STORED! RETURNING OUTPUT CONTENTS NOW");
             return OutputFilter;
@@ -549,7 +549,7 @@ namespace SharpWrap2534
         /// Builds a new Message filter from a set of input data and returns it. Passed out the Id of the filter built.
         /// </summary>
         /// <returns>Filter object built from this command.</returns>
-        public J2534Filter PTStartMessageFilter(int ChannelIndex, FilterDef FilterType, string Mask, string Pattern, string FlowControl = null, uint FilterFlags = 0x00)
+        public J2534Filter PTStartMessageFilter(int ChannelIndex, FilterDef FilterType, string Mask, string Pattern, string FlowControl = null, uint FilterFlags = 0x00, uint FilterProtocol = 0x00)
         {
             // Log information, build our filter object, and issue command to start it.
             this.WriteCommandLog($"ISSUING A PASSTHRU FILTER ({FilterType}) COMMAND NOW", LogType.InfoLog);
@@ -570,7 +570,7 @@ namespace SharpWrap2534
             this.WriteCommandLog($"STARTING FILTER ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
 
             // Issue command, log output and return.
-            J2534Filter OutputFilter = ChannelInstance.StartMessageFilter(FilterType, Mask, Pattern, FlowControl);
+            J2534Filter OutputFilter = ChannelInstance.StartMessageFilter(FilterType, Mask, Pattern, FlowControl, FilterFlags,(ProtocolId)FilterProtocol);
             if (OutputFilter != null) this.WriteCommandLog($"STARTED NEW FILTER CORRECTLY! FILTER ID: {OutputFilter.FilterId}", LogType.InfoLog);
             this.WriteCommandLog("FILTER OBJECT HAS BEEN STORED! RETURNING OUTPUT CONTENTS NOW");
             return OutputFilter;

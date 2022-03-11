@@ -346,6 +346,283 @@ namespace SharpWrap2534.J2534Api
             JDllVersion = DllVersionBuilder.ToString();
             JApiVersion = ApiVersionBuilder.ToString();
         }
+        /// <summary>
+        /// PTIoctl Command Relayed thru our API Marshall.
+        /// J2534-1: use for GET_CONFIG, SET_CONFIG
+        /// </summary>
+        public void PassThruIoctl(uint ChannelId, IoctlId IoctlId, ref PassThruStructs.SConfigList ConfigListStruct)
+        {
+            // Check our count of SConfig objects
+            if (ConfigListStruct.ConfigList.Count != ConfigListStruct.NumberOfParams) {
+                throw new Exception("PassThruIoctl, sConfigList parameter count different than sConfigList.numOfParams");
+            }
+
+            // Build our native structs here.
+            PassThruStructsNative.SCONFIG_LIST SConfigNative = new PassThruStructsNative.SCONFIG_LIST();
+            PassThruStructsNative.SCONFIG[] ConfigParamsNative = new PassThruStructsNative.SCONFIG[ConfigListStruct.NumberOfParams];
+
+            // Append native values into our scrut lists
+            SConfigNative.NumOfParams = ConfigListStruct.NumberOfParams;
+            for (int ParamIndex = 0; ParamIndex < ConfigListStruct.NumberOfParams; ParamIndex++)
+            {
+                // Loop each value, append contents, and move on.
+                ConfigParamsNative[ParamIndex].Parameter = (uint)ConfigListStruct.ConfigList[ParamIndex].SConfigParamId;
+                ConfigParamsNative[ParamIndex].Value = ConfigListStruct.ConfigList[ParamIndex].SConfigValue;
+            }
+
+            // Allocate unmanaged memory and create pointer for the SCONFIG[], fill data manually as it is a variable size array
+            IntPtr ConfigParamNativePtr = Marshal.AllocHGlobal(Marshal.SizeOf(ConfigParamsNative[0]) * ConfigParamsNative.Length);
+            for (int j = 0; j < ConfigParamsNative.Length; j++)
+            {
+                Marshal.WriteInt32(ConfigParamNativePtr, (2 * j) * sizeof(Int32), (int)ConfigParamsNative[j].Parameter);
+                Marshal.WriteInt32(ConfigParamNativePtr, (2 * j + 1) * sizeof(Int32), (int)ConfigParamsNative[j].Value);
+            }
+
+            // Allocate unmanaged memory and create pointer for the SCONFIG_LIST
+            SConfigNative.ConfigPtr = ConfigParamNativePtr;
+            IntPtr ptrSConfigListNative = Marshal.AllocHGlobal(Marshal.SizeOf(SConfigNative));
+            Marshal.StructureToPtr(SConfigNative, ptrSConfigListNative, true);
+
+            try
+            {
+                // use try catch block so we can release the unmanaged memory whatever happens
+                ApiInstance.PassThruIoctl(ChannelId, IoctlId, ptrSConfigListNative, IntPtr.Zero);
+                SConfigNative = (PassThruStructsNative.SCONFIG_LIST)Marshal.PtrToStructure(ptrSConfigListNative, typeof(PassThruStructsNative.SCONFIG_LIST));
+
+                // Read the parameter values into managed memory SCONFIG[] struct
+                for (int ParamIndex = 0; ParamIndex < SConfigNative.NumOfParams; ParamIndex++)
+                {
+                    ConfigParamsNative[ParamIndex].Parameter = (uint)Marshal.ReadInt32(SConfigNative.ConfigPtr, (2 * ParamIndex) * sizeof(Int32));
+                    ConfigParamsNative[ParamIndex].Value = (uint)Marshal.ReadInt32(SConfigNative.ConfigPtr, (2 * ParamIndex + 1) * sizeof(Int32));
+                }
+
+                // copy params from SCONFIG[] to C# friendly class SConfigList
+                ConfigListStruct.NumberOfParams = SConfigNative.NumOfParams;
+                for (int ParamIndex = 0; ParamIndex < ConfigListStruct.NumberOfParams; ParamIndex++)
+                {
+                    // Loop each value, append contents, and move on.
+                    ConfigParamsNative[ParamIndex].Parameter = ConfigParamsNative[ParamIndex].Parameter;
+                    ConfigParamsNative[ParamIndex].Value = ConfigParamsNative[ParamIndex].Value;
+                }
+            }
+            catch (Exception) { throw; }
+            finally
+            {
+                // Release unmanaged memory
+                Marshal.DestroyStructure(ptrSConfigListNative, SConfigNative.GetType());
+                Marshal.DestroyStructure(ConfigParamNativePtr, ConfigParamsNative.GetType());
+                Marshal.FreeHGlobal(ptrSConfigListNative);
+                Marshal.FreeHGlobal(ConfigParamNativePtr);
+            }
+        }
+        /// <summary>
+        /// PTIoctl Command Relayed thru our API Marshall.
+        /// J2534-1: use for READ_VBATT, READ_PROG_VOLTAGE
+        /// </summary>
+        public void PassThruIoctl(uint ChannelId, IoctlId IoctlId, out uint ValueRead)
+        {
+            // Build pointer command, read value, and return out of here
+            IntPtr OutputPointer = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(uint)));
+            ApiInstance.PassThruIoctl(ChannelId, IoctlId, IntPtr.Zero, OutputPointer);
+            ValueRead = (uint)Marshal.ReadInt32(OutputPointer);
+        }
+        /// <summary>
+        /// PTIoctl Command Relayed thru our API Marshall.
+        /// J2534-1: Used for Struct Configurations
+        /// </summary>
+        /// <param name="ChannelId"></param>
+        /// <param name="IoctlId"></param>
+        /// <param name="InputStruct"></param>
+        /// <param name="OutputValue"></param>
+        public void PassThruIoctl(uint ChannelId, IoctlId IoctlId, PassThruStructs.ResourceStruct InputStruct, out uint OutputValue)
+        {
+            // Build output pointer structs, generate resources, and issue commands.
+            IntPtr OutputPointer = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(uint)));
+            PassThruStructsNative.RESOURCE_STRUCT ResScturtNative = new PassThruStructsNative.RESOURCE_STRUCT();
+            ResScturtNative.Connector = (uint)InputStruct.ConnectorType;
+            ResScturtNative.NumOfResources = InputStruct.ResourceCount;
+
+            // Assign unallocated memory for resource list
+            ResScturtNative.ResourceListPointer = Marshal.AllocHGlobal(sizeof(uint) * InputStruct.ResourceList.Count);
+            int[] intArray = InputStruct.ResourceList.ToArray();
+            Marshal.Copy(intArray, 0, ResScturtNative.ResourceListPointer, InputStruct.ResourceList.Count);
+
+            // Make a pointer to the RESOURCE_STRUCT
+            IntPtr RescStructPointer = Marshal.AllocHGlobal(Marshal.SizeOf(ResScturtNative));
+            Marshal.StructureToPtr(ResScturtNative, RescStructPointer, true);
+            ApiInstance.PassThruIoctl(ChannelId, IoctlId, RescStructPointer, OutputPointer);
+            OutputValue = (uint)Marshal.ReadInt32(OutputPointer);
+
+            // Free unmanaged memory
+            Marshal.DestroyStructure(RescStructPointer, RescStructPointer.GetType());
+            Marshal.FreeHGlobal(RescStructPointer);
+            Marshal.FreeHGlobal(OutputPointer);
+        }
+        /// <summary>
+        /// PTIoctl Command Relayed thru our API Marshall.
+        /// J2534-1: Use for FIVE_BAUD_INIT
+        /// </summary>
+        public void PassThruIoctl(uint ChannelId, IoctlId IoctlId, PassThruStructs.SByteArray SByteInput, ref PassThruStructs.SByteArray SByteOutput)
+        {
+            // Check our input content structs and find if they are aligned correctly.
+            if (SByteInput.NumberOfBytes > SByteInput.Data.Length) throw new Exception("PassThruIoctl, SByteArray (in) numOfBytes larger than allocated data buffer");
+            if (SByteOutput.NumberOfBytes > SByteOutput.Data.Length) throw new Exception("PassThruIoctl, SByteArray (out) numOfBytes larger than allocated data buffer");
+
+            // Build native structs here
+            PassThruStructsNative.SBYTE_ARRAY SByteInNative = new PassThruStructsNative.SBYTE_ARRAY();
+            PassThruStructsNative.SBYTE_ARRAY SByteOutNative = new PassThruStructsNative.SBYTE_ARRAY();
+            SByteInNative.NumOfBytes = SByteInput.NumberOfBytes; SByteOutNative.NumOfBytes = SByteOutput.NumberOfBytes;
+
+            // Allocate unmanaged memory for the byte arrays and copy data of arrays from managed to unmanaged
+            SByteInNative.BytePtr = Marshal.AllocHGlobal(SByteInput.Data.Length);
+            Marshal.Copy(SByteInput.Data, 0, SByteInNative.BytePtr, SByteInput.Data.Length);
+            SByteOutNative.BytePtr = Marshal.AllocHGlobal(SByteOutput.Data.Length);
+
+            // Allocate unmanaged memory and create pointer for the SBYTE_ARRAYs
+            IntPtr ptrInSByteNative = Marshal.AllocHGlobal(Marshal.SizeOf(SByteInNative));
+            Marshal.StructureToPtr(SByteInNative, ptrInSByteNative, true);
+            IntPtr ptrOutSByteNative = Marshal.AllocHGlobal(Marshal.SizeOf(SByteOutNative));
+            Marshal.StructureToPtr(SByteOutNative, ptrOutSByteNative, true);
+
+            // use try catch block so we can release the unmanaged memory whatever happens
+            try { ApiInstance.PassThruIoctl(ChannelId, IoctlId, ptrInSByteNative, ptrOutSByteNative); }
+            catch (Exception) { throw; }
+            finally
+            {
+                // Copy unmanaged memory to managed struct (SBYTE_ARRAYs) then Copy data back to SByteArray classes
+                SByteOutNative = (PassThruStructsNative.SBYTE_ARRAY)Marshal.PtrToStructure(ptrOutSByteNative, typeof(PassThruStructsNative.SBYTE_ARRAY));
+                SByteOutput.NumberOfBytes = SByteOutNative.NumOfBytes;
+                Marshal.Copy(SByteOutNative.BytePtr, SByteOutput.Data, 0, (int)SByteOutNative.NumOfBytes);
+
+                // Release unmanaged memory
+                Marshal.DestroyStructure(ptrInSByteNative, SByteInNative.GetType());
+                Marshal.DestroyStructure(ptrOutSByteNative, SByteOutNative.GetType());
+                Marshal.FreeHGlobal(ptrInSByteNative);
+                Marshal.FreeHGlobal(ptrOutSByteNative);
+            }
+        }
+        /// <summary>
+        /// PTIoctl Command Relayed thru our API Marshall.
+        /// J2534-1: use for FAST_INIT
+        /// </summary>
+        public void PassThruIoctl(uint ChannelId, IoctlId IoctlId, PassThruStructs.PassThruMsg InputMessage, ref PassThruStructs.PassThruMsg OutputMessage)
+        {
+            // Build native strcuts for pointers
+            IntPtr InputPrt = IntPtr.Zero; IntPtr OutputPtr = IntPtr.Zero;
+            PassThruStructsNative.PASSTHRU_MSG NativeInMsg; PassThruStructsNative.PASSTHRU_MSG NativeOutMsg;
+
+            // Check if input message is not null
+            if (!InputMessage.Equals(default(PassThruStructs.PassThruMsg)))
+            {
+                NativeInMsg = new PassThruStructsNative.PASSTHRU_MSG(-1);
+                J2534ApiMarshaller.CopyPassThruMsgToNative(ref NativeInMsg, (PassThruStructs.PassThruMsg)InputMessage);
+
+                // allocate unmanaged memory and create pointer for the PASSTHRU_MSG
+                InputPrt = Marshal.AllocHGlobal(Marshal.SizeOf(NativeInMsg));
+                Marshal.StructureToPtr(NativeInMsg, InputPrt, true);
+            }
+
+            // Check if our output messge is not null
+            if (!OutputMessage.Equals(default(PassThruStructs.PassThruMsg)))
+            {
+                NativeOutMsg = new PassThruStructsNative.PASSTHRU_MSG(-1);
+                J2534ApiMarshaller.CopyPassThruMsgToNative(ref NativeOutMsg, (PassThruStructs.PassThruMsg)OutputMessage);
+
+                // allocate unmanaged memory and create pointer for the PASSTHRU_MSG
+                OutputPtr = Marshal.AllocHGlobal(Marshal.SizeOf(NativeOutMsg));
+                Marshal.StructureToPtr(NativeOutMsg, OutputPtr, true);
+            }
+
+            // use try catch block so we can release the unmanaged memory whatever happens
+            try { ApiInstance.PassThruIoctl(ChannelId, IoctlId, InputPrt, OutputPtr); }
+            catch (Exception) { throw; }
+            finally
+            {
+                // Make sure our message isn't a default null object value (STRUCTS ARE NEVER NULL! So this is just default checking)
+                if (!OutputMessage.Equals(default(PassThruStructs.PassThruMsg)))
+                {
+                    // Copy unmanaged memory to managed struct (SBYTE_ARRAYs) then copy data back to SByteArray classes and release memory
+                    NativeOutMsg = (PassThruStructsNative.PASSTHRU_MSG)Marshal.PtrToStructure(OutputPtr, typeof(PassThruStructsNative.PASSTHRU_MSG));
+                    J2534ApiMarshaller.CopyPassThruMsgFromNative(ref OutputMessage, NativeOutMsg);
+                    Marshal.FreeHGlobal(OutputPtr);
+                }
+            }
+        }
+        /// <summary>
+        /// PTIoctl Command Relayed thru our API Marshall.
+        /// J2534-1: use for CLEAR_TX_BUFFER, CLEAR_RX_BUFFER, CLEAR_PERIODIC_MSGS, CLEAR_MSG_FILTERS, CLEAR_FUNCT_MSG_LOOKUP_TABLE
+        /// </summary>
+        public void PassThruIoctl(uint ChannelId, IoctlId IoctlId) { ApiInstance.PassThruIoctl(ChannelId, IoctlId, IntPtr.Zero, IntPtr.Zero); }
+        /// <summary>
+        /// PTIoctl Command Relayed thru our API Marshall.
+        /// J2534-1: use for ADD_TO_FUNCT_MSG_LOOKUP_TABLE, DELETE_FROM_FUNCT_MSG_LOOKUP_TABLE
+        /// </summary>
+        public void PassThruIoctl(uint ChannelId, IoctlId IoctlId, PassThruStructs.SByteArray SByteInput)
+        {
+            // Check our input args and sizes 
+            if (SByteInput.NumberOfBytes > SByteInput.Data.Length)
+                throw new Exception("PassThruIoctl, SByteArray (in) numOfBytes larger than allocated data buffer");
+
+            // Build our new native structures.
+            PassThruStructsNative.SBYTE_ARRAY inSByteNative = new PassThruStructsNative.SBYTE_ARRAY();
+            inSByteNative.NumOfBytes = SByteInput.NumberOfBytes;
+
+            // allocate unmanaged memory for the byte arrays and copy data of arrays from managed to unmanaged
+            inSByteNative.BytePtr = Marshal.AllocHGlobal(SByteInput.Data.Length);
+            Marshal.Copy(SByteInput.Data, 0, inSByteNative.BytePtr, SByteInput.Data.Length);
+
+            // allocate unmanaged memory and create pointer for the SBYTE_ARRAYs
+            IntPtr ptrInSByteNative = Marshal.AllocHGlobal(Marshal.SizeOf(inSByteNative));
+            Marshal.StructureToPtr(inSByteNative, ptrInSByteNative, true);
+
+            // use try catch block so we can release the unmanaged memory whatever happens
+            try { ApiInstance.PassThruIoctl(ChannelId, IoctlId, ptrInSByteNative, IntPtr.Zero); }
+            catch (Exception) { throw; }
+            finally
+            {
+                // Release unmanaged memory
+                Marshal.DestroyStructure(ptrInSByteNative, inSByteNative.GetType());
+                Marshal.FreeHGlobal(ptrInSByteNative);
+            }
+        }
+        /// <summary>
+        /// PTIoctl Command Relayed thru our API Marshall.
+        /// J2534-1: Use for DT_READ_CABLE_SERIAL_NUMBER
+        /// </summary>
+        public void PassThruIoctl(uint ChannelId, IoctlId IoctlId, ref PassThruStructs.SByteArray SByteOut)
+        {
+            // Check our input arguments here and make sure they line up
+            if (SByteOut.NumberOfBytes > SByteOut.Data.Length)
+                throw new Exception("PassThruIoctl, SByteArray (in) numOfBytes larger than allocated data buffer");
+
+            // Build native structures
+            PassThruStructsNative.SBYTE_ARRAY SByteNativeOut = new PassThruStructsNative.SBYTE_ARRAY
+            {
+                // Allocate unmanaged memory for the byte arrays and copy data of arrays from managed to unmanaged
+                NumOfBytes = SByteOut.NumberOfBytes,
+                BytePtr = Marshal.AllocHGlobal(SByteOut.Data.Length)
+            };
+
+            // Allocate unmanaged memory and create pointer for the SBYTE_ARRAYs
+            Marshal.Copy(SByteOut.Data, 0, SByteNativeOut.BytePtr, SByteOut.Data.Length);
+            IntPtr ptrOutSByteNative = Marshal.AllocHGlobal(Marshal.SizeOf(SByteNativeOut));
+            Marshal.StructureToPtr(SByteNativeOut, ptrOutSByteNative, true);
+
+            // use try catch block so we can release the unmanaged memory whatever happens
+            try { ApiInstance.PassThruIoctl(ChannelId, IoctlId, IntPtr.Zero, ptrOutSByteNative); }
+            catch (Exception) { throw; }
+            finally
+            {
+                // copy unmanaged memory to managed struct (SBYTE_ARRAYs) then Copy data back to SByteArray classes and free memory
+                SByteNativeOut = (PassThruStructsNative.SBYTE_ARRAY)Marshal.PtrToStructure(ptrOutSByteNative, typeof(PassThruStructsNative.SBYTE_ARRAY));
+                SByteOut.NumberOfBytes = SByteNativeOut.NumOfBytes;
+                Marshal.Copy(SByteNativeOut.BytePtr, SByteOut.Data, 0, (int)SByteNativeOut.NumOfBytes);
+
+                // Release unmanaged memory
+                Marshal.DestroyStructure(ptrOutSByteNative, SByteNativeOut.GetType());
+                Marshal.FreeHGlobal(ptrOutSByteNative);
+            }
+        }
 
         // ---------------------------------------------------- VERSION 0500 API MARSHALLS -----------------------------------------------------
 
@@ -464,8 +741,5 @@ namespace SharpWrap2534.J2534Api
             // Send to the API 
             PassThruQueueMsgs(ChannelId, MessageSetNative, ref MessageCount);
         }
-
-        // -------------------------------------------------------------------------------------------------------------------------------------
-
     }
 }

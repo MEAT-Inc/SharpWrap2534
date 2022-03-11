@@ -169,20 +169,6 @@ namespace SharpWrap2534.J2534Objects
         // ----------------------------------------- STATIC CHANNEL LOCATION METHODS ---------------------------------------
 
         /// <summary>
-        /// Finds a J2534 channel based on the ID of it.
-        /// </summary>
-        /// <param name="ChannelId">Id of channel to locate</param>
-        /// <returns>A channel found or an empty one.</returns>
-        public static bool LocateChannel(uint ChannelId, out J2534Channel ChannelFound)
-        {
-            // Find the channel.
-            ChannelFound = _j2534Channels.SelectMany(ChSet => ChSet).FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId)
-                           ?? null;
-
-            // Return channel object.
-            return ChannelFound?.ChannelStatus != PTInstanceStatus.NULL;
-        }
-        /// <summary>
         /// Gets all of our filters and pulls one that matches.
         /// </summary>
         /// <param name="FilterId">Find this filter.</param>
@@ -260,7 +246,7 @@ namespace SharpWrap2534.J2534Objects
             return true;
         }
 
-        // ----------------------------------------- INSTANCE CHANNEL FILTER METHODS -----------------------------------------
+        // ----------------------------------------- INSTANCE CHANNEL CONFIGURATION METHODS -----------------------------------------
 
         /// <summary>
         /// Builds a new J2534 Filter for the given channel input.
@@ -504,6 +490,24 @@ namespace SharpWrap2534.J2534Objects
         // --------------------------------------- CHANNEL CONFIGURATION METHODS FOR SETUP --------------------------------------
 
         /// <summary>
+        /// Reads the voltage of the pin number given and returns it as a uint value natively.
+        /// </summary>
+        /// <param name="PinNumber">Number of the pin to pull the value from</param>
+        /// <returns>The Uint value of the voltage on the given pin number in milivolts</returns>
+        public uint ReadPinVoltage(int PinNumber = 16)
+        {
+            // Build our control struct for pulling out the voltage of our device
+            PassThruStructs.ResourceStruct PinStruct = new PassThruStructs.ResourceStruct(1)
+            {
+                ConnectorType = Connector.ENTIRE_DEVICE,        // Connector Type
+                ResourceList = new List<int>() { PinNumber }    // Pin to check 
+            };
+
+            // Read the voltage off of our ApiMarshall.
+            _jDevice.ApiMarshall.PassThruIoctl(ChannelId, IoctlId.READ_PIN_VOLTAGE, PinStruct, out uint VoltageRead);
+            return VoltageRead;
+        }
+        /// <summary>
         /// Clears out the RX Buffer on the channel
         /// </summary>
         public void ClearRxBuffer() { _jDevice.ApiInstance.PassThruIoctl(ChannelId, IoctlId.CLEAR_RX_BUFFER, IntPtr.Zero, IntPtr.Zero); }
@@ -511,8 +515,7 @@ namespace SharpWrap2534.J2534Objects
         /// Clears out the TX Buffer on the channel
         /// </summary>
         public void ClearTxBuffer() { _jDevice.ApiInstance.PassThruIoctl(ChannelId, IoctlId.CLEAR_TX_BUFFER, IntPtr.Zero, IntPtr.Zero); }
-
-
+        
         /*  NOTE! PLEASE READ THIS BEFORE THINKING THIS WRAPPER IS MISSING SHIT!        
             TODO: INCLUDE THESE METHODS INTO THIS CHANNEL WRAPPER AT SOME POINT IN THE FUTURE!       
         

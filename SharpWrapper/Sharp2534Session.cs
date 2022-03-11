@@ -110,6 +110,9 @@ namespace SharpWrap2534
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
+        // The last opened J2534 Channel object. This is our fallback when we don't get an input channel ID
+        private J2534Channel DefaultChannel;
+
         // Device Channel Information, filters, and periodic messages.
         public J2534Channel[] DeviceChannels => JDeviceInstance.DeviceChannels;
         public J2534Channel[][] DeviceLogicalChannels => JDeviceInstance.DeviceChannels.Select(ChObj => ChObj.LogicalChannels).ToArray();
@@ -178,10 +181,6 @@ namespace SharpWrap2534
             this.JDeviceInstance = null;
         }
 
-        // ------------------------------------------------- Object Location Routines/Methods ------------------------------------------------------
-
-        // TODO: WRITE IN LOGIC FOR CONTROLLING EXISTING LOGICAL OBJECTS FOR PULLING IN FILTERS/MESSAGES CONSTRUCTED ON OUR CHANNELS!
-
         // ------------------------------------------------- PassThru Command Routines/Methods ------------------------------------------------------
 
         #region PassThruOpen - PassThruClose
@@ -234,7 +233,9 @@ namespace SharpWrap2534
 
             // Log information and return output.
             this.WriteCommandLog($"PULLED OUT CHANNEL ID: {ChannelId}", LogType.InfoLog);
-            return this.JDeviceInstance.DeviceChannels[ChannelIndex];
+            this.WriteCommandLog("STORING NEWEST CHANNEL AS OUR FALLBACK CHANNEL NOW...", LogType.InfoLog);
+            this.DefaultChannel = this.JDeviceInstance.DeviceChannels[ChannelIndex];
+            return this.DefaultChannel;
         }
         /// <summary>
         /// Runs a PTDisconnect
@@ -254,40 +255,61 @@ namespace SharpWrap2534
         /// </summary>
         public void PTClearRxBuffer(int ChannelId = -1)
         {
+            // Check for all null channels
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return;
+            }
+
             // Log Clearing RX buffer, clear it and return 
+            J2534Channel ChannelInUse = this.DefaultChannel;
             this.WriteCommandLog($"CLEARING RX BUFFER FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
-            if (ChannelId == -1)
+            if (ChannelId != -1)
             {
                 // Check our Device Channel ID
-                var ChannelFound = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
-                if (ChannelFound == null) { this.WriteCommandLog("CAN NOT CLEAR RX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog); return; }
-                ChannelId = (int)ChannelFound.ChannelId;
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse != null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this.WriteCommandLog("CAN NOT CLEAR RX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog); 
+                    return;
+                }
             }
 
             // Clear out the channel RX Buffer by the ID here
-            if (ChannelId == -1) { this.WriteCommandLog("CHANNEL ID WAS -1! CAN NOT CLEAR!", LogType.ErrorLog); return; }
-            this.WriteCommandLog($"CLEARING RX BUFFER FROM CHANNEL ID: {ChannelId}!", LogType.WarnLog);
-            this.JDeviceInstance.ApiInstance.PassThruIoctl((uint)ChannelId, IoctlId.CLEAR_RX_BUFFER, IntPtr.Zero, IntPtr.Zero);
+            this.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
+            this.WriteCommandLog($"CLEARING RX BUFFER FROM CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog);
+            ChannelInUse.ClearRxBuffer();
         }
         /// <summary>
         /// Clears out the TX buffer on a current device instance
         /// </summary>
         public void PTClearTxBuffer(int ChannelId = -1)
-        {
+        {            
+            // Check for all null channels
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return;
+            }
+
             // Log Clearing RX buffer, clear it and return 
-            this.WriteCommandLog($"CLEARING TX BUFFER FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
-            if (ChannelId == -1)
+            J2534Channel ChannelInUse = this.DefaultChannel;
+            if (ChannelId != -1)
             {
                 // Check our Device Channel ID
-                var ChannelFound = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
-                if (ChannelFound == null) { this.WriteCommandLog("CAN NOT CLEAR TX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog); return; }
-                ChannelId = (int)ChannelFound.ChannelId;
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse == null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this.WriteCommandLog("CAN NOT CLEAR TX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog);
+                    return;
+                }
             }
 
             // Clear out the channel RX Buffer by the ID here
-            if (ChannelId == -1) { this.WriteCommandLog("CHANNEL ID WAS -1! CAN NOT CLEAR!", LogType.ErrorLog); return; }
-            this.WriteCommandLog($"CLEARING TX BUFFER FROM CHANNEL ID: {ChannelId}!", LogType.WarnLog);
-            this.JDeviceInstance.ApiInstance.PassThruIoctl((uint)ChannelId, IoctlId.CLEAR_TX_BUFFER, IntPtr.Zero, IntPtr.Zero);
+            this.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
+            this.WriteCommandLog($"CLEARING TX BUFFER FROM CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog);
+            ChannelInUse.ClearTxBuffer();
         }
         /// <summary>
         /// Reads our voltage value from a PTDevice instance connected via a channel.
@@ -295,38 +317,33 @@ namespace SharpWrap2534
         /// <param name="VoltageRead">Value of voltage pulled</param>
         /// <param name="ChannelId">ID Of channel to issue from</param>
         /// <param name="SilentRead">Sets if we need to silent pull or not. Useful for when running in a loop</param>
-        public void PTReadVoltage(out double VoltageRead, int ChannelId = -1, bool SilentRead = false)
+        public void PTReadVoltage(int PinNumber, out double VoltageRead, bool SilentRead = false, int ChannelId = -1)
         {
+            // Check for all null channels
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                VoltageRead = 0.00;
+                return;
+            }
+
             // Log Pulling Voltage, find channel ID, and return it.
-            VoltageRead = 0.00; 
+            VoltageRead = 0.00; J2534Channel ChannelInUse = this.DefaultChannel;
             if (!SilentRead) this.WriteCommandLog($"READING VOLTAGE FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
-            if (ChannelId == -1)
+            if (ChannelId != -1)
             {
                 // Check our Device Channel ID
-                var ChannelFound = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
-                if (ChannelFound != null) ChannelId = (int)ChannelFound.ChannelId;
-                else
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null && ChannelInUse.ChannelId == ChannelId);
+                if (ChannelInUse == null)
                 {
-                    // Check for silent request flag.
+                    // Log can't operate on a null channel and exit method
                     if (!SilentRead) this.WriteCommandLog("CAN NOT READ VOLTAGE FROM NULL CHANNELS!", LogType.ErrorLog); 
                     return;
                 }
             }
 
-            // Pull in our voltage reading here.
-            if (ChannelId == -1) {
-                if (!SilentRead) this.WriteCommandLog("CHANNEL ID WAS -1! CAN NOT READ VOLTAGE!", LogType.ErrorLog);
-                return;
-            }
-
-            // Issue our command here.
-            if (!SilentRead) this.WriteCommandLog($"READING VOLTAGE FROM CHANNEL: {ChannelId}!", LogType.WarnLog);
-            this.JDeviceInstance.ApiInstance.PassThruIoctl((uint)ChannelId, IoctlId.READ_PIN_VOLTAGE, out uint VoltageUint);
-            VoltageRead = ((double)VoltageUint / (double)1000);
-
-            // Print the value pulled form our command here.
-            if (!SilentRead) this.WriteCommandLog($"PULLED VOLTAGE UINT VALUE OF {VoltageUint} OK!", LogType.InfoLog);
-            return;
+            // Issue our command here by finding the channel object then running commands for it.
+            VoltageRead = ((double)ChannelInUse.ReadPinVoltage(PinNumber) / (double)1000);
+            if (!SilentRead) this.WriteCommandLog($"PULLED VOLTAGE VALUE OF {VoltageRead:F2} OK!", LogType.InfoLog);
         }
         #endregion
 
@@ -336,21 +353,34 @@ namespace SharpWrap2534
         /// </summary>
         /// <param name="MessageToSend">Message to send out</param>
         /// <param name="SendTimeout">Timeout for send operation</param>
-        public bool PTWriteMessages(PassThruStructs.PassThruMsg MessageToSend, uint SendTimeout = 100)
+        public bool PTWriteMessages(PassThruStructs.PassThruMsg MessageToSend, uint SendTimeout = 100, int ChannelId = -1)
         {
             // Log information. If all channels are null, then exit.
-            this.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND WITH TIMEOUT AND MESSAGE: {SendTimeout} - {MessageToSend}", LogType.InfoLog);
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
-            {
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
                 this.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return false;
             }
 
             // Find the channel to use and send out the command.
-            var ChannelInstance = this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj != null);
-            this.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
+            J2534Channel ChannelInUse = this.DefaultChannel;
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse == null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    return false;
+                }
+            }
+
+            // Log information out and prepare to wrtie
+            this.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
+            this.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND WITH TIMEOUT AND MESSAGE: {SendTimeout}ms - {MessageToSend} MESSAGES", LogType.InfoLog);
 
             // Issue command, log output and return.
-            uint MessagesSent = ChannelInstance.PTWriteMessages(MessageToSend, SendTimeout);
+            uint MessagesSent = ChannelInUse.PTWriteMessages(MessageToSend, SendTimeout);
             this.WriteCommandLog($"SENT A TOTAL OF {MessagesSent} OUT OF AN EXPECTED 1 MESSAGE!", LogType.WarnLog);
             if (MessagesSent != 1) { this.WriteCommandLog("ERROR! FAILED TO SEND OUT THE REQUESTED PT MESSAGE!", LogType.ErrorLog); }
             return MessagesSent == 1;
@@ -360,85 +390,35 @@ namespace SharpWrap2534
         /// </summary>
         /// <param name="MessageToSend">Message to send out</param>
         /// <param name="SendTimeout">Timeout for send operation</param>
-        public bool PTWriteMessages(PassThruStructs.PassThruMsg[] MessageToSend, uint SendTimeout = 100)
+        public bool PTWriteMessages(PassThruStructs.PassThruMsg[] MessageToSend, uint SendTimeout = 100, int ChannelId = -1)
         {
             // Log information. If all channels are null, then exit.
-            this.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND FOR {MessageToSend.Length} MESSAGES WITH TIMEOUT", LogType.InfoLog);
-            foreach (var MsgObject in MessageToSend) { this.WriteCommandLog($"\tISSUING MESSAGE: {MsgObject}", LogType.TraceLog); }
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
-            {
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
                 this.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
-            }
-
-            // Find the channel to use and send out the command.
-            var ChannelInstance = this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj != null);
-            this.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
-
-            // Issue command, log output and return.
-            uint MessagesSent = ChannelInstance.PTWriteMessages(MessageToSend, SendTimeout);
-            this.WriteCommandLog($"SENT A TOTAL OF {MessagesSent} OUT OF AN EXPECTED {MessageToSend.Length} MESSAGES!", LogType.WarnLog);
-            if (MessagesSent != MessageToSend.Length) { this.WriteCommandLog("ERROR! FAILED TO SEND OUT THE REQUESTED PT MESSAGE!", LogType.ErrorLog); }
-            return MessagesSent == MessageToSend.Length;
-        }
-        /// <summary>
-        /// Sends a message on the channel index provided.
-        /// </summary>
-        /// <param name="MessageToSend">Message to send out</param>
-        /// <param name="SendTimeout">Timeout for send operation</param>
-        public bool PTWriteMessages(int ChannelIndex, PassThruStructs.PassThruMsg MessageToSend, uint SendTimeout = 100)
-        {
-            // Log information. If all channels are null, then exit.
-            this.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND WITH TIMEOUT AND MESSAGE: {SendTimeout} - {MessageToSend}", LogType.InfoLog);
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
-            {
-                this.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
-            }
-
-            // Validate input for index of pulled channel.
-            if (ChannelIndex > this.DeviceChannels.Length)
-            {
-                this.WriteCommandLog("ERROR! CHANNEL INDEX WAS OUTSIDE RANGE OF POSSIBLE CHANNEL IDS!", LogType.ErrorLog);
                 return false;
             }
 
-            // Now write the output messages.
-            var ChannelInstance = this.DeviceChannels[ChannelIndex];
-            this.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
-
-            // Issue command, log output and return.
-            uint MessagesSent = ChannelInstance.PTWriteMessages(MessageToSend, SendTimeout);
-            this.WriteCommandLog($"SENT A TOTAL OF {MessagesSent} OUT OF AN EXPECTED 1 MESSAGE!", LogType.WarnLog);
-            if (MessagesSent != 1) { this.WriteCommandLog("ERROR! FAILED TO SEND OUT THE REQUESTED PT MESSAGE!", LogType.ErrorLog); }
-            return MessagesSent == 1;
-        }
-        /// <summary>
-        /// Sends a message on the channel index provided.
-        /// </summary>
-        /// <param name="MessageToSend">Message to send out</param>
-        /// <param name="SendTimeout">Timeout for send operation</param>
-        public bool PTWriteMessages(int ChannelIndex, PassThruStructs.PassThruMsg[] MessageToSend, uint SendTimeout = 100)
-        {
             // Log information. If all channels are null, then exit.
+            J2534Channel ChannelInUse = this.DefaultChannel;
             this.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND FOR {MessageToSend.Length} MESSAGES WITH TIMEOUT", LogType.InfoLog);
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse == null) 
+                {
+                    // Log can't operate on a null channel and exit method
+                    this.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    return false;
+                }
+            }
+
+            // Log information and send out our messages
+            this.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
             foreach (var MsgObject in MessageToSend) { this.WriteCommandLog($"\tISSUING MESSAGE: {MsgObject}", LogType.TraceLog); }
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
-            {
-                this.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
-            }
-
-            // Validate input for index of pulled channel.
-            if (ChannelIndex > this.DeviceChannels.Length)
-            {
-                this.WriteCommandLog("ERROR! CHANNEL INDEX WAS OUTSIDE RANGE OF POSSIBLE CHANNEL IDS!", LogType.ErrorLog);
-                return false;
-            }
-
-            // Now write the output messages.
-            var ChannelInstance = this.DeviceChannels[ChannelIndex];
-            this.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
 
             // Issue command, log output and return.
-            uint MessagesSent = ChannelInstance.PTWriteMessages(MessageToSend, SendTimeout);
+            uint MessagesSent = ChannelInUse.PTWriteMessages(MessageToSend, SendTimeout);
             this.WriteCommandLog($"SENT A TOTAL OF {MessagesSent} OUT OF AN EXPECTED {MessageToSend.Length} MESSAGES!", LogType.WarnLog);
             if (MessagesSent != MessageToSend.Length) { this.WriteCommandLog("ERROR! FAILED TO SEND OUT THE REQUESTED PT MESSAGE!", LogType.ErrorLog); }
             return MessagesSent == MessageToSend.Length;
@@ -449,13 +429,27 @@ namespace SharpWrap2534
         /// <param name="MessagesToRead"></param>
         /// <param name="ReadTimeout"></param>
         /// <returns></returns>
-        public PassThruStructs.PassThruMsg[] PTReadMessages(uint MessagesToRead = 1, uint ReadTimeout = 250)
+        public PassThruStructs.PassThruMsg[] PTReadMessages(uint MessagesToRead = 1, uint ReadTimeout = 250, int ChannelId = -1)
         {
+            // Log information. If all channels are null, then exit.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return Array.Empty<PassThruStructs.PassThruMsg>();
+            }
+
             // Log information and issue the command. Find the channel to use here.
+            J2534Channel ChannelInUse = this.DefaultChannel;
             this.WriteCommandLog($"ISSUING A PTREAD MESSAGES COMMAND FOR A TOTAL OF {MessagesToRead} MESSAGES WITH A TIMEOUT OF {ReadTimeout}", LogType.InfoLog);
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
+            if (ChannelId != -1)
             {
-                this.WriteCommandLog("CAN NOT ISSUE READ COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse == null) 
+                {
+                    // Log can't operate on a null channel and exit method
+                    this.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    return Array.Empty<PassThruStructs.PassThruMsg>();
+                }
             }
 
             // Find the channel to use and send out the command.
@@ -464,50 +458,7 @@ namespace SharpWrap2534
             var ReadMessages = ChannelInstance.PTReadMessages(ref MessagesToRead, ReadTimeout);
 
             // If no messages found, log an error and drop back out.
-            if (ReadMessages.Length == 0)
-            {
-                this.WriteCommandLog("ERROR! NO MESSAGES PROCESSED FROM OUR PTREAD COMMAND!", LogType.ErrorLog);
-                return Array.Empty<PassThruStructs.PassThruMsg>();
-            }
-
-            // Print our messages out and return them.
-            this.WriteCommandLog("RETURNING OUT CONTENTS FOR MESSAGES PULLED IN NOW!", LogType.InfoLog);
-            this.WriteCommandLog($"READ A TOTAL OF {ReadMessages.Length} OUT OF {MessagesToRead} EXPECTED MESSAGES", LogType.InfoLog);
-            this.WriteCommandLog(J2534Device.PTMessageToTableString(ReadMessages));
-            if (MessagesToRead != ReadMessages.Length) this.WriteCommandLog("WARNING! READ MISMATCH ON MESSAGE COUNT!", LogType.WarnLog);
-            return ReadMessages;
-        }
-        /// <summary>
-        /// Reads a given number of messages from the first open channel found with the supplied timeout.
-        /// </summary>
-        /// <param name="MessagesToRead"></param>
-        /// <param name="ReadTimeout"></param>
-        /// <returns></returns>
-        public PassThruStructs.PassThruMsg[] PTReadMessages(int ChannelIndex, uint MessagesToRead = 1, uint ReadTimeout = 250)
-        {
-            // Log information and issue the command. Find the channel to use here.
-            this.WriteCommandLog($"ISSUING A PTREAD MESSAGES COMMAND FOR A TOTAL OF {MessagesToRead} MESSAGES WITH A TIMEOUT OF {ReadTimeout}", LogType.InfoLog);
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
-            {
-                this.WriteCommandLog("CAN NOT ISSUE READ COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
-                return Array.Empty<PassThruStructs.PassThruMsg>();
-            }
-
-            // Validate input for index of pulled channel.
-            if (ChannelIndex > this.DeviceChannels.Length)
-            {
-                this.WriteCommandLog("ERROR! CHANNEL INDEX WAS OUTSIDE RANGE OF POSSIBLE CHANNEL IDS!", LogType.ErrorLog);
-                return Array.Empty<PassThruStructs.PassThruMsg>();
-            }
-
-            // Find the channel to use and send out the command.
-            var ChannelInstance = this.DeviceChannels[ChannelIndex];
-            this.WriteCommandLog($"READING MESSAGES ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
-            var ReadMessages = ChannelInstance.PTReadMessages(ref MessagesToRead, ReadTimeout);
-
-            // If no messages found, log an error and drop back out.
-            if (ReadMessages.Length == 0)
-            {
+            if (ReadMessages.Length == 0) {
                 this.WriteCommandLog("ERROR! NO MESSAGES PROCESSED FROM OUR PTREAD COMMAND!", LogType.ErrorLog);
                 return Array.Empty<PassThruStructs.PassThruMsg>();
             }
@@ -526,55 +477,38 @@ namespace SharpWrap2534
         /// Builds a new Message filter from a set of input data and returns it. Passed out the Id of the filter built.
         /// </summary>
         /// <returns>Filter object built from this command.</returns>
-        public J2534Filter PTStartMessageFilter(FilterDef FilterType, string Mask, string Pattern, string FlowControl = null, uint FilterFlags = 0x00, uint FilterProtocol = 0x00)
+        public J2534Filter PTStartMessageFilter(FilterDef FilterType, string Mask, string Pattern, string FlowControl = null, uint FilterFlags = 0x00, uint FilterProtocol = 0x00, int ChannelId = -1)
         {
             // Log information, build our filter object, and issue command to start it.
-            this.WriteCommandLog($"ISSUING A PASSTHRU FILTER ({FilterType}) COMMAND NOW", LogType.InfoLog);
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
-            {
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
                 this.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
-            }
-
-            // Find the channel to use and send out the command.
-            var ChannelInstance = this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj != null);
-            this.WriteCommandLog($"STARTING FILTER ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
-
-            // Issue command, log output and return.
-            J2534Filter OutputFilter = ChannelInstance.StartMessageFilter(FilterType, Mask, Pattern, FlowControl, FilterFlags, (ProtocolId)FilterProtocol);
-            if (OutputFilter != null) this.WriteCommandLog($"STARTED NEW FILTER CORRECTLY! FILTER ID: {OutputFilter.FilterId}", LogType.InfoLog);
-            this.WriteCommandLog("FILTER OBJECT HAS BEEN STORED! RETURNING OUTPUT CONTENTS NOW");
-            return OutputFilter;
-        }
-        /// <summary>
-        /// Builds a new Message filter from a set of input data and returns it. Passed out the Id of the filter built.
-        /// </summary>
-        /// <returns>Filter object built from this command.</returns>
-        public J2534Filter PTStartMessageFilter(int ChannelIndex, FilterDef FilterType, string Mask, string Pattern, string FlowControl = null, uint FilterFlags = 0x00, uint FilterProtocol = 0x00)
-        {
-            // Log information, build our filter object, and issue command to start it.
-            this.WriteCommandLog($"ISSUING A PASSTHRU FILTER ({FilterType}) COMMAND NOW", LogType.InfoLog);
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
-            {
-                this.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
-            }
-
-            // Validate input for index of pulled channel.
-            if (ChannelIndex > this.DeviceChannels.Length)
-            {
-                this.WriteCommandLog("ERROR! CHANNEL INDEX WAS OUTSIDE RANGE OF POSSIBLE CHANNEL IDS!", LogType.ErrorLog);
                 return null;
             }
 
+            // Find our channel object to use here
+            J2534Channel ChannelInUse = this.DefaultChannel;
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse == null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    return null;
+                }
+            }
+
             // Find the channel to use and send out the command.
-            var ChannelInstance = this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj != null);
-            this.WriteCommandLog($"STARTING FILTER ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
+            this.WriteCommandLog($"ISSUING A PASSTHRU FILTER ({FilterType}) COMMAND NOW", LogType.InfoLog);
+            this.WriteCommandLog($"STARTING FILTER ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
 
             // Issue command, log output and return.
-            J2534Filter OutputFilter = ChannelInstance.StartMessageFilter(FilterType, Mask, Pattern, FlowControl, FilterFlags,(ProtocolId)FilterProtocol);
+            J2534Filter OutputFilter = ChannelInUse.StartMessageFilter(FilterType, Mask, Pattern, FlowControl, FilterFlags, (ProtocolId)FilterProtocol);
             if (OutputFilter != null) this.WriteCommandLog($"STARTED NEW FILTER CORRECTLY! FILTER ID: {OutputFilter.FilterId}", LogType.InfoLog);
             this.WriteCommandLog("FILTER OBJECT HAS BEEN STORED! RETURNING OUTPUT CONTENTS NOW");
             return OutputFilter;
-        }
+        } 
         /// <summary>
         /// Stops a filter by the ID of it provided.
         /// </summary>
@@ -582,11 +516,10 @@ namespace SharpWrap2534
         /// <returns>True if stopped. False if not.</returns>
         public bool PTStopMessageFilter(uint FilterId)
         {
-            // Log information, find the filter and stop it.
-            this.WriteCommandLog($"ISSUING A PASSTHRU STOP MESSAGE FILTER COMMAND NOW FOR FILTER {FilterId}", LogType.InfoLog);
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
-            {
+            // Log information, build our filter object, and issue command to stop it.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
                 this.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return false;
             }
 
             // Find the filter object here and store value for it.
@@ -595,8 +528,7 @@ namespace SharpWrap2534
                 .FirstOrDefault(FilterObj => FilterObj.FilterId == FilterId);
 
             // Ensure filter is not null and continue.
-            if (LocatedFilter == null)
-            {
+            if (LocatedFilter == null) {
                 this.WriteCommandLog($"ERROR! NO FILTERS FOUND FOR THE GIVEN FILTER ID OF {FilterId}", LogType.ErrorLog);
                 return false;
             }
@@ -605,7 +537,7 @@ namespace SharpWrap2534
             for (int ChannelIndex = 0; ChannelIndex < this.DeviceChannels.Length; ChannelIndex++)
             {
                 if (!this.ChannelFilters[ChannelIndex].Contains(LocatedFilter)) continue;
-                this.WriteCommandLog($"STOPPING FILTER ID {FilterId} ON CHANNEL {ChannelIndex} NOW!", LogType.InfoLog);
+                this.WriteCommandLog($"STOPPING FILTER ID {FilterId} ON CHANNEL {ChannelIndex} (ID: {this.DeviceChannels[ChannelIndex].ChannelId}) NOW!", LogType.InfoLog);
                 this.DeviceChannels[ChannelIndex].StopMessageFilter(LocatedFilter);
                 return true;
             }
@@ -622,24 +554,22 @@ namespace SharpWrap2534
         public bool PTStopMessageFilter(J2534Filter FilterInstance)
         {
             // Log information, find the filter and stop it.
-            this.WriteCommandLog($"ISSUING A PASSTHRU STOP MESSAGE FILTER COMMAND NOW FOR FILTER {FilterInstance.FilterId}", LogType.InfoLog);
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
-            {
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
                 this.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return false;
             }
 
             // Find the index of the filter.
             var ChannelFilterSet = this.ChannelFilters.FirstOrDefault(FilterSet => FilterSet.Contains(FilterInstance));
-            if (ChannelFilterSet == null)
-            {
+            if (ChannelFilterSet == null) {
                 this.WriteCommandLog("ERROR! COULD NOT FIND FILTER OBJECT TO REMOVE FROM OUR INSTANCE!", LogType.ErrorLog);
                 return false;
             }
 
             // Issue the command here.
-            int IndexOfChannel = this.ChannelFilters.ToList().IndexOf(ChannelFilterSet);
-            this.WriteCommandLog($"STOPPING FILTER ID {FilterInstance.FilterId} ON CHANNEL {IndexOfChannel} NOW!", LogType.InfoLog);
-            this.DeviceChannels[IndexOfChannel].StopMessageFilter(FilterInstance);
+            int ChannelIndex = this.ChannelFilters.ToList().IndexOf(ChannelFilterSet);
+            this.WriteCommandLog($"STOPPING FILTER ID {FilterInstance.FilterId} ON CHANNEL {ChannelIndex} (ID: {this.DeviceChannels[ChannelIndex].ChannelId}) NOW!", LogType.InfoLog);
+            this.DeviceChannels[ChannelIndex].StopMessageFilter(FilterInstance);
             return true;
         }
         #endregion

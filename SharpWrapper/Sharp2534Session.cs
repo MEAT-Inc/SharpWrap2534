@@ -170,15 +170,22 @@ namespace SharpWrap2534
         /// </summary>
         ~Sharp2534Session()
         {
-            // Log killing this instance.
-            this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
-            this.SessionLogger.WriteLog("KILLING SHARPWARP SESSION INSTANCE!", LogType.WarnLog);
-            this.SessionLogger.WriteLog($"SESSION WAS LOCKED ONTO DEVICE AND DLL {this.DeviceName} - {this.DllName}", LogType.InfoLog);
-            this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
+            // Build output string
+            try
+            {
+                string SplittingLine = string.Join(string.Empty, Enumerable.Repeat("=", 50));
 
-            // Begin with device, then the DLL.
-            this.JDeviceDll = null;
-            this.JDeviceInstance = null;
+                // Log killing this instance.
+                this.SessionLogger.WriteLog(SplittingLine, LogType.TraceLog);
+                this.SessionLogger.WriteLog("KILLING SHARPWARP SESSION INSTANCE NOW!", LogType.WarnLog);
+                this.SessionLogger.WriteLog(SplittingLine, LogType.TraceLog);
+
+                // Begin with device, then the DLL.
+                this.JDeviceDll = null; this.JDeviceInstance = null;
+            }
+            catch (Exception Ex) {
+                // TODO: FIGURE OUT HOW TO LOG THIS EXCEPTION IF ITS BEING THROWN!
+            }
         }
 
         // ------------------------------------------------- PassThru Command Routines/Methods ------------------------------------------------------

@@ -116,5 +116,32 @@ namespace SharpWrap2534Tests
             Console.WriteLine(SepString);
             Assert.IsTrue(ResultsList.TrueForAll(ResultSet => ResultSet));
         }
+
+        [TestMethod]
+        [TestCategory("Read Device Voltage")]
+        public void ReadJDeviceVoltage()
+        {
+            // Build new J2534 DLL from the import path.
+            Console.WriteLine(SepString + "\nTests Running...\n");
+            J2534Dll CarDAQ3_0404Dll = new J2534Dll(PassThruPaths.CarDAQPlus3_0404.ToDescriptionString());
+            Assert.IsTrue(CarDAQ3_0404Dll.FunctionLibrary != null, "CarDAQ 3 DLL was not built correctly!");
+
+            // Build device instance.
+            var Cdp3Device = J2534Device.BuildJ2534Device(CarDAQ3_0404Dll);
+            Console.WriteLine("--> Built new CarDAQ Plus 3 device OK!");
+            Assert.IsTrue(Cdp3Device.DeviceChannels != null, "CarDAQ Plus 3 instance failed to startup!");
+            Assert.IsTrue(Cdp3Device.DeviceName != null, "Device name was null!");
+            Console.WriteLine($"--> Device opened was named {Cdp3Device.DeviceName}");
+
+            // Read the voltage here
+            var ReadVoltage = Cdp3Device.PTReadVBattery();
+            Console.WriteLine($"--> Voltage Read: {ReadVoltage}");
+            Assert.IsTrue(ReadVoltage != -1, "Voltage Value was -1! This means our IOCTL issue failed!");
+
+            // Write infos out to console
+            Console.WriteLine(SepString);
+            Console.WriteLine("\nTests completed without fatal exceptions!\n");
+            Console.WriteLine(SepString);
+        }
     }
 }

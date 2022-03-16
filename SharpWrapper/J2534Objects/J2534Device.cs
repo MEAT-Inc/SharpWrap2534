@@ -64,6 +64,11 @@ namespace SharpWrap2534.J2534Objects
             }
             catch { return false; }
         }
+        /// <summary>
+        /// DCTOR Method routine attempt for when this object is closed out by garbage collection
+        /// </summary>
+        ~J2534Device() { this?.DestroyDevice(); }
+
 
         // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
 
@@ -351,13 +356,9 @@ namespace SharpWrap2534.J2534Objects
         /// <returns>The Uint value of the voltage on the given pin number in milivolts</returns>
         public int PTReadVBattery()
         {
-            try
-            {
-                // Read the voltage off of our ApiMarshall. On Failure, return -1 so we know it's failed.
-                this.ApiMarshall.PassThruIoctl(this.DeviceId, IoctlId.READ_PIN_VOLTAGE, out uint VoltageRead);
-                return (int)VoltageRead;
-            }
-            catch { return -1; }
+            // Read the voltage off of our ApiMarshall. On Failure, return -1 so we know it's failed.
+            this.ApiMarshall.PassThruIoctl(this.DeviceId, IoctlId.READ_PIN_VOLTAGE, out uint VoltageRead);
+            return (int)VoltageRead;
         }
     }
 }

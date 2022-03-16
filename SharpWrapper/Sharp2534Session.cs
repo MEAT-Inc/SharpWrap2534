@@ -13,7 +13,7 @@ namespace SharpWrap2534
     /// <summary>
     /// Contains the base information about our J2534 instance objects and types.
     /// </summary>
-    public class Sharp2534Session
+    public class Sharp2534Session : IDisposable
     {
         // Logger object for a session instance and helper methods
         private readonly SubServiceLogger SessionLogger;
@@ -166,9 +166,9 @@ namespace SharpWrap2534
             this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
         }
         /// <summary>
-        /// Releases an instance of the J2534 Session objects.
+        /// Disposes of our instance object and cleans up resources.
         /// </summary>
-        public bool TerminateSharpSession()
+        public void Dispose()
         {
             // Log killing this instance.
             this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
@@ -181,7 +181,14 @@ namespace SharpWrap2534
 
             // Split output and return result.
             this.SessionLogger?.WriteLog(this.SplitLineString(), LogType.TraceLog);
-            return KilledOK;
+        }
+        /// <summary>
+        /// DCTOR Method routine attempt for when this object is closed out by garbage collection
+        /// </summary>
+        ~Sharp2534Session()
+        {
+            try { this?.Dispose(); }
+            catch { this.SessionLogger?.WriteLog("FAILED TO RUN DCTOR ROUTINE ON SHARP SESSION INSTANCE! THIS IS WEIRD!", LogType.ErrorLog); }
         }
 
         // ------------------------------------------------- PassThru Command Routines/Methods ------------------------------------------------------
@@ -565,5 +572,6 @@ namespace SharpWrap2534
             return true;
         }
         #endregion
+
     }
 }

@@ -134,6 +134,7 @@ namespace SharpWrap2534Tests
             Console.WriteLine($"--> Device opened was named {Cdp3Device.DeviceName}");
 
             // Read the voltage here
+            Cdp3Device.PTOpen();
             var ReadVoltage = Cdp3Device.PTReadVBattery();
             Console.WriteLine($"--> Voltage Read: {ReadVoltage}");
             Assert.IsTrue(ReadVoltage != -1, "Voltage Value was -1! This means our IOCTL issue failed!");

@@ -191,7 +191,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FilterFound">Filter located.</param>
         /// <param name="ChannelId">Use this if you want to only check a specific channel. Set to 0 if not wanted.</param>
         /// <returns>The filter matched and true, or false and nothing.</returns>
-        public static bool LocateFilter(uint FilterId, out J2534Filter FilterFound, int ChannelId = -1)
+        public static bool LocateFilter(int ChannelId, uint FilterId, out J2534Filter FilterFound)
         {
             // Find the new filter value here.
             J2534Channel[] LocatedChannels = _j2534Channels.SelectMany(ChSet => ChSet)
@@ -216,7 +216,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="MessageFound">Message located.</param>
         /// <param name="ChannelId">Use this if you want to only check a specific channel. Set to 0 if not wanted.</param>
         /// <returns>The filter matched and true, or false and nothing.</returns>
-        public static bool LocatePeriodicMessage(uint MessageId, out J2534PeriodicMessage MessageFound, int ChannelId = -1)
+        public static bool LocatePeriodicMessage(int ChannelId, uint MessageId, out J2534PeriodicMessage MessageFound)
         {
             // Find the new filter value here.
             J2534Channel[] LocatedChannels = _j2534Channels.SelectMany(ChSet => ChSet)
@@ -245,9 +245,14 @@ namespace SharpWrap2534.J2534Objects
         /// <returns>The filter matched and true, or false and nothing.</returns>
         public bool LocateFilter(uint FilterId, out J2534Filter FilterFound)
         {
-            // Temp return true.
-            FilterFound = new J2534Filter();
-            return true;
+            // Find our channel objects and then search them
+            var ChannelObjects = _j2534Channels[this._jDevice.DeviceNumber - 1];
+            FilterFound = ChannelObjects
+                .SelectMany(ChObj => ChObj.JChannelFilters)
+                .FirstOrDefault(FilterObj => FilterObj.FilterId == FilterId);
+
+            // Check if the filter is null or not.
+            return FilterFound != null;
         }
         /// <summary>
         /// Gets all of our filters and pulls one that matches.
@@ -257,9 +262,14 @@ namespace SharpWrap2534.J2534Objects
         /// <returns>The filter matched and true, or false and nothing.</returns>
         public bool LocatePeriodicMessage(uint MessageId, out J2534PeriodicMessage MessageFound)
         {
-            // Temp true return.
-            MessageFound = new J2534PeriodicMessage();
-            return true;
+            // Find our channel objects and then search them
+            var ChannelObjects = _j2534Channels[this._jDevice.DeviceNumber - 1];
+            MessageFound = ChannelObjects
+                .SelectMany(ChObj => ChObj.JChannelPeriodicMessages)
+                .FirstOrDefault(MessageObj => MessageObj.MessageId == MessageId);
+
+            // Check if the filter is null or not.
+            return MessageFound != null;
         }
 
         // ----------------------------------------- INSTANCE CHANNEL CONFIGURATION METHODS -----------------------------------------

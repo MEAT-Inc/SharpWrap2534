@@ -13,7 +13,7 @@ namespace SharpWrap2534
     /// <summary>
     /// Contains the base information about our J2534 instance objects and types.
     /// </summary>
-    public class Sharp2534Session : IDisposable
+    public class Sharp2534Session
     {
         // Logger object for a session instance and helper methods
         private readonly SubServiceLogger SessionLogger;
@@ -41,15 +41,13 @@ namespace SharpWrap2534
         private void WriteCommandLog(string Message, LogType Level = LogType.DebugLog, [CallerMemberName] string MemberName = "PT COMMAND")
         {
             // Find the command type being issued. If none found, then just write normal output.
-            if (!MemberName.StartsWith("PT"))
-            {
+            if (!MemberName.StartsWith("PT")) {
                 this.SessionLogger?.WriteLog($"[{MemberName}] ::: {Message}", LogType.InfoLog);
                 return;
             }
 
             // Now write our output contents.
-            string SessionName = $"{this.DeviceName} - {this.DllName}";
-            string FinalMessage = $"[{SessionName}][{MemberName}] ::: {Message}";
+            string FinalMessage = $"[{this.DeviceName}][{MemberName}] ::: {Message}";
             SessionLogger?.WriteLog(FinalMessage, Level);
         }
 
@@ -70,6 +68,9 @@ namespace SharpWrap2534
         public PTInstanceStatus DeviceStatus => JDeviceInstance.DeviceStatus;
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Session GUID value built
+        public readonly Guid SessionGuid;
 
         // DLL and Device Versions
         public JVersion DllVersion => JDeviceDll.DllVersion;
@@ -130,6 +131,7 @@ namespace SharpWrap2534
         public Sharp2534Session(JVersion Version, string DllNameFilter, string DeviceNameFilter = "")
         {
             // Build new J2534 DLL For the version and DLL name provided first.
+            Guid SessionGuid;
             if (PassThruImportDLLs.FindDllByName(DllNameFilter, Version, out J2534Dll BuiltJDll)) this.JDeviceDll = BuiltJDll;
             else { throw new NullReferenceException($"No J2534 DLLs with the name filter '{DllNameFilter}' were located matching the version given!"); }
 
@@ -159,16 +161,17 @@ namespace SharpWrap2534
             }
 
             // Build a new session logger object here to use for logging commands and output.
-            this.SessionLogger = new SubServiceLogger($"{this.DllName}_{this.DeviceName}_SessionLogger");
+            this.SessionGuid = Guid.NewGuid();
+            this.SessionLogger = new SubServiceLogger($"SharpWrapSession_{this.SessionGuid}_SessionLogger");
             this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
             this.SessionLogger.WriteLog("SHARPWRAP J2534 SESSION BUILT CORRECTLY! SESSION STATE IS BEING PRINTED OUT BELOW", LogType.InfoLog);
-            this.SessionLogger.WriteLog(this.ToDetailedString());
+            this.SessionLogger.WriteLog($"\n{this.ToDetailedString()}");
             this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
         }
         /// <summary>
         /// Disposes of our instance object and cleans up resources.
         /// </summary>
-        public void Dispose()
+        public void DisposeSharpSession()
         {
             // Log killing this instance.
             this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
@@ -187,7 +190,7 @@ namespace SharpWrap2534
         /// </summary>
         ~Sharp2534Session()
         {
-            try { this?.Dispose(); }
+            try { this?.DisposeSharpSession(); }
             catch { this.SessionLogger?.WriteLog("FAILED TO RUN DCTOR ROUTINE ON SHARP SESSION INSTANCE! THIS IS WEIRD!", LogType.ErrorLog); }
         }
 
@@ -219,7 +222,7 @@ namespace SharpWrap2534
             this.WriteCommandLog($"DEVICE OPEN: {this.JDeviceInstance.IsOpen}");
 
             // Return if the the device is closed
-            return this.JDeviceInstance.IsOpen == false;
+            return !this.JDeviceInstance.IsOpen;
         }
         #endregion
 

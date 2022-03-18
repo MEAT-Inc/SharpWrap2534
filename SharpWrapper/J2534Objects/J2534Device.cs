@@ -281,14 +281,17 @@ namespace SharpWrap2534.J2534Objects
         /// <summary>
         /// Opens this instance of a passthru device.
         /// </summary>
-        /// <param name="DeviceName">Name of the device to be opened.</param>
-        public void PTOpen(string DeviceName = "")
+        /// <param name="DeviceNameFilter">Name of the device to be opened.</param>
+        public void PTOpen(string DeviceNameFilter = "")
         {
+            // If the device is open at this point, then just return out. We don't want to do anything more.
+            if (this.IsOpen) { return; }
+
             try
             {
                 // Make sure we exist in here.
-                if (string.IsNullOrWhiteSpace(this.DeviceName)) this.DeviceName = DeviceName;
-                if ((bool)!_jDeviceInstances[this.DeviceNumber - 1]?.DeviceName.Contains(this.DeviceName)) 
+                if (DeviceNameFilter == "") DeviceNameFilter = this.DeviceName;
+                if ((bool)!_jDeviceInstances[this.DeviceNumber - 1]?.DeviceName.Contains(DeviceNameFilter)) 
                 {
                     // Check if it can
                     if (_jDeviceInstances[this.DeviceNumber - 1] == null) _jDeviceInstances[this.DeviceNumber - 1] = this;
@@ -299,24 +302,25 @@ namespace SharpWrap2534.J2534Objects
             catch (Exception Ex) { }
 
             // Pull all device names out and find next open one.
-            if (string.IsNullOrWhiteSpace(this.DeviceName)) {
+            if (string.IsNullOrWhiteSpace(DeviceNameFilter)) {
                 var FreeDevice = JDll.FindConnectedDeviceNames().FirstOrDefault(Name => !Name.ToUpper().Contains("IN USE"));
-                this.DeviceName = FreeDevice ?? throw new AccessViolationException("No free J2534 devices could be located!");
+                DeviceNameFilter = FreeDevice ?? throw new AccessViolationException("No free J2534 devices could be located!");
             }
 
             // Set name and open the device here.
-            if (!this.IsOpen) ApiMarshall.PassThruOpen(this.DeviceName, out DeviceId);
+            this.DeviceName = DeviceNameFilter;
+            ApiMarshall.PassThruOpen(DeviceNameFilter, out DeviceId);
         }
         /// <summary>
         /// Closes the currently open device object.
         /// </summary>
         public void PTClose()
         {
-            // Check if currently open and close.
-            if (this.IsOpen) ApiMarshall.PassThruClose(DeviceId);
-            _jDeviceInstances[this.DeviceNumber - 1] = null;
+            // Check if currently open and close. If it's not open, then just exit out.
+            if (!this.IsOpen) { return; }
 
-            // Reset the Device ID
+            // Close device, clear out ID values
+            ApiMarshall.PassThruClose(DeviceId);
             DeviceId = 0;
         }
 

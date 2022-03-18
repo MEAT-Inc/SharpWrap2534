@@ -89,7 +89,7 @@ namespace SharpWrap2534.J2534Objects
         public bool IsConnected;
 
         // Not null name and ID is not 0. If our name contains in use then we need to set to open too
-        public bool IsOpen => this.DeviceName != null && (this.DeviceName.ToUpper().Contains("IN USE") || this.DeviceId != 0);
+        public bool IsOpen => !string.IsNullOrWhiteSpace(this.DeviceName) && this.DeviceId != 0;
 
         // Version information
         public string DeviceFwVersion { get; }
@@ -287,9 +287,9 @@ namespace SharpWrap2534.J2534Objects
             try
             {
                 // Make sure we exist in here.
-                if ((bool)!_jDeviceInstances[this.DeviceNumber - 1]?.DeviceName.Contains(this.DeviceName))
+                if (string.IsNullOrWhiteSpace(this.DeviceName)) this.DeviceName = DeviceName;
+                if ((bool)!_jDeviceInstances[this.DeviceNumber - 1]?.DeviceName.Contains(this.DeviceName)) 
                 {
-
                     // Check if it can
                     if (_jDeviceInstances[this.DeviceNumber - 1] == null) _jDeviceInstances[this.DeviceNumber - 1] = this;
                     throw new ObjectDisposedException("Can not use a sharp device which has been previously closed out!");
@@ -298,18 +298,14 @@ namespace SharpWrap2534.J2534Objects
             // Do nothing here.
             catch (Exception Ex) { }
 
-            // Check for no name given.
-            if (DeviceName == "")
-            {
-                // Pull all device names out and find next open one.
+            // Pull all device names out and find next open one.
+            if (string.IsNullOrWhiteSpace(this.DeviceName)) {
                 var FreeDevice = JDll.FindConnectedDeviceNames().FirstOrDefault(Name => !Name.ToUpper().Contains("IN USE"));
-                DeviceName = FreeDevice ?? throw new AccessViolationException("No free J2534 devices could be located!");
+                this.DeviceName = FreeDevice ?? throw new AccessViolationException("No free J2534 devices could be located!");
             }
 
             // Set name and open the device here.
-            this.DeviceName = DeviceName;
-            ApiMarshall.PassThruOpen(this.DeviceName, out DeviceId);
-            if (DeviceId == 0) throw new Exception($"FAILED TO OPEN DEVICE NAMED {DeviceName}! DEVICE ID WAS 0!");
+            if (!this.IsOpen) ApiMarshall.PassThruOpen(this.DeviceName, out DeviceId);
         }
         /// <summary>
         /// Closes the currently open device object.
@@ -317,7 +313,7 @@ namespace SharpWrap2534.J2534Objects
         public void PTClose()
         {
             // Check if currently open and close.
-            ApiMarshall.PassThruClose(DeviceId);
+            if (this.IsOpen) ApiMarshall.PassThruClose(DeviceId);
             _jDeviceInstances[this.DeviceNumber - 1] = null;
 
             // Reset the Device ID

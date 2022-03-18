@@ -200,7 +200,7 @@ namespace SharpWrap2534
         public bool PTOpen()
         {
             // Log and open our JBox instance.
-            this.JDeviceInstance.PTOpen();
+            this.JDeviceInstance.PTOpen(this.DeviceName);
             this.WriteCommandLog("OPENED NEW J2534 INSTANCE OK!", LogType.InfoLog);
             this.WriteCommandLog($"DEVICE NAME AND ID: {this.DeviceName} - {this.DeviceId}", LogType.InfoLog);
             this.WriteCommandLog($"DEVICE OPEN: {this.JDeviceInstance.IsOpen}");

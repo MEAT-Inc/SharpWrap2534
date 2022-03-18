@@ -41,15 +41,13 @@ namespace SharpWrap2534
         private void WriteCommandLog(string Message, LogType Level = LogType.DebugLog, [CallerMemberName] string MemberName = "PT COMMAND")
         {
             // Find the command type being issued. If none found, then just write normal output.
-            if (!MemberName.StartsWith("PT"))
-            {
+            if (!MemberName.StartsWith("PT")) {
                 this.SessionLogger?.WriteLog($"[{MemberName}] ::: {Message}", LogType.InfoLog);
                 return;
             }
 
             // Now write our output contents.
-            string SessionName = $"{this.DeviceName} - {this.DllName}";
-            string FinalMessage = $"[{SessionName}][{MemberName}] ::: {Message}";
+            string FinalMessage = $"[{this.DeviceName}][{MemberName}] ::: {Message}";
             SessionLogger?.WriteLog(FinalMessage, Level);
         }
 
@@ -70,6 +68,9 @@ namespace SharpWrap2534
         public PTInstanceStatus DeviceStatus => JDeviceInstance.DeviceStatus;
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Session GUID value built
+        public readonly Guid SessionGuid;
 
         // DLL and Device Versions
         public JVersion DllVersion => JDeviceDll.DllVersion;
@@ -130,6 +131,7 @@ namespace SharpWrap2534
         public Sharp2534Session(JVersion Version, string DllNameFilter, string DeviceNameFilter = "")
         {
             // Build new J2534 DLL For the version and DLL name provided first.
+            Guid SessionGuid;
             if (PassThruImportDLLs.FindDllByName(DllNameFilter, Version, out J2534Dll BuiltJDll)) this.JDeviceDll = BuiltJDll;
             else { throw new NullReferenceException($"No J2534 DLLs with the name filter '{DllNameFilter}' were located matching the version given!"); }
 
@@ -159,33 +161,37 @@ namespace SharpWrap2534
             }
 
             // Build a new session logger object here to use for logging commands and output.
-            this.SessionLogger = new SubServiceLogger($"{this.DllName}_{this.DeviceName}_SessionLogger");
+            this.SessionGuid = Guid.NewGuid();
+            this.SessionLogger = new SubServiceLogger($"SharpWrapSession_{this.SessionGuid}_SessionLogger");
             this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
             this.SessionLogger.WriteLog("SHARPWRAP J2534 SESSION BUILT CORRECTLY! SESSION STATE IS BEING PRINTED OUT BELOW", LogType.InfoLog);
-            this.SessionLogger.WriteLog(this.ToDetailedString());
+            this.SessionLogger.WriteLog($"\n{this.ToDetailedString()}");
             this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
         }
         /// <summary>
-        /// Releases an instance of the J2534 Session objects.
+        /// Disposes of our instance object and cleans up resources.
+        /// </summary>
+        public void DisposeSharpSession()
+        {
+            // Log killing this instance.
+            this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
+            this.SessionLogger.WriteLog("KILLING SHARPWARP SESSION INSTANCE NOW!", LogType.WarnLog);
+
+            // Kill our device instance. This closes it and removes all channels.
+            bool KilledOK = this.JDeviceInstance.DestroyDevice();
+            if (KilledOK) this.SessionLogger.WriteLog("KILLED SESSION WITHOUT ISSUES!", LogType.InfoLog);
+            else this.SessionLogger.WriteLog("FAILED TO KILL SHARPSESSION! THIS IS FATAL!", LogType.ErrorLog);
+
+            // Split output and return result.
+            this.SessionLogger?.WriteLog(this.SplitLineString(), LogType.TraceLog);
+        }
+        /// <summary>
+        /// DCTOR Method routine attempt for when this object is closed out by garbage collection
         /// </summary>
         ~Sharp2534Session()
         {
-            // Build output string
-            try
-            {
-                string SplittingLine = string.Join(string.Empty, Enumerable.Repeat("=", 50));
-
-                // Log killing this instance.
-                this.SessionLogger.WriteLog(SplittingLine, LogType.TraceLog);
-                this.SessionLogger.WriteLog("KILLING SHARPWARP SESSION INSTANCE NOW!", LogType.WarnLog);
-                this.SessionLogger.WriteLog(SplittingLine, LogType.TraceLog);
-
-                // Begin with device, then the DLL.
-                this.JDeviceDll = null; this.JDeviceInstance = null;
-            }
-            catch (Exception Ex) {
-                // TODO: FIGURE OUT HOW TO LOG THIS EXCEPTION IF ITS BEING THROWN!
-            }
+            try { this?.DisposeSharpSession(); }
+            catch { this.SessionLogger?.WriteLog("FAILED TO RUN DCTOR ROUTINE ON SHARP SESSION INSTANCE! THIS IS WEIRD!", LogType.ErrorLog); }
         }
 
         // ------------------------------------------------- PassThru Command Routines/Methods ------------------------------------------------------
@@ -197,7 +203,7 @@ namespace SharpWrap2534
         public bool PTOpen()
         {
             // Log and open our JBox instance.
-            this.JDeviceInstance.PTOpen();
+            this.JDeviceInstance.PTOpen(this.DeviceName);
             this.WriteCommandLog("OPENED NEW J2534 INSTANCE OK!", LogType.InfoLog);
             this.WriteCommandLog($"DEVICE NAME AND ID: {this.DeviceName} - {this.DeviceId}", LogType.InfoLog);
             this.WriteCommandLog($"DEVICE OPEN: {this.JDeviceInstance.IsOpen}");
@@ -216,7 +222,7 @@ namespace SharpWrap2534
             this.WriteCommandLog($"DEVICE OPEN: {this.JDeviceInstance.IsOpen}");
 
             // Return if the the device is closed
-            return this.JDeviceInstance.IsOpen == false;
+            return !this.JDeviceInstance.IsOpen;
         }
         #endregion
 
@@ -324,32 +330,21 @@ namespace SharpWrap2534
         /// <param name="VoltageRead">Value of voltage pulled</param>
         /// <param name="ChannelId">ID Of channel to issue from</param>
         /// <param name="SilentRead">Sets if we need to silent pull or not. Useful for when running in a loop</param>
-        public void PTReadVoltage(int PinNumber, out double VoltageRead, bool SilentRead = false, int ChannelId = -1)
+        public void PTReadVoltage(out double VoltageRead, bool SilentRead = false, int ChannelId = -1)
         {
-            // Check for all null channels
-            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
-                this.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
-                VoltageRead = 0.00;
+            // Log Pulling Voltage, find channel ID, and return it.
+            if (!SilentRead) this.WriteCommandLog($"READING VOLTAGE FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+
+            // Pull voltage value and check for -1
+            var VoltageInt = JDeviceInstance.PTReadVBattery();
+            if (VoltageInt == -1) {
+                this.WriteCommandLog("VOLTAGE VALUE WAS -1 THIS IS DUE TO A FAILED IOCTL!", LogType.ErrorLog);
+                VoltageRead = -1.0;
                 return;
             }
 
-            // Log Pulling Voltage, find channel ID, and return it.
-            VoltageRead = 0.00; J2534Channel ChannelInUse = this.DefaultChannel;
-            if (!SilentRead) this.WriteCommandLog($"READING VOLTAGE FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
-            if (ChannelId != -1)
-            {
-                // Check our Device Channel ID
-                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null && ChannelInUse.ChannelId == ChannelId);
-                if (ChannelInUse == null)
-                {
-                    // Log can't operate on a null channel and exit method
-                    if (!SilentRead) this.WriteCommandLog("CAN NOT READ VOLTAGE FROM NULL CHANNELS!", LogType.ErrorLog); 
-                    return;
-                }
-            }
-
-            // Issue our command here by finding the channel object then running commands for it.
-            VoltageRead = ((double)ChannelInUse.ReadPinVoltage(PinNumber) / (double)1000);
+            // Store our new voltage value here and return it.
+            VoltageRead = ((double)VoltageInt / (double)1000);
             if (!SilentRead) this.WriteCommandLog($"PULLED VOLTAGE VALUE OF {VoltageRead:F2} OK!", LogType.InfoLog);
         }
         #endregion
@@ -580,5 +575,6 @@ namespace SharpWrap2534
             return true;
         }
         #endregion
+
     }
 }

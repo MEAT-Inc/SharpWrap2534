@@ -76,15 +76,7 @@ namespace SharpWrap2534.J2534Objects
                 _j2534Channels[(int)JDevice.DeviceNumber - 1][ChannelIndex] = this;
             }
         }
-        /// <summary>
-        /// Deconstructs the device object and members
-        /// </summary>
-        ~J2534Channel()
-        {
-            // Null out member values for this channel
-            try { _j2534Channels[(int)this._jDevice.DeviceNumber - 1][ChannelIndex] = null; }
-            catch { } 
-        }
+
 
         /// <summary>
         /// Builds a channel Array to use for connecting into.
@@ -101,6 +93,30 @@ namespace SharpWrap2534.J2534Objects
             // Return built channels and store them onto the device object
             JDevice.DeviceChannels = JChannelsOut;
             return JChannelsOut;
+        }
+        /// <summary>
+        /// Deconstructs the device object and members
+        /// </summary>
+        /// <returns>True if closed ok. False if not.</returns>
+        internal static bool DestroyDeviceChannels(int DeviceNumber, int ChannelIndex = -1)
+        {
+            // Null out member values for this channel
+            if (ChannelIndex == -1)
+            {
+                // Close only the desired channel
+                try { _j2534Channels[(int)DeviceNumber - 1][ChannelIndex] = null; }
+                catch { return false; }
+
+                // Return out passed
+                return true;
+            }
+
+            // On Device closed routine, close out the whole device instance set
+            try { _j2534Channels[(int)DeviceNumber - 1] = null; }
+            catch { return false; }
+
+            // Return out passed
+            return true;
         }
 
         // -------------------------------- INSTANCE VALUES AND SETUP FOR CHANNEL HERE -----------------------------------
@@ -175,7 +191,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FilterFound">Filter located.</param>
         /// <param name="ChannelId">Use this if you want to only check a specific channel. Set to 0 if not wanted.</param>
         /// <returns>The filter matched and true, or false and nothing.</returns>
-        public static bool LocateFilter(uint FilterId, out J2534Filter FilterFound, int ChannelId = -1)
+        public static bool LocateFilter(int ChannelId, uint FilterId, out J2534Filter FilterFound)
         {
             // Find the new filter value here.
             J2534Channel[] LocatedChannels = _j2534Channels.SelectMany(ChSet => ChSet)
@@ -200,7 +216,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="MessageFound">Message located.</param>
         /// <param name="ChannelId">Use this if you want to only check a specific channel. Set to 0 if not wanted.</param>
         /// <returns>The filter matched and true, or false and nothing.</returns>
-        public static bool LocatePeriodicMessage(uint MessageId, out J2534PeriodicMessage MessageFound, int ChannelId = -1)
+        public static bool LocatePeriodicMessage(int ChannelId, uint MessageId, out J2534PeriodicMessage MessageFound)
         {
             // Find the new filter value here.
             J2534Channel[] LocatedChannels = _j2534Channels.SelectMany(ChSet => ChSet)
@@ -229,9 +245,14 @@ namespace SharpWrap2534.J2534Objects
         /// <returns>The filter matched and true, or false and nothing.</returns>
         public bool LocateFilter(uint FilterId, out J2534Filter FilterFound)
         {
-            // Temp return true.
-            FilterFound = new J2534Filter();
-            return true;
+            // Find our channel objects and then search them
+            var ChannelObjects = _j2534Channels[this._jDevice.DeviceNumber - 1];
+            FilterFound = ChannelObjects
+                .SelectMany(ChObj => ChObj.JChannelFilters)
+                .FirstOrDefault(FilterObj => FilterObj.FilterId == FilterId);
+
+            // Check if the filter is null or not.
+            return FilterFound != null;
         }
         /// <summary>
         /// Gets all of our filters and pulls one that matches.
@@ -241,9 +262,14 @@ namespace SharpWrap2534.J2534Objects
         /// <returns>The filter matched and true, or false and nothing.</returns>
         public bool LocatePeriodicMessage(uint MessageId, out J2534PeriodicMessage MessageFound)
         {
-            // Temp true return.
-            MessageFound = new J2534PeriodicMessage();
-            return true;
+            // Find our channel objects and then search them
+            var ChannelObjects = _j2534Channels[this._jDevice.DeviceNumber - 1];
+            MessageFound = ChannelObjects
+                .SelectMany(ChObj => ChObj.JChannelPeriodicMessages)
+                .FirstOrDefault(MessageObj => MessageObj.MessageId == MessageId);
+
+            // Check if the filter is null or not.
+            return MessageFound != null;
         }
 
         // ----------------------------------------- INSTANCE CHANNEL CONFIGURATION METHODS -----------------------------------------
@@ -489,24 +515,6 @@ namespace SharpWrap2534.J2534Objects
 
         // --------------------------------------- CHANNEL CONFIGURATION METHODS FOR SETUP --------------------------------------
 
-        /// <summary>
-        /// Reads the voltage of the pin number given and returns it as a uint value natively.
-        /// </summary>
-        /// <param name="PinNumber">Number of the pin to pull the value from</param>
-        /// <returns>The Uint value of the voltage on the given pin number in milivolts</returns>
-        public uint ReadPinVoltage(int PinNumber = 16)
-        {
-            // Build our control struct for pulling out the voltage of our device
-            PassThruStructs.ResourceStruct PinStruct = new PassThruStructs.ResourceStruct(1)
-            {
-                ConnectorType = Connector.ENTIRE_DEVICE,        // Connector Type
-                ResourceList = new List<int>() { PinNumber }    // Pin to check 
-            };
-
-            // Read the voltage off of our ApiMarshall.
-            _jDevice.ApiMarshall.PassThruIoctl(ChannelId, IoctlId.READ_PIN_VOLTAGE, PinStruct, out uint VoltageRead);
-            return VoltageRead;
-        }
         /// <summary>
         /// Clears out the RX Buffer on the channel
         /// </summary>

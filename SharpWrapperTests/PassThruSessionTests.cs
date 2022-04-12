@@ -23,7 +23,7 @@ namespace SharpWrap2534Tests
             Console.WriteLine("--> Building new SharpSession instance now...");
 
             // Builds a new J2534 Session object using a CarDAQ Plus 3 DLL.
-            var SharpSession = new Sharp2534Session(JVersion.V0404, "CarDAQ-Plus 3");
+            var SharpSession = Sharp2534Session.OpenSession(JVersion.V0404, "CarDAQ-Plus 3");
             Console.WriteLine("--> SharpSession built OK!");
 
             // Open and connect now then disconnect
@@ -46,7 +46,8 @@ namespace SharpWrap2534Tests
             Console.WriteLine(SharpSession.ToDetailedString());
             Console.WriteLine("\n" + SepString);
 
-            // Check the bool results for loading.
+            // Check the bool results for loading and close
+            Sharp2534Session.CloseSession(SharpSession);
             Assert.IsTrue(SharpSession.SessionStatus == PTInstanceStatus.INITIALIZED, "Failed to configure a J2534 Session using a sharp instance!");
         }
     }

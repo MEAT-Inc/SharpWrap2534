@@ -16,40 +16,8 @@ namespace SharpWrap2534
     public class Sharp2534Session
     {
         // Logger object for a session instance and helper methods
+        private readonly LoggingSupport LogSupport;
         private readonly SubServiceLogger SessionLogger;
-
-        /// <summary>
-        /// Builds an output splitting command line value.
-        /// </summary>
-        /// <param name="SplitChar">Split char value</param>
-        /// <param name="LineSize">Size of line</param>
-        /// <returns>Built splitting string</returns>
-        private string SplitLineString(string SplitChar = "=", int LineSize = 150)
-        {
-            // Build output string by combining the input values as many chars long as specified
-            return string.Join(string.Empty, Enumerable.Repeat(
-                SplitChar == "" ? "=" : SplitChar,
-                LineSize <= 50 ? 50 : LineSize)
-            );
-        }
-        /// <summary>
-        /// Writes a basic log output value and includes the name of the PT Command being sent out.
-        /// </summary>
-        /// <param name="LoggerObject">Logger to write with</param>
-        /// <param name="Message">Message to write</param>
-        /// <param name="Level">Level to write</param>
-        private void WriteCommandLog(string Message, LogType Level = LogType.DebugLog, [CallerMemberName] string MemberName = "PT COMMAND")
-        {
-            // Find the command type being issued. If none found, then just write normal output.
-            if (!MemberName.StartsWith("PT")) {
-                this.SessionLogger?.WriteLog($"[{MemberName}] ::: {Message}", LogType.InfoLog);
-                return;
-            }
-
-            // Now write our output contents.
-            string FinalMessage = $"[{this.DeviceName}][{MemberName}] ::: {Message}";
-            SessionLogger?.WriteLog(FinalMessage, Level);
-        }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -131,7 +99,6 @@ namespace SharpWrap2534
         public Sharp2534Session(JVersion Version, string DllNameFilter, string DeviceNameFilter = "")
         {
             // Build new J2534 DLL For the version and DLL name provided first.
-            Guid SessionGuid;
             if (PassThruImportDLLs.FindDllByName(DllNameFilter, Version, out J2534Dll BuiltJDll)) this.JDeviceDll = BuiltJDll;
             else { throw new NullReferenceException($"No J2534 DLLs with the name filter '{DllNameFilter}' were located matching the version given!"); }
 
@@ -160,13 +127,16 @@ namespace SharpWrap2534
                 throw FailedInitException;
             }
 
+            // Build logging support
+            this.LogSupport = new LoggingSupport(this.DeviceName, this.SessionLogger);
+
             // Build a new session logger object here to use for logging commands and output.
             this.SessionGuid = Guid.NewGuid();
             this.SessionLogger = new SubServiceLogger($"SharpWrapSession_{this.SessionGuid}_SessionLogger");
-            this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
+            this.SessionLogger.WriteLog(this.LogSupport.SplitLineString(), LogType.TraceLog);
             this.SessionLogger.WriteLog("SHARPWRAP J2534 SESSION BUILT CORRECTLY! SESSION STATE IS BEING PRINTED OUT BELOW", LogType.InfoLog);
             this.SessionLogger.WriteLog($"\n{this.ToDetailedString()}");
-            this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
+            this.SessionLogger.WriteLog(this.LogSupport.SplitLineString(), LogType.TraceLog);
         }
         /// <summary>
         /// Disposes of our instance object and cleans up resources.
@@ -174,7 +144,7 @@ namespace SharpWrap2534
         public void DisposeSharpSession()
         {
             // Log killing this instance.
-            this.SessionLogger.WriteLog(this.SplitLineString(), LogType.TraceLog);
+            this.SessionLogger.WriteLog(this.LogSupport.SplitLineString(), LogType.TraceLog);
             this.SessionLogger.WriteLog("KILLING SHARPWARP SESSION INSTANCE NOW!", LogType.WarnLog);
 
             // Kill our device instance. This closes it and removes all channels.
@@ -183,7 +153,7 @@ namespace SharpWrap2534
             else this.SessionLogger.WriteLog("FAILED TO KILL SHARPSESSION! THIS IS FATAL!", LogType.ErrorLog);
 
             // Split output and return result.
-            this.SessionLogger?.WriteLog(this.SplitLineString(), LogType.TraceLog);
+            this.SessionLogger?.WriteLog(this.LogSupport.SplitLineString(), LogType.TraceLog);
         }
         /// <summary>
         /// DCTOR Method routine attempt for when this object is closed out by garbage collection
@@ -204,9 +174,9 @@ namespace SharpWrap2534
         {
             // Log and open our JBox instance.
             this.JDeviceInstance.PTOpen(this.DeviceName);
-            this.WriteCommandLog("OPENED NEW J2534 INSTANCE OK!", LogType.InfoLog);
-            this.WriteCommandLog($"DEVICE NAME AND ID: {this.DeviceName} - {this.DeviceId}", LogType.InfoLog);
-            this.WriteCommandLog($"DEVICE OPEN: {this.JDeviceInstance.IsOpen}");
+            this.LogSupport.WriteCommandLog("OPENED NEW J2534 INSTANCE OK!", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"DEVICE NAME AND ID: {this.DeviceName} - {this.DeviceId}", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"DEVICE OPEN: {this.JDeviceInstance.IsOpen}");
 
             // Return if the device is open
             return this.JDeviceInstance.IsOpen;
@@ -218,8 +188,8 @@ namespace SharpWrap2534
         {
             // Log and close our JBox instance.
             this.JDeviceInstance.PTClose();
-            this.WriteCommandLog("CLOSED OUR J2534 INSTANCE OK!", LogType.InfoLog);
-            this.WriteCommandLog($"DEVICE OPEN: {this.JDeviceInstance.IsOpen}");
+            this.LogSupport.WriteCommandLog("CLOSED OUR J2534 INSTANCE OK!", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"DEVICE OPEN: {this.JDeviceInstance.IsOpen}");
 
             // Return if the the device is closed
             return !this.JDeviceInstance.IsOpen;
@@ -237,16 +207,16 @@ namespace SharpWrap2534
         public J2534Channel PTConnect(int ChannelIndex, ProtocolId Protocol, uint Flags, uint ChannelBaud, out uint ChannelId)
         {
             // Log command being built out
-            this.WriteCommandLog("SENDING OUT PASSTHRU CONNECT METHOD NOW.", LogType.InfoLog);
-            this.WriteCommandLog($"CONNECT PARAMETERS: {ChannelIndex}, {Protocol}, {ChannelBaud}", LogType.TraceLog);
+            this.LogSupport.WriteCommandLog("SENDING OUT PASSTHRU CONNECT METHOD NOW.", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"CONNECT PARAMETERS: {ChannelIndex}, {Protocol}, {ChannelBaud}", LogType.TraceLog);
 
             // Run our connect routine here.
             this.JDeviceInstance.PTConnect(ChannelIndex, Protocol, Flags, ChannelBaud);
             ChannelId = this.JDeviceInstance.DeviceChannels[ChannelIndex].ChannelId;
 
             // Log information and return output.
-            this.WriteCommandLog($"PULLED OUT CHANNEL ID: {ChannelId}", LogType.InfoLog);
-            this.WriteCommandLog("STORING NEWEST CHANNEL AS OUR FALLBACK CHANNEL NOW...", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"PULLED OUT CHANNEL ID: {ChannelId}", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog("STORING NEWEST CHANNEL AS OUR FALLBACK CHANNEL NOW...", LogType.InfoLog);
             this.DefaultChannel = this.JDeviceInstance.DeviceChannels[ChannelIndex];
             return this.DefaultChannel;
         }
@@ -257,7 +227,7 @@ namespace SharpWrap2534
         public void PTDisconnect(int ChannelIndex)
         {
             // Log information and issue disconnect.
-            this.WriteCommandLog($"DISCONNECTING CHANNEL INDEX: {ChannelIndex}", LogType.WarnLog);
+            this.LogSupport.WriteCommandLog($"DISCONNECTING CHANNEL INDEX: {ChannelIndex}", LogType.WarnLog);
             this.JDeviceInstance.PTDisconnect(ChannelIndex);
         }
         #endregion
@@ -270,13 +240,13 @@ namespace SharpWrap2534
         {
             // Check for all null channels
             if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
-                this.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
                 return;
             }
 
             // Log Clearing RX buffer, clear it and return 
             J2534Channel ChannelInUse = this.DefaultChannel;
-            this.WriteCommandLog($"CLEARING RX BUFFER FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"CLEARING RX BUFFER FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
             if (ChannelId != -1)
             {
                 // Check our Device Channel ID
@@ -284,14 +254,14 @@ namespace SharpWrap2534
                 if (ChannelInUse != null)
                 {
                     // Log can't operate on a null channel and exit method
-                    this.WriteCommandLog("CAN NOT CLEAR RX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog); 
+                    this.LogSupport.WriteCommandLog("CAN NOT CLEAR RX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog); 
                     return;
                 }
             }
 
             // Clear out the channel RX Buffer by the ID here
-            this.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
-            this.WriteCommandLog($"CLEARING RX BUFFER FROM CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog);
+            this.LogSupport.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"CLEARING RX BUFFER FROM CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog);
             ChannelInUse.ClearRxBuffer();
         }
         /// <summary>
@@ -301,7 +271,7 @@ namespace SharpWrap2534
         {            
             // Check for all null channels
             if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
-                this.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
                 return;
             }
 
@@ -314,14 +284,14 @@ namespace SharpWrap2534
                 if (ChannelInUse == null)
                 {
                     // Log can't operate on a null channel and exit method
-                    this.WriteCommandLog("CAN NOT CLEAR TX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog);
+                    this.LogSupport.WriteCommandLog("CAN NOT CLEAR TX BUFFER FROM NULL CHANNELS!", LogType.ErrorLog);
                     return;
                 }
             }
 
             // Clear out the channel RX Buffer by the ID here
-            this.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
-            this.WriteCommandLog($"CLEARING TX BUFFER FROM CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog);
+            this.LogSupport.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"CLEARING TX BUFFER FROM CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog);
             ChannelInUse.ClearTxBuffer();
         }
         /// <summary>
@@ -333,19 +303,19 @@ namespace SharpWrap2534
         public void PTReadVoltage(out double VoltageRead, bool SilentRead = false, int ChannelId = -1)
         {
             // Log Pulling Voltage, find channel ID, and return it.
-            if (!SilentRead) this.WriteCommandLog($"READING VOLTAGE FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            if (!SilentRead) this.LogSupport.WriteCommandLog($"READING VOLTAGE FROM DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
 
             // Pull voltage value and check for -1
             var VoltageInt = JDeviceInstance.PTReadVBattery();
             if (VoltageInt == -1) {
-                this.WriteCommandLog("VOLTAGE VALUE WAS -1 THIS IS DUE TO A FAILED IOCTL!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("VOLTAGE VALUE WAS -1 THIS IS DUE TO A FAILED IOCTL!", LogType.ErrorLog);
                 VoltageRead = -1.0;
                 return;
             }
 
             // Store our new voltage value here and return it.
             VoltageRead = ((double)VoltageInt / (double)1000);
-            if (!SilentRead) this.WriteCommandLog($"PULLED VOLTAGE VALUE OF {VoltageRead:F2} OK!", LogType.InfoLog);
+            if (!SilentRead) this.LogSupport.WriteCommandLog($"PULLED VOLTAGE VALUE OF {VoltageRead:F2} OK!", LogType.InfoLog);
         }
         #endregion
 
@@ -359,7 +329,7 @@ namespace SharpWrap2534
         {
             // Log information. If all channels are null, then exit.
             if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
-                this.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
                 return false;
             }
 
@@ -372,19 +342,19 @@ namespace SharpWrap2534
                 if (ChannelInUse == null)
                 {
                     // Log can't operate on a null channel and exit method
-                    this.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    this.LogSupport.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
                     return false;
                 }
             }
 
             // Log information out and prepare to wrtie
-            this.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
-            this.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND WITH TIMEOUT AND MESSAGE: {SendTimeout}ms - {MessageToSend} MESSAGES", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND WITH TIMEOUT AND MESSAGE: {SendTimeout}ms - {MessageToSend} MESSAGES", LogType.InfoLog);
 
             // Issue command, log output and return.
             uint MessagesSent = ChannelInUse.PTWriteMessages(MessageToSend, SendTimeout);
-            this.WriteCommandLog($"SENT A TOTAL OF {MessagesSent} OUT OF AN EXPECTED 1 MESSAGE!", LogType.WarnLog);
-            if (MessagesSent != 1) { this.WriteCommandLog("ERROR! FAILED TO SEND OUT THE REQUESTED PT MESSAGE!", LogType.ErrorLog); }
+            this.LogSupport.WriteCommandLog($"SENT A TOTAL OF {MessagesSent} OUT OF AN EXPECTED 1 MESSAGE!", LogType.WarnLog);
+            if (MessagesSent != 1) { this.LogSupport.WriteCommandLog("ERROR! FAILED TO SEND OUT THE REQUESTED PT MESSAGE!", LogType.ErrorLog); }
             return MessagesSent == 1;
         }
         /// <summary>
@@ -396,13 +366,13 @@ namespace SharpWrap2534
         {
             // Log information. If all channels are null, then exit.
             if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
-                this.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
                 return false;
             }
 
             // Log information. If all channels are null, then exit.
             J2534Channel ChannelInUse = this.DefaultChannel;
-            this.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND FOR {MessageToSend.Length} MESSAGES WITH TIMEOUT", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND FOR {MessageToSend.Length} MESSAGES WITH TIMEOUT", LogType.InfoLog);
             if (ChannelId != -1)
             {
                 // Check our Device Channel ID
@@ -410,19 +380,19 @@ namespace SharpWrap2534
                 if (ChannelInUse == null) 
                 {
                     // Log can't operate on a null channel and exit method
-                    this.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    this.LogSupport.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
                     return false;
                 }
             }
 
             // Log information and send out our messages
-            this.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
-            foreach (var MsgObject in MessageToSend) { this.WriteCommandLog($"\tISSUING MESSAGE: {MsgObject}", LogType.TraceLog); }
+            this.LogSupport.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
+            foreach (var MsgObject in MessageToSend) { this.LogSupport.WriteCommandLog($"\tISSUING MESSAGE: {MsgObject}", LogType.TraceLog); }
 
             // Issue command, log output and return.
             uint MessagesSent = ChannelInUse.PTWriteMessages(MessageToSend, SendTimeout);
-            this.WriteCommandLog($"SENT A TOTAL OF {MessagesSent} OUT OF AN EXPECTED {MessageToSend.Length} MESSAGES!", LogType.WarnLog);
-            if (MessagesSent != MessageToSend.Length) { this.WriteCommandLog("ERROR! FAILED TO SEND OUT THE REQUESTED PT MESSAGE!", LogType.ErrorLog); }
+            this.LogSupport.WriteCommandLog($"SENT A TOTAL OF {MessagesSent} OUT OF AN EXPECTED {MessageToSend.Length} MESSAGES!", LogType.WarnLog);
+            if (MessagesSent != MessageToSend.Length) { this.LogSupport.WriteCommandLog("ERROR! FAILED TO SEND OUT THE REQUESTED PT MESSAGE!", LogType.ErrorLog); }
             return MessagesSent == MessageToSend.Length;
         }
         /// <summary>
@@ -435,13 +405,13 @@ namespace SharpWrap2534
         {
             // Log information. If all channels are null, then exit.
             if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
-                this.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("CAN NOT ISSUE WRITE COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
                 return Array.Empty<PassThruStructs.PassThruMsg>();
             }
 
             // Log information and issue the command. Find the channel to use here.
             J2534Channel ChannelInUse = this.DefaultChannel;
-            this.WriteCommandLog($"ISSUING A PTREAD MESSAGES COMMAND FOR A TOTAL OF {MessagesToRead} MESSAGES WITH A TIMEOUT OF {ReadTimeout}", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"ISSUING A PTREAD MESSAGES COMMAND FOR A TOTAL OF {MessagesToRead} MESSAGES WITH A TIMEOUT OF {ReadTimeout}", LogType.InfoLog);
             if (ChannelId != -1)
             {
                 // Check our Device Channel ID
@@ -449,27 +419,27 @@ namespace SharpWrap2534
                 if (ChannelInUse == null) 
                 {
                     // Log can't operate on a null channel and exit method
-                    this.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    this.LogSupport.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
                     return Array.Empty<PassThruStructs.PassThruMsg>();
                 }
             }
 
             // Find the channel to use and send out the command.
             var ChannelInstance = this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj != null);
-            this.WriteCommandLog($"READING MESSAGES ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"READING MESSAGES ON CHANNEL WITH ID: {ChannelInstance.ChannelId}", LogType.InfoLog);
             var ReadMessages = ChannelInstance.PTReadMessages(ref MessagesToRead, ReadTimeout);
 
             // If no messages found, log an error and drop back out.
             if (ReadMessages.Length == 0) {
-                this.WriteCommandLog("ERROR! NO MESSAGES PROCESSED FROM OUR PTREAD COMMAND!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("ERROR! NO MESSAGES PROCESSED FROM OUR PTREAD COMMAND!", LogType.ErrorLog);
                 return Array.Empty<PassThruStructs.PassThruMsg>();
             }
 
             // Print our messages out and return them.
-            this.WriteCommandLog("RETURNING OUT CONTENTS FOR MESSAGES PULLED IN NOW!", LogType.InfoLog);
-            this.WriteCommandLog($"READ A TOTAL OF {ReadMessages.Length} OUT OF {MessagesToRead} EXPECTED MESSAGES", LogType.InfoLog);
-            this.WriteCommandLog(J2534Device.PTMessageToTableString(ReadMessages));
-            if (MessagesToRead != ReadMessages.Length) this.WriteCommandLog("WARNING! READ MISMATCH ON MESSAGE COUNT!", LogType.WarnLog);
+            this.LogSupport.WriteCommandLog("RETURNING OUT CONTENTS FOR MESSAGES PULLED IN NOW!", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"READ A TOTAL OF {ReadMessages.Length} OUT OF {MessagesToRead} EXPECTED MESSAGES", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog(J2534Device.PTMessageToTableString(ReadMessages));
+            if (MessagesToRead != ReadMessages.Length) this.LogSupport.WriteCommandLog("WARNING! READ MISMATCH ON MESSAGE COUNT!", LogType.WarnLog);
             return ReadMessages;
         }
         #endregion
@@ -483,7 +453,7 @@ namespace SharpWrap2534
         {
             // Log information, build our filter object, and issue command to start it.
             if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
-                this.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
                 return null;
             }
 
@@ -496,19 +466,19 @@ namespace SharpWrap2534
                 if (ChannelInUse == null)
                 {
                     // Log can't operate on a null channel and exit method
-                    this.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    this.LogSupport.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
                     return null;
                 }
             }
 
             // Find the channel to use and send out the command.
-            this.WriteCommandLog($"ISSUING A PASSTHRU FILTER ({FilterType}) COMMAND NOW", LogType.InfoLog);
-            this.WriteCommandLog($"STARTING FILTER ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"ISSUING A PASSTHRU FILTER ({FilterType}) COMMAND NOW", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"STARTING FILTER ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
 
             // Issue command, log output and return.
             J2534Filter OutputFilter = ChannelInUse.StartMessageFilter(FilterType, Mask, Pattern, FlowControl, FilterFlags, (ProtocolId)FilterProtocol);
-            if (OutputFilter != null) this.WriteCommandLog($"STARTED NEW FILTER CORRECTLY! FILTER ID: {OutputFilter.FilterId}", LogType.InfoLog);
-            this.WriteCommandLog("FILTER OBJECT HAS BEEN STORED! RETURNING OUTPUT CONTENTS NOW");
+            if (OutputFilter != null) this.LogSupport.WriteCommandLog($"STARTED NEW FILTER CORRECTLY! FILTER ID: {OutputFilter.FilterId}", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog("FILTER OBJECT HAS BEEN STORED! RETURNING OUTPUT CONTENTS NOW");
             return OutputFilter;
         } 
         /// <summary>
@@ -520,7 +490,7 @@ namespace SharpWrap2534
         {
             // Log information, build our filter object, and issue command to stop it.
             if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
-                this.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
                 return false;
             }
 
@@ -531,7 +501,7 @@ namespace SharpWrap2534
 
             // Ensure filter is not null and continue.
             if (LocatedFilter == null) {
-                this.WriteCommandLog($"ERROR! NO FILTERS FOUND FOR THE GIVEN FILTER ID OF {FilterId}", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog($"ERROR! NO FILTERS FOUND FOR THE GIVEN FILTER ID OF {FilterId}", LogType.ErrorLog);
                 return false;
             }
 
@@ -539,13 +509,13 @@ namespace SharpWrap2534
             for (int ChannelIndex = 0; ChannelIndex < this.DeviceChannels.Length; ChannelIndex++)
             {
                 if (!this.ChannelFilters[ChannelIndex].Contains(LocatedFilter)) continue;
-                this.WriteCommandLog($"STOPPING FILTER ID {FilterId} ON CHANNEL {ChannelIndex} (ID: {this.DeviceChannels[ChannelIndex].ChannelId}) NOW!", LogType.InfoLog);
+                this.LogSupport.WriteCommandLog($"STOPPING FILTER ID {FilterId} ON CHANNEL {ChannelIndex} (ID: {this.DeviceChannels[ChannelIndex].ChannelId}) NOW!", LogType.InfoLog);
                 this.DeviceChannels[ChannelIndex].StopMessageFilter(LocatedFilter);
                 return true;
             }
 
             // If we get here, something is wrong.
-            this.WriteCommandLog("ERROR! COULD NOT FIND A CHANNEL WITH THE GIVEN FILTER TO STOP ON! THIS IS WEIRD!", LogType.ErrorLog);
+            this.LogSupport.WriteCommandLog("ERROR! COULD NOT FIND A CHANNEL WITH THE GIVEN FILTER TO STOP ON! THIS IS WEIRD!", LogType.ErrorLog);
             return false;
         }
         /// <summary>
@@ -557,20 +527,20 @@ namespace SharpWrap2534
         {
             // Log information, find the filter and stop it.
             if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
-                this.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
                 return false;
             }
 
             // Find the index of the filter.
             var ChannelFilterSet = this.ChannelFilters.FirstOrDefault(FilterSet => FilterSet.Contains(FilterInstance));
             if (ChannelFilterSet == null) {
-                this.WriteCommandLog("ERROR! COULD NOT FIND FILTER OBJECT TO REMOVE FROM OUR INSTANCE!", LogType.ErrorLog);
+                this.LogSupport.WriteCommandLog("ERROR! COULD NOT FIND FILTER OBJECT TO REMOVE FROM OUR INSTANCE!", LogType.ErrorLog);
                 return false;
             }
 
             // Issue the command here.
             int ChannelIndex = this.ChannelFilters.ToList().IndexOf(ChannelFilterSet);
-            this.WriteCommandLog($"STOPPING FILTER ID {FilterInstance.FilterId} ON CHANNEL {ChannelIndex} (ID: {this.DeviceChannels[ChannelIndex].ChannelId}) NOW!", LogType.InfoLog);
+            this.LogSupport.WriteCommandLog($"STOPPING FILTER ID {FilterInstance.FilterId} ON CHANNEL {ChannelIndex} (ID: {this.DeviceChannels[ChannelIndex].ChannelId}) NOW!", LogType.InfoLog);
             this.DeviceChannels[ChannelIndex].StopMessageFilter(FilterInstance);
             return true;
         }

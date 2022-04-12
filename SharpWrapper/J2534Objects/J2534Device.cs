@@ -15,19 +15,19 @@ namespace SharpWrap2534.J2534Objects
     {
         // -------------------------- SINGLETON CONFIGURATION ----------------------------
 
+        // TODO: REMOVE THIS SINGLETON INSTANCE!
         // Singleton schema for this class object. Two total instances can exist. Device 1/2
-        private static J2534Device[] _jDeviceInstances;
+        // private static J2534Device[] _jDeviceInstances;
 
         /// <summary>
         /// PRIVATE CTOR FOR SINGLETON USE ONLY!
         /// </summary>
-        /// <param name="DeviceNumber"></param>
+        /// <param name="NameFilter"></param>
         /// <param name="Dll"></param>
-        private J2534Device(int DeviceNumber, J2534Dll Dll, string NameFilter = "")
+        private J2534Device(J2534Dll Dll, string NameFilter = "")
         {
             // Store DLL Value and build marshall.
             JDll = Dll;
-            this.DeviceNumber = DeviceNumber;
 
             // Build API and marshall.
             ApiInstance = new J2534ApiInstance(Dll.FunctionLibrary);
@@ -58,8 +58,7 @@ namespace SharpWrap2534.J2534Objects
             try
             {
                 // Close our instance value here and then destroy channels for it.
-                _jDeviceInstances[DeviceNumber - 1] = null;
-                J2534Channel.DestroyDeviceChannels(this.DeviceNumber);
+                J2534Channel.DestroyDeviceChannels(this);
                 return true;
             }
             catch { return false; }
@@ -73,7 +72,6 @@ namespace SharpWrap2534.J2534Objects
         // ---------------------- INSTANCE VALUES AND SETUP FOR DEVICE HERE ---------------
 
         // Device information.
-        internal int DeviceNumber { get; }
         public JVersion J2534Version { get; }
         public PTInstanceStatus DeviceStatus { get; }
 
@@ -120,10 +118,11 @@ namespace SharpWrap2534.J2534Objects
         public string ToDetailedString()
         {
             // Build string information here.
+            var Constants = new PassThruConstants(J2534Version);
             string OutputDetailsString =
                 $"Device: {DeviceName} ({J2534Version.ToDescriptionString()})" +
                 $"\n--> Instance Information: " +
-                $"\n    \\__ Max Devices:    {_jDeviceInstances.Length} Device instances" +
+                $"\n    \\__ Max Devices:    {Constants.MaxDeviceCount} Device instances" +
                 $"\n    \\__ Device Id:      {DeviceId}" +
                 $"\n    \\__ Device Name:    {DeviceName}" +
                 $"\n    \\__ Device Version: {J2534Version.ToDescriptionString()}" +
@@ -135,9 +134,9 @@ namespace SharpWrap2534.J2534Objects
                 $"\n--> Device Channel Information:" +
                 $"\n    \\__ Channel Count:  {DeviceChannels.Length} Channels" +
                 $"\n    \\__ Logical Chan:   {(J2534Version == JVersion.V0404 ? "NOT SUPPORTED!" : "SUPPORTED!")}" + 
-                $"\n    \\__ Logical Count:  {(new PassThruConstants(J2534Version).MaxChannelsLogical)} Logical Channels on each physical channel" +
-                $"\n    \\__ Filter Count:   {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxFilters} Filters Max across (Evenly Split On All Channels)" +
-                $"\n    \\__ Periodic Count: {DeviceChannels.Length * new PassThruConstants(J2534Version).MaxPeriodicMsgs} Periodic Msgs Max (Evenly Split On All Channels)";
+                $"\n    \\__ Logical Count:  {(Constants.MaxChannelsLogical)} Logical Channels on each physical channel" +
+                $"\n    \\__ Filter Count:   {DeviceChannels.Length * Constants.MaxFilters} Filters Max across (Evenly Split On All Channels)" +
+                $"\n    \\__ Periodic Count: {DeviceChannels.Length * Constants.MaxPeriodicMsgs} Periodic Msgs Max (Evenly Split On All Channels)";
 
             // Return the output string here.
             return OutputDetailsString;
@@ -151,20 +150,8 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="Dll">DLL To build from</param>
         internal static J2534Device BuildJ2534Device(J2534Dll Dll, string DeviceNameFilter = "")
         {
-            // Check if an array of devices exists
-            if (_jDeviceInstances == null) _jDeviceInstances = new J2534Device[new PassThruConstants(Dll.DllVersion).MaxDeviceCount];
-
-            // Check for an empty spot.
-            var FreeDevice = _jDeviceInstances.FirstOrDefault(DeviceObj => DeviceObj?.DeviceStatus == PTInstanceStatus.FREED);
-            int NextFreeDeviceIndex = _jDeviceInstances.ToList().IndexOf(FreeDevice ?? null);
-
-            // If still -1, we're just out of spots
-            if (NextFreeDeviceIndex == -1)
-                throw new InvalidOperationException($"No free device slots exist at this time! A max of {_jDeviceInstances.Length} devices can exist at once!");
-
             // Build new instance and return it.
-            _jDeviceInstances[NextFreeDeviceIndex] = new J2534Device(NextFreeDeviceIndex + 1, Dll, DeviceNameFilter);
-            return _jDeviceInstances[NextFreeDeviceIndex];
+            return new J2534Device(Dll, DeviceNameFilter);
         }
 
         // ---------------------------- STATIC DEVICE MESSAGE HELPER METHODS -----------------------
@@ -287,21 +274,8 @@ namespace SharpWrap2534.J2534Objects
             // If the device is open at this point, then just return out. We don't want to do anything more.
             if (this.IsOpen) { return; }
 
-            try
-            {
-                // Make sure we exist in here.
-                if (DeviceNameFilter == "") DeviceNameFilter = this.DeviceName;
-                if ((bool)!_jDeviceInstances[this.DeviceNumber - 1]?.DeviceName.Contains(DeviceNameFilter)) 
-                {
-                    // Check if it can
-                    if (_jDeviceInstances[this.DeviceNumber - 1] == null) _jDeviceInstances[this.DeviceNumber - 1] = this;
-                    throw new ObjectDisposedException("Can not use a sharp device which has been previously closed out!");
-                }
-            }
-            // Do nothing here.
-            catch (Exception Ex) { }
-
             // Pull all device names out and find next open one.
+            if (DeviceNameFilter == "") DeviceNameFilter = this.DeviceName;
             if (string.IsNullOrWhiteSpace(DeviceNameFilter)) {
                 var FreeDevice = JDll.FindConnectedDeviceNames().FirstOrDefault(Name => !Name.ToUpper().Contains("IN USE"));
                 DeviceNameFilter = FreeDevice ?? throw new AccessViolationException("No free J2534 devices could be located!");

@@ -25,7 +25,7 @@ namespace SharpAutoId.SharpAutoIdRoutines
         public readonly string Device;
         public readonly JVersion Version;
         public readonly ProtocolId AutoIdType;
-        public readonly AutoIdConfiguration AutoIdCommands;
+        public readonly SharpIdConfiguration AutoIdCommands;
 
         // Runtime Instance Values (private only)
         protected internal uint[] FilterIds;

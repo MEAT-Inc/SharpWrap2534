@@ -13,13 +13,13 @@ namespace SharpAutoId.SharpAutoIdRoutines
     /// <summary>
     /// Auto ID routine for an ISO15765 Routine configuration
     /// </summary>
-    internal class SharpIdISO15765 : SharpAutoId
+    internal class SharpAutoId_ISO15765 : SharpAutoId
     {
         /// <summary>
         /// Builds a new AutoID routine for ISO15765 channels
         /// </summary>
         /// <param name="InstanceSession">A SharpSession object which is used to do our scanning.</param>
-        public SharpIdISO15765(Sharp2534Session InstanceSession) : base(InstanceSession, ProtocolId.ISO15765)
+        public SharpAutoId_ISO15765(Sharp2534Session InstanceSession) : base(InstanceSession, ProtocolId.ISO15765)
         {
             // Open the Session and store it here.
             this.OpenAutoIdSession(InstanceSession);
@@ -29,7 +29,7 @@ namespace SharpAutoId.SharpAutoIdRoutines
         /// Deconstruction for this instance object type.
         /// When this type is destroyed, we just run the close session method.
         /// </summary>
-        ~SharpIdISO15765()
+        ~SharpAutoId_ISO15765()
         {
             try
             {

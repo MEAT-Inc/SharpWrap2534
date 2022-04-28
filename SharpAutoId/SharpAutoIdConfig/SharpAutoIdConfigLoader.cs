@@ -53,14 +53,14 @@ namespace SharpAutoId.SharpAutoIdConfig
         /// <summary>
         /// Auto ID Routine commands and other information needed to build our AutoID session
         /// </summary>
-        public static AutoIdConfiguration[] SupportedCommandRoutines
+        public static SharpIdConfiguration[] SupportedCommandRoutines
         {
             get
             {
                 // Read in JSON Content from our configuration file. Log values and return output.
                 string JsonConfigFile = GetConfigJsonFile("SharpAutoIdConfigContent");
                 JObject PulledJsonObject = JObject.Parse(File.ReadAllText(JsonConfigFile));
-                var PulledAutoIdRoutines = PulledJsonObject["CommandRoutines"].Value<AutoIdConfiguration[]>();
+                var PulledAutoIdRoutines = PulledJsonObject["CommandRoutines"].Value<SharpIdConfiguration[]>();
                 ConfigLogger.WriteLog($"PULLED A TOTAL OF {PulledAutoIdRoutines.Length} SUPPORTED AUTO ID ROUTINES!", LogType.InfoLog);
                 return PulledAutoIdRoutines;
             }
@@ -68,7 +68,7 @@ namespace SharpAutoId.SharpAutoIdConfig
         /// <summary>
         /// All Loaded AutoID routines for this instance
         /// </summary>
-        public static Tuple<ProtocolId, AutoIdConfiguration>[] LoadedRoutines
+        public static Tuple<ProtocolId, SharpIdConfiguration>[] LoadedRoutines
         {
             get
             {
@@ -83,7 +83,7 @@ namespace SharpAutoId.SharpAutoIdConfig
                 // Now build our tuple object.
                 var ZippedRoutines = Protocols
                     .Zip(Routines, (ProcObj, RoutineObj) =>
-                        new Tuple<ProtocolId, AutoIdConfiguration>(ProcObj, RoutineObj))
+                        new Tuple<ProtocolId, SharpIdConfiguration>(ProcObj, RoutineObj))
                     .ToArray();
 
                 // Return the build list of routines here
@@ -99,7 +99,7 @@ namespace SharpAutoId.SharpAutoIdConfig
         /// </summary>
         /// <param name="ProtocolToUse">Protocol To use for the AutoID</param>
         /// <returns>Routine matching the given protocol or null</returns>
-        internal static AutoIdConfiguration GetRoutineObject(ProtocolId ProtocolToUse)
+        internal static SharpIdConfiguration GetRoutineObject(ProtocolId ProtocolToUse)
         {
             // Find our routine.
             var RoutineLocated = SupportedCommandRoutines.FirstOrDefault(RoutineObj => RoutineObj.AutoIdType == ProtocolToUse);

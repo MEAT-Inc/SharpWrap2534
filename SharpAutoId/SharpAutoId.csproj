@@ -49,9 +49,9 @@
     <Compile Include="SharpAutoIdConfig\SharpAutoIdConfigLoader.cs" />
     <Compile Include="SharpAutoIdConfig\SharpAutoIdExtensions.cs" />
     <Compile Include="SharpAutoIdRoutines\SharpAutoId.cs" />
-    <Compile Include="SharpAutoIdRoutines\SharpIdISO15765.cs" />
-    <Compile Include="SharpAutoIdModels\AutoIdConfiguration.cs" />
-    <Compile Include="SharpAutoIdModels\AutoIdObjects.cs" />
+    <Compile Include="SharpAutoIdRoutines\SharpAutoId_ISO15765.cs" />
+    <Compile Include="SharpAutoIdModels\SharpIdConfiguration.cs" />
+    <Compile Include="SharpAutoIdModels\SharpAutoIdObjects.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpWrap2534">

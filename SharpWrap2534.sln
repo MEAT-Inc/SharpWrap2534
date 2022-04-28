@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrap2534", "SharpWrapper\SharpWrap2534.csproj", "{E4508BD6-9045-4840-A659-BE40CC205C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrap2534Tests", "SharpWrapperTests\SharpWrap2534Tests.csproj", "{E3479A59-E1E6-4962-A980-46A0B08D3A86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpAutoId", "SharpAutoId\SharpAutoId.csproj", "{D3BCD896-7593-4CD8-94B5-7636D4061A00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{E4508BD6-9045-4840-A659-BE40CC205C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4508BD6-9045-4840-A659-BE40CC205C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4508BD6-9045-4840-A659-BE40CC205C78}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3479A59-E1E6-4962-A980-46A0B08D3A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3479A59-E1E6-4962-A980-46A0B08D3A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3479A59-E1E6-4962-A980-46A0B08D3A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3479A59-E1E6-4962-A980-46A0B08D3A86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3BCD896-7593-4CD8-94B5-7636D4061A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3BCD896-7593-4CD8-94B5-7636D4061A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3BCD896-7593-4CD8-94B5-7636D4061A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3BCD896-7593-4CD8-94B5-7636D4061A00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

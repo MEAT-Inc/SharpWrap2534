@@ -36,9 +36,9 @@ namespace SharpWrap2534
             if (NextOpenSessionIndex == -1) throw new InvalidOperationException($"CAN NOT BUILD A NEW SESSION FOR MORE THAN {_sharpSessions.Length} DEVICES!");
 
             // Build new session, store it, and return out.
-            var BuiltSession = _sharpSessions[NextOpenSessionIndex] = new Sharp2534Session(Version, DllNameFilter, DeviceNameFilter);
-            if (BuiltSession == null) throw new NullReferenceException("FAILED TO BUILD NEW SHARP SESSION! THIS IS FATAL!");
-            return BuiltSession;
+            _sharpSessions[NextOpenSessionIndex] = new Sharp2534Session(Version, DllNameFilter, DeviceNameFilter);
+            if (_sharpSessions[NextOpenSessionIndex] == null) throw new NullReferenceException("FAILED TO BUILD NEW SHARP SESSION! THIS IS FATAL!");
+            return _sharpSessions[NextOpenSessionIndex];
         }
         /// <summary>
         /// Disposes of our instance object and cleans up resources.
@@ -52,7 +52,7 @@ namespace SharpWrap2534
 
             // Kill our device instance. This closes it and removes all channels.
             bool KilledOK = SessionToClose.JDeviceInstance.DestroyDevice();
-            _sharpSessions[_sharpSessions.ToList().IndexOf(SessionToClose)] = null;
+            if (_sharpSessions.Contains(SessionToClose)) _sharpSessions[_sharpSessions.ToList().IndexOf(SessionToClose)] = null;
             if (KilledOK) SessionToClose._sessionLogger.WriteLog("KILLED SESSION WITHOUT ISSUES!", LogType.InfoLog);
             else SessionToClose._sessionLogger.WriteLog("FAILED TO KILL SHARP SESSION! THIS IS FATAL!", LogType.ErrorLog);
 

@@ -25,10 +25,15 @@ namespace SharpAutoId.SharpAutoIdHelpers
         {
             // Make Sure logging is configured
             if (LogBroker.BaseOutputPath == null)
+            {
+                // Configure output locations
                 LogBroker.ConfigureLoggingSession(
                     Assembly.GetExecutingAssembly().FullName,
-                    Path.Combine(Directory.GetCurrentDirectory(), "SharpLogging")
-                );
+                    Path.Combine(Directory.GetCurrentDirectory(), "SharpLogging"));
+                
+                // Populate Broker Pool
+                LogBroker.BrokerInstance.FillBrokerPool();
+            }
 
             // Check to make sure the requested protocol is supported first.
             if (!SharpAutoIdConfig.SupportedProtocols.Contains(ProtocolValue))
@@ -37,10 +42,18 @@ namespace SharpAutoId.SharpAutoIdHelpers
             // Get logger object from our session
             PropertyInfo LoggerProp = SessionInstance.GetType().GetProperty("_sessionLogger", BindingFlags.NonPublic | BindingFlags.Instance);
             BaseLogger Logger = (BaseLogger)LoggerProp?.GetValue(SessionInstance) ?? LogBroker.Logger;
+            Logger.WriteLog($"PULLED IN SESSION LOGGER NAMED {Logger.LoggerName}!");
 
             // Build auto ID helper and return the object out
-            SharpAutoId AutoIdInstance = new SharpAutoId(SessionInstance, ProtocolValue);
-            Logger.WriteLog($"PULLED IN SESSION LOGGER NAMED {Logger.LoggerName}!");
+            // Get a list of all supported protocols and then pull in all the types of auto ID routines we can use
+            var AutoIdType = typeof(SharpAutoId)
+                .Assembly.GetTypes()
+                .Where(RoutineType => RoutineType.IsSubclassOf(typeof(SharpAutoId)) && !RoutineType.IsAbstract)
+                .FirstOrDefault(TypeObj => TypeObj.FullName.Contains(ProtocolValue.ToString()));
+
+            // Now build a type of our current autoID Object
+            if (AutoIdType == null) throw new TypeAccessException($"CAN NOT USE TYPE FOR PROTOCOL NAMED {ProtocolValue}!");
+            SharpAutoId AutoIdInstance = (SharpAutoId)Activator.CreateInstance(AutoIdType, SessionInstance);
             Logger.WriteLog($"SESSION FOR AUTO ID ROUTINE ON PROTOCOL {ProtocolValue} WAS BUILT OK!", LogType.InfoLog);
 
             // Return the AutoID Instance object

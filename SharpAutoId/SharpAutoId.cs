@@ -15,7 +15,7 @@ namespace SharpAutoId
     /// Interface base for Auto ID routines which can be used by our connection routine.
     /// This interface lays out a Open, Connect, Read VIN, and Close command.
     /// </summary>
-    public partial class SharpAutoId
+    public abstract class SharpAutoId
     {
         // Logger object for monitoring logger outputs
         protected internal readonly SubServiceLogger AutoIdLogger;
@@ -45,6 +45,7 @@ namespace SharpAutoId
             // Store class values here and build our new logger object.
             this.AutoIdType = ProtocolValue;
             this.DLL = SessionInstance.DllName;
+            this.SessionInstance = SessionInstance;
             this.Device = SessionInstance.DeviceName;
             this.Version = SessionInstance.DeviceVersion;
 
@@ -134,22 +135,12 @@ namespace SharpAutoId
         /// </summary>
         /// <param name="ChannelId">Channel ID Opened</param>
         /// <returns>True if the channel is opened, false if it is not.</returns>
-        public virtual bool ConnectChannel(out uint ChannelId)
-        {
-            // No Channel ID Value found and return false.
-            ChannelId = 0;
-            return false;
-        }
+        public abstract bool ConnectChannel(out uint ChannelId);
         /// <summary>
         /// Finds the VIN of the currently connected vehicle
         /// </summary>
         /// <param name="VinNumber">VIN Number pulled</param>
         /// <returns>True if a VIN is pulled, false if it isn't</returns>
-        public virtual bool RetrieveVinNumber(out string VinNumber)
-        {
-            // Null VIN Value found and return false.
-            VinNumber = null;
-            return false;
-        }
+        public abstract bool RetrieveVinNumber(out string VinNumber);
     }
 }

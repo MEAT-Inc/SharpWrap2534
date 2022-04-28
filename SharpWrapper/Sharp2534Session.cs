@@ -103,10 +103,15 @@ namespace SharpWrap2534
             
             // Make Sure logging is configured
             if (LogBroker.BaseOutputPath == null)
+            {
+                // Configure output locations
                 LogBroker.ConfigureLoggingSession(
                     Assembly.GetExecutingAssembly().FullName,
-                    Path.Combine(Directory.GetCurrentDirectory(), "SharpLogging")
-                );
+                    Path.Combine(Directory.GetCurrentDirectory(), "SharpLogging"));
+
+                // Populate Broker Pool
+                LogBroker.BrokerInstance.FillBrokerPool();
+            }
 
             // Build logging support
             this.SessionGuid = Guid.NewGuid();

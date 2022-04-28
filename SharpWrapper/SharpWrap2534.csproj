@@ -25,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -35,6 +36,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -84,6 +86,7 @@
     <Compile Include="J2534Api\J2534ApiInstance.cs" />
     <Compile Include="PassThruTypes\PassThruEnums.cs" />
     <Compile Include="SupportingLogic\InstanceEnums.cs" />
+    <Compile Include="SupportingLogic\LoggingSupport.cs" />
     <Compile Include="SupportingLogic\TextTableGenerator.cs" />
     <Compile Include="SupportingLogic\Win32Invokers.cs" />
   </ItemGroup>
@@ -104,6 +107,6 @@
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(SolutionDir)SharpWrapperNuget\lib\net472"</PostBuildEvent>
+    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)SharpWrapperNuget\lib\net472"</PostBuildEvent>
   </PropertyGroup>
 </Project>

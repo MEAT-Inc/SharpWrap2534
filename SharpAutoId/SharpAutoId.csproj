@@ -46,9 +46,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
-    <Compile Include="SharpAutoIdConfig\SharpAutoIdConfigLoader.cs" />
-    <Compile Include="SharpAutoIdConfig\SharpAutoIdExtensions.cs" />
-    <Compile Include="SharpAutoIdRoutines\SharpAutoId.cs" />
+    <Compile Include="SharpAutoIdHelpers\SharpAutoIdConfig.cs" />
+    <Compile Include="SharpAutoIdHelpers\SharpAutoIdExtensions.cs" />
+    <Compile Include="SharpAutoId.cs" />
     <Compile Include="SharpAutoIdRoutines\SharpAutoId_ISO15765.cs" />
     <Compile Include="SharpAutoIdModels\SharpIdConfiguration.cs" />
     <Compile Include="SharpAutoIdModels\SharpAutoIdObjects.cs" />

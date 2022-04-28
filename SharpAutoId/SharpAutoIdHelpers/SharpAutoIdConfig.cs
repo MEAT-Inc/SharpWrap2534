@@ -1,16 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 using SharpAutoId.SharpAutoIdModels;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 using SharpWrap2534.PassThruTypes;
 
-namespace SharpAutoId.SharpAutoIdConfig
+namespace SharpAutoId.SharpAutoIdHelpers
 {
-    public static class SharpAutoIdConfigLoader
+    public static class SharpAutoIdConfig
     {
         // Logger object for configuration of an AutoID JSON Reader
         private static SubServiceLogger ConfigLogger => (SubServiceLogger)LogBroker.LoggerQueue.GetLoggers(LoggerActions.SubServiceLogger)

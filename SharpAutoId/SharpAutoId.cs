@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using SharpAutoId.SharpAutoIdConfig;
+using SharpAutoId.SharpAutoIdHelpers;
 using SharpAutoId.SharpAutoIdModels;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
@@ -9,7 +9,7 @@ using SharpWrap2534;
 using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
 
-namespace SharpAutoId.SharpAutoIdRoutines
+namespace SharpAutoId
 {
     /// <summary>
     /// Interface base for Auto ID routines which can be used by our connection routine.
@@ -60,11 +60,11 @@ namespace SharpAutoId.SharpAutoIdRoutines
 
             // Build our AutoID routine object from the AppSettings now.
             this.AutoIdLogger.WriteLog($"PULLING IN SESSION ROUTINES FOR PROTOCOL TYPE {this.AutoIdType}", LogType.InfoLog);
-            if (!SharpAutoIdConfigLoader.SupportedProtocols.Contains(this.AutoIdType))
+            if (!SharpAutoIdConfig.SupportedProtocols.Contains(this.AutoIdType))
                 throw new InvalidOperationException($"CAN NOT USE PROTOCOL TYPE {this.AutoIdType} FOR AUTO ID ROUTINE!");
 
             // Make sure our instance exists
-            this.AutoIdCommands = SharpAutoIdConfigLoader.GetRoutine(this.AutoIdType);
+            this.AutoIdCommands = SharpAutoIdConfig.GetRoutine(this.AutoIdType);
             if (this.AutoIdCommands == null)
                 throw new NullReferenceException($"FAILED TO FIND AUTO ID ROUTINE COMMANDS FOR PROTOCOL {this.AutoIdType}!");
         }

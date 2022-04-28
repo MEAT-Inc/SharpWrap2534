@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpAutoId</id>
-    <version>0.0.0.0</version>
+    <version>0.1.2.15</version>
     <title>SharpAutoId</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -16,10 +16,17 @@
   - ` dotnet add PROJECT package SharpAutoId --version LATEST `
 --- 
 ### Change Log For Release
-    </description>
-    <releaseNotes>RELEASE NOTES GO HERE</releaseNotes>
+- Pushing this package live up to the repository for SharpWrap now. 
+- Testing started on this version for the SharpWrap helper projects as well. 
+- Once a working read happens, this will be pushed once again with a new version and any changes needed
+</description>
+    <releaseNotes>
+- Pushing this package live up to the repository for SharpWrap now. 
+- Testing started on this version for the SharpWrap helper projects as well. 
+- Once a working read happens, this will be pushed once again with a new version and any changes needed
+</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>0.0.0.0</tags>
+    <tags>0.1.2.15-live-auto-id</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>

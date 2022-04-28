@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpAutoId</id>
-    <version>0.0.0.0</version>
+    <version>0.1.2.10</version>
     <title>SharpAutoId</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -16,10 +16,17 @@
   - ` dotnet add PROJECT package SharpAutoId --version LATEST `
 --- 
 ### Change Log For Release
-    </description>
-    <releaseNotes>RELEASE NOTES GO HERE</releaseNotes>
+- Building new package for AutoID routine work. 
+- This way we can easily import the ability to AutoID a vehicle once a project is built and needs to talk to a car. 
+- Also built in the JSON configuration file so that it will be updated with each release for when we want to include new commands or routines
+</description>
+    <releaseNotes>
+- Building new package for AutoID routine work. 
+- This way we can easily import the ability to AutoID a vehicle once a project is built and needs to talk to a car. 
+- Also built in the JSON configuration file so that it will be updated with each release for when we want to include new commands or routines
+</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>0.0.0.0</tags>
+    <tags>0.1.2.10-auto-id-init</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>

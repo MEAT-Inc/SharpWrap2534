@@ -59,7 +59,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SharpAutoIdConfig\SharpAutoIdConfigContent.json" />
+    <None Include="SharpAutoIdConfigContent.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AssemblyInfo.tt">
@@ -72,4 +74,10 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)SharpAutoIdNuget\lib\net472"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

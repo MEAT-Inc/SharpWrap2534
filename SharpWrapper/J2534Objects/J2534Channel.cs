@@ -71,13 +71,12 @@ namespace SharpWrap2534.J2534Objects
         internal static J2534Channel[] BuildDeviceChannels(J2534Device JDevice)
         {
             // Append channels into the device here.
-            var JChannelsOut = new J2534Channel[new PassThruConstants(JDevice.J2534Version).MaxChannels];
-            for (int ChannelIndex = 0; ChannelIndex < JChannelsOut.Length; ChannelIndex += 1)
-                JChannelsOut[ChannelIndex] = new J2534Channel(JDevice);
+            JDevice.DeviceChannels = new J2534Channel[new PassThruConstants(JDevice.J2534Version).MaxChannels];
+            for (int ChannelIndex = 0; ChannelIndex < JDevice.DeviceChannels.Length; ChannelIndex += 1)
+                JDevice.DeviceChannels[ChannelIndex] = new J2534Channel(JDevice);
 
             // Return built channels and store them onto the device object
-            JDevice.DeviceChannels = JChannelsOut;
-            return JChannelsOut;
+            return JDevice.DeviceChannels;
         }
         /// <summary>
         /// Deconstructs the device object and members

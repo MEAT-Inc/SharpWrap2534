@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 using SharpWrap2534.J2534Objects;
@@ -97,6 +100,13 @@ namespace SharpWrap2534
                 // Throw the exception built.
                 throw FailedInitException;
             }
+            
+            // Make Sure logging is configured
+            if (LogBroker.BaseOutputPath == null)
+                LogBroker.ConfigureLoggingSession(
+                    Assembly.GetExecutingAssembly().FullName,
+                    Path.Combine(Directory.GetCurrentDirectory(), "SharpLogging")
+                );
 
             // Build logging support
             this.SessionGuid = Guid.NewGuid();

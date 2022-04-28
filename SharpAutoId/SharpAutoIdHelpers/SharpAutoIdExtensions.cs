@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using SharpLogger;
@@ -22,6 +23,13 @@ namespace SharpAutoId.SharpAutoIdHelpers
         /// <returns></returns>
         public static SharpAutoId SpawnAutoIdHelper(this Sharp2534Session SessionInstance, ProtocolId ProtocolValue)
         {
+            // Make Sure logging is configured
+            if (LogBroker.BaseOutputPath == null)
+                LogBroker.ConfigureLoggingSession(
+                    Assembly.GetExecutingAssembly().FullName,
+                    Path.Combine(Directory.GetCurrentDirectory(), "SharpLogging")
+                );
+
             // Check to make sure the requested protocol is supported first.
             if (!SharpAutoIdConfig.SupportedProtocols.Contains(ProtocolValue))
                 throw new InvalidOperationException($"CAN NOT USE PROTOCOL {ProtocolValue} SINCE IT IS NOT SUPPORTED!");

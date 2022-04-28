@@ -59,7 +59,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SharpAutoIdConfigContent.json">
+    <None Include="SharpAutoIdConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

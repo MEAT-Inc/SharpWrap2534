@@ -64,7 +64,7 @@ namespace SharpAutoId.SharpAutoIdRoutines
                 throw new InvalidOperationException($"CAN NOT USE PROTOCOL TYPE {this.AutoIdType} FOR AUTO ID ROUTINE!");
 
             // Make sure our instance exists
-            this.AutoIdCommands = SharpAutoIdConfigLoader.GetRoutineObject(this.AutoIdType);
+            this.AutoIdCommands = SharpAutoIdConfigLoader.GetRoutine(this.AutoIdType);
             if (this.AutoIdCommands == null)
                 throw new NullReferenceException($"FAILED TO FIND AUTO ID ROUTINE COMMANDS FOR PROTOCOL {this.AutoIdType}!");
         }

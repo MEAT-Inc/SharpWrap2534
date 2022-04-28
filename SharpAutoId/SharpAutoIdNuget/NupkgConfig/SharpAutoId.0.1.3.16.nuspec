@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpAutoId</id>
-    <version>0.0.0.0</version>
+    <version>0.1.3.16</version>
     <title>SharpAutoId</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -16,10 +16,15 @@
   - ` dotnet add PROJECT package SharpAutoId --version LATEST `
 --- 
 ### Change Log For Release
-    </description>
-    <releaseNotes>RELEASE NOTES GO HERE</releaseNotes>
+- Fixed issue where JSON file was not included in Nuget package for configuration output during AutoID setup. 
+- Now with JSON Included, all should run correctly
+</description>
+    <releaseNotes>
+- Fixed issue where JSON file was not included in Nuget package for configuration output during AutoID setup. 
+- Now with JSON Included, all should run correctly
+</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>0.0.0.0</tags>
+    <tags>0.1.3.16-config</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>

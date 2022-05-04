@@ -245,20 +245,8 @@ namespace SharpWrap2534.J2534Objects
         /// <returns>String set of messages built.</returns>
         public static string PTMessageToTableString(PassThruStructs.PassThruMsg[] InputMessages)
         {
-            // Build our set of message values.
-            var MessageStringSet = InputMessages.Select(MsgObj =>
-            {
-                // Build an output tuple array for the message object here.
-                List<Tuple<string, string>> FieldsAndValues = InputMessages.GetType().GetFields()
-                    .Select(FieldObj => new Tuple<string, string>(FieldObj.Name, FieldObj.GetValue(MsgObj).ToString()))
-                    .ToList();
-
-                // Insert Message Number at the front of the list and make the output table string.
-                FieldsAndValues.Prepend(new Tuple<string, string>("Message Number", "Message {InputMessages.ToList().IndexOf(MsgObj)}"));
-                return FieldsAndValues.ToStringTable(new[] { "Property", "Message Value" });
-            });
-
-            // Build output string and return it.
+            // Build our set of message values and return them
+            var MessageStringSet = InputMessages.Select(PTMessageToTableString);
             string OutputString = string.Join("\n", MessageStringSet);
             return OutputString;
         }

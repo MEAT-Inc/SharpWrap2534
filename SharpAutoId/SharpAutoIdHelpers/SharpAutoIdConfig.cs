@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using Newtonsoft.Json.Linq;
 using SharpAutoId.SharpAutoIdModels;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
@@ -8,7 +11,7 @@ using SharpWrap2534.PassThruTypes;
 
 namespace SharpAutoId.SharpAutoIdHelpers
 {
-    public static class SharpAutoIdConfig
+    public class SharpAutoIdConfig
     {
         // Logger object for configuration of an AutoID JSON Reader
         private static SubServiceLogger ConfigLogger => (SubServiceLogger)LogBroker.LoggerQueue.GetLoggers(LoggerActions.SubServiceLogger)
@@ -17,233 +20,13 @@ namespace SharpAutoId.SharpAutoIdHelpers
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         // List of all currently supported protocols for Auto ID routines
-        public static ProtocolId[] SupportedProtocols => new[] { ProtocolId.ISO15765 };
-        public static SharpIdConfiguration[] SupportedCommandRoutines => new[]
-        {
-            // ISO15765-4 Configuration Routine at 500k BaudRate
-            new SharpIdConfiguration()
-            {             
-                // Generic Connection Flags
-                ConnectFlags = 0x00,
-                AutoIdType = ProtocolId.ISO15765,
-                ConnectBaud = BaudRate.ISO15765_500000,
-
-                // Commands and Filters to Use
-                RoutineCommands = new[]
-                {
-                    // Message for Setup Connection
-                    new MessageObject()
-                    {
-                        MessageProtocol = ProtocolId.ISO15765,
-                        MessageFlags = TxFlags.ISO15765_FRAME_PAD,
-                        MessageData = "0x00 0x00 0x07 0xDF 0x01 0x00"
-                    },
-
-                    // Message for the VIN Number
-                    new MessageObject()
-                    {
-                        MessageProtocol = ProtocolId.ISO15765,
-                        MessageFlags = TxFlags.ISO15765_FRAME_PAD,
-                        MessageData =  "0x00 0x00 0x07 0xDF 0x09 0x02"
-                    }
-                },
-                RoutineFilters = new []
-                {
-                    new FilterObject()
-                    {
-                        FilterProtocol = ProtocolId.ISO15765,
-                        FilterFlags = TxFlags.ISO15765_FRAME_PAD,
-                        FilterType = FilterDef.FLOW_CONTROL_FILTER,
-                        FilterMask = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0xFF 0xFF",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterPattern = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE8",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterFlowControl = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE0",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                    },
-                    new FilterObject()
-                    {
-                        FilterProtocol = ProtocolId.ISO15765,
-                        FilterFlags = TxFlags.ISO15765_FRAME_PAD,
-                        FilterType = FilterDef.FLOW_CONTROL_FILTER,
-                        FilterMask = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0xFF 0xFF",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterPattern = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE9",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterFlowControl = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE1",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                    },
-                    new FilterObject()
-                    {
-                        FilterProtocol = ProtocolId.ISO15765,
-                        FilterFlags = TxFlags.ISO15765_FRAME_PAD,
-                        FilterType = FilterDef.FLOW_CONTROL_FILTER,
-                        FilterMask = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0xFF 0xFF",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterPattern = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xEA",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterFlowControl = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE2",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                    },
-                    new FilterObject()
-                    {
-                        FilterProtocol = ProtocolId.ISO15765,
-                        FilterFlags = TxFlags.ISO15765_FRAME_PAD,
-                        FilterType = FilterDef.FLOW_CONTROL_FILTER,
-                        FilterMask = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0xFF 0xFF",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterPattern = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xEB",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterFlowControl = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE3",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                    },
-                    new FilterObject()
-                    {
-                        FilterProtocol = ProtocolId.ISO15765,
-                        FilterFlags = TxFlags.ISO15765_FRAME_PAD,
-                        FilterType = FilterDef.FLOW_CONTROL_FILTER,
-                        FilterMask = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0xFF 0xFF",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterPattern = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xEC",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterFlowControl = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE4",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                    },
-                    new FilterObject()
-                    {
-                        FilterProtocol = ProtocolId.ISO15765,
-                        FilterFlags = TxFlags.ISO15765_FRAME_PAD,
-                        FilterType = FilterDef.FLOW_CONTROL_FILTER,
-                        FilterMask = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0xFF 0xFF",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterPattern = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xED",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterFlowControl = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE5",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                    },
-                    new FilterObject()
-                    {
-                        FilterProtocol = ProtocolId.ISO15765,
-                        FilterFlags = TxFlags.ISO15765_FRAME_PAD,
-                        FilterType = FilterDef.FLOW_CONTROL_FILTER,
-                        FilterMask = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0xFF 0xFF",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterPattern = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xEE",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterFlowControl = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE6",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                    },
-                    new FilterObject()
-                    {
-                        FilterProtocol = ProtocolId.ISO15765,
-                        FilterFlags = TxFlags.ISO15765_FRAME_PAD,
-                        FilterType = FilterDef.FLOW_CONTROL_FILTER,
-                        FilterMask = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0xFF 0xFF",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterPattern = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xEF",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                        FilterFlowControl = new MessageObject()
-                        {
-                            MessageData = "0xFF 0xFF 0x07 0xE7",
-                            MessageProtocol = ProtocolId.ISO15765,
-                            MessageFlags = TxFlags.ISO15765_FRAME_PAD
-                        },
-                    }
-                }
-            }
-        };
+        public static ProtocolId[] SupportedProtocols => 
+            JArray.FromObject(AllocateResource("AutoIdRoutines.json", "SupportedProtocols"))
+                .Value<ProtocolId[]>();
+        public static SharpIdConfiguration[] SupportedCommandRoutines =>
+            JArray.FromObject(AllocateResource("AutoIdRoutines.json", "SupportedCommandRoutines"))
+                .Value<SharpIdConfiguration[]>();
+        
 
         // All Loaded AutoID routines for this instance
         public static Tuple<ProtocolId, SharpIdConfiguration>[] LoadedRoutines
@@ -271,6 +54,32 @@ namespace SharpAutoId.SharpAutoIdHelpers
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Pulls a new resource from a given file name
+        /// </summary>
+        /// <param name="ResourceFileName">Name of the file</param>
+        /// <param name="ObjectName">Object name</param>
+        /// <returns></returns>
+        private static JObject AllocateResource(string ResourceFileName, string ObjectName)
+        {
+            // Get the current Assembly
+            var CurrentAssy = Assembly.GetExecutingAssembly();
+            var AssyResc = CurrentAssy.GetManifestResourceNames().Single(RescName => RescName.Contains(ResourceFileName));
+            using (Stream RescStream = CurrentAssy.GetManifestResourceStream(AssyResc))
+            using (StreamReader RescReader = new StreamReader(RescStream))
+            {
+                // Build basic object and then return it to be pulled from
+                JObject RescObject = JObject.Parse(RescReader.ReadToEnd());
+                if (RescObject[ObjectName] == null) return RescObject;
+                if (RescObject[ObjectName].Type == JTokenType.Array)
+                    return JObject.FromObject(RescObject[ObjectName]);
+
+                // Try and return our requested part of the object
+                try { return (JObject)RescObject[ObjectName]; }
+                catch { return RescObject; }
+            }
+        }
 
         /// <summary>
         /// Gets an auto ID routine for the given protocol value.

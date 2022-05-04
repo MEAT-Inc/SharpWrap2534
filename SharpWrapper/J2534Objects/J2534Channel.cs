@@ -237,7 +237,7 @@ namespace SharpWrap2534.J2534Objects
             else
             {
                 // Check if any of the filters are identical so far.
-                if (JChannelFilters.FirstOrDefault(FilterObj => FilterObj.ToString()
+                if (JChannelFilters.FirstOrDefault(FilterObj => FilterObj != null && FilterObj.ToString()
                     .Contains($"MessageData: {MaskString ?? "NO_MASK"},{PatternString ?? "NO_PATTERN"},{FlowControl ?? "NO_FLOW"}")) != null)
                     throw new PassThruException("Can not apply an already existing filter!", J2534Err.ERR_INVALID_FILTER_ID);
             }

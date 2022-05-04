@@ -15,7 +15,7 @@ namespace SharpAutoId
     /// Interface base for Auto ID routines which can be used by our connection routine.
     /// This interface lays out a Open, Connect, Read VIN, and Close command.
     /// </summary>
-    public partial class SharpAutoId
+    public abstract class SharpAutoIdHelper
     {
         // Logger object for monitoring logger outputs
         protected internal readonly SubServiceLogger AutoIdLogger;
@@ -40,11 +40,12 @@ namespace SharpAutoId
         /// <summary>
         /// Builds a new connection instance for AutoID
         /// </summary>
-        protected internal SharpAutoId(Sharp2534Session SessionInstance, ProtocolId ProtocolValue)
+        protected internal SharpAutoIdHelper(Sharp2534Session SessionInstance, ProtocolId ProtocolValue)
         {
             // Store class values here and build our new logger object.
             this.AutoIdType = ProtocolValue;
             this.DLL = SessionInstance.DllName;
+            this.SessionInstance = SessionInstance;
             this.Device = SessionInstance.DeviceName;
             this.Version = SessionInstance.DeviceVersion;
 
@@ -87,11 +88,7 @@ namespace SharpAutoId
                 // Open our session object and begin connecting
                 this.SessionInstance.PTOpen();
                 this.AutoIdLogger.WriteLog("BUILT NEW SHARP SESSION FOR ROUTINE OK! SHOWING RESULTS BELOW", LogType.InfoLog);
-
-                // Now connect our channel object
-                if (this.ConnectChannel(out this.ChannelIdOpened)) this.AutoIdLogger.WriteLog("CONNECTED TO OUR CHANNEL INSTANCE OK!", LogType.InfoLog);
-                else throw new InvalidOperationException($"FAILED TO CONNECT TO NEW {this.AutoIdType} CHANNEL!");
-
+                
                 // Log the instance information output
                 this.AutoIdLogger.WriteLog(this.SessionInstance.ToDetailedString());
                 return true;
@@ -134,22 +131,12 @@ namespace SharpAutoId
         /// </summary>
         /// <param name="ChannelId">Channel ID Opened</param>
         /// <returns>True if the channel is opened, false if it is not.</returns>
-        public virtual bool ConnectChannel(out uint ChannelId)
-        {
-            // No Channel ID Value found and return false.
-            ChannelId = 0;
-            return false;
-        }
+        public abstract bool ConnectChannel(out uint ChannelId);
         /// <summary>
         /// Finds the VIN of the currently connected vehicle
         /// </summary>
         /// <param name="VinNumber">VIN Number pulled</param>
         /// <returns>True if a VIN is pulled, false if it isn't</returns>
-        public virtual bool RetrieveVinNumber(out string VinNumber)
-        {
-            // Null VIN Value found and return false.
-            VinNumber = null;
-            return false;
-        }
+        public abstract bool RetrieveVinNumber(out string VinNumber);
     }
 }

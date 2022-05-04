@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
@@ -383,7 +384,7 @@ namespace SharpWrap2534
 
             // Log information out and prepare to wrtie
             this._logSupport.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
-            this._logSupport.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND WITH TIMEOUT AND MESSAGE: {SendTimeout}ms - {MessageToSend} MESSAGES", LogType.InfoLog);
+            this._logSupport.WriteCommandLog($"ISSUING PASSTHRU WRITE COMMAND WITH TIMEOUT AND MESSAGE: {SendTimeout}ms - 1 MESSAGES", LogType.InfoLog);
 
             // Issue command, log output and return.
             uint MessagesSent = ChannelInUse.PTWriteMessages(MessageToSend, SendTimeout);
@@ -472,7 +473,18 @@ namespace SharpWrap2534
             // Print our messages out and return them.
             this._logSupport.WriteCommandLog("RETURNING OUT CONTENTS FOR MESSAGES PULLED IN NOW!", LogType.InfoLog);
             this._logSupport.WriteCommandLog($"READ A TOTAL OF {ReadMessages.Length} OUT OF {MessagesToRead} EXPECTED MESSAGES", LogType.InfoLog);
-            this._logSupport.WriteCommandLog(J2534Device.PTMessageToTableString(ReadMessages));
+            try
+            {
+                // Build logging output table for field information
+                var BuiltStrings = J2534Device.PTMessageToTableString(ReadMessages);
+                this._logSupport.WriteCommandLog(BuiltStrings);
+            } 
+            catch
+            {
+                // Log them out normally here
+                this._logSupport.WriteCommandLog("MESSAGES READ WITHOUT ISSUES! PRINTING THEM OUT BELOW IN HEX FORMAT NOW...", LogType.InfoLog);
+                this._logSupport.WriteCommandLog(string.Join("\t-->", ReadMessages.Select(MsgObj => BitConverter.ToString(MsgObj.Data))));
+            }
             if (MessagesToRead != ReadMessages.Length) this._logSupport.WriteCommandLog("WARNING! READ MISMATCH ON MESSAGE COUNT!", LogType.WarnLog);
             return ReadMessages;
         }

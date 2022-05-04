@@ -13,7 +13,7 @@ namespace SharpAutoId.SharpAutoIdRoutines
     /// <summary>
     /// Auto ID routine for an ISO15765 Routine configuration
     /// </summary>
-    internal class SharpAutoId_ISO15765 : SharpAutoId
+    internal class SharpAutoId_ISO15765 : SharpAutoIdHelper
     {
         /// <summary>
         /// Builds a new AutoID routine for ISO15765 channels
@@ -69,6 +69,7 @@ namespace SharpAutoId.SharpAutoIdRoutines
             this.AutoIdLogger.WriteLog($"CHANNEL ID OPENED WAS SEEN TO BE: {this.ChannelIdOpened}", LogType.WarnLog);
 
             // Build our filter objects here and apply them all.
+            this.FilterIds = Array.Empty<uint>();
             var FilterObjects = this.AutoIdCommands.RoutineFilters.Select(FilterObj =>
             {
                 // Store our types for filters here.
@@ -132,7 +133,7 @@ namespace SharpAutoId.SharpAutoIdRoutines
         {
             // Assign the VIN number a default blank value
             VinNumber = null;
-
+            
             // Start by pulling in our message command contents. Assume the final command issued is the one which will return us a VIN Number.
             var MessageObjects = this.AutoIdCommands.RoutineCommands.Select(CommandObj =>
             {
@@ -165,7 +166,7 @@ namespace SharpAutoId.SharpAutoIdRoutines
                 this.AutoIdLogger.WriteLog($"SENT MESSAGE: {SentDataString}", LogType.InfoLog);
 
                 // Read the message back here and store them on our class.
-                var MessagesRead = this.SessionInstance.PTReadMessages(10, 250);
+                var MessagesRead = this.SessionInstance.PTReadMessages(10);
                 this.AutoIdLogger.WriteLog($"READ IN A TOTAL OF {MessagesRead.Length} MESSAGES!", LogType.InfoLog);
                 ResponseMessages.AddRange(MessagesRead);
 
@@ -199,9 +200,9 @@ namespace SharpAutoId.SharpAutoIdRoutines
 
             // Store our VIN Message, convert it to a string, and print it out
             var VinMessage = UsableMessages[0];
-            string VINValue = Encoding.Default.GetString(VinMessage.Data.Skip(7).ToArray());
-            this.AutoIdLogger.WriteLog($"VIN NUMBER VALUE PULLED: {VINValue}", LogType.InfoLog);
-            this.VinNumberLocated = VINValue;
+            VinNumber = Encoding.Default.GetString(VinMessage.Data.Skip(7).ToArray());
+            this.AutoIdLogger.WriteLog($"VIN NUMBER VALUE PULLED: {VinNumber}", LogType.InfoLog);
+            this.VinNumberLocated = VinNumber;
             return true;
         }
     }

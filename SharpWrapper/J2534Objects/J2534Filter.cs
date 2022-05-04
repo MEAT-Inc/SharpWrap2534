@@ -25,7 +25,7 @@ namespace SharpWrap2534.J2534Objects
         /// <summary>
         /// Empty CTOR For filter type output.
         /// </summary>
-        internal J2534Filter() { FilterStatus = PTInstanceStatus.NULL; }
+        public J2534Filter() { FilterStatus = PTInstanceStatus.NULL; }
         /// <summary>
         /// Builds a new filter using a mask, pattern, and the Id of it.
         /// </summary>

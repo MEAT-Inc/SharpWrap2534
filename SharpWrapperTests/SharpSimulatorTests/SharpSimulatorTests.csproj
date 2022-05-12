@@ -42,7 +42,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="LoadingSimulationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,10 +57,6 @@
     <ProjectReference Include="..\..\SharpWrapperExtensions\SharpSimLoader\SharpSimulator.csproj">
       <Project>{0a39e208-7927-41bc-a509-39e60b287969}</Project>
       <Name>SharpSimulator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SharpWrapper\SharpWrap2534.csproj">
-      <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
-      <Name>SharpWrap2534</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -455,19 +455,6 @@ namespace SharpWrap2534.J2534Objects
         /// Clears out the TX Buffer on the channel
         /// </summary>
         public void ClearTxBuffer() { _jDevice.ApiInstance.PassThruIoctl(ChannelId, IoctlId.CLEAR_TX_BUFFER, IntPtr.Zero, IntPtr.Zero); }
-        
-        /*  NOTE! PLEASE READ THIS BEFORE THINKING THIS WRAPPER IS MISSING SHIT!        
-            TODO: INCLUDE THESE METHODS INTO THIS CHANNEL WRAPPER AT SOME POINT IN THE FUTURE!       
-        
-            ----------------------------------------------------------------------------------            
-        
-            The following methods are NOT included in this wrapper yet since I don't need them.
-            \__ FiveBaudInit
-            \__ FastInit
-            \__ GetConfig (ConfigParamId)
-            \__ SetConfig (ConfigParamId, uint)
-        */
-
         /// <summary>
         /// Issues an IOCTL for setting pins on the current channel object 
         /// </summary>
@@ -493,11 +480,70 @@ namespace SharpWrap2534.J2534Objects
         /// <returns>Uint built output value</returns>
         public uint GetConfig(ConfigParamId ConfigParam)
         {
-            throw new NotImplementedException("GetConfig is not yet built into this wrapper!");
+            // Build structures for config pulling
+            PassThruStructs.SConfigList GetConfigList = new PassThruStructs.SConfigList { NumberOfParams = 1 };
+            PassThruStructs.SConfig SConfigToPull = new PassThruStructs.SConfig(ConfigParam);
+
+            // Add values into our list of configurations and marshall it out
+            GetConfigList.ConfigList.Add(SConfigToPull);
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.GET_CONFIG, ref GetConfigList);
+
+            // Return the located value output
+            return GetConfigList.ConfigList[0].SConfigValue;
         }
-        public void SetConfig(ConfigParamId ConfigParam, uint Value) { throw new NotImplementedException("SetConfig is not yet built into this wrapper!"); }
-        public byte[] FiveBaudInit(byte ByteIn) { throw new NotImplementedException("FiveBaudInit is not yet built into this wrapper!"); }
-        public byte[] FastInit(byte[] BytesIn, bool ResponseRequired) { throw new NotImplementedException("FastInit is not yet built into this wrapper!"); }
+        /// <summary>
+        /// Issues a SetConfig command which is used to allow us to configure 
+        /// </summary>
+        /// <param name="ConfigParam">Config value ot set</param>
+        /// <param name="Value">Value of the config param</param>
+        public void SetConfig(ConfigParamId ConfigParam, uint Value)
+        {
+            // Build values for the structs to use for setting configuration
+            PassThruStructs.SConfigList SetConfigList = new PassThruStructs.SConfigList { NumberOfParams = 1 };
+            PassThruStructs.SConfig SetConfig = new PassThruStructs.SConfig(ConfigParam) { SConfigValue = Value };
+            
+            // Add to the configuration list and marshall out the values.
+            SetConfigList.ConfigList.Add(SetConfig);
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.SET_CONFIG, ref SetConfigList);
+        }
+        /// <summary>
+        /// Issues a FiveBaudInit routine for some ISO protocols.
+        /// </summary>
+        /// <param name="ByteIn">Byte read in</param>
+        /// <returns>The Byte array for the syncup needed</returns>
+        public byte[] FiveBaudInit(byte ByteIn)
+        {
+            // Built input and output SByte Arrays
+            PassThruStructs.SByteArray SByteArrayIn = new PassThruStructs.SByteArray(1) { Data = { [0] = ByteIn } };
+            PassThruStructs.SByteArray SByteArrayOut = new PassThruStructs.SByteArray(64);
+
+            // Marshall out the command and store the output value
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.FIVE_BAUD_INIT, SByteArrayIn, ref SByteArrayOut);
+            byte[] OutputBytes = J2534Device.CreateByteArrayFromSByteArray(SByteArrayOut);
+
+            // Return the built output values
+            return OutputBytes; 
+        }
+        /// <summary>
+        /// Issues a fast init used for some ISO commands
+        /// </summary>
+        /// <param name="BytesIn">Input byte for sync</param>
+        /// <param name="ResponseRequired">Indicates if we need to keep the response or not.</param>
+        /// <returns>Response from this command if one is given and asked for</returns>
+        public byte[] FastInit(byte[] BytesIn, bool ResponseRequired)
+        {
+            // Build a message to hook into for input and output
+            PassThruStructs.PassThruMsg InputMessage = default;
+            PassThruStructs.PassThruMsg OutputMessage = default;
+            
+            // Hook and populate values.
+            if (BytesIn != null) InputMessage = J2534Device.CreatePTMsgFromDataBytes(this.ProtocolId, 0, BytesIn);
+            if (ResponseRequired) OutputMessage = new PassThruStructs.PassThruMsg(64);
+
+            // Marshall out the content values and then return if required
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.FAST_INIT, InputMessage, ref OutputMessage);
+            return ResponseRequired ? OutputMessage.Data : null;
+        }
 
         // ----------------------------------------- VERSION 0500 CHANNEL SPECIFIC METHOD SET HERE --------------------------------
 

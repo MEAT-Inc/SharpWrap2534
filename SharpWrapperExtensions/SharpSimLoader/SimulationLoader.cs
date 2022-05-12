@@ -51,7 +51,7 @@ namespace SharpSimLoader
         /// <param name="ToRead">Messages To Read and Respond to</param>
         /// <param name="ToWrite">Response Messages</param>
         /// <returns>Index of the newest built channel</returns>
-        public int SaveSimChannel(ProtocolId Protocol, J2534Filter[] Filters, PassThruStructs.PassThruMsg[] ToRead, PassThruStructs.PassThruMsg[] ToWrite)
+        public int AddSimChannel(ProtocolId Protocol, J2534Filter[] Filters, PassThruStructs.PassThruMsg[] ToRead, PassThruStructs.PassThruMsg[] ToWrite)
         {
             // Store all new values here.
             this.ChannelProtocols.Add(Protocol);

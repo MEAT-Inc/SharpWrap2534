@@ -464,16 +464,40 @@ namespace SharpWrap2534.J2534Objects
             The following methods are NOT included in this wrapper yet since I don't need them.
             \__ FiveBaudInit
             \__ FastInit
-            \__ SetPins (uint)
             \__ GetConfig (ConfigParamId)
             \__ SetConfig (ConfigParamId, uint)
         */
 
-        public void SetPins(uint PinsToSet) { throw new NotImplementedException("SetPins is not yet built into this wrapper!"); }
-        public uint GetConfig(ConfigParamId configParam) { throw new NotImplementedException("GetConfig is not yet built into this wrapper!"); }
-        public void SetConfig(ConfigParamId configParam, uint val) { throw new NotImplementedException("SetConfig is not yet built into this wrapper!"); }
-        public byte[] FiveBaudInit(byte byteIn) { throw new NotImplementedException("FiveBaudInit is not yet built into this wrapper!"); }
-        public byte[] FastInit(byte[] bytesIn, bool responseRequired) { throw new NotImplementedException("FastInit is not yet built into this wrapper!"); }
+        /// <summary>
+        /// Issues an IOCTL for setting pins on the current channel object 
+        /// </summary>
+        /// <param name="PinsToSet">Pin to set</param>
+        public void SetPins(uint PinsToSet)
+        {
+            // Build a config list, then new param object
+            PassThruStructs.SConfigList SetConfigList = new PassThruStructs.SConfigList();
+            PassThruStructs.SConfig ParamOne = new PassThruStructs.SConfig(ConfigParamId.J1962_PINS);
+
+            // Store values onto the newly built config object
+            ParamOne.SConfigValue = PinsToSet;
+            SetConfigList.ConfigList.Add(ParamOne);
+            SetConfigList.NumberOfParams = 1;
+
+            // Marshall out the command to our IOCTL
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.SET_CONFIG, ref SetConfigList);
+        }
+        /// <summary>
+        /// Reads our current configuration for a given SConfig value
+        /// </summary>
+        /// <param name="ConfigParam">Config value to locate</param>
+        /// <returns>Uint built output value</returns>
+        public uint GetConfig(ConfigParamId ConfigParam)
+        {
+            throw new NotImplementedException("GetConfig is not yet built into this wrapper!");
+        }
+        public void SetConfig(ConfigParamId ConfigParam, uint Value) { throw new NotImplementedException("SetConfig is not yet built into this wrapper!"); }
+        public byte[] FiveBaudInit(byte ByteIn) { throw new NotImplementedException("FiveBaudInit is not yet built into this wrapper!"); }
+        public byte[] FastInit(byte[] BytesIn, bool ResponseRequired) { throw new NotImplementedException("FastInit is not yet built into this wrapper!"); }
 
         // ----------------------------------------- VERSION 0500 CHANNEL SPECIFIC METHOD SET HERE --------------------------------
 

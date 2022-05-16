@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace SharpWrap2534.PassThruTypes
 {
@@ -25,9 +26,8 @@ namespace SharpWrap2534.PassThruTypes
             public uint ExtraDataIndex;
 
             // Data Contents as bytes and strings 
-            public byte[] Data;
-            public string HexData => this.DataToHexString();
-            public string AsciiData => this.DataToAsciiString();
+            public byte[] Data; 
+            public string DataString => this.DataToHexString(true);
 
             /// <summary>
             /// Builds a new PassThru message from managed types.

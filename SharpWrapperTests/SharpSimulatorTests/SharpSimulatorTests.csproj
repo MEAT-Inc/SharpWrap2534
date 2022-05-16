@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="LoadingSimulationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LoadingSimulationTestsData.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSTest.TestAdapter">

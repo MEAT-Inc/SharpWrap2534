@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Text;
 
 namespace SharpWrap2534.PassThruTypes
 {
@@ -22,13 +23,17 @@ namespace SharpWrap2534.PassThruTypes
             public uint Timestamp;
             public uint DataSize;
             public uint ExtraDataIndex;
+
+            // Data Contents as bytes and strings 
             public byte[] Data;
+            public string HexData => this.DataToHexString();
+            public string AsciiData => this.DataToAsciiString();
 
             /// <summary>
             /// Builds a new PassThru message from managed types.
             /// </summary>
             /// <param name="ByteCount"></param>
-            public PassThruMsg(uint ByteCount)
+            public PassThruMsg(uint ByteCount = 0)
             {
                 ProtocolID = 0;
                 RxStatus = 0;
@@ -36,7 +41,41 @@ namespace SharpWrap2534.PassThruTypes
                 Timestamp = 0;
                 DataSize = 0;
                 ExtraDataIndex = 0;
+                
+                // Build String Data and Bytes Value;
                 Data = new byte[ByteCount];
+            }
+
+            /// <summary>
+            /// Converts the Message Data into a hex string with the formatting requested
+            /// </summary>
+            /// <returns></returns>
+            public string DataToAsciiString()
+            {
+                // Convert the data into the given format here.
+                if (this.Data.All(ByteObj => ByteObj == 0x00)) return "No Data!";
+                string AsciiString = Encoding.Default.GetString(this.Data);
+                return AsciiString;
+            }
+            /// <summary>
+            /// Converts message data output into a custom string of Hex Values
+            /// </summary>
+            /// <param name="Use0x">Sets if we should use 0x or not.</param>
+            /// <returns></returns>
+            public string DataToHexString(bool Use0x = false)
+            {
+                // Ensure we have data contents here
+                if (this.Data.All(ByteObj => ByteObj == 0x00)) return "No Data!";
+
+                // Convert to a string Array by splitting on '-'
+                string[] BytesAsStrings = BitConverter
+                    .ToString(this.Data ?? Array.Empty<byte>())
+                    .Split('-');
+
+                // If not using 0x, then just return the split values
+                if (!Use0x) { return string.Join(" ", BytesAsStrings); }
+                BytesAsStrings = BytesAsStrings.Select(ByteString => $"0x{ByteString}").ToArray();
+                return string.Join(" ", BytesAsStrings);
             }
         }
         /// <summary>

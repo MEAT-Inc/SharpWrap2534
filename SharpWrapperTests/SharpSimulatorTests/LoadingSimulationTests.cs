@@ -16,29 +16,17 @@ namespace SharpSimulatorTests
     [TestClass]
     public class LoadingSimulationTests
     {
-        // Start by building a new simulation channel object to load in.
-        public readonly ProtocolId Protocol = ProtocolId.ISO15765;
-        public readonly J2534Filter[] BuiltFilters = new[] { new J2534Filter()
+        /// <summary>
+        /// Setup routine for tests for loading in new simulation objects
+        /// </summary>
+        [TestInitialize]
+        public void SetUpSimTests()
         {
-            FilterFlags = 0x40,
-            FilterMask = "00 00 FF FF",
-            FilterPattern = "00 00 07 E8",
-            FilterFlowCtl = "00 00 07 E0"
-        }};
-        public readonly PassThruStructs.PassThruMsg[] MessagesToWrite = new[] { new PassThruStructs.PassThruMsg()
-        {
-            DataSize = 6,
-            ProtocolID = ProtocolId.ISO15765,
-            TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
-            Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x09, 0x42 },
-        }};
-        public readonly PassThruStructs.PassThruMsg[] MessagesToRead = new[] { new PassThruStructs.PassThruMsg()
-        {
-            DataSize = 6,
-            ProtocolID = ProtocolId.ISO15765,
-            TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
-            Data = new byte[] { 0x00, 0x00, 0x07, 0xDF, 0x09, 0x02 },
-        }};
+            // Init Logging here.
+            NLog.LogManager.Configuration = new LoggingConfiguration();
+            string LoggingOutputPath = Path.Combine(Directory.GetCurrentDirectory(), "SharpLoggingOutput");
+            SharpLogger.LogBroker.ConfigureLoggingSession("SharpSimLoggingTests", LoggingOutputPath);
+        }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -48,14 +36,9 @@ namespace SharpSimulatorTests
         [TestMethod]
         public void BuildSimLoader()
         {
-            // Init Logging here.
-            NLog.LogManager.Configuration = new LoggingConfiguration();
-            string LoggingOutputPath = Path.Combine(Directory.GetCurrentDirectory(), "SharpLoggingOutput");
-            SharpLogger.LogBroker.ConfigureLoggingSession("SharpSimLoggingTests", LoggingOutputPath);
-
             // Build a new Simulation Channel
-            var ChannelLoader = new SimulationLoader(); 
-            int NewIndex = ChannelLoader.AddSimChannel(this.Protocol, this.BuiltFilters, this.MessagesToRead, this.MessagesToWrite);
+            var ChannelLoader = new SimulationLoader();
+            int NewIndex = ChannelLoader.AddSimChannel(SimLoadingTestData.Protocol, SimLoadingTestData.BuiltFilters, SimLoadingTestData.MessagesToRead, SimLoadingTestData.MessagesToWrite);
             Assert.AreNotEqual(-1, NewIndex, "ERROR! FAILED TO ADD NEW SIMULATION CHANNEL SINCE THERE WAS AN INVALID INDEX!");
         }
         /// <summary>
@@ -64,14 +47,9 @@ namespace SharpSimulatorTests
         [TestMethod] 
         public void ConsumeBuiltLoader()
         {
-            // Init Logging here.
-            NLog.LogManager.Configuration = new LoggingConfiguration();
-            string LoggingOutputPath = Path.Combine(Directory.GetCurrentDirectory(), "SharpLoggingOutput");
-            SharpLogger.LogBroker.ConfigureLoggingSession("SharpSimLoggingTests", LoggingOutputPath);
-
             // Build a new Simulation Channel
             var ChannelLoader = new SimulationLoader();
-            int NewIndex = ChannelLoader.AddSimChannel(this.Protocol, this.BuiltFilters, this.MessagesToRead, this.MessagesToWrite);
+            int NewIndex = ChannelLoader.AddSimChannel(SimLoadingTestData.Protocol, SimLoadingTestData.BuiltFilters, SimLoadingTestData.MessagesToRead, SimLoadingTestData.MessagesToWrite);
             Assert.AreNotEqual(-1, NewIndex, "ERROR! FAILED TO ADD NEW SIMULATION CHANNEL SINCE THERE WAS AN INVALID INDEX!");
 
             // Pull in the old channel built and build a player

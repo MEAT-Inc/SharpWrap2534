@@ -22,19 +22,60 @@ namespace SharpSimulatorTests
             FilterPattern = "00 00 07 E8",
             FilterFlowCtl = "00 00 07 E0"
         }};
-        public static readonly PassThruStructs.PassThruMsg[] MessagesToWrite = new[] { new PassThruStructs.PassThruMsg()
+
+        // Paired Message Commands
+        public static readonly Tuple<PassThruStructs.PassThruMsg, PassThruStructs.PassThruMsg[]>[] PairedMessages = new[]
         {
-            DataSize = 6,
-            ProtocolID = ProtocolId.ISO15765,
-            TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
-            Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x09, 0x42 },
-        }};
-        public static readonly PassThruStructs.PassThruMsg[] MessagesToRead = new[] { new PassThruStructs.PassThruMsg()
-        {
-            DataSize = 6,
-            ProtocolID = ProtocolId.ISO15765,
-            TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
-            Data = new byte[] { 0x00, 0x00, 0x07, 0xDF, 0x09, 0x02 },
-        }};
+            new Tuple<PassThruStructs.PassThruMsg, PassThruStructs.PassThruMsg[]>
+            (
+                // Message containing VIN Number
+                new PassThruStructs.PassThruMsg()
+                {
+                    DataSize = 6,
+                    ProtocolID = ProtocolId.ISO15765,
+                    TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
+                    Data = new byte[] { 0x00, 0x00, 0x07, 0xDF, 0x09, 0x02 },
+                },
+
+                // Message to get the VIN Number
+                new []
+                {
+                    new PassThruStructs.PassThruMsg()
+                    {
+                        DataSize = 6,
+                        ProtocolID = ProtocolId.ISO15765,
+                        TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
+                        Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x49, 0x02, 0x01, 0x31, 0x47, 0x31, 0x46, 0x42, 0x33, 0x44, 0x53, 0x33, 0x4B, 0x30, 0x31, 0x31, 0x37, 0x32, 0x32, 0x38 },
+                    },
+                }
+            ),
+            new Tuple<PassThruStructs.PassThruMsg, PassThruStructs.PassThruMsg[]>
+            (
+                // Message containing VIN Number
+                new PassThruStructs.PassThruMsg()
+                {
+                    DataSize = 6,
+                    ProtocolID = ProtocolId.ISO15765,
+                    TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
+                    Data = new byte[] { 0x00, 0x00, 0x07, 0xDF, 0x02, 0x01 },
+                },
+
+                // Message to get the VIN Number
+                new []
+                {
+                    new PassThruStructs.PassThruMsg()
+                    {
+                        DataSize = 6,
+                        ProtocolID = ProtocolId.ISO15765,
+                        TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
+                        Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x42, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00 },
+                    },
+                }
+            )
+        };
+
+        // Messages to read and write as is without pairing assignments
+        public static PassThruStructs.PassThruMsg[] MessagesToWrite => PairedMessages.Select(MsgSet => MsgSet.Item1).ToArray();
+        public static PassThruStructs.PassThruMsg[] MessagesToRead = PairedMessages.SelectMany(MsgSet => MsgSet.Item2).ToArray();
     }
 }

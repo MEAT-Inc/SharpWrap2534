@@ -28,6 +28,7 @@ namespace SharpSimLoader
         public readonly Sharp2534Session SimulationSession;
 
         // Values for our reader configuration.
+        private int LastOpenedIndex = -1;
         public uint ReaderTimeout { get; private set; }
         public uint ReaderMessageCount { get; private set; }
 
@@ -77,7 +78,7 @@ namespace SharpSimLoader
             this.ReaderMessageCount = MessageCount;
 
             // Log our stored values out as trace log.
-            this._simPlayingLogger.WriteLog($"STORED NEW READER CONFIGURATION! VALUES SET{MessageCount}:\n" +
+            this._simPlayingLogger.WriteLog($"STORED NEW READER CONFIGURATION! VALUES SET {MessageCount}:\n" +
                 $"{this.ReaderMessageCount} MESSAGES TO READ\n" +
                 $"{this.ReaderTimeout} TIMEOUT ON EACH READ COMMAND",
                 LogType.TraceLog
@@ -112,6 +113,7 @@ namespace SharpSimLoader
                     if (NeedsNewChannel)
                     {
                         // Build channel. Setup pass filter for CAN Channel
+                        this.SimulationSession.PTDisconnect(0);
                         ChannelBuilt = this.SimulationSession.PTConnect(0, Protocol, ConnectFlags, BaudRate, out ChannelIdBuilt);
                         if (Protocol == ProtocolId.ISO15765) ChannelBuilt.SetConfig(ConfigParamId.CAN_MIXED_FORMAT, 1);
                         ChannelBuilt.StartMessageFilter(FilterDef.PASS_FILTER, "00 00 07 00", "00 00 07 00", null);
@@ -137,7 +139,25 @@ namespace SharpSimLoader
                         this._simPlayingLogger.WriteLog($"--> MESSAGE [{IndexOfMessage}/{MessagesRead.Length}]: {PulledMessageString}", LogType.TraceLog);
 
                         // Now using those messages try and figure out what channel we need to open up.
-                        // TODO: BUILD LOGIC FOR FINDING MESSAGE READ AND THEN SETTING UP FILTERS FOR OUTPUT!
+                        int IndexOfMessageFound = this.GetIndexOfSimChannel(ReadMessage);
+                        if (IndexOfMessageFound != -1) 
+                        {
+                            // Mark a new channel is needed and build new one for configuration of messages
+                            NeedsNewChannel = true;
+                            if (!this.SetupSimChannel(IndexOfMessageFound)) 
+                                throw new InvalidOperationException("FAILED TO CONFIGURE NEW SIMULATION CHANNEL!");
+
+                            // Now try and reply to a given message value here
+                            if (!this.RespondToMessage(IndexOfMessageFound))
+                                throw new InvalidOperationException("FAILED TO RESPOND TO A GIVEN INPUT MESSAGE!");
+
+                            // Log passed response output and then continue on
+                            this._simPlayingLogger.WriteLog("RESPONSE TO MESSAGE SENT OUT OK!", LogType.InfoLog);
+                            continue;
+                        }
+
+                        // Log no messages matched the given input message
+                        this._simPlayingLogger.WriteLog("NO MESSAGES FOUND MATCHING THE INPUT MESSAGE!", LogType.TraceLog);
                     }
                 }
             });
@@ -149,6 +169,61 @@ namespace SharpSimLoader
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
+        /// <summary>
+        /// Finds the index of the simulation channel in use for a given message.
+        /// Returns the index and allows user to configure filters on the fly for it.
+        /// </summary>
+        /// <param name="MessageToFind">Message to locate</param>
+        /// <returns></returns>
+        private int GetIndexOfSimChannel(PassThruStructs.PassThruMsg MessageToFind)
+        {
+            // Find the message that was read in and passed here. 
+            var MessageSetPulled = this.InputSimulation.PairedSimulationMessages
+                .FirstOrDefault(SimMsgSet => SimMsgSet.Item1.Data == MessageToFind.Data);
+            if (MessageSetPulled == null) return -1;
 
+            // Now Find the index of the message set to return out
+            return this.InputSimulation.PairedSimulationMessages.IndexOf(MessageSetPulled);
+        }
+        /// <summary>
+        /// Configures a new Simulation channel for a given input index value
+        /// </summary>
+        /// <param name="IndexOfChannel">Channel index to apply from</param>
+        /// <returns></returns>
+        private bool SetupSimChannel(int IndexOfChannel)
+        {
+            // Check the index value
+            if (IndexOfChannel == this.LastOpenedIndex) return false;
+            if (IndexOfChannel < 0 || IndexOfChannel >= this.InputSimulation.PairedSimulationMessages.Count)
+                throw new InvalidOperationException($"CAN NOT APPLY CHANNEL OF INDEX {IndexOfChannel} SINCE IT IS OUT OF RANGE!");
+
+            // Store channel messages and filters
+            var ProtocolValue = this.InputSimulation.ChannelProtocols[IndexOfChannel];
+            var FiltersToApply = this.InputSimulation.ChannelFilters[IndexOfChannel];
+
+            // Close the current channel, build a new one using the given protocol and then setup our filters.
+            this.SimulationSession.PTDisconnect(0);
+            var ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolValue, 0x00, 500000, out uint ChannelIdBuilt);
+            if (ProtocolValue == ProtocolId.ISO15765) ChannelBuilt.SetConfig(ConfigParamId.CAN_MIXED_FORMAT, 1);
+
+            // Now apply all of our filter objects
+            foreach (var ChannelFilter in FiltersToApply) { ChannelBuilt.StartMessageFilter(ChannelFilter); }
+            this._simPlayingLogger.WriteLog($"BUILT NEW CHANNEL WITH ID {ChannelIdBuilt} AND SETUP ALL FILTERS FOR THE GIVEN CHANNEL OK!", LogType.InfoLog);
+            this.LastOpenedIndex = IndexOfChannel;
+            return true;
+        }
+        /// <summary>
+        /// Responds to a given input message value
+        /// </summary>
+        /// <param name="MessageSetIndex">Index of messages to respond from</param>
+        private bool RespondToMessage(int MessageSetIndex)
+        {
+            // Pull out the message set, then find the response messages and send them out
+            var PulledMessages = this.InputSimulation.PairedSimulationMessages[MessageSetIndex];
+            this._simPlayingLogger.WriteLog($"WRITING OUT A TOTAL OF {PulledMessages.Item2.Length} MESSAGES...", LogType.TraceLog);
+
+            // Now issue each one out to the simulation interface
+            return this.SimulationSession.PTWriteMessages(PulledMessages.Item2);
+        }
     }
 }

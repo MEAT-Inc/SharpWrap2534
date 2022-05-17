@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using NLog.Config;
 using SharpLogger.LoggerObjects;
 using SharpSimLoader;
@@ -38,7 +40,7 @@ namespace SharpSimulatorTests
         {
             // Build a new Simulation Channel
             var ChannelLoader = new SimulationLoader();
-            int NewIndex = ChannelLoader.AddSimChannel(SimLoadingTestData.Protocol, SimLoadingTestData.BuiltFilters, SimLoadingTestData.MessagesToRead, SimLoadingTestData.MessagesToWrite);
+            int NewIndex = ChannelLoader.AddSimChannel(SimLoadingTestData.Protocol, SimLoadingTestData.BuiltFilters, SimLoadingTestData.PairedMessages);
             Assert.AreNotEqual(-1, NewIndex, "ERROR! FAILED TO ADD NEW SIMULATION CHANNEL SINCE THERE WAS AN INVALID INDEX!");
         }
         /// <summary>
@@ -49,7 +51,7 @@ namespace SharpSimulatorTests
         {
             // Build a new Simulation Channel
             var ChannelLoader = new SimulationLoader();
-            int NewIndex = ChannelLoader.AddSimChannel(SimLoadingTestData.Protocol, SimLoadingTestData.BuiltFilters, SimLoadingTestData.MessagesToRead, SimLoadingTestData.MessagesToWrite);
+            int NewIndex = ChannelLoader.AddSimChannel(SimLoadingTestData.Protocol, SimLoadingTestData.BuiltFilters, SimLoadingTestData.PairedMessages);
             Assert.AreNotEqual(-1, NewIndex, "ERROR! FAILED TO ADD NEW SIMULATION CHANNEL SINCE THERE WAS AN INVALID INDEX!");
 
             // Pull in the old channel built and build a player
@@ -57,9 +59,31 @@ namespace SharpSimulatorTests
             var SimulationPlayer = new SimulationPlayer(ChannelLoader, JVersion.V0404, "CarDAQ-Plus 3");
 
             // Configure the reader object, build startup task
-            SimulationPlayer.ConfigureReader(50);
             var StartupTask = SimulationPlayer.BuildReaderTask();
             Assert.IsNotNull(StartupTask, "ERROR! FAILED TO BUILD SIMULATION READER TASK! THIS IS FATAL!");
+        }
+        /// <summary>
+        /// Boots and runs a simulation task for setting up new information for channels
+        /// </summary>
+        [TestMethod]
+        public void StartSimulationReader()
+        {
+            // Build a new Simulation Channel
+            var ChannelLoader = new SimulationLoader();
+            int NewIndex = ChannelLoader.AddSimChannel(SimLoadingTestData.Protocol, SimLoadingTestData.BuiltFilters, SimLoadingTestData.PairedMessages);
+            Assert.AreNotEqual(-1, NewIndex, "ERROR! FAILED TO ADD NEW SIMULATION CHANNEL SINCE THERE WAS AN INVALID INDEX!");
+
+            // Pull in the old channel built and build a player
+            Assert.IsNotNull(ChannelLoader, "ERROR! FAILED TO LOAD NEW CHANNEL OBJECT FROM TEST METHOD BuildSimLoader!");
+            var SimulationPlayer = new SimulationPlayer(ChannelLoader, JVersion.V0404, "CarDAQ-Plus 3");
+
+            // Configure the reader object, build startup task
+            var StartupTask = SimulationPlayer.BuildReaderTask();
+            Assert.IsNotNull(StartupTask, "ERROR! FAILED TO BUILD SIMULATION READER TASK! THIS IS FATAL!");
+
+            // Start the reader task, wait 10 seconds, stop it.
+            SimulationPlayer.ConfigureReader(20, 1);
+            StartupTask.Wait(new CancellationTokenSource(10000).Token);
         }
     }
 }

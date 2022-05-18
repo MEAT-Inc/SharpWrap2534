@@ -28,7 +28,6 @@ namespace SharpSimLoader
         public readonly Sharp2534Session SimulationSession;
 
         // Values for our reader configuration.
-        private int LastOpenedIndex = -1;
         public uint ReaderTimeout { get; private set; }
         public uint ReaderMessageCount { get; private set; }
 
@@ -193,7 +192,6 @@ namespace SharpSimLoader
         private bool SetupSimChannel(int IndexOfChannel)
         {
             // Check the index value
-            if (IndexOfChannel == this.LastOpenedIndex) return false;
             if (IndexOfChannel < 0 || IndexOfChannel >= this.InputSimulation.PairedSimulationMessages.Count)
                 throw new InvalidOperationException($"CAN NOT APPLY CHANNEL OF INDEX {IndexOfChannel} SINCE IT IS OUT OF RANGE!");
 
@@ -209,7 +207,6 @@ namespace SharpSimLoader
             // Now apply all of our filter objects
             foreach (var ChannelFilter in FiltersToApply) { ChannelBuilt.StartMessageFilter(ChannelFilter); }
             this._simPlayingLogger.WriteLog($"BUILT NEW CHANNEL WITH ID {ChannelIdBuilt} AND SETUP ALL FILTERS FOR THE GIVEN CHANNEL OK!", LogType.InfoLog);
-            this.LastOpenedIndex = IndexOfChannel;
             return true;
         }
         /// <summary>

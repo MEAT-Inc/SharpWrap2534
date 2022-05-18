@@ -83,7 +83,7 @@ namespace SharpSimulatorTests
 
             // Start the reader task, wait 10 seconds, stop it.
             SimulationPlayer.ConfigureReader(20, 1);
-            StartupTask.Wait(new CancellationTokenSource(10000).Token);
+            StartupTask.Wait(new CancellationTokenSource(30000).Token);
         }
     }
 }

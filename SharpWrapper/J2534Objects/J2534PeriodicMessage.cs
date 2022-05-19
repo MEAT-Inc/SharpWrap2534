@@ -24,7 +24,7 @@ namespace SharpWrap2534.J2534Objects
         /// <summary>
         /// Builds and empty PTPeriodic Message object.
         /// </summary>
-        internal J2534PeriodicMessage() { MessageStatus = PTInstanceStatus.NULL; }
+        public J2534PeriodicMessage() { MessageStatus = PTInstanceStatus.NULL; }
         /// <summary>
         /// Builds a new message.
         /// </summary>

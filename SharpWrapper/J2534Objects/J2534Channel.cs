@@ -53,7 +53,13 @@ namespace SharpWrap2534.J2534Objects
             else
             {
                 // Find next open channel object
-                ChannelIndex = this._jDevice.DeviceChannels.ToList().IndexOf(null);
+                ChannelIndex =
+                    this._jDevice.DeviceChannels.All(ChannelObj => ChannelObj == null) ? 0 :
+                    this._jDevice.DeviceChannels
+                        .ToList()
+                        .FindIndex(ChannelObj => ChannelObj?.ChannelStatus is PTInstanceStatus.INITIALIZED or PTInstanceStatus.FREED);
+                
+                // Check index value
                 if (ChannelIndex == -1) 
                     throw new InvalidOperationException($"CAN NOT MAKE A NEW CHANNEL ON DEVICE {_jDevice.DeviceName} SINCE NO OPEN CHANNELS WERE FOUND!");
 
@@ -142,8 +148,8 @@ namespace SharpWrap2534.J2534Objects
         {
             // Store channel values.
             this.ChannelId = ChannelId;
-            ProtocolId = ChannelProtocol;
-            ConnectFlags = ChannelFlags;
+            this.ProtocolId = ChannelProtocol;
+            this.ConnectFlags = ChannelFlags;
             this.ChannelBaud = ChannelBaud;
 
             // Return stored ok
@@ -161,7 +167,7 @@ namespace SharpWrap2534.J2534Objects
 
             // Disconnect and reinit here.
             int IndexOfChannel = this._jDevice.DeviceChannels.ToList().IndexOf(ChannelToDisconnect);
-            this._jDevice.DeviceChannels[IndexOfChannel] = null;
+            this._jDevice.DeviceChannels[IndexOfChannel] = new J2534Channel(this._jDevice);
 
             // Return passed.
             return true;
@@ -215,14 +221,13 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FlowControl">Flow Ctl Value</param>
         /// <param name="FilterFlags">Flags for the filter</param>
         /// <param name="ForcedIndex">Forces a filter to be applied to a given index.</param>
-        public J2534Filter StartMessageFilter(FilterDef FilterType, string MaskString, string PatternString, string FlowControl, uint FilterFlags = 0, ProtocolId FilterProtocol = default, int ForcedIndex = -1)
+        public J2534Filter StartMessageFilter(ProtocolId FilterProtocol, FilterDef FilterType, string MaskString, string PatternString, string FlowControl, uint FilterFlags = 0, int ForcedIndex = -1)
         {
             // Make sure filter array exists and check for the filters being null or if one exists identical to this desired filter.
             if (ForcedIndex >= 10) { throw new ArgumentOutOfRangeException("UNABLE TO SET A FILTER INDEX OVER 9!"); }
             if (JChannelFilters == null) { JChannelFilters = new J2534Filter[new PassThruConstants(J2534Version).MaxFilters]; }
 
             // Build messages from filter strings.
-            FilterProtocol = FilterProtocol == default ? ProtocolId : FilterProtocol;
             PassThruStructs.PassThruMsg PtMaskMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, MaskString);
             PassThruStructs.PassThruMsg PtPatternMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, PatternString);
             PassThruStructs.PassThruMsg PtFlowCtlMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, FlowControl);
@@ -249,8 +254,8 @@ namespace SharpWrap2534.J2534Objects
             // Issue the new filter here and store onto filter list.
             _jDevice.ApiMarshall.PassThruStartMsgFilter(ChannelId, FilterType, PtMaskMsg, PtPatternMsg, PtFlowCtlMsg, out uint FilterId);
             if (FlowControl == null || FilterType != FilterDef.FLOW_CONTROL_FILTER)
-                JChannelFilters[NextIndex] = new J2534Filter(FilterType.ToString(), MaskString, PatternString, FilterFlags, FilterId);
-            else JChannelFilters[NextIndex] = new J2534Filter(FilterType.ToString(), MaskString, PatternString, FlowControl, FilterFlags, FilterId);
+                JChannelFilters[NextIndex] = new J2534Filter(FilterProtocol, FilterType, MaskString, PatternString, FilterFlags, FilterId);
+            else JChannelFilters[NextIndex] = new J2534Filter(FilterProtocol, FilterType, MaskString, PatternString, FlowControl, FilterFlags, FilterId);
 
             // Return the new filter.
             return JChannelFilters[NextIndex];
@@ -263,8 +268,15 @@ namespace SharpWrap2534.J2534Objects
         public J2534Filter StartMessageFilter(J2534Filter FilterToSet, int ForcedIndex = -1)
         {
             // Set the filter using the above method. Set it up using the stings from our filter.
-            FilterDef FilterType = (FilterDef)Enum.Parse(typeof(FilterDef), FilterToSet.FilterType);
-            return StartMessageFilter(FilterType, FilterToSet.FilterMask, FilterToSet.FilterPattern, FilterToSet.FilterFlowCtl, FilterToSet.FilterFlags, ForcedIndex: ForcedIndex);
+            return StartMessageFilter(
+                FilterToSet.FilterProtocol,
+                FilterToSet.FilterType,
+                FilterToSet.FilterMask,
+                FilterToSet.FilterPattern,
+                FilterToSet.FilterFlowCtl, 
+                FilterToSet.FilterFlags,
+                ForcedIndex: ForcedIndex
+            );
         }
 
         /// <summary>
@@ -481,7 +493,7 @@ namespace SharpWrap2534.J2534Objects
         public uint GetConfig(ConfigParamId ConfigParam)
         {
             // Build structures for config pulling
-            PassThruStructs.SConfigList GetConfigList = new PassThruStructs.SConfigList { NumberOfParams = 1 };
+            PassThruStructs.SConfigList GetConfigList = new PassThruStructs.SConfigList(1);
             PassThruStructs.SConfig SConfigToPull = new PassThruStructs.SConfig(ConfigParam);
 
             // Add values into our list of configurations and marshall it out
@@ -499,7 +511,7 @@ namespace SharpWrap2534.J2534Objects
         public void SetConfig(ConfigParamId ConfigParam, uint Value)
         {
             // Build values for the structs to use for setting configuration
-            PassThruStructs.SConfigList SetConfigList = new PassThruStructs.SConfigList { NumberOfParams = 1 };
+            PassThruStructs.SConfigList SetConfigList = new PassThruStructs.SConfigList(1);
             PassThruStructs.SConfig SetConfig = new PassThruStructs.SConfig(ConfigParam) { SConfigValue = Value };
             
             // Add to the configuration list and marshall out the values.

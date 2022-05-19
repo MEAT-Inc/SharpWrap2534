@@ -297,8 +297,8 @@ namespace SharpWrap2534.J2534Objects
         {
             // Issue the connect command and store our channel
             ApiMarshall.PassThruConnect(DeviceId, Protocol, ChannelFlags, ChannelBaud, out uint ChannelId);
-            DeviceChannels[ChannelIndex].ConnectChannel(ChannelId, ConnectProtocol, ChannelFlags, ChannelBaud);
-            this.IsConnected = DeviceChannels.Any(ChObj => ChObj.ChannelId != 0);
+            DeviceChannels[ChannelIndex].ConnectChannel(ChannelId, Protocol, ChannelFlags, ChannelBaud);
+            this.IsConnected = DeviceChannels.Any(ChObj => ChObj?.ChannelId != 0);
         }
         /// <summary>
         /// Disconnects the channel values.
@@ -309,7 +309,7 @@ namespace SharpWrap2534.J2534Objects
             // Disconnect from marshall and remove from channel set.
             ApiMarshall.PassThruDisconnect(DeviceChannels[ChannelIndex].ChannelId);
             DeviceChannels[ChannelIndex].DisconnectChannel();
-            this.IsConnected = DeviceChannels.Any(ChObj => ChObj.ChannelId != 0);
+            this.IsConnected = DeviceChannels.Any(ChObj => ChObj?.ChannelId != 0);
         }
 
         /// <summary>

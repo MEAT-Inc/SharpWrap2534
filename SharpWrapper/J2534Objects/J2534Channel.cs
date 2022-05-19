@@ -53,7 +53,13 @@ namespace SharpWrap2534.J2534Objects
             else
             {
                 // Find next open channel object
-                ChannelIndex = this._jDevice.DeviceChannels.ToList().IndexOf(null);
+                ChannelIndex =
+                    this._jDevice.DeviceChannels.All(ChannelObj => ChannelObj == null) ? 0 :
+                    this._jDevice.DeviceChannels
+                        .ToList()
+                        .FindIndex(ChannelObj => ChannelObj?.ChannelStatus is PTInstanceStatus.INITIALIZED or PTInstanceStatus.FREED);
+                
+                // Check index value
                 if (ChannelIndex == -1) 
                     throw new InvalidOperationException($"CAN NOT MAKE A NEW CHANNEL ON DEVICE {_jDevice.DeviceName} SINCE NO OPEN CHANNELS WERE FOUND!");
 
@@ -142,8 +148,8 @@ namespace SharpWrap2534.J2534Objects
         {
             // Store channel values.
             this.ChannelId = ChannelId;
-            ProtocolId = ChannelProtocol;
-            ConnectFlags = ChannelFlags;
+            this.ProtocolId = ChannelProtocol;
+            this.ConnectFlags = ChannelFlags;
             this.ChannelBaud = ChannelBaud;
 
             // Return stored ok
@@ -161,7 +167,7 @@ namespace SharpWrap2534.J2534Objects
 
             // Disconnect and reinit here.
             int IndexOfChannel = this._jDevice.DeviceChannels.ToList().IndexOf(ChannelToDisconnect);
-            this._jDevice.DeviceChannels[IndexOfChannel] = null;
+            this._jDevice.DeviceChannels[IndexOfChannel] = new J2534Channel(this._jDevice);
 
             // Return passed.
             return true;
@@ -215,14 +221,13 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FlowControl">Flow Ctl Value</param>
         /// <param name="FilterFlags">Flags for the filter</param>
         /// <param name="ForcedIndex">Forces a filter to be applied to a given index.</param>
-        public J2534Filter StartMessageFilter(FilterDef FilterType, string MaskString, string PatternString, string FlowControl, uint FilterFlags = 0, ProtocolId FilterProtocol = default, int ForcedIndex = -1)
+        public J2534Filter StartMessageFilter(ProtocolId FilterProtocol, FilterDef FilterType, string MaskString, string PatternString, string FlowControl, uint FilterFlags = 0, int ForcedIndex = -1)
         {
             // Make sure filter array exists and check for the filters being null or if one exists identical to this desired filter.
             if (ForcedIndex >= 10) { throw new ArgumentOutOfRangeException("UNABLE TO SET A FILTER INDEX OVER 9!"); }
             if (JChannelFilters == null) { JChannelFilters = new J2534Filter[new PassThruConstants(J2534Version).MaxFilters]; }
 
             // Build messages from filter strings.
-            FilterProtocol = FilterProtocol == default ? ProtocolId : FilterProtocol;
             PassThruStructs.PassThruMsg PtMaskMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, MaskString);
             PassThruStructs.PassThruMsg PtPatternMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, PatternString);
             PassThruStructs.PassThruMsg PtFlowCtlMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, FlowControl);
@@ -249,8 +254,8 @@ namespace SharpWrap2534.J2534Objects
             // Issue the new filter here and store onto filter list.
             _jDevice.ApiMarshall.PassThruStartMsgFilter(ChannelId, FilterType, PtMaskMsg, PtPatternMsg, PtFlowCtlMsg, out uint FilterId);
             if (FlowControl == null || FilterType != FilterDef.FLOW_CONTROL_FILTER)
-                JChannelFilters[NextIndex] = new J2534Filter(FilterType.ToString(), MaskString, PatternString, FilterFlags, FilterId);
-            else JChannelFilters[NextIndex] = new J2534Filter(FilterType.ToString(), MaskString, PatternString, FlowControl, FilterFlags, FilterId);
+                JChannelFilters[NextIndex] = new J2534Filter(FilterProtocol, FilterType, MaskString, PatternString, FilterFlags, FilterId);
+            else JChannelFilters[NextIndex] = new J2534Filter(FilterProtocol, FilterType, MaskString, PatternString, FlowControl, FilterFlags, FilterId);
 
             // Return the new filter.
             return JChannelFilters[NextIndex];
@@ -263,8 +268,15 @@ namespace SharpWrap2534.J2534Objects
         public J2534Filter StartMessageFilter(J2534Filter FilterToSet, int ForcedIndex = -1)
         {
             // Set the filter using the above method. Set it up using the stings from our filter.
-            FilterDef FilterType = (FilterDef)Enum.Parse(typeof(FilterDef), FilterToSet.FilterType);
-            return StartMessageFilter(FilterType, FilterToSet.FilterMask, FilterToSet.FilterPattern, FilterToSet.FilterFlowCtl, FilterToSet.FilterFlags, ForcedIndex: ForcedIndex);
+            return StartMessageFilter(
+                FilterToSet.FilterProtocol,
+                FilterToSet.FilterType,
+                FilterToSet.FilterMask,
+                FilterToSet.FilterPattern,
+                FilterToSet.FilterFlowCtl, 
+                FilterToSet.FilterFlags,
+                ForcedIndex: ForcedIndex
+            );
         }
 
         /// <summary>
@@ -455,25 +467,95 @@ namespace SharpWrap2534.J2534Objects
         /// Clears out the TX Buffer on the channel
         /// </summary>
         public void ClearTxBuffer() { _jDevice.ApiInstance.PassThruIoctl(ChannelId, IoctlId.CLEAR_TX_BUFFER, IntPtr.Zero, IntPtr.Zero); }
-        
-        /*  NOTE! PLEASE READ THIS BEFORE THINKING THIS WRAPPER IS MISSING SHIT!        
-            TODO: INCLUDE THESE METHODS INTO THIS CHANNEL WRAPPER AT SOME POINT IN THE FUTURE!       
-        
-            ----------------------------------------------------------------------------------            
-        
-            The following methods are NOT included in this wrapper yet since I don't need them.
-            \__ FiveBaudInit
-            \__ FastInit
-            \__ SetPins (uint)
-            \__ GetConfig (ConfigParamId)
-            \__ SetConfig (ConfigParamId, uint)
-        */
+        /// <summary>
+        /// Issues an IOCTL for setting pins on the current channel object 
+        /// </summary>
+        /// <param name="PinsToSet">Pin to set</param>
+        public void SetPins(uint PinsToSet)
+        {
+            // Build a config list, then new param object
+            PassThruStructs.SConfigList SetConfigList = new PassThruStructs.SConfigList();
+            PassThruStructs.SConfig ParamOne = new PassThruStructs.SConfig(ConfigParamId.J1962_PINS);
 
-        public void SetPins(uint PinsToSet) { throw new NotImplementedException("SetPins is not yet built into this wrapper!"); }
-        public uint GetConfig(ConfigParamId configParam) { throw new NotImplementedException("GetConfig is not yet built into this wrapper!"); }
-        public void SetConfig(ConfigParamId configParam, uint val) { throw new NotImplementedException("SetConfig is not yet built into this wrapper!"); }
-        public byte[] FiveBaudInit(byte byteIn) { throw new NotImplementedException("FiveBaudInit is not yet built into this wrapper!"); }
-        public byte[] FastInit(byte[] bytesIn, bool responseRequired) { throw new NotImplementedException("FastInit is not yet built into this wrapper!"); }
+            // Store values onto the newly built config object
+            ParamOne.SConfigValue = PinsToSet;
+            SetConfigList.ConfigList.Add(ParamOne);
+            SetConfigList.NumberOfParams = 1;
+
+            // Marshall out the command to our IOCTL
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.SET_CONFIG, ref SetConfigList);
+        }
+        /// <summary>
+        /// Reads our current configuration for a given SConfig value
+        /// </summary>
+        /// <param name="ConfigParam">Config value to locate</param>
+        /// <returns>Uint built output value</returns>
+        public uint GetConfig(ConfigParamId ConfigParam)
+        {
+            // Build structures for config pulling
+            PassThruStructs.SConfigList GetConfigList = new PassThruStructs.SConfigList(1);
+            PassThruStructs.SConfig SConfigToPull = new PassThruStructs.SConfig(ConfigParam);
+
+            // Add values into our list of configurations and marshall it out
+            GetConfigList.ConfigList.Add(SConfigToPull);
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.GET_CONFIG, ref GetConfigList);
+
+            // Return the located value output
+            return GetConfigList.ConfigList[0].SConfigValue;
+        }
+        /// <summary>
+        /// Issues a SetConfig command which is used to allow us to configure 
+        /// </summary>
+        /// <param name="ConfigParam">Config value ot set</param>
+        /// <param name="Value">Value of the config param</param>
+        public void SetConfig(ConfigParamId ConfigParam, uint Value)
+        {
+            // Build values for the structs to use for setting configuration
+            PassThruStructs.SConfigList SetConfigList = new PassThruStructs.SConfigList(1);
+            PassThruStructs.SConfig SetConfig = new PassThruStructs.SConfig(ConfigParam) { SConfigValue = Value };
+            
+            // Add to the configuration list and marshall out the values.
+            SetConfigList.ConfigList.Add(SetConfig);
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.SET_CONFIG, ref SetConfigList);
+        }
+        /// <summary>
+        /// Issues a FiveBaudInit routine for some ISO protocols.
+        /// </summary>
+        /// <param name="ByteIn">Byte read in</param>
+        /// <returns>The Byte array for the syncup needed</returns>
+        public byte[] FiveBaudInit(byte ByteIn)
+        {
+            // Built input and output SByte Arrays
+            PassThruStructs.SByteArray SByteArrayIn = new PassThruStructs.SByteArray(1) { Data = { [0] = ByteIn } };
+            PassThruStructs.SByteArray SByteArrayOut = new PassThruStructs.SByteArray(64);
+
+            // Marshall out the command and store the output value
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.FIVE_BAUD_INIT, SByteArrayIn, ref SByteArrayOut);
+            byte[] OutputBytes = J2534Device.CreateByteArrayFromSByteArray(SByteArrayOut);
+
+            // Return the built output values
+            return OutputBytes; 
+        }
+        /// <summary>
+        /// Issues a fast init used for some ISO commands
+        /// </summary>
+        /// <param name="BytesIn">Input byte for sync</param>
+        /// <param name="ResponseRequired">Indicates if we need to keep the response or not.</param>
+        /// <returns>Response from this command if one is given and asked for</returns>
+        public byte[] FastInit(byte[] BytesIn, bool ResponseRequired)
+        {
+            // Build a message to hook into for input and output
+            PassThruStructs.PassThruMsg InputMessage = default;
+            PassThruStructs.PassThruMsg OutputMessage = default;
+            
+            // Hook and populate values.
+            if (BytesIn != null) InputMessage = J2534Device.CreatePTMsgFromDataBytes(this.ProtocolId, 0, BytesIn);
+            if (ResponseRequired) OutputMessage = new PassThruStructs.PassThruMsg(64);
+
+            // Marshall out the content values and then return if required
+            this._jDevice.ApiMarshall.PassThruIoctl(this.ChannelId, IoctlId.FAST_INIT, InputMessage, ref OutputMessage);
+            return ResponseRequired ? OutputMessage.Data : null;
+        }
 
         // ----------------------------------------- VERSION 0500 CHANNEL SPECIFIC METHOD SET HERE --------------------------------
 

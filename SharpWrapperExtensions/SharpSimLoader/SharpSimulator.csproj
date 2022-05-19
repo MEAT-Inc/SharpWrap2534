@@ -7,8 +7,8 @@
     <ProjectGuid>{0A39E208-7927-41BC-A509-39E60B287969}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharpSimLoader</RootNamespace>
-    <AssemblyName>SharpSimLoader</AssemblyName>
+    <RootNamespace>SharpSimulator</RootNamespace>
+    <AssemblyName>SharpSimulator</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

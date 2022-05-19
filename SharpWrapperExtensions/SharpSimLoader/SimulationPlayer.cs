@@ -159,10 +159,10 @@ namespace SharpSimLoader
                     // TODO: WHAT THE ACTUAL FUCK DID I WRITE HERE??? THIS WORKS BUT I DO NOT UNDERSTAND HOW
                     // Now using those messages try and figure out what channel we need to open up.
                     // Finds the Index of the channel object and the index of the message object on the channel
-                    int IndexOfMessageFound = 0; int IndexOfMessageSet = 0;
+                    int IndexOfMessageFound = -1; int IndexOfMessageSet = -1;
                     foreach (var ChannelObject in this.InputSimulation.PairedSimulationMessages) {
                         foreach (var MessageSet in ChannelObject) {
-                            if (!MessageSet.Item1.DataString.Contains(ReadMessage.DataString)) continue;
+                            if (!ReadMessage.DataString.Contains(MessageSet.Item1.DataString)) continue;
                             IndexOfMessageSet = this.InputSimulation.PairedSimulationMessages.ToList().IndexOf(ChannelObject);
                             IndexOfMessageFound = ChannelObject.IndexOf(MessageSet);
                         }
@@ -174,7 +174,7 @@ namespace SharpSimLoader
                     // Mark a new channel is needed and build new one for configuration of messages
                     NeedsNewChannel = true;
                     if (!this.SetupSimChannel(IndexOfMessageSet))
-                        throw new InvalidOperationException("FAILED TO CONFIGURE NEW SIMULATION CHANNEL!");
+                        throw new InvalidOperationException("FAILED TO SETUP A NEW SIMULATION CHANNEL!");
 
                     // Now try and reply to a given message value here
                     if (!this.RespondToMessage(IndexOfMessageSet, IndexOfMessageFound))
@@ -222,7 +222,13 @@ namespace SharpSimLoader
             this._simPlayingLogger.WriteLog($"WRITING OUT A TOTAL OF {PulledMessages.Item2.Length} MESSAGES...", LogType.TraceLog);
 
             // Now issue each one out to the simulation interface
-            return this.SimulationSession.PTWriteMessages(PulledMessages.Item2);
+            for (int Count = 0; Count < 5; Count++) {
+                try { return this.SimulationSession.PTWriteMessages(PulledMessages.Item2); }
+                catch { continue; }
+            }
+
+            // Failed to send 5 times fail out
+            return false;
         }
     }
 }

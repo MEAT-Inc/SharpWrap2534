@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace SharpSimLoader
             this.InputSimulation = Loader;
             PassThruDLL ??= "NO_DLL"; PassThruDevice ??= "NO_DEVICE";
             this.SimulationSession = Sharp2534Session.OpenSession(
-                JVersion.V0404,
+                Version,
                 PassThruDLL == "NO_DLL" ? "" : PassThruDLL,
                 PassThruDevice == "NO_DEVICE" ? "" : PassThruDevice
             );
@@ -86,124 +87,125 @@ namespace SharpSimLoader
         /// <summary>
         /// Starts a simulation by opening up a CAN Channel for the given session instance.
         /// </summary>
-        public Task BuildReaderTask(ProtocolId Protocol = ProtocolId.ISO15765, uint BaudRate = 500000, uint ConnectFlags = 0x00)
+        public void StartSimReader(uint ConnectFlags = 0x00)
         {
-            // If the voltage check passes, then begin reading values in.
-            Task StartReading = new Task(() =>
+            // Toggle reading state, and begin reading values out.
+            if (this._simulationReading) {
+                this._simPlayingLogger.WriteLog("CAN NOT START A NEW READER SESSION WHILE A PREVIOUS ONE IS CURRENTLY BEING EXECUTED!", LogType.ErrorLog);
+                return;
+            }
+
+            // Connect a new Channel value
+            bool NeedsNewChannel = false;
+            this.SimulationSession.PTOpen();
+            var ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolId.ISO15765, ConnectFlags, 500000, out uint ChannelIdBuilt);
+            if (ChannelBuilt == null) throw new InvalidOperationException("FAILED TO OPEN A NEW CHANNEL FOR OUR SIMULATION ROUTINE! THIS IS FATAL!");
+            ChannelBuilt.SetConfig(ConfigParamId.CAN_MIXED_FORMAT, 1);
+            ChannelBuilt.StartMessageFilter(new J2534Filter()
             {
-                // Toggle reading state, and begin reading values out.
-                if (this._simulationReading) {
-                    this._simPlayingLogger.WriteLog("CAN NOT START A NEW READER SESSION WHILE A PREVIOUS ONE IS CURRENTLY BEING EXECUTED!", LogType.ErrorLog);
-                    return;
-                }
-
-                // Connect a new Channel value
-                bool NeedsNewChannel = false;
-                this.SimulationSession.PTOpen();
-                var ChannelBuilt = this.SimulationSession.PTConnect(0, Protocol, ConnectFlags, BaudRate, out uint ChannelIdBuilt);
-                if (ChannelBuilt == null) throw new InvalidOperationException("FAILED TO OPEN A NEW CHANNEL FOR OUR SIMULATION ROUTINE! THIS IS FATAL!");
-                this._simPlayingLogger.WriteLog($"OPENED OUR J2534 DEVICE OK! NAME OF DEVICE IS {this.SimulationSession.DeviceName}!", LogType.InfoLog);
-                this._simPlayingLogger.WriteLog("STARTING BACKGROUND READER OPERATIONS NOW...", LogType.InfoLog);
-
-                // Read all the values out in the background now.
-                while (true)
-                {
-                    // Control Objects for setting channels
-                    if (NeedsNewChannel)
-                    {
-                        // Build channel. Setup pass filter for CAN Channel
-                        this.SimulationSession.PTDisconnect(0);
-                        ChannelBuilt = this.SimulationSession.PTConnect(0, Protocol, ConnectFlags, BaudRate, out ChannelIdBuilt);
-                        if (Protocol == ProtocolId.ISO15765) ChannelBuilt.SetConfig(ConfigParamId.CAN_MIXED_FORMAT, 1);
-                        ChannelBuilt.StartMessageFilter(FilterDef.PASS_FILTER, "00 00 07 00", "00 00 07 00", null);
-
-                        // Toggle our new channel needed flags out.
-                        NeedsNewChannel = false;
-                    }
-
-                    // Mark the reader is active, then read in our messages.
-                    this._simulationReading = true;
-                    uint MessageCountRef = this.ReaderMessageCount;
-                    var MessagesRead = ChannelBuilt.PTReadMessages(ref MessageCountRef, this.ReaderTimeout);
-
-                    // Now check out our read data values and prepare to operate on them based on the values.
-                    if (MessagesRead.Length == 0) continue;
-                    this._simPlayingLogger.WriteLog(string.Join("", Enumerable.Repeat("=", 100)));
-                    this._simPlayingLogger.WriteLog($"PULLED IN A TOTAL OF {MessagesRead.Length} NEW MESSAGES!");
-                    foreach (var ReadMessage in MessagesRead)
-                    {
-                        // Find the index of our message and log it out with the contents built.
-                        int IndexOfMessage = MessagesRead.ToList().IndexOf(ReadMessage);
-                        string PulledMessageString = BitConverter.ToString(ReadMessage.Data);
-                        this._simPlayingLogger.WriteLog($"--> MESSAGE [{IndexOfMessage}/{MessagesRead.Length}]: {PulledMessageString}", LogType.TraceLog);
-
-                        // Now using those messages try and figure out what channel we need to open up.
-                        int IndexOfMessageFound = this.GetIndexOfSimChannel(ReadMessage);
-                        if (IndexOfMessageFound != -1) 
-                        {
-                            // Mark a new channel is needed and build new one for configuration of messages
-                            NeedsNewChannel = true;
-                            if (!this.SetupSimChannel(IndexOfMessageFound)) 
-                                throw new InvalidOperationException("FAILED TO CONFIGURE NEW SIMULATION CHANNEL!");
-
-                            // Now try and reply to a given message value here
-                            if (!this.RespondToMessage(IndexOfMessageFound))
-                                throw new InvalidOperationException("FAILED TO RESPOND TO A GIVEN INPUT MESSAGE!");
-
-                            // Log passed response output and then continue on
-                            this._simPlayingLogger.WriteLog("RESPONSE TO MESSAGE SENT OUT OK!", LogType.InfoLog);
-                            continue;
-                        }
-
-                        // Log no messages matched the given input message
-                        this._simPlayingLogger.WriteLog("NO MESSAGES FOUND MATCHING THE INPUT MESSAGE!", LogType.TraceLog);
-                    }
-                }
+                FilterFlags = 0x00,
+                FilterFlowCtl = "",
+                FilterMask = "00 00 00 00",
+                FilterPattern = "00 00 00 00",
+                FilterProtocol = ProtocolId.CAN,
+                FilterType = FilterDef.PASS_FILTER,
             });
 
             // Return booted reading ok.
+            this._simPlayingLogger.WriteLog($"OPENED OUR J2534 DEVICE OK! NAME OF DEVICE IS {this.SimulationSession.DeviceName}!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog("STARTING BACKGROUND READER OPERATIONS NOW...", LogType.InfoLog);
             this._simPlayingLogger.WriteLog($"STARTED READ ROUTINE OK FOR DEVICE {this.SimulationSession.DeviceInfoString}!", LogType.InfoLog);
-            return StartReading;
+
+            // Read all the values out in the background now.
+            while (true)
+            {
+                // Control Objects for setting channels
+                if (NeedsNewChannel)
+                {
+                    // Build channel. Setup pass filter for CAN Channel
+                    this.SimulationSession.PTDisconnect(0);
+                    ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolId.ISO15765, ConnectFlags, 500000, out ChannelIdBuilt);
+                    ChannelBuilt.SetConfig(ConfigParamId.CAN_MIXED_FORMAT, 1);
+                    ChannelBuilt.StartMessageFilter(new J2534Filter()
+                    {
+                        FilterFlags = 0x00,
+                        FilterFlowCtl = "",
+                        FilterMask = "00 00 00 00",
+                        FilterPattern = "00 00 00 00",
+                        FilterProtocol = ProtocolId.CAN,
+                        FilterType = FilterDef.PASS_FILTER,
+                    });
+                
+                    // Toggle our new channel needed flags out.
+                    NeedsNewChannel = false;
+                }
+
+                // Mark the reader is active, then read in our messages.
+                this._simulationReading = true;
+                uint MessageCountRef = this.ReaderMessageCount;
+                var MessagesRead = ChannelBuilt.PTReadMessages(ref MessageCountRef, this.ReaderTimeout);
+
+                // Now check out our read data values and prepare to operate on them based on the values.
+                if (MessagesRead.Length == 0) continue;
+                this._simPlayingLogger.WriteLog(string.Join("", Enumerable.Repeat("=", 100)));
+                this._simPlayingLogger.WriteLog($"PULLED IN A TOTAL OF {MessagesRead.Length} NEW MESSAGES!");
+                foreach (var ReadMessage in MessagesRead)
+                {
+                    // Find the index of our message and log it out with the contents built.
+                    int IndexOfMessage = MessagesRead.ToList().IndexOf(ReadMessage);
+                    string PulledMessageString = BitConverter.ToString(ReadMessage.Data);
+                    this._simPlayingLogger.WriteLog($"--> MESSAGE [{IndexOfMessage}/{MessagesRead.Length}]: {PulledMessageString}", LogType.TraceLog);
+
+                    // TODO: WHAT THE ACTUAL FUCK DID I WRITE HERE??? THIS WORKS BUT I DO NOT UNDERSTAND HOW
+                    // Now using those messages try and figure out what channel we need to open up.
+                    // Finds the Index of the channel object and the index of the message object on the channel
+                    int IndexOfMessageFound = 0; int IndexOfMessageSet = 0;
+                    foreach (var ChannelObject in this.InputSimulation.PairedSimulationMessages) {
+                        foreach (var MessageSet in ChannelObject) {
+                            if (!MessageSet.Item1.DataString.Contains(ReadMessage.DataString)) continue;
+                            IndexOfMessageSet = this.InputSimulation.PairedSimulationMessages.ToList().IndexOf(ChannelObject);
+                            IndexOfMessageFound = ChannelObject.IndexOf(MessageSet);
+                        }
+                    }
+
+                    // Using the index found now build our output values
+                    if (IndexOfMessageFound == -1) continue;
+
+                    // Mark a new channel is needed and build new one for configuration of messages
+                    NeedsNewChannel = true;
+                    if (!this.SetupSimChannel(IndexOfMessageSet))
+                        throw new InvalidOperationException("FAILED TO CONFIGURE NEW SIMULATION CHANNEL!");
+
+                    // Now try and reply to a given message value here
+                    if (!this.RespondToMessage(IndexOfMessageSet, IndexOfMessageFound))
+                        throw new InvalidOperationException("FAILED TO RESPOND TO A GIVEN INPUT MESSAGE!");
+                }
+            };
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Finds the index of the simulation channel in use for a given message.
-        /// Returns the index and allows user to configure filters on the fly for it.
-        /// </summary>
-        /// <param name="MessageToFind">Message to locate</param>
-        /// <returns></returns>
-        private int GetIndexOfSimChannel(PassThruStructs.PassThruMsg MessageToFind)
-        {
-            // Find the message that was read in and passed here. 
-            var MessageSetPulled = this.InputSimulation.PairedSimulationMessages
-                .FirstOrDefault(SimMsgSet => SimMsgSet.Item1.Data == MessageToFind.Data);
-            if (MessageSetPulled == null) return -1;
-
-            // Now Find the index of the message set to return out
-            return this.InputSimulation.PairedSimulationMessages.IndexOf(MessageSetPulled);
-        }
-        /// <summary>
         /// Configures a new Simulation channel for a given input index value
         /// </summary>
-        /// <param name="IndexOfChannel">Channel index to apply from</param>
+        /// <param name="IndexOfMessageFound">Channel index to apply from</param>
         /// <returns></returns>
-        private bool SetupSimChannel(int IndexOfChannel)
+        private bool SetupSimChannel(int IndexOfMessageSet)
         {
             // Check the index value
-            if (IndexOfChannel < 0 || IndexOfChannel >= this.InputSimulation.PairedSimulationMessages.Count)
-                throw new InvalidOperationException($"CAN NOT APPLY CHANNEL OF INDEX {IndexOfChannel} SINCE IT IS OUT OF RANGE!");
+            if (IndexOfMessageSet < 0 || IndexOfMessageSet >= this.InputSimulation.PairedSimulationMessages.Length)
+                throw new InvalidOperationException($"CAN NOT APPLY CHANNEL OF INDEX {IndexOfMessageSet} SINCE IT IS OUT OF RANGE!");
 
             // Store channel messages and filters
-            var ProtocolValue = this.InputSimulation.ChannelProtocols[IndexOfChannel];
-            var FiltersToApply = this.InputSimulation.ChannelFilters[IndexOfChannel];
+            this.SimulationSession.PTDisconnect(0);
+            var ChannelFlags = this.InputSimulation.ChannelFlags[IndexOfMessageSet];
+            var ChannelBaudRate = this.InputSimulation.BaudRates[IndexOfMessageSet];
+            var ProtocolValue = this.InputSimulation.ChannelProtocols[IndexOfMessageSet];
+            var FiltersToApply = this.InputSimulation.ChannelFilters[IndexOfMessageSet];
 
             // Close the current channel, build a new one using the given protocol and then setup our filters.
-            this.SimulationSession.PTDisconnect(0);
-            var ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolValue, 0x00, 500000, out uint ChannelIdBuilt);
-            if (ProtocolValue == ProtocolId.ISO15765) ChannelBuilt.SetConfig(ConfigParamId.CAN_MIXED_FORMAT, 1);
-
+            var ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt); 
+            
             // Now apply all of our filter objects
             foreach (var ChannelFilter in FiltersToApply) { ChannelBuilt.StartMessageFilter(ChannelFilter); }
             this._simPlayingLogger.WriteLog($"BUILT NEW CHANNEL WITH ID {ChannelIdBuilt} AND SETUP ALL FILTERS FOR THE GIVEN CHANNEL OK!", LogType.InfoLog);
@@ -212,11 +214,11 @@ namespace SharpSimLoader
         /// <summary>
         /// Responds to a given input message value
         /// </summary>
-        /// <param name="MessageSetIndex">Index of messages to respond from</param>
-        private bool RespondToMessage(int MessageSetIndex)
+        /// <param name="IndexOfMessageFound">Index of messages to respond from</param>
+        private bool RespondToMessage(int IndexOfMessageSet, int IndexOfMessageFound)
         {
             // Pull out the message set, then find the response messages and send them out
-            var PulledMessages = this.InputSimulation.PairedSimulationMessages[MessageSetIndex];
+            var PulledMessages = this.InputSimulation.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
             this._simPlayingLogger.WriteLog($"WRITING OUT A TOTAL OF {PulledMessages.Item2.Length} MESSAGES...", LogType.TraceLog);
 
             // Now issue each one out to the simulation interface

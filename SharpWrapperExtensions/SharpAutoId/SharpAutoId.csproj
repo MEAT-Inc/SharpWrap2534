@@ -54,11 +54,6 @@
     <Compile Include="SharpAutoIdModels\SharpAutoIdObjects.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SharpWrap2534">
-      <Version>4.1.10.279</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Properties\AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
@@ -71,6 +66,17 @@
     <EmbeddedResource Include="Properties\AutoIdRoutines.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharpWrapper\SharpWrap2534.csproj">
+      <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
+      <Name>SharpWrap2534</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpLogger">
+      <Version>1.8.4.123</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

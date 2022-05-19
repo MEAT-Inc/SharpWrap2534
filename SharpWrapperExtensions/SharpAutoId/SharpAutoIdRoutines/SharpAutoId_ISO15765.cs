@@ -86,12 +86,12 @@ namespace SharpAutoId.SharpAutoIdRoutines
                     // Log filter details out and append it into our list of filters.
                     this.AutoIdLogger.WriteLog($"BUILDING FILTER WITH CONTENT: {JsonConvert.SerializeObject(FilterObj, Formatting.None)}", LogType.TraceLog);
                     var NewFilter = this.SessionInstance.PTStartMessageFilter(
+                        FilterProtocol,                     // Filter Protocol
                         FilterType,                         // Filter Definition
                         FilterMask,                         // Filter Mask
                         FilterPattern,                      // Filter Pattern
                         FilterFlowControl,                  // Filter Flow Control
-                        (uint)FilterObj.FilterFlags,        // Filter Flags
-                        (uint)FilterProtocol                // Filter Protocol
+                        (uint)FilterObj.FilterFlags        // Filter Flags
                     );
 
                     // Log new filter ID, append it into our filter list, and return it.

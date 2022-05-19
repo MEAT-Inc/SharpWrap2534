@@ -91,8 +91,8 @@ namespace SharpWrap2534.PassThruTypes
             /// </summary>
             public SConfigList(uint ParamCount = 0)
             {
-                ConfigList = new List<SConfig>((int)ParamCount);
-                NumberOfParams = (uint)ConfigList.Count;
+                ConfigList = new List<SConfig>();
+                NumberOfParams = ParamCount;
             }
         }
         /// <summary>

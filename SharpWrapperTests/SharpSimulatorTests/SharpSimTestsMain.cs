@@ -1,6 +1,7 @@
 ﻿using NLog.Config;
 using SharpLogger;
 using SharpSimLoader;
+using SharpSimulator;
 using SharpWrap2534.SupportingLogic;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace SharpSimulatorTests
             NLog.LogManager.Configuration = new LoggingConfiguration();
             string LoggingOutputPath = Path.Combine(Directory.GetCurrentDirectory(), "SharpLoggingOutput");
             LogBroker.ConfigureLoggingSession("SharpSimLoggingTests", LoggingOutputPath);
+            LogBroker.BrokerInstance.FillBrokerPool();
 
             // Build a new session for testing output here
             var ChannelLoader = new SimulationLoader();

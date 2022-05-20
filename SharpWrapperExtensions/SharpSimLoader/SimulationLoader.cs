@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 
-namespace SharpSimLoader
+namespace SharpSimulator
 {
     /// <summary>
     /// Contains logic for loading in new J2534 Simulations

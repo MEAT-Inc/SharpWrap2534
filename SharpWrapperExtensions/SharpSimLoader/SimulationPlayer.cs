@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 using SharpWrap2534;
@@ -12,7 +7,7 @@ using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
 
-namespace SharpSimLoader
+namespace SharpSimulator
 {
     /// <summary>
     /// Plays back the contents of a SimulationLoader
@@ -31,6 +26,33 @@ namespace SharpSimLoader
         // Values for our reader configuration.
         public uint ReaderTimeout { get; private set; }
         public uint ReaderMessageCount { get; private set; }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Events for processing sim actions outside this project
+        public event EventHandler<SimChannelEventArgs> SimChannelChanged;
+        public event EventHandler<SimMessageEventArgs> SimMessageProcessed;
+
+        /// <summary>
+        /// Processes an action for a new channel being changed around
+        /// </summary>
+        /// <param name="ChannelArgs"></param>
+        protected virtual void SimChannelModified(SimChannelEventArgs ChannelArgs)
+        {
+            // Find the event handler and invoke it
+            EventHandler<SimChannelEventArgs> EventHandlerCalled = this.SimChannelChanged;
+            EventHandlerCalled?.Invoke(this, ChannelArgs);
+        }
+        /// <summary>
+        /// Processes an action for a new message being read and replied to
+        /// </summary>
+        /// <param name="MessageArgs"></param>
+        protected virtual void SimMessageReceived(SimMessageEventArgs MessageArgs)
+        {
+            // Find the event handler and invoke it
+            EventHandler<SimMessageEventArgs> EventHandlerCalled = this.SimMessageProcessed;
+            EventHandlerCalled?.Invoke(this, MessageArgs);
+        }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -56,10 +78,9 @@ namespace SharpSimLoader
             this._simPlayingLogger = new SubServiceLogger($"SimPlaybackLogger_{this.PlayerGUID.ToString().ToUpper()}");
             this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION PLAYBACK LOGGER OK!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog("READY TO PLAY BACK THE LOADED CONTENTS OF THE PROVIDED SIMULATION LOADER!");
-            this._simPlayingLogger.WriteLog($"NEWLY BUILT SESSION:\n{this.SimulationSession.ToDetailedString()}", LogType.TraceLog);
 
             // Open up a PT Device, read the voltage value, and begin reading messages over and over.
-            this._simPlayingLogger.WriteLog($"STARTING A NEW SIM READER FOR DEVICE {this.SimulationSession.DeviceInfoString}", LogType.WarnLog);
+            this._simPlayingLogger.WriteLog($"STARTING A NEW SIM READER FOR DEVICE {this.SimulationSession.DeviceName}", LogType.WarnLog);
             this.SimulationSession.PTOpen(); this.SimulationSession.PTReadVoltage(out var VoltsRead);
             this._simPlayingLogger.WriteLog($"PULLED IN A NEW VOLTAGE VALUE OF {VoltsRead}!", LogType.InfoLog);
             if (VoltsRead < 12.0) this._simPlayingLogger.WriteLog("WARNING! INPUT VOLTAGE IS LESS THAN 12.0 VOLTS!", LogType.ErrorLog);
@@ -87,7 +108,7 @@ namespace SharpSimLoader
         /// <summary>
         /// Starts a simulation by opening up a CAN Channel for the given session instance.
         /// </summary>
-        public void StartSimReader(uint ConnectFlags = 0x00)
+        public void StartSimReader()
         {
             // Toggle reading state, and begin reading values out.
             if (this._simulationReading) {
@@ -98,7 +119,7 @@ namespace SharpSimLoader
             // Connect a new Channel value
             bool NeedsNewChannel = false;
             this.SimulationSession.PTOpen();
-            var ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolId.ISO15765, ConnectFlags, 500000, out uint ChannelIdBuilt);
+            var ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000, out uint ChannelIdBuilt);
             if (ChannelBuilt == null) throw new InvalidOperationException("FAILED TO OPEN A NEW CHANNEL FOR OUR SIMULATION ROUTINE! THIS IS FATAL!");
             ChannelBuilt.SetConfig(ConfigParamId.CAN_MIXED_FORMAT, 1);
             ChannelBuilt.StartMessageFilter(new J2534Filter()
@@ -114,7 +135,7 @@ namespace SharpSimLoader
             // Return booted reading ok.
             this._simPlayingLogger.WriteLog($"OPENED OUR J2534 DEVICE OK! NAME OF DEVICE IS {this.SimulationSession.DeviceName}!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog("STARTING BACKGROUND READER OPERATIONS NOW...", LogType.InfoLog);
-            this._simPlayingLogger.WriteLog($"STARTED READ ROUTINE OK FOR DEVICE {this.SimulationSession.DeviceInfoString}!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog($"STARTED READ ROUTINE OK FOR DEVICE {this.SimulationSession.DeviceName}!", LogType.InfoLog);
 
             // Read all the values out in the background now.
             while (true)
@@ -124,7 +145,7 @@ namespace SharpSimLoader
                 {
                     // Build channel. Setup pass filter for CAN Channel
                     this.SimulationSession.PTDisconnect(0);
-                    ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolId.ISO15765, ConnectFlags, 500000, out ChannelIdBuilt);
+                    ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000, out ChannelIdBuilt);
                     ChannelBuilt.SetConfig(ConfigParamId.CAN_MIXED_FORMAT, 1);
                     ChannelBuilt.StartMessageFilter(new J2534Filter()
                     {
@@ -169,16 +190,31 @@ namespace SharpSimLoader
                     }
 
                     // Using the index found now build our output values
-                    if (IndexOfMessageFound == -1) continue;
+                    if (IndexOfMessageFound == -1)
+                    {
+                        // Build and send a new message set event out even if there was no response processed
+                        this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, ReadMessage, null));
+                        this._simPlayingLogger.WriteLog("FIRED EVENT FOR UNPAIRED MESSAGE OK!", LogType.InfoLog);
+                        continue;
+                    }
 
                     // Mark a new channel is needed and build new one for configuration of messages
-                    NeedsNewChannel = true;
-                    if (!this.SetupSimChannel(IndexOfMessageSet))
-                        throw new InvalidOperationException("FAILED TO SETUP A NEW SIMULATION CHANNEL!");
+                    try
+                    {
+                        NeedsNewChannel = true;
+                        if (!this.SetupSimChannel(IndexOfMessageSet))
+                            throw new InvalidOperationException("FAILED TO SETUP A NEW SIMULATION CHANNEL!");
 
-                    // Now try and reply to a given message value here
-                    if (!this.RespondToMessage(IndexOfMessageSet, IndexOfMessageFound))
-                        throw new InvalidOperationException("FAILED TO RESPOND TO A GIVEN INPUT MESSAGE!");
+                        // Now try and reply to a given message value here
+                        if (!this.RespondToMessage(IndexOfMessageSet, IndexOfMessageFound))
+                            throw new InvalidOperationException("FAILED TO RESPOND TO A GIVEN INPUT MESSAGE!");
+                    }
+                    catch (Exception RespEx) 
+                    {
+                        // Log failures, move on to next attempt
+                        this._simPlayingLogger.WriteLog("FAILED TO EXECUTE ONE OR MORE SIM ACTIONS! LOGGING EXCEPTION BELOW");
+                        this._simPlayingLogger.WriteLog($"EXCEPTION THROWN: {RespEx}");
+                    }
                 }
             };
         }
@@ -188,7 +224,7 @@ namespace SharpSimLoader
         /// <summary>
         /// Configures a new Simulation channel for a given input index value
         /// </summary>
-        /// <param name="IndexOfMessageFound">Channel index to apply from</param>
+        /// <param name="IndexOfMessageSet">Channel index to apply from</param>
         /// <returns></returns>
         private bool SetupSimChannel(int IndexOfMessageSet)
         {
@@ -204,11 +240,17 @@ namespace SharpSimLoader
             var FiltersToApply = this.InputSimulation.ChannelFilters[IndexOfMessageSet];
 
             // Close the current channel, build a new one using the given protocol and then setup our filters.
-            var ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt); 
-            
+            var ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt);
+
             // Now apply all of our filter objects
             foreach (var ChannelFilter in FiltersToApply) { ChannelBuilt.StartMessageFilter(ChannelFilter); }
             this._simPlayingLogger.WriteLog($"BUILT NEW CHANNEL WITH ID {ChannelIdBuilt} AND SETUP ALL FILTERS FOR THE GIVEN CHANNEL OK!", LogType.InfoLog);
+
+            // Build output message events here
+            this.SimChannelModified(new SimChannelEventArgs(this.SimulationSession));
+            this._simPlayingLogger.WriteLog("FIRED NEW EVENT FOR SIMULATION CHANNEL OK!", LogType.InfoLog);
+
+            // Return passed
             return true;
         }
         /// <summary>
@@ -222,13 +264,18 @@ namespace SharpSimLoader
             this._simPlayingLogger.WriteLog($"WRITING OUT A TOTAL OF {PulledMessages.Item2.Length} MESSAGES...", LogType.TraceLog);
 
             // Now issue each one out to the simulation interface
+            bool MessageSentOK = false;
             for (int Count = 0; Count < 5; Count++) {
-                try { return this.SimulationSession.PTWriteMessages(PulledMessages.Item2); }
-                catch { continue; }
+                try { MessageSentOK = this.SimulationSession.PTWriteMessages(PulledMessages.Item2, 25); }
+                catch { this._simPlayingLogger.WriteLog($"ATTEMPT {Count} OF 5 FAILED TO SEND MESSAGE RESPONSE!", LogType.ErrorLog); }
             }
 
+            // Build and send a new message set event out even if there was no response processed
+            this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, MessageSentOK, PulledMessages.Item1, PulledMessages.Item2));
+            this._simPlayingLogger.WriteLog("FIRED EVENT FOR UNPAIRED MESSAGE OK!", LogType.InfoLog);
+
             // Failed to send 5 times fail out
-            return false;
+            return MessageSentOK;
         }
     }
 }

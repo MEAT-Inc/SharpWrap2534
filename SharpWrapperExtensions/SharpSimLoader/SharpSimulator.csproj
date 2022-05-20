@@ -48,6 +48,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
+    <Compile Include="SimChannelEventArgs.cs" />
+    <Compile Include="SimMessageEventArgs.cs" />
     <Compile Include="SimulationLoader.cs" />
     <Compile Include="SimulationPlayer.cs" />
   </ItemGroup>

@@ -56,7 +56,7 @@ namespace SharpAutoId.SharpAutoIdRoutines
         public override bool ConnectChannel(out uint ChannelId)
         {
             // Connect to our new channel instance.
-            this.SessionInstance.PTConnect(
+            var BuiltChannel = this.SessionInstance.PTConnect(
                 0,                                // Channel Index
                 this.AutoIdType,                            // Type of protocol for scanning
                 (uint)this.AutoIdCommands.ConnectFlags,     // Connection Flags

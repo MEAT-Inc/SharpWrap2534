@@ -59,7 +59,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SharpWrapperExtensions\SharpSimLoader\SharpSimulator.csproj">
+    <ProjectReference Include="..\..\SharpWrapperExtensions\SharpSimulator\SharpSimulator.csproj">
       <Project>{0a39e208-7927-41bc-a509-39e60b287969}</Project>
       <Name>SharpSimulator</Name>
     </ProjectReference>

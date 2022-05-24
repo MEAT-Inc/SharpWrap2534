@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpAutoId.SharpAutoIdModels;
 using SharpLogger;
@@ -20,13 +22,25 @@ namespace SharpAutoId.SharpAutoIdHelpers
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         // List of all currently supported protocols for Auto ID routines
-        public static ProtocolId[] SupportedProtocols => 
-            JArray.FromObject(AllocateResource("AutoIdRoutines.json", "SupportedProtocols"))
-                .Value<ProtocolId[]>();
-        public static SharpIdConfiguration[] SupportedCommandRoutines =>
-            JArray.FromObject(AllocateResource("AutoIdRoutines.json", "SupportedCommandRoutines"))
-                .Value<SharpIdConfiguration[]>();
-        
+        public static ProtocolId[] SupportedProtocols
+        {
+            get
+            {
+                // Pull the Resources here and then convert them into a protocol list and return them out here
+                var BuiltArray = JArray.FromObject(AllocateResource("AutoIdRoutines.json", "SupportedProtocols"));
+                return BuiltArray.Values().Select(ValueObject => ValueObject.ToObject<ProtocolId>()).ToArray();
+            }
+        }
+        public static SharpIdConfiguration[] SupportedCommandRoutines
+        {
+            get
+            {
+                // Pull the Resources here and then convert them into a configuration list and return them out here
+                var BuiltArray = JArray.FromObject(AllocateResource("AutoIdRoutines.json", "CommandRoutines"));
+                return BuiltArray.Select(ValueObject => JsonConvert.DeserializeObject<SharpIdConfiguration>(ValueObject.ToString())).ToArray();
+            }
+        }
+
 
         // All Loaded AutoID routines for this instance
         public static Tuple<ProtocolId, SharpIdConfiguration>[] LoadedRoutines
@@ -61,7 +75,7 @@ namespace SharpAutoId.SharpAutoIdHelpers
         /// <param name="ResourceFileName">Name of the file</param>
         /// <param name="ObjectName">Object name</param>
         /// <returns></returns>
-        private static JObject AllocateResource(string ResourceFileName, string ObjectName)
+        private static object AllocateResource(string ResourceFileName, string ObjectName)
         {
             // Get the current Assembly
             var CurrentAssy = Assembly.GetExecutingAssembly();
@@ -71,13 +85,7 @@ namespace SharpAutoId.SharpAutoIdHelpers
             {
                 // Build basic object and then return it to be pulled from
                 JObject RescObject = JObject.Parse(RescReader.ReadToEnd());
-                if (RescObject[ObjectName] == null) return RescObject;
-                if (RescObject[ObjectName].Type == JTokenType.Array)
-                    return JObject.FromObject(RescObject[ObjectName]);
-
-                // Try and return our requested part of the object
-                try { return (JObject)RescObject[ObjectName]; }
-                catch { return RescObject; }
+                return RescObject[ObjectName] ?? RescObject;
             }
         }
 

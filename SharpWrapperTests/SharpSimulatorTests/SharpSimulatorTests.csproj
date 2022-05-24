@@ -51,19 +51,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="SharpLogger">
+      <Version>1.8.4.123</Version>
+    </PackageReference>
+    <PackageReference Include="SharpWrap2534">
+      <Version>5.0.1.307</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\SharpWrapperExtensions\SharpSimLoader\SharpSimulator.csproj">
       <Project>{0a39e208-7927-41bc-a509-39e60b287969}</Project>
       <Name>SharpSimulator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SharpWrapper\SharpWrap2534.csproj">
-      <Project>{E4508BD6-9045-4840-A659-BE40CC205C78}</Project>
-      <Name>SharpWrap2534</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="SharpLogger">
-      <Version>1.8.4.123</Version>
-    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

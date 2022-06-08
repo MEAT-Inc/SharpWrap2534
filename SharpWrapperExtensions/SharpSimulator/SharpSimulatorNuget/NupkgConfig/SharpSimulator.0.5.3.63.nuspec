@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>SharpSimulator</id>
+    <version>0.5.3.63</version>
+    <title>SharpSimulator</title>
+    <authors>Zachary Walsh - MEAT Inc</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">AGPL-3.0-or-later</license>
+    <projectUrl>https://github.com/MEAT-Inc/Sharp2534Wrapper</projectUrl>
+    <repository type="git" url="https://github.com/MEAT-Inc/Sharp2534Wrapper/"/>
+    <description>
+## **SharpSimulator**
+- SharpSimulator is an extension method set for the SharpSession object which allows a user to build and replay simulations of an 11 Bit CAN Car in real time
+- As always, pull this version in using the Nuget PM with the command 
+  - ` dotnet add PROJECT package SharpSimulator --version LATEST `
+--- 
+### Change Log For Release
+- Included some new code changes to bring the newest vesion of the SharpWrap library into this project. 
+- Built in changes needed to ensure all VIN reading routines will work when checked via CAN and processed out to the host device using ISO15765. 
+- Fixed a couple issues with response times. 
+- Performed a pretty big refactor on the whole playback side of this operation so that we can control more components of channel creation and configuration via a UI slightly easier
+</description>
+    <releaseNotes>
+- Included some new code changes to bring the newest vesion of the SharpWrap library into this project. 
+- Built in changes needed to ensure all VIN reading routines will work when checked via CAN and processed out to the host device using ISO15765. 
+- Fixed a couple issues with response times. 
+- Performed a pretty big refactor on the whole playback side of this operation so that we can control more components of channel creation and configuration via a UI slightly easier
+</releaseNotes>
+    <copyright>MEAT Inc (2021)</copyright>
+    <tags>0.5.3.63-working-vins</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="NLog" version="4.7.12"/>
+        <dependency id="SharpLogger" version="1.4.10.109"/>
+        <dependency id="SharpWrap2534" version="4.1.3.264"/>        
+      </group>
+    </dependencies>
+    <references>
+      <group targetFramework="net472">
+        <reference file="NLog.dll"/>
+        <reference file="SharpLogger.dll" />
+        <reference file="SharpSimulator.dll" />
+        <reference file="SharpWrap2534.dll" />
+      </group>
+    </references>
+  </metadata>
+  <files>
+    <file src="lib\net472\**\*.*" target="lib\net472"/>
+  </files>
+</package>

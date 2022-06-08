@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
+using SharpSimulator.SimulationEvents;
 using SharpWrap2534;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
@@ -144,7 +145,7 @@ namespace SharpSimulator
         {
             // Ensure our channel object is not null at this point.
             this.DefaultConfigParamConfig = DefaultConfiguration;
-            if (this.SimulationReading || this.SimulationChannel == null) {
+            if (this.SimulationChannel == null) {
                 this._simPlayingLogger.WriteLog("NOT STORING DEFAULT CONFIGURATIONS SINCE THE SIMULATION CHANNEL OBJECT IS CURRENTLY NULL OR IT IS CURRENTLY READING!", LogType.InfoLog);
                 return true;
             }
@@ -177,7 +178,7 @@ namespace SharpSimulator
         {
             // Ensure our channel object is not null at this point.
             this.DefaultMessageFilters = DefaultFilters;
-            if (this.SimulationReading || this.SimulationChannel == null) {
+            if (this.SimulationChannel == null) {
                 this._simPlayingLogger.WriteLog("NOT SETTING DEFAULT FILTERS SINCE THE SIMULATION CHANNEL OBJECT IS CURRENTLY NULL OR IT IS CURRENTLY READING!", LogType.InfoLog);
                 return true;
             }
@@ -235,7 +236,7 @@ namespace SharpSimulator
             this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION CHANNEL WITH GIVEN INPUT VALUES OK!", LogType.InfoLog);
 
             // Check if we need to build default configuration for filters of config params
-            if (this.DefaultConfigParamConfig != null) {
+            if (this.DefaultConfigParamConfig != null) { 
                 this._simPlayingLogger.WriteLog("SETTING UP DEFAULT READER CONFIGURATION NOW...");
                 if (!this.SetDefaultConfigurations(this.DefaultConfigParamConfig)) return false;
             }
@@ -296,7 +297,7 @@ namespace SharpSimulator
             this._readerTokenSource.Cancel();
 
             // Close the device instance out here.
-            this.SimulationSession.JDeviceInstance.PTDisconnect(0);
+            this.SimulationSession.PTDisconnect(0);
             this._simPlayingLogger.WriteLog("CLOSED CHANNEL INDEX FOR OUR DESIRED SIMULATION CHANNEL OK!", LogType.InfoLog);
         }
         
@@ -411,21 +412,33 @@ namespace SharpSimulator
             // Pull out the message set, then find the response messages and send them out
             this._simPlayingLogger.WriteLog(string.Join("", Enumerable.Repeat("=", 100)));
             var PulledMessages = this.InputSimulation.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
-            this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.Item1.Data)}", LogType.WarnLog);
+
+            // Log message contents out
+            this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.Item1.Data)}", LogType.InfoLog);
             for (int RespIndex = 0; RespIndex < PulledMessages.Item2.Length; RespIndex += 1)
-                this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.Item2[RespIndex].Data)}", LogType.InfoLog);
+                this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.Item2[RespIndex].Data)}");
 
             // Now issue each one out to the simulation interface
-            bool MessageSentOK = false;
-            for (int Count = 0; Count < 5; Count++) {
-                try { MessageSentOK = this.SimulationSession.PTWriteMessages(PulledMessages.Item2, 25); break; }
-                catch { this._simPlayingLogger.WriteLog($"ATTEMPT {Count} OF 5 FAILED TO SEND MESSAGE RESPONSE!", LogType.ErrorLog); }
-            }
+            try
+            {
+                // Try and send the message, indicate passed sending routine
+                this.SimulationChannel.PTWriteMessages(PulledMessages.Item2, 10);
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.Item1, PulledMessages.Item2));
 
-            // Build and send a new message set event out even if there was no response processed
-            this.SimulationSession.PTDisconnect(0);
-            this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, MessageSentOK, PulledMessages.Item1, PulledMessages.Item2));
-            return MessageSentOK;
+                // Disconnect our channel and exit this routine
+                this.SimulationSession.PTDisconnect(0);
+                return true;
+            }
+            catch
+            {
+                // Log failed to send output, set sending failed.
+                this._simPlayingLogger.WriteLog($"ATTEMPT TO SEND MESSAGE RESPONSE FAILED!", LogType.ErrorLog);
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.Item1, PulledMessages.Item2));
+
+                // Disconnect our channel and exit this routine
+                this.SimulationSession.PTDisconnect(0); 
+                return false;
+            }
         }
     }
 }

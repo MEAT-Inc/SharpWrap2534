@@ -48,8 +48,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
-    <Compile Include="SimChannelEventArgs.cs" />
-    <Compile Include="SimMessageEventArgs.cs" />
+    <Compile Include="SimulationEvents\SimChannelEventArgs.cs" />
+    <Compile Include="SimulationEvents\SimMessageEventArgs.cs" />
+    <Compile Include="SimulationChannel.cs" />
     <Compile Include="SimulationLoader.cs" />
     <Compile Include="SimulationPlayer.cs" />
   </ItemGroup>
@@ -70,6 +71,7 @@
       <Version>5.0.2.310</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)SharpSimulatorNuget\lib\net472"</PostBuildEvent>

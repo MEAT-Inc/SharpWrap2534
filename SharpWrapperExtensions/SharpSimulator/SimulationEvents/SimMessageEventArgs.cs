@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SharpWrap2534;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 
-namespace SharpSimulator
+namespace SharpSimulator.SimulationEvents
 {
     /// <summary>
     /// Event args for a new simulation message being processed and responded to

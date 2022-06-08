@@ -32,21 +32,19 @@ namespace SharpSimulatorTests
         {            
             new Tuple<PassThruStructs.PassThruMsg, PassThruStructs.PassThruMsg[]>
             (
-                // Message containing VIN Number
+                // Message to get calibration ID
                 new PassThruStructs.PassThruMsg()
                 {
-                    DataSize = 6,
-                    ProtocolID = ProtocolId.ISO15765,
-                    TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
-                    Data = new byte[] { 0x00, 0x00, 0x07, 0xDF, 0x02, 0x01, 0x00 },
+                    DataSize = 12,
+                    Data = new byte[] { 0x00, 0x00, 0x07, 0xDF, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
                 },
 
-                // Message to get the VIN Number
+                // Message with the Calibration ID
                 new []
                 {
                     new PassThruStructs.PassThruMsg()
                     {
-                        DataSize = 11,
+                        DataSize = 10,
                         ProtocolID = ProtocolId.ISO15765,
                         TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
                         Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x41, 0x00, 0xBF, 0xFF, 0xB9, 0x93 },
@@ -55,16 +53,14 @@ namespace SharpSimulatorTests
             ),
             new Tuple<PassThruStructs.PassThruMsg, PassThruStructs.PassThruMsg[]>
             (
-                // Message containing VIN Number
+                // Message to get our VIN Number
                 new PassThruStructs.PassThruMsg()
                 {
-                    DataSize = 6,
-                    ProtocolID = ProtocolId.ISO15765,
-                    TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
-                    Data = new byte[] { 0x00, 0x00, 0x07, 0xDF, 0x02, 0x09, 0x02 },
+                    DataSize = 12,
+                    Data = new byte[] { 0x00, 0x00, 0x07, 0xDF, 0x02, 0x09, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00 },
                 },
 
-                // Message to get the VIN Number
+                // Message containing the VIN Number
                 new []
                 {
                     new PassThruStructs.PassThruMsg()

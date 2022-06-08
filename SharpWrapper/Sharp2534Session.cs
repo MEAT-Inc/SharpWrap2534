@@ -116,7 +116,7 @@ namespace SharpWrap2534
 
             // Build logging support
             this.SessionGuid = Guid.NewGuid();
-            this._sessionLogger = new SubServiceLogger($"SharpWrapSession_{this.SessionGuid}_SessionLogger");
+            this._sessionLogger = new SubServiceLogger($"SharpWrapSession_{this.SessionGuid.ToString().ToUpper().Substring(0,5)}_SessionLogger");
             this._logSupport = new LoggingSupport(this.DeviceName, this._sessionLogger);
             this._sessionLogger.WriteLog(this._logSupport.SplitLineString(), LogType.TraceLog);
             this._sessionLogger.WriteLog("SHARPWRAP J2534 SESSION BUILT CORRECTLY! SESSION STATE IS BEING PRINTED OUT BELOW", LogType.InfoLog);
@@ -422,7 +422,7 @@ namespace SharpWrap2534
 
             // Log information and send out our messages
             this._logSupport.WriteCommandLog($"SENDING MESSAGES ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
-            foreach (var MsgObject in MessageToSend) { this._logSupport.WriteCommandLog($"\tISSUING MESSAGE: {MsgObject}", LogType.TraceLog); }
+            foreach (var MsgObject in MessageToSend) { this._logSupport.WriteCommandLog($"\tISSUING MESSAGE: {BitConverter.ToString(MsgObject.Data)}", LogType.TraceLog); }
 
             // Issue command, log output and return.
             uint MessagesSent = ChannelInUse.PTWriteMessages(MessageToSend, SendTimeout);

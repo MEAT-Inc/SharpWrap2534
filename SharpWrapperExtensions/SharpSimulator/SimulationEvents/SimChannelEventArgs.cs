@@ -1,12 +1,9 @@
-﻿using SharpWrap2534;
-using SharpWrap2534.J2534Objects;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SharpWrap2534;
+using SharpWrap2534.J2534Objects;
 
-namespace SharpSimulator
+namespace SharpSimulator.SimulationEvents
 {
     /// <summary>
     /// Fired off when a new session creates a simulation channel object

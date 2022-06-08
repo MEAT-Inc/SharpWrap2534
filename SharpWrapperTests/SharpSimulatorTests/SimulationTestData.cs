@@ -49,7 +49,7 @@ namespace SharpSimulatorTests
                         DataSize = 11,
                         ProtocolID = ProtocolId.ISO15765,
                         TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
-                        Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x42, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00 },
+                        Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x41, 0x00, 0xBF, 0xFF, 0xB9, 0x93 },
                     },
                 }
             ),

@@ -54,7 +54,7 @@ namespace SharpSimulatorTests
             // };
 
             // Setup default configuration values for our reader channel here
-            SimulationPlayer.SetDefaultMessageValues(250, 50);
+            SimulationPlayer.SetDefaultMessageValues(50);
             SimulationPlayer.SetDefaultConnectionType(ProtocolId.ISO15765, 0x00, 500000);
             SimulationPlayer.SetDefaultConfigurations(new[] { new Tuple<ConfigParamId, uint>(ConfigParamId.CAN_MIXED_FORMAT, 1) });
             SimulationPlayer.SetDefaultMessageFilters(new[] { new J2534Filter()

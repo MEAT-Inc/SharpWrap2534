@@ -215,12 +215,6 @@ namespace SharpSimulator
         /// <returns>True if channel is built. False if it fails to build</returns>
         public bool SetupSimulationReader()
         {
-            // Toggle reading state, and begin reading values out.
-            if (this.SimulationReading) {
-                this._simPlayingLogger.WriteLog("CAN NOT START A NEW READER SESSION WHILE A PREVIOUS ONE IS CURRENTLY BEING EXECUTED!", LogType.ErrorLog);
-                return false;
-            }
-
             // Check if channel configuration was setup or not.
             if (this.DefaultConnectionConfig == null) {
                 this._simPlayingLogger.WriteLog("WARNING! CONNECTION CONFIGURATION IS NULL! SETTING DEFAULT CHANNEL CONNECTIONS NOW!", LogType.WarnLog);
@@ -400,8 +394,8 @@ namespace SharpSimulator
             var FiltersToApply = this.InputSimulation.ChannelFilters[IndexOfMessageSet];
 
             // Close the current channel, build a new one using the given protocol and then setup our filters.
-            var ChannelBuilt = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt);
-            foreach (var ChannelFilter in FiltersToApply) { ChannelBuilt.StartMessageFilter(ChannelFilter); }
+            this.SimulationChannel = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt);
+            foreach (var ChannelFilter in FiltersToApply) { this.SimulationChannel.StartMessageFilter(ChannelFilter); }
             
             // Build output message events here
             this.SimChannelModified(new SimChannelEventArgs(this.SimulationSession));
@@ -424,11 +418,12 @@ namespace SharpSimulator
             // Now issue each one out to the simulation interface
             bool MessageSentOK = false;
             for (int Count = 0; Count < 5; Count++) {
-                try { MessageSentOK = this.SimulationSession.PTWriteMessages(PulledMessages.Item2, 25); }
+                try { MessageSentOK = this.SimulationSession.PTWriteMessages(PulledMessages.Item2, 25); break; }
                 catch { this._simPlayingLogger.WriteLog($"ATTEMPT {Count} OF 5 FAILED TO SEND MESSAGE RESPONSE!", LogType.ErrorLog); }
             }
 
             // Build and send a new message set event out even if there was no response processed
+            this.SimulationSession.PTDisconnect(0);
             this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, MessageSentOK, PulledMessages.Item1, PulledMessages.Item2));
             return MessageSentOK;
         }

@@ -56,7 +56,7 @@ namespace SharpSimulatorTests
             SimulationPlayer.SetDefaultMessageFilters(SimLoadingTestData.ReaderFilters);
 
             // Begin reading here and then wait for 60 seconds
-            SimulationPlayer.InitalizeSimReader();
+            SimulationPlayer.InitializeSimReader();
             SimulationPlayer.StartSimulationReader();
             while (SimulationPlayer.SimulationReading) continue;
         }

@@ -372,7 +372,7 @@ namespace SharpSimulator
                         );
                     
                     // Return passed and setup a base channel object again
-                    if (!this.InitalizeSimReader())
+                    if (!this.InitializeSimReader())
                         throw new Exception(
                             "SETUP_READER_EXCEPTION",
                             new InvalidOperationException("FAILED TO RECONFIGURE READER CHANNEL!")

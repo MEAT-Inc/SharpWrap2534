@@ -49,7 +49,7 @@ namespace SharpSimulatorTests
             var SimulationPlayer = new SimulationPlayer(ChannelLoader, JVersion.V0404, "CarDAQ-Plus 3");
 
             // Setup default configuration values for our reader channel here
-            SimulationPlayer.SetDefaultMessageValues(500, 10);
+            SimulationPlayer.SetDefaultMessageValues(100, 1);
             SimulationPlayer.SetDefaultConnectionType(ProtocolId.ISO15765, 0x00, 500000);
             SimulationPlayer.SetDefaultConfigurations(new[] { new Tuple<ConfigParamId, uint>(ConfigParamId.CAN_MIXED_FORMAT, 1) });
             SimulationPlayer.SetDefaultMessageFilters(new[] 

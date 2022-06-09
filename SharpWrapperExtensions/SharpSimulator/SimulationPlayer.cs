@@ -321,14 +321,14 @@ namespace SharpSimulator
                 // Now using those messages try and figure out what channel we need to open up.
                 // Finds the Index of the channel object and the index of the message object on the channel
                 int IndexOfMessageFound = -1; int IndexOfMessageSet = -1;
-                foreach (var ChannelObject in this.InputSimulation.PairedSimulationMessages)
+                foreach (var ChannelMessagePair in this.InputSimulation.PairedSimulationMessages)
                 {
                     // Check each of the messages found on each channel object
-                    foreach (var MessageSet in ChannelObject)
+                    foreach (var MessageSet in ChannelMessagePair)
                     {
-                        if (!ReadMessage.DataString.Contains(MessageSet.Item1.DataString)) continue;
-                        IndexOfMessageSet = this.InputSimulation.PairedSimulationMessages.ToList().IndexOf(ChannelObject);
-                        IndexOfMessageFound = ChannelObject.IndexOf(MessageSet);
+                        if (!ReadMessage.DataString.Contains(MessageSet.MessageRead.DataString)) continue;
+                        IndexOfMessageSet = this.InputSimulation.PairedSimulationMessages.ToList().IndexOf(ChannelMessagePair);
+                        IndexOfMessageFound = ChannelMessagePair.ToList().IndexOf(MessageSet);
                     }
                 }
 
@@ -414,16 +414,16 @@ namespace SharpSimulator
             var PulledMessages = this.InputSimulation.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
 
             // Log message contents out
-            this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.Item1.Data)}", LogType.InfoLog);
-            for (int RespIndex = 0; RespIndex < PulledMessages.Item2.Length; RespIndex += 1)
-                this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.Item2[RespIndex].Data)}");
+            this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.MessageRead.Data)}", LogType.InfoLog);
+            for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
+                this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
 
             // Now issue each one out to the simulation interface
             try
             {
                 // Try and send the message, indicate passed sending routine
-                this.SimulationChannel.PTWriteMessages(PulledMessages.Item2, 10);
-                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.Item1, PulledMessages.Item2));
+                this.SimulationChannel.PTWriteMessages(PulledMessages.MessageResponses, 10);
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
 
                 // Disconnect our channel and exit this routine
                 this.SimulationSession.PTDisconnect(0);
@@ -433,7 +433,7 @@ namespace SharpSimulator
             {
                 // Log failed to send output, set sending failed.
                 this._simPlayingLogger.WriteLog($"ATTEMPT TO SEND MESSAGE RESPONSE FAILED!", LogType.ErrorLog);
-                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.Item1, PulledMessages.Item2));
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
 
                 // Disconnect our channel and exit this routine
                 this.SimulationSession.PTDisconnect(0); 

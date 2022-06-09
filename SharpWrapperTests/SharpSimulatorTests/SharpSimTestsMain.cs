@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using SharpLogger.LoggerSupport;
+using SharpSimulator.SimulationObjects;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 
@@ -32,21 +33,23 @@ namespace SharpSimulatorTests
             LogBroker.ConfigureLoggingSession("SharpSimLoggingTests", LoggingOutputPath);
             LogBroker.BrokerInstance.FillBrokerPool();
 
+            // Build a new Simulation Channel and store message pairs on it
+            var TestChannel = new SimulationChannel(0, SimLoadingTestData.Protocol, SimLoadingTestData.BaudRate, SimLoadingTestData.ChannelFlags)
+            {
+                // Store messages onto our simulation channel
+                MessagePairs = SimLoadingTestData.PairedMessages,
+                MessageFilters = SimLoadingTestData.BuiltFilters,
+            };
+
             // Build a new session for testing output here
             var ChannelLoader = new SimulationLoader();
-            ChannelLoader.AddSimChannel(
-                SimLoadingTestData.Protocol, 
-                SimLoadingTestData.BaudRate,
-                SimLoadingTestData.ChannelFlags,
-                SimLoadingTestData.BuiltFilters, 
-                SimLoadingTestData.PairedMessages
-            );
+            ChannelLoader.AddSimChannel(TestChannel);
 
             // Build a new player, configure our reader and start reading output
             var SimulationPlayer = new SimulationPlayer(ChannelLoader, JVersion.V0404, "CarDAQ-Plus 3");
 
             // Setup default configuration values for our reader channel here
-            SimulationPlayer.SetDefaultMessageValues(10, 1);
+            SimulationPlayer.SetDefaultMessageValues(100, 1);
             SimulationPlayer.SetDefaultConnectionType(ProtocolId.ISO15765, 0x00, 500000);
             SimulationPlayer.SetDefaultConfigurations(new[] { new Tuple<ConfigParamId, uint>(ConfigParamId.CAN_MIXED_FORMAT, 1) });
             SimulationPlayer.SetDefaultMessageFilters(new[] 

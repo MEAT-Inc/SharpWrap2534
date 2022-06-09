@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
+using SharpSimulator.SimulationObjects;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 
@@ -16,16 +17,19 @@ namespace SharpSimulator
         // Logger object
         private readonly SubServiceLogger _simLoaderLogger;
 
+        // All Simulation Channles
+        public SimulationChannel[] SimulationChannels { get; private set; }
+
         // Properties of all channels for the simulation
-        public List<uint> BaudRates { get; }                // Baud Rate 
-        public List<uint> ChannelFlags { get; }             // Connect Flags
-        public List<ProtocolId> ChannelProtocols { get; }   // Protocols
-        public List<J2534Filter[]> ChannelFilters { get; }  // Filters
+        public uint[] BaudRates => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelBaudRate).ToArray();
+        public uint[] ChannelFlags => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelConnectFlags).ToArray();
+        public ProtocolId[] ChannelProtocols => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelProtocol).ToArray();
+        public J2534Filter[][] ChannelFilters => this.SimulationChannels.Select(SimChannel => SimChannel.MessageFilters).ToArray();
 
         // Message objects for configuring output values
-        public List<Tuple<PassThruStructs.PassThruMsg, PassThruStructs.PassThruMsg[]>>[] PairedSimulationMessages { get; private set; }
-        public List<PassThruStructs.PassThruMsg> MessagesToRead => PairedSimulationMessages.SelectMany(MsgSet => MsgSet.Select(MsgSet => MsgSet.Item1)).ToList();
-        public List<PassThruStructs.PassThruMsg[]> MessagesToWrite => PairedSimulationMessages.SelectMany(MsgSet => MsgSet.Select(MsgSet => MsgSet.Item2)).ToList();
+        public SimulationMessagePair[][] PairedSimulationMessages => this.SimulationChannels.Select(SimChannel => SimChannel.MessagePairs).ToArray();
+        public PassThruStructs.PassThruMsg[] MessagesToRead => (PassThruStructs.PassThruMsg[])PairedSimulationMessages.SelectMany(MsgSet => MsgSet.Select(MsgPair => MsgPair.MessageRead).ToArray());
+        public PassThruStructs.PassThruMsg[][] MessagesToWrite => (PassThruStructs.PassThruMsg[][])PairedSimulationMessages.SelectMany(MsgSet => MsgSet.Select(MsgPair => MsgPair.MessageResponses).ToArray());
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -35,18 +39,30 @@ namespace SharpSimulator
         public SimulationLoader()
         {
             // Setup all our default values for our class lists here.
-            this.BaudRates = new List<uint>();
-            this.ChannelFlags = new List<uint>();
-            this.ChannelProtocols = new List<ProtocolId>();
-            this.ChannelFilters = new List<J2534Filter[]>();
+            this.SimulationChannels = Array.Empty<SimulationChannel>();
 
-            // Build a logger object.
+            // Build a logger object for this loader
             this._simLoaderLogger = new SubServiceLogger($"SimLoadingLogger");
-            this.PairedSimulationMessages = new List<Tuple<PassThruStructs.PassThruMsg, PassThruStructs.PassThruMsg[]>>[] {  };
             this._simLoaderLogger.WriteLog($"BUILT A NEW SIM LOADING LOGGER WITH GUID VALUE: {this._simLoaderLogger.LoggerGuid}");
         }
         
 
+        /// <summary>
+        /// Appends a new simulation channel into our loader using an input channel object
+        /// </summary>
+        /// <param name="ChannelToAdd">Channel to store on our loader</param>
+        /// <returns>The index of the channel added</returns>
+        public int AddSimChannel(SimulationChannel ChannelToAdd)
+        {
+            // Store all values of our channel here
+            this.SimulationChannels = this.SimulationChannels
+                .Append(ChannelToAdd)
+                .ToArray();
+
+            // Find new index and return it. Check the min index of the filters and the channels then the messages.
+            this._simLoaderLogger.WriteLog($"ADDED NEW VALUES FOR A SIMULATION CHANNEL {ChannelToAdd.ChannelId} WITHOUT ISSUES!", LogType.InfoLog);
+            return PairedSimulationMessages.Length - 1;
+        }
         /// <summary>
         /// Adds in a new simulation channel object based on the given input values.
         /// </summary>
@@ -54,54 +70,55 @@ namespace SharpSimulator
         /// <param name="Filters">Filters of the channel</param>
         /// <param name="PairedSimulationMessages">Messages To Read and Respond to</param>
         /// <returns>Index of the newest built channel</returns>
-        public int AddSimChannel(ProtocolId Protocol, uint BaudRate, uint Flags, J2534Filter[] Filters, Tuple<PassThruStructs.PassThruMsg, PassThruStructs.PassThruMsg[]>[] PairedSimulationMessages)
+        public int AddSimChannel(int ChannelId, ProtocolId Protocol, uint BaudRate, uint Flags, J2534Filter[] Filters, SimulationMessagePair[] PairedSimulationMessages)
         {
-            // Store all new values here.
-            this.BaudRates.Add(BaudRate);
-            this.ChannelProtocols.Add(Protocol);
-            this.ChannelFilters.Add(Filters);
-            this.BaudRates.Add(BaudRate);
-            this.ChannelFlags.Add(Flags);
+            // Build a temporary simulation channel
+            SimulationChannel TempChannel = new SimulationChannel(ChannelId, Protocol, BaudRate, Flags);
+            TempChannel.MessagePairs = PairedSimulationMessages.ToArray();
 
-            // Messages To Read and Write Extracted
-            var NewOutput = this.PairedSimulationMessages.ToList();
-            NewOutput.Add(PairedSimulationMessages.ToList());
-            this.PairedSimulationMessages = NewOutput.ToArray(); 
-            this._simLoaderLogger.WriteLog("ADDED NEW VALUES FOR A SIMULATION CHANNEL WITHOUT ISSUES!", LogType.InfoLog);
+            // Add this channel to our list of all channel objects
+            this.SimulationChannels = this.SimulationChannels
+                .Append(TempChannel)
+                .ToArray();
 
             // Find new index and return it. Check the min index of the filters and the channels then the messages.
+            this._simLoaderLogger.WriteLog($"ADDED NEW VALUES FOR A SIMULATION CHANNEL {TempChannel.ChannelId} WITHOUT ISSUES!", LogType.InfoLog);
             return PairedSimulationMessages.Length - 1;
         }
+
         /// <summary>
-        /// Removes an old simulation channel object.
+        /// Removes a simulation channel from the list of all channel objects
         /// </summary>
-        /// <param name="ChannelIndex">Index of the channel to kick</param>
-        /// <returns>True if removed. False if index was invalid.</returns>
-        public bool RemoveSimChannel(int ChannelIndex)
+        /// <param name="ChannelToRemove">Channel to pull out of our list of input channels</param>
+        /// <returns>True if removed. False if not</returns>
+        public bool RemoveSimChannel(SimulationChannel ChannelToRemove)
         {
-            // Try and remove content values here.
-            if (ChannelIndex <= -1) {
-                this._simLoaderLogger.WriteLog($"CHANNEL INDEX WAS {ChannelIndex} FOR REMOVE COMMAND! CAN NOT BE LESS THAN 0!", LogType.ErrorLog);
-                return false; 
-            }
+            // Find the channel to remove and pull it out.
+            this._simLoaderLogger.WriteLog($"TRYING TO REMOVE CHANNEL WITH ID {ChannelToRemove.ChannelId}...");
+            this.SimulationChannels = this.SimulationChannels
+                .Where(SimChannel => SimChannel.ChannelId != ChannelToRemove.ChannelId)
+                .ToArray();
 
-            // Find the index to remove at
-            if (ChannelIndex > this.ChannelFilters.Count ||
-                ChannelIndex > this.ChannelProtocols.Count ||
-                ChannelIndex > this.MessagesToRead.Count ||
-                ChannelIndex > this.MessagesToWrite.Count) {
-                this._simLoaderLogger.WriteLog($"CHANNEL INDEX {ChannelIndex} WAS OUT OF BOUNDS FOR ONE OR MORE CHANNEL SET OBJECTS!", LogType.ErrorLog);
-                return false;
-            }
+            // Check if it exists or not.
+            this._simLoaderLogger.WriteLog($"{(this.SimulationChannels.Contains(ChannelToRemove) ? "FAILED TO REMOVE CHANNEL OBJECT!" : "CHANNEL REMOVED OK!")}");
+            return !this.SimulationChannels.Contains(ChannelToRemove);
+        }
+        /// <summary>
+        /// Removes a channel by the ID value passed in
+        /// </summary>
+        /// <param name="ChannelId">ID of the channel to remove</param>
+        /// <returns>True if removed. False if not.</returns>
+        public bool RemoveSimChannel(int ChannelId)
+        {
+            // Find the channel to remove and pull it out.
+            this._simLoaderLogger.WriteLog($"TRYING TO REMOVE CHANNEL WITH ID {ChannelId}...");
+            this.SimulationChannels = this.SimulationChannels
+                .Where(SimChannel => SimChannel.ChannelId != ChannelId)
+                .ToArray();
 
-            // Now pull the values out.
-            this.ChannelFilters.RemoveAt(ChannelIndex);
-            this.ChannelProtocols.RemoveAt(ChannelIndex);
-            var NewOutput = this.PairedSimulationMessages.ToList();
-            NewOutput.RemoveAt(ChannelIndex);
-            this.PairedSimulationMessages = NewOutput.ToArray();
-            this._simLoaderLogger.WriteLog($"REMOVED ALL VALUES FOR CHANNEL INDEX VALUE {ChannelIndex}", LogType.InfoLog);
-            return true;
+            // Check if it exists or not.
+            this._simLoaderLogger.WriteLog($"{(this.SimulationChannels.Any(SimChannel => SimChannel.ChannelId == ChannelId) ? "FAILED TO REMOVE CHANNEL OBJECT!" : "CHANNEL REMOVED OK!")}");
+            return this.SimulationChannels.All(SimChannel => SimChannel.ChannelId != ChannelId);
         }
     }
 }

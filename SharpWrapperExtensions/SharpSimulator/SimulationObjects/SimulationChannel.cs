@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 
-namespace SharpSimulator
+namespace SharpSimulator.SimulationObjects
 {
     /// <summary>
     /// Simulation Channel object used for easy importing and sharing simulation data
@@ -41,6 +37,12 @@ namespace SharpSimulator
             this.ChannelProtocol = ProtocolInUse;
             this.ChannelBaudRate = ChannelBaud;
             this.ChannelConnectFlags = ChannelFlags;
+
+            // Init empty values for our channel objects
+            this.MessageFilters = Array.Empty<J2534Filter>();
+            this.MessagePairs = new SimulationMessagePair[] { };
+            this.MessagesRead = Array.Empty<PassThruStructs.PassThruMsg>(); 
+            this.MessagesSent = Array.Empty<PassThruStructs.PassThruMsg>();
 
             // Log new information output
             this.SimChannelLogger = new SubServiceLogger($"SimChannelLogger_ID-{this.ChannelId}");

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SharpWrap2534.PassThruTypes;
+﻿using SharpWrap2534.PassThruTypes;
 
-namespace SharpSimulator
+namespace SharpSimulator.SimulationObjects
 {
     /// <summary>
     /// Structure for grouping message objects on simulation channels in a more cleaned up manner

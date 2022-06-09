@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using SharpLogger.LoggerSupport;
+using SharpSimulator.SimulationObjects;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 
@@ -36,7 +37,8 @@ namespace SharpSimulatorTests
             var TestChannel = new SimulationChannel(0, SimLoadingTestData.Protocol, SimLoadingTestData.BaudRate, SimLoadingTestData.ChannelFlags)
             {
                 // Store messages onto our simulation channel
-                MessagePairs = SimLoadingTestData.PairedMessages
+                MessagePairs = SimLoadingTestData.PairedMessages,
+                MessageFilters = SimLoadingTestData.BuiltFilters,
             };
 
             // Build a new session for testing output here

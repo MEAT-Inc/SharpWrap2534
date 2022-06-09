@@ -38,7 +38,7 @@ namespace SharpSimulatorTests
             {
                 // Store messages onto our simulation channel
                 MessagePairs = SimLoadingTestData.PairedMessages,
-                MessageFilters = SimLoadingTestData.BuiltFilters,
+                MessageFilters = SimLoadingTestData.SimChannelFilters,
             };
 
             // Build a new session for testing output here

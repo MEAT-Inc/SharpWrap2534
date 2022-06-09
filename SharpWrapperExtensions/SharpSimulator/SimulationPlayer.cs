@@ -329,7 +329,7 @@ namespace SharpSimulator
             var MessagesRead = this.SimulationChannel.PTReadMessages(ref MessageCountRef, this.ReaderTimeout);
 
             // Now check out our read data values and prepare to operate on them based on the values.
-            if (MessagesRead.Length == 0 || !ResponsesEnabled) return;
+            if (MessagesRead.Length == 0) return;
             foreach (var ReadMessage in MessagesRead)
             {
                 // TODO: WHAT THE ACTUAL FUCK DID I WRITE HERE??? THIS WORKS BUT I DO NOT UNDERSTAND HOW
@@ -428,8 +428,17 @@ namespace SharpSimulator
             this._simPlayingLogger.WriteLog(string.Join("", Enumerable.Repeat("=", 100)));
             var PulledMessages = this.InputSimulation.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
 
-            // Log message contents out
+            // Log message contents out and then log the responses out if we are going to be sending them
             this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.MessageRead.Data)}", LogType.InfoLog);
+            if (!ResponsesEnabled)
+            {
+                // Fake a reply output event and disconnect our channel
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
+                this.SimulationSession.PTDisconnect(0);
+                return true;
+            }
+
+            // Log out all of the response messages
             for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
                 this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
 

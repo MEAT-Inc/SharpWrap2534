@@ -21,20 +21,23 @@ namespace SharpSimulator
         private readonly Guid _playerGuid;
         private readonly SubServiceLogger _simPlayingLogger;
 
-        // Simulation Session Helper
-        public bool SimulationReading { get; private set; }
+        // Simulation Session Helpers
         public readonly SimulationLoader InputSimulation;
         public readonly Sharp2534Session SimulationSession;
 
         // Channel objects and default configuration
         public J2534Channel SimulationChannel { get; private set; }
         public J2534Filter[] DefaultMessageFilters { get; private set; }
+        public PassThruStructs.SConfigList DefaultConfigParamConfig { get; private set; }
         public Tuple<ProtocolId, uint, uint> DefaultConnectionConfig { get; private set; }
-        public Tuple<ConfigParamId, uint>[] DefaultConfigParamConfig { get; private set; }
 
         // Values for our reader configuration.
         public uint ReaderTimeout { get; private set; }
         public uint ReaderMessageCount { get; private set; }
+
+        // Other Reader Configuration Values and States
+        public bool SimulationReading { get; private set; }
+        public bool ResponsesEnabled { get; private set; }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -104,6 +107,16 @@ namespace SharpSimulator
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        /// Toggles if we allow responses to our messages or not.
+        /// </summary>
+        /// <param name="ResponsesEnabled">Value to set for responses being on or off</param>
+        public void SetResponsesEnabled(bool ResponsesEnabled)
+        {
+            // Store the new value here and log it
+            this.ResponsesEnabled = ResponsesEnabled;
+            this._simPlayingLogger.WriteLog($"RESPONSES ARE NOW {(ResponsesEnabled ? "ENABLED!" : "DISABLED!")}", LogType.InfoLog);
+        }
+        /// <summary>
         /// Stores new values for our reader configuration on our output
         /// </summary>
         /// <param name="TimeoutValue">Timeout on each read command</param>
@@ -141,7 +154,7 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="DefaultConfiguration">Tuple array of config IDs and values to setup</param>
         /// <returns>True if setup, false if not.</returns>
-        public bool SetDefaultConfigurations(Tuple<ConfigParamId, uint>[] DefaultConfiguration)
+        public bool SetDefaultConfigurations(PassThruStructs.SConfigList DefaultConfiguration)
         {
             // Ensure our channel object is not null at this point.
             this.DefaultConfigParamConfig = DefaultConfiguration;
@@ -151,22 +164,23 @@ namespace SharpSimulator
             }
 
             // If the channel is not null, then build our output configurations
-            foreach (var TupleObject in DefaultConfiguration)
+            this._simPlayingLogger.WriteLog("SETTING SCONFIG LIST WITH OUR CONFIGURATION VALUES NOW...");
+            foreach (var TupleObject in DefaultConfiguration.ConfigList)
             {
                 // Issue out an IOCTL for each configuration
-                this._simPlayingLogger.WriteLog($"SETTING CONFIGURATION ID PAIR: {TupleObject.Item1} -- {TupleObject.Item2}");
-                try { this.SimulationChannel.SetConfig(TupleObject.Item1, TupleObject.Item2); }
+                this._simPlayingLogger.WriteLog($"SETTING CONFIGURATION ID PAIR: {TupleObject.SConfigParamId} -- {TupleObject.SConfigValue}");
+                try { this.SimulationChannel.SetConfig(TupleObject.SConfigParamId, TupleObject.SConfigValue); }
                 catch (Exception SetConfigEx)
                 {
                     // Log failure, return false
-                    this._simPlayingLogger.WriteLog($"FAILED TO SET NEW CONFIGURATION VALUE FOR ID {TupleObject.Item1}!", LogType.ErrorLog);
+                    this._simPlayingLogger.WriteLog($"FAILED TO SET NEW CONFIGURATION VALUE FOR ID {TupleObject.SConfigParamId}!", LogType.ErrorLog);
                     this._simPlayingLogger.WriteLog("EXCEPTION IS BEING LOGGED BELOW", SetConfigEx);
                     return false;
                 }
             }
 
             // Return passed and log information
-            this._simPlayingLogger.WriteLog($"CONFIGURED ALL REQUESTED {DefaultConfiguration.Length} CONFIG TUPLE PAIRS OK!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog($"CONFIGURED ALL REQUESTED {DefaultConfiguration.ConfigList.Count} CONFIG TUPLE PAIRS OK!", LogType.InfoLog);
             return true;
         }
         /// <summary>
@@ -214,7 +228,7 @@ namespace SharpSimulator
         /// Builds a new J2534 Channel for us to use for simulation reading
         /// </summary>
         /// <returns>True if channel is built. False if it fails to build</returns>
-        public bool SetupSimulationReader()
+        public bool InitalizeSimReader()
         {
             // Check if channel configuration was setup or not.
             if (this.DefaultConnectionConfig == null) {
@@ -236,7 +250,7 @@ namespace SharpSimulator
             this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION CHANNEL WITH GIVEN INPUT VALUES OK!", LogType.InfoLog);
 
             // Check if we need to build default configuration for filters of config params
-            if (this.DefaultConfigParamConfig != null) { 
+            if (this.DefaultConfigParamConfig.NumberOfParams != 0) { 
                 this._simPlayingLogger.WriteLog("SETTING UP DEFAULT READER CONFIGURATION NOW...");
                 if (!this.SetDefaultConfigurations(this.DefaultConfigParamConfig)) return false;
             }
@@ -321,14 +335,14 @@ namespace SharpSimulator
                 // Now using those messages try and figure out what channel we need to open up.
                 // Finds the Index of the channel object and the index of the message object on the channel
                 int IndexOfMessageFound = -1; int IndexOfMessageSet = -1;
-                foreach (var ChannelObject in this.InputSimulation.PairedSimulationMessages)
+                foreach (var ChannelMessagePair in this.InputSimulation.PairedSimulationMessages)
                 {
                     // Check each of the messages found on each channel object
-                    foreach (var MessageSet in ChannelObject)
+                    foreach (var MessageSet in ChannelMessagePair)
                     {
-                        if (!ReadMessage.DataString.Contains(MessageSet.Item1.DataString)) continue;
-                        IndexOfMessageSet = this.InputSimulation.PairedSimulationMessages.ToList().IndexOf(ChannelObject);
-                        IndexOfMessageFound = ChannelObject.IndexOf(MessageSet);
+                        if (!ReadMessage.DataString.Contains(MessageSet.MessageRead.DataString)) continue;
+                        IndexOfMessageSet = this.InputSimulation.PairedSimulationMessages.ToList().IndexOf(ChannelMessagePair);
+                        IndexOfMessageFound = ChannelMessagePair.ToList().IndexOf(MessageSet);
                     }
                 }
 
@@ -358,7 +372,7 @@ namespace SharpSimulator
                         );
                     
                     // Return passed and setup a base channel object again
-                    if (!this.SetupSimulationReader())
+                    if (!this.InitalizeSimReader())
                         throw new Exception(
                             "SETUP_READER_EXCEPTION",
                             new InvalidOperationException("FAILED TO RECONFIGURE READER CHANNEL!")
@@ -414,16 +428,16 @@ namespace SharpSimulator
             var PulledMessages = this.InputSimulation.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
 
             // Log message contents out
-            this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.Item1.Data)}", LogType.InfoLog);
-            for (int RespIndex = 0; RespIndex < PulledMessages.Item2.Length; RespIndex += 1)
-                this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.Item2[RespIndex].Data)}");
+            this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.MessageRead.Data)}", LogType.InfoLog);
+            for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
+                this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
 
             // Now issue each one out to the simulation interface
             try
             {
                 // Try and send the message, indicate passed sending routine
-                this.SimulationChannel.PTWriteMessages(PulledMessages.Item2, 10);
-                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.Item1, PulledMessages.Item2));
+                this.SimulationChannel.PTWriteMessages(PulledMessages.MessageResponses, 10);
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
 
                 // Disconnect our channel and exit this routine
                 this.SimulationSession.PTDisconnect(0);
@@ -433,7 +447,7 @@ namespace SharpSimulator
             {
                 // Log failed to send output, set sending failed.
                 this._simPlayingLogger.WriteLog($"ATTEMPT TO SEND MESSAGE RESPONSE FAILED!", LogType.ErrorLog);
-                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.Item1, PulledMessages.Item2));
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
 
                 // Disconnect our channel and exit this routine
                 this.SimulationSession.PTDisconnect(0); 

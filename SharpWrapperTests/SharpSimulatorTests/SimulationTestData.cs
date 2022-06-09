@@ -27,9 +27,7 @@ namespace SharpSimulatorTests
             FilterFlowCtl = "00 00 07 E8",
             FilterProtocol = ProtocolId.ISO15765,
             FilterType = FilterDef.FLOW_CONTROL_FILTER
-        }};
-
-        // Paired Message Commands
+        }}; 
         public static readonly SimulationMessagePair[] PairedMessages = new[]
         {
             // Calibration ID messages
@@ -76,6 +74,48 @@ namespace SharpSimulatorTests
                         Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x49, 0x02, 0x01, 0x31, 0x47, 0x31, 0x46, 0x42, 0x33, 0x44, 0x53, 0x33, 0x4B, 0x30, 0x31, 0x31, 0x37, 0x32, 0x32, 0x38 },
                     },
                 }
+            }
+        };
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        // Reader configuration filters and IOCTLs
+        public static readonly J2534Filter[] ReaderFilters = new[]
+        {
+            // Passing all 0x07 0xXX Addresses
+            new J2534Filter()
+            {
+                FilterFlags = 0x00,
+                FilterFlowCtl = "",
+                FilterMask = "00 00 07 00",
+                FilterPattern = "00 00 07 00",
+                FilterProtocol = ProtocolId.CAN,
+                FilterType = FilterDef.PASS_FILTER,
+            },
+
+            // Blocking out the 0x07 0x72 address (Used for testing on my GM Moudle)
+            new J2534Filter()
+            {
+                FilterFlags = 0x00,
+                FilterFlowCtl = "",
+                FilterMask = "00 00 07 72",
+                FilterPattern = "00 00 07 72",
+                FilterProtocol = ProtocolId.CAN,
+                FilterType = FilterDef.BLOCK_FILTER,
+            },
+        };
+        public static readonly PassThruStructs.SConfigList ReaderConfigs = new PassThruStructs.SConfigList
+        {
+            // Number of configs being setup
+            NumberOfParams = 1,
+            ConfigList = new List<PassThruStructs.SConfig>()
+            {
+                // CAN Mixed format configuration
+                new PassThruStructs.SConfig()
+                {
+                    SConfigParamId = ConfigParamId.CAN_MIXED_FORMAT,
+                    SConfigValue = 1
+                },
             }
         };
     }

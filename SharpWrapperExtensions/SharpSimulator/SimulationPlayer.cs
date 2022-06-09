@@ -84,6 +84,7 @@ namespace SharpSimulator
         {
             // Store class values and build a simulation loader.
             this.InputSimulation = Loader;
+            this.ResponsesEnabled = true;
             PassThruDLL ??= "NO_DLL"; PassThruDevice ??= "NO_DEVICE";
             this.SimulationSession = Sharp2534Session.OpenSession(
                 Version,
@@ -328,7 +329,7 @@ namespace SharpSimulator
             var MessagesRead = this.SimulationChannel.PTReadMessages(ref MessageCountRef, this.ReaderTimeout);
 
             // Now check out our read data values and prepare to operate on them based on the values.
-            if (MessagesRead.Length == 0) return;
+            if (MessagesRead.Length == 0 || !ResponsesEnabled) return;
             foreach (var ReadMessage in MessagesRead)
             {
                 // TODO: WHAT THE ACTUAL FUCK DID I WRITE HERE??? THIS WORKS BUT I DO NOT UNDERSTAND HOW

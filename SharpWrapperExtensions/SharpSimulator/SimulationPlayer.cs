@@ -228,7 +228,7 @@ namespace SharpSimulator
         /// Builds a new J2534 Channel for us to use for simulation reading
         /// </summary>
         /// <returns>True if channel is built. False if it fails to build</returns>
-        public bool InitalizeSimReader()
+        public bool InitializeSimReader()
         {
             // Check if channel configuration was setup or not.
             if (this.DefaultConnectionConfig == null) {

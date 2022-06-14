@@ -29,7 +29,7 @@ namespace SharpSimulator
         public J2534Channel SimulationChannel { get; private set; }
         public J2534Filter[] DefaultMessageFilters { get; private set; }
         public PassThruStructs.SConfigList DefaultConfigParamConfig { get; private set; }
-        public Tuple<ProtocolId, uint, uint> DefaultConnectionConfig { get; private set; }
+        public Tuple<ProtocolId, PassThroughConnect, uint> DefaultConnectionConfig { get; private set; }
 
         // Values for our reader configuration.
         public uint ReaderTimeout { get; private set; }
@@ -142,10 +142,10 @@ namespace SharpSimulator
         /// <param name="ConnectionFlags"></param>
         /// <param name="ChannelBaudrate"></param>
         /// <returns></returns>
-        public bool SetDefaultConnectionType(ProtocolId Protocol, uint ConnectionFlags, uint ChannelBaudrate)
+        public bool SetDefaultConnectionType(ProtocolId Protocol, PassThroughConnect ConnectionFlags, uint ChannelBaudrate)
         {
             // Store our configuration values here
-            this.DefaultConnectionConfig = new Tuple<ProtocolId, uint, uint>(Protocol, ConnectionFlags, ChannelBaudrate);
+            this.DefaultConnectionConfig = new Tuple<ProtocolId, PassThroughConnect, uint>(Protocol, ConnectionFlags, ChannelBaudrate);
             this._simPlayingLogger.WriteLog("STORED NEW CONFIGURATION FOR CHANNEL SETUP OK!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog("CHANGES WILL NOT TAKE PLACE UNTIL THE NEXT TIME A CHANNEL IS CLOSED AND REOPENED!", LogType.InfoLog);
             return true;
@@ -241,7 +241,7 @@ namespace SharpSimulator
             this.SimulationChannel = this.SimulationSession.PTConnect(
                 0, 
                 this.DefaultConnectionConfig.Item1, 
-                this.DefaultConnectionConfig.Item2, 
+                (uint)this.DefaultConnectionConfig.Item2, 
                 this.DefaultConnectionConfig.Item3,
                 out uint ChannelIdBuilt
             );

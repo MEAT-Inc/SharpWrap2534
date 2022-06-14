@@ -38,7 +38,7 @@ namespace SharpSimulatorTests
             {
                 // Store messages onto our simulation channel
                 MessagePairs = SimLoadingTestData.PairedMessages,
-                MessageFilters = SimLoadingTestData.BuiltFilters,
+                MessageFilters = SimLoadingTestData.SimChannelFilters,
             };
 
             // Build a new session for testing output here
@@ -47,13 +47,18 @@ namespace SharpSimulatorTests
 
             // Build a new player, configure our reader and start reading output
             var SimulationPlayer = new SimulationPlayer(ChannelLoader, JVersion.V0404, "CarDAQ-Plus 3");
+            var SimConfiguration = SimulationConfigLoader.LoadSimulationConfig(ProtocolId.ISO15765);
 
             // Setup default configuration values for our reader channel here
             SimulationPlayer.SetResponsesEnabled(true);
-            SimulationPlayer.SetDefaultMessageValues(100, 1);
-            SimulationPlayer.SetDefaultConnectionType(ProtocolId.ISO15765, 0x00, 500000);
-            SimulationPlayer.SetDefaultConfigurations(SimLoadingTestData.ReaderConfigs);
-            SimulationPlayer.SetDefaultMessageFilters(SimLoadingTestData.ReaderFilters);
+            SimulationPlayer.SetDefaultConfigurations(SimConfiguration.ReaderConfigs);
+            SimulationPlayer.SetDefaultMessageFilters(SimConfiguration.ReaderFilters);
+            SimulationPlayer.SetDefaultMessageValues(SimConfiguration.ReaderTimeout, SimConfiguration.ReaderMsgCount);
+            SimulationPlayer.SetDefaultConnectionType(
+                SimConfiguration.ReaderProtocol, 
+                SimConfiguration.ReaderChannelFlags,
+                SimConfiguration.ReaderBaudRate
+            );
 
             // Begin reading here and then wait for 60 seconds
             SimulationPlayer.InitializeSimReader();

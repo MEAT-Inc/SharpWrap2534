@@ -19,7 +19,7 @@ namespace SharpSimulatorTests
         public static readonly uint BaudRate = 500000;
         public static readonly uint ChannelFlags = 0x00;
         public static readonly ProtocolId Protocol = ProtocolId.ISO15765;
-        public static readonly J2534Filter[] BuiltFilters = new[] { new J2534Filter()
+        public static readonly J2534Filter[] SimChannelFilters = new[] { new J2534Filter()
         {
             FilterFlags = 0x40,
             FilterMask = "00 00 FF FF",

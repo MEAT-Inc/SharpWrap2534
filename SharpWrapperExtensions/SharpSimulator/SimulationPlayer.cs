@@ -29,7 +29,7 @@ namespace SharpSimulator
         public J2534Channel SimulationChannel { get; private set; }
         public J2534Filter[] DefaultMessageFilters { get; private set; }
         public PassThruStructs.SConfigList DefaultConfigParamConfig { get; private set; }
-        public Tuple<ProtocolId, uint, uint> DefaultConnectionConfig { get; private set; }
+        public Tuple<ProtocolId, PassThroughConnect, uint> DefaultConnectionConfig { get; private set; }
 
         // Values for our reader configuration.
         public uint ReaderTimeout { get; private set; }
@@ -84,6 +84,7 @@ namespace SharpSimulator
         {
             // Store class values and build a simulation loader.
             this.InputSimulation = Loader;
+            this.ResponsesEnabled = true;
             PassThruDLL ??= "NO_DLL"; PassThruDevice ??= "NO_DEVICE";
             this.SimulationSession = Sharp2534Session.OpenSession(
                 Version,
@@ -141,10 +142,10 @@ namespace SharpSimulator
         /// <param name="ConnectionFlags"></param>
         /// <param name="ChannelBaudrate"></param>
         /// <returns></returns>
-        public bool SetDefaultConnectionType(ProtocolId Protocol, uint ConnectionFlags, uint ChannelBaudrate)
+        public bool SetDefaultConnectionType(ProtocolId Protocol, PassThroughConnect ConnectionFlags, uint ChannelBaudrate)
         {
             // Store our configuration values here
-            this.DefaultConnectionConfig = new Tuple<ProtocolId, uint, uint>(Protocol, ConnectionFlags, ChannelBaudrate);
+            this.DefaultConnectionConfig = new Tuple<ProtocolId, PassThroughConnect, uint>(Protocol, ConnectionFlags, ChannelBaudrate);
             this._simPlayingLogger.WriteLog("STORED NEW CONFIGURATION FOR CHANNEL SETUP OK!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog("CHANGES WILL NOT TAKE PLACE UNTIL THE NEXT TIME A CHANNEL IS CLOSED AND REOPENED!", LogType.InfoLog);
             return true;
@@ -240,7 +241,7 @@ namespace SharpSimulator
             this.SimulationChannel = this.SimulationSession.PTConnect(
                 0, 
                 this.DefaultConnectionConfig.Item1, 
-                this.DefaultConnectionConfig.Item2, 
+                (uint)this.DefaultConnectionConfig.Item2, 
                 this.DefaultConnectionConfig.Item3,
                 out uint ChannelIdBuilt
             );
@@ -427,8 +428,17 @@ namespace SharpSimulator
             this._simPlayingLogger.WriteLog(string.Join("", Enumerable.Repeat("=", 100)));
             var PulledMessages = this.InputSimulation.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
 
-            // Log message contents out
+            // Log message contents out and then log the responses out if we are going to be sending them
             this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.MessageRead.Data)}", LogType.InfoLog);
+            if (!ResponsesEnabled)
+            {
+                // Fake a reply output event and disconnect our channel
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
+                this.SimulationSession.PTDisconnect(0);
+                return true;
+            }
+
+            // Log out all of the response messages
             for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
                 this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
 

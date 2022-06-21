@@ -55,7 +55,7 @@ namespace SharpWrap2534.J2534Api
         internal static void CopyPassThruMsgToNative(ref PassThruStructsNative.PASSTHRU_MSG NativeMessage, PassThruStructs.PassThruMsg ManagedMessage)
         {
             // Set the values from the native message to the managed one.
-            NativeMessage.ProtocolID = (uint)ManagedMessage.ProtocolID;
+            NativeMessage.ProtocolID = (uint)ManagedMessage.ProtocolId;
             NativeMessage.RxStatus = ManagedMessage.RxStatus;
             NativeMessage.TxFlags = ManagedMessage.TxFlags;
             NativeMessage.Timestamp = ManagedMessage.Timestamp;
@@ -75,7 +75,7 @@ namespace SharpWrap2534.J2534Api
             // Copy the values from our managed message to the native one.
             ManagedMessage = new PassThruStructs.PassThruMsg(NativeMessage.DataSize)
             {
-                ProtocolID = (ProtocolId)NativeMessage.ProtocolID,
+                ProtocolId = (ProtocolId)NativeMessage.ProtocolID,
                 RxStatus = NativeMessage.RxStatus,
                 TxFlags = NativeMessage.TxFlags,
                 Timestamp = NativeMessage.Timestamp,

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpSimulator</id>
-    <version>0.0.0.0</version>
+    <version>0.6.4.69</version>
     <title>SharpSimulator</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -16,15 +16,20 @@
   - ` dotnet add PROJECT package SharpSimulator --version LATEST `
 --- 
 ### Change Log For Release
-    </description>
-    <releaseNotes>RELEASE NOTES GO HERE</releaseNotes>
+- Added in use for the ResponsesEnabled bool value on the SimPlayer. 
+- Toggles if we should reply to messages or if we should simply monitor all input and log it out
+</description>
+    <releaseNotes>
+- Added in use for the ResponsesEnabled bool value on the SimPlayer. 
+- Toggles if we should reply to messages or if we should simply monitor all input and log it out
+</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>0.0.0.0</tags>
+    <tags>0.6.4.69-response-toggle</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>
         <dependency id="SharpLogger" version="1.4.10.109"/>
-        <dependency id="SharpWrap2534" version="5.1.1.315"/>        
+        <dependency id="SharpWrap2534" version="4.1.3.264"/>        
       </group>
     </dependencies>
     <references>

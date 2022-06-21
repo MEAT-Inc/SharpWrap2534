@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpSimulator</id>
-    <version>0.0.0.0</version>
+    <version>0.7.1.75</version>
     <title>SharpSimulator</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -16,10 +16,15 @@
   - ` dotnet add PROJECT package SharpSimulator --version LATEST `
 --- 
 ### Change Log For Release
-    </description>
-    <releaseNotes>RELEASE NOTES GO HERE</releaseNotes>
+- Built in some changes for the SharpWrapper project. Now using latest Nuget version as a requirement for this package. 
+- Included some small changes to logic for simulation runtime methods when it came to pulling matching data string values.
+</description>
+    <releaseNotes>
+- Built in some changes for the SharpWrapper project. Now using latest Nuget version as a requirement for this package. 
+- Included some small changes to logic for simulation runtime methods when it came to pulling matching data string values.
+</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>0.0.0.0</tags>
+    <tags>0.7.1.75-nuget</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package >
   <metadata>
-    <id>SharpSimulator</id>
-    <version>0.0.0.0</version>
-    <title>SharpSimulator</title>
+    <id>SharpAutoId</id>
+    <version>0.3.3.56</version>
+    <title>SharpAutoId</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">AGPL-3.0-or-later</license>
     <projectUrl>https://github.com/MEAT-Inc/Sharp2534Wrapper</projectUrl>
     <repository type="git" url="https://github.com/MEAT-Inc/Sharp2534Wrapper/"/>
     <description>
-## **SharpSimulator**
-- SharpSimulator is an extension method set for the SharpSession object which allows a user to build and replay simulations of an 11 Bit CAN Car in real time
+## **SharpAutoId**
+- SharpAutoId is an extension method set for the SharpSession object which allows AutoID routine support 
 - As always, pull this version in using the Nuget PM with the command 
-  - ` dotnet add PROJECT package SharpSimulator --version LATEST `
+  - ` dotnet add PROJECT package SharpAutoId --version LATEST `
 --- 
 ### Change Log For Release
-    </description>
-    <releaseNotes>RELEASE NOTES GO HERE</releaseNotes>
+- Built in some changes for the SharpWrapper project. Now using latest Nuget version as a requirement for this package
+</description>
+    <releaseNotes>
+- Built in some changes for the SharpWrapper project. Now using latest Nuget version as a requirement for this package
+</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>0.0.0.0</tags>
+    <tags>0.3.3.56-nuget</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>
@@ -31,7 +34,7 @@
       <group targetFramework="net472">
         <reference file="NLog.dll"/>
         <reference file="SharpLogger.dll" />
-        <reference file="SharpSimulator.dll" />
+        <reference file="SharpAutoId.dll" />
         <reference file="SharpWrap2534.dll" />
       </group>
     </references>

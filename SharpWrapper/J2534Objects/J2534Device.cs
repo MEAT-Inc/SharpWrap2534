@@ -171,7 +171,7 @@ namespace SharpWrap2534.J2534Objects
             // Built new PTMessage.
             uint MsgDataSize = (uint)SoapHexBin.Value.Length;
             PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize);
-            BuiltPtMsg.ProtocolID = ProtocolId;
+            BuiltPtMsg.ProtocolId = ProtocolId;
             BuiltPtMsg.TxFlags = MsgFlags;
             BuiltPtMsg.DataSize = MsgDataSize;
 
@@ -195,7 +195,7 @@ namespace SharpWrap2534.J2534Objects
             PassThruStructs.PassThruMsg BuiltMessage = new PassThruStructs.PassThruMsg((uint)MessageBytes.Length);
 
             // Store properties onto the message.
-            BuiltMessage.ProtocolID = ProtocolId;
+            BuiltMessage.ProtocolId = ProtocolId;
             BuiltMessage.TxFlags = MessageFlags;
             BuiltMessage.DataSize = (uint)MessageBytes.Length;
 

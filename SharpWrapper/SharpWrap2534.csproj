@@ -87,6 +87,7 @@
     <Compile Include="PassThruTypes\PassThruEnums.cs" />
     <Compile Include="SupportingLogic\InstanceEnums.cs" />
     <Compile Include="SupportingLogic\LoggingSupport.cs" />
+    <Compile Include="SupportingLogic\PtMessageJsonConverter.cs" />
     <Compile Include="SupportingLogic\TextTableGenerator.cs" />
     <Compile Include="SupportingLogic\Win32Invokers.cs" />
   </ItemGroup>

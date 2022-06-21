@@ -24,7 +24,7 @@
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>
         <dependency id="SharpLogger" version="1.4.10.109"/>
-        <dependency id="SharpWrap2534" version="5.1.1.315"/>        
+        <dependency id="SharpWrap2534" version="5.1.4.322"/>        
       </group>
     </dependencies>
     <references>

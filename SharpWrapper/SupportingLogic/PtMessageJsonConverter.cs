@@ -103,7 +103,9 @@ namespace SharpWrap2534.SupportingLogic
             uint ExtraDataIndexRead = uint.Parse(InputObject["ExtraDataIndex"].Value<string>());
 
             // Message Data value
-            byte[] MessageDataAsBytes = InputObject["Data"].Value<string>().Split(' ')
+            byte[] MessageDataAsBytes ;
+            if (InputObject["Data"].Value<string>() == "No Data!") MessageDataAsBytes = Array.Empty<byte>();
+            else MessageDataAsBytes = InputObject["Data"].Value<string>().Split(' ')
                 .Select(BytePart => Convert.ToByte(BytePart.Replace("0x", string.Empty), 16))
                 .ToArray();
 

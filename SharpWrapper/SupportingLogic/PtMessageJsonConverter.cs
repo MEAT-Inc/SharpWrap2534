@@ -14,7 +14,7 @@ namespace SharpWrap2534.SupportingLogic
     /// Json Conversion helper for PTMessages.
     /// Used mainly to write the data in 0x00 format to JSON and convert it back when pulled in.
     /// </summary>
-    public class PtMessageJsonConverter : JsonConverter
+    public class PtMsgConverter : JsonConverter
     {
         // Sample JSON message object output
         /*
@@ -70,7 +70,7 @@ namespace SharpWrap2534.SupportingLogic
             });
 
             // Now write this built object.
-            JWriter.WriteRaw(JsonConvert.SerializeObject(OutputObject, Formatting.Indented));
+            JWriter.WriteRawValue(JsonConvert.SerializeObject(OutputObject, Formatting.Indented));
         }
         /// <summary>
         /// Reads in a new JSON object as a PTMessage

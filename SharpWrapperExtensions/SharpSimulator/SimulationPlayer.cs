@@ -341,7 +341,12 @@ namespace SharpSimulator
                     // Check each of the messages found on each channel object
                     foreach (var MessageSet in ChannelMessagePair)
                     {
-                        if (!ReadMessage.DataString.Contains(MessageSet.MessageRead.DataString)) continue;
+                        // Build the message data for sent and read
+                        string ReadMessageData = ReadMessage.DataToHexString(true);
+                        string SentMessageData = MessageSet.MessageRead.DataToHexString(true);
+
+                        // Check if we have this string value or not.
+                        if (!ReadMessageData.Contains(SentMessageData)) continue;
                         IndexOfMessageSet = this.InputSimulation.PairedSimulationMessages.ToList().IndexOf(ChannelMessagePair);
                         IndexOfMessageFound = ChannelMessagePair.ToList().IndexOf(MessageSet);
                     }

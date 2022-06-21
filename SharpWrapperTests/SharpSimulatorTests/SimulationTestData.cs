@@ -46,7 +46,7 @@ namespace SharpSimulatorTests
                     new PassThruStructs.PassThruMsg()
                     {
                         DataSize = 10,
-                        ProtocolID = ProtocolId.ISO15765,
+                        ProtocolId = ProtocolId.ISO15765,
                         TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
                         Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x41, 0x00, 0xBF, 0xFF, 0xB9, 0x93 },
                     },
@@ -69,7 +69,7 @@ namespace SharpSimulatorTests
                     new PassThruStructs.PassThruMsg()
                     {
                         DataSize = 24,
-                        ProtocolID = ProtocolId.ISO15765,
+                        ProtocolId = ProtocolId.ISO15765,
                         TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
                         Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x49, 0x02, 0x01, 0x31, 0x47, 0x31, 0x46, 0x42, 0x33, 0x44, 0x53, 0x33, 0x4B, 0x30, 0x31, 0x31, 0x37, 0x32, 0x32, 0x38 },
                     },

@@ -40,7 +40,7 @@ namespace SharpSimulator.SimulationObjects
 
             // Init empty values for our channel objects
             this.MessageFilters = Array.Empty<J2534Filter>();
-            this.MessagePairs = new SimulationMessagePair[] { };
+            this.MessagePairs = Array.Empty<SimulationMessagePair>();
             this.MessagesRead = Array.Empty<PassThruStructs.PassThruMsg>(); 
             this.MessagesSent = Array.Empty<PassThruStructs.PassThruMsg>();
 

@@ -328,8 +328,14 @@ namespace SharpSimulator
             uint MessageCountRef = this.ReaderMessageCount;
             var MessagesRead = this.SimulationChannel.PTReadMessages(ref MessageCountRef, this.ReaderTimeout);
 
-            // Now check out our read data values and prepare to operate on them based on the values.
+            // Make sure we actually got some data back first.
             if (MessagesRead.Length == 0) return;
+
+            // Purge TX and RX Buffers
+            this.SimulationChannel.ClearTxBuffer(); 
+            this.SimulationChannel.ClearRxBuffer();
+
+            // Now check out our read data values and prepare to operate on them based on the values.
             foreach (var ReadMessage in MessagesRead)
             {
                 // TODO: WHAT THE ACTUAL FUCK DID I WRITE HERE??? THIS WORKS BUT I DO NOT UNDERSTAND HOW
@@ -452,6 +458,9 @@ namespace SharpSimulator
             {
                 // Try and send the message, indicate passed sending routine
                 this.SimulationChannel.PTWriteMessages(PulledMessages.MessageResponses, 10);
+                this.SimulationChannel.ClearTxBuffer(); this.SimulationChannel.ClearRxBuffer();
+
+                // Fire new event arguments.
                 this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
 
                 // Disconnect our channel and exit this routine

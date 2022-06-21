@@ -53,6 +53,7 @@
     <Compile Include="SimulationEvents\SimChannelEventArgs.cs" />
     <Compile Include="SimulationEvents\SimMessageEventArgs.cs" />
     <Compile Include="SimulationLoader.cs" />
+    <Compile Include="SimulationObjects\SimulationChannelJsonConverter.cs" />
     <Compile Include="SimulationObjects\SimulationConfig.cs" />
     <Compile Include="SimulationObjects\SimulationMessagePair.cs" />
     <Compile Include="SimulationPlayer.cs" />

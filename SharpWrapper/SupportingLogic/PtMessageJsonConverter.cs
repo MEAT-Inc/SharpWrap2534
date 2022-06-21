@@ -14,7 +14,7 @@ namespace SharpWrap2534.SupportingLogic
     /// Json Conversion helper for PTMessages.
     /// Used mainly to write the data in 0x00 format to JSON and convert it back when pulled in.
     /// </summary>
-    public class PtMsgConverter : JsonConverter
+    internal class PtMsgConverter : JsonConverter
     {
         // Sample JSON message object output
         /*

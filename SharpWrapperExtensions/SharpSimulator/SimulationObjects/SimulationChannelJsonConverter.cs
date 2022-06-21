@@ -4,21 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SharpWrap2534.J2534Objects;
 
-namespace SharpWrap2534.SupportingLogic
+namespace SharpSimulator.SimulationObjects
 {
     /// <summary>
-    /// Converts a J2534 filter object around with a specified format routine
+    /// Class used to convert Simulation channels into readable format in JSON
     /// </summary>
-    internal class PtFilterJsonConverter : JsonConverter
+    internal class SimulationChannelJsonConverter: JsonConverter
     {
         /// <summary>
         /// Sets if we can convert the input object or not.
         /// </summary>
         /// <param name="ObjectType"></param>
         /// <returns></returns>
-        public override bool CanConvert(Type ObjectType) { return ObjectType == typeof(J2534Filter); }
+        public override bool CanConvert(Type ObjectType) { return ObjectType == typeof(SimulationChannel); }
 
         /// <summary>
         /// Writes a J2534 Filter object to JSON

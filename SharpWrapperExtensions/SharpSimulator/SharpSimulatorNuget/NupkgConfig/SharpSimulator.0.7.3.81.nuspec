@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpSimulator</id>
-    <version>0.0.0.0</version>
+    <version>0.7.3.81</version>
     <title>SharpSimulator</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -16,10 +16,12 @@
   - ` dotnet add PROJECT package SharpSimulator --version LATEST `
 --- 
 ### Change Log For Release
-    </description>
-    <releaseNotes>RELEASE NOTES GO HERE</releaseNotes>
+Fixing some JSON parse issues that may not impact this project but should be included
+</description>
+    <releaseNotes>Fixing some JSON parse issues that may not impact this project but should be included
+</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>0.0.0.0</tags>
+    <tags>0.7.3.81-json-fixes</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>

@@ -60,10 +60,29 @@ namespace SharpSimulatorTests
                 SimConfiguration.ReaderBaudRate
             );
 
-            // Begin reading here and then wait for 60 seconds
+            // Run our simulator init routine here and then start a new simulation
             SimulationPlayer.InitializeSimReader();
-            SimulationPlayer.StartSimulationReader();
-            while (SimulationPlayer.SimulationReading) continue;
+            SimulationPlayer.StartSimulationReader(); 
+
+            // Start a console key monitor here
+            while (true)
+            {
+                // Pull the next key value here
+                ConsoleKeyInfo NextKeyInfo = Console.ReadKey();
+                switch (NextKeyInfo.Key)
+                {
+                    // Toggles the simulation player totally.
+                    case ConsoleKey.Enter:
+                        if (SimulationPlayer.SimulationReading) SimulationPlayer.StopSimulationReader();
+                        else SimulationPlayer.StartSimulationReader();
+                        break;
+
+                    // Toggles responses being on or off
+                    case ConsoleKey.Spacebar:
+                        SimulationPlayer.SetResponsesEnabled(!SimulationPlayer.ResponsesEnabled);
+                        break;
+                }
+            }
         }
     }
 }

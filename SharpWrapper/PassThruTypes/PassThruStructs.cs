@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using Newtonsoft.Json;
+using SharpWrap2534.SupportingLogic;
 
 namespace SharpWrap2534.PassThruTypes
 {
@@ -16,9 +17,10 @@ namespace SharpWrap2534.PassThruTypes
         /// <summary>
         /// PassThur message struct
         /// </summary>
+        [JsonConverter(typeof(PtMessageJsonConverter))]
         public struct PassThruMsg
         {
-            public ProtocolId ProtocolID;
+            public ProtocolId ProtocolId;
             public uint RxStatus;
             public uint TxFlags;
             public uint Timestamp;
@@ -26,16 +28,15 @@ namespace SharpWrap2534.PassThruTypes
             public uint ExtraDataIndex;
 
             // Data Contents as bytes and strings 
-            public byte[] Data; 
-            public string DataString => this.DataToHexString(true);
-
+            public byte[] Data;
+            
             /// <summary>
             /// Builds a new PassThru message from managed types.
             /// </summary>
             /// <param name="ByteCount"></param>
             public PassThruMsg(uint ByteCount = 0)
             {
-                ProtocolID = 0;
+                ProtocolId = 0;
                 RxStatus = 0;
                 TxFlags = 0;
                 Timestamp = 0;

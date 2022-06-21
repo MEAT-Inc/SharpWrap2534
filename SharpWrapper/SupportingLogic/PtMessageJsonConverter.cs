@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,6 +16,19 @@ namespace SharpWrap2534.SupportingLogic
     /// </summary>
     public class PtMessageJsonConverter : JsonConverter
     {
+        // Sample JSON message object output
+        /*
+         * {
+         *   ProtocolId: "ISO15765",
+         *   RxStatus: "No RxStatus",
+         *   TxFlags: "ISO15765_FRAME_PAD",
+         *   Timestamp: "10ms",
+         *   DataSize: 12 Bytes
+         *   ExtraDataIndex: 0,
+         *   Data: 0x00 0x00 0x07 0xDF 0x02 0x09 0x02 0x00 0x00 0x00 0x00 0x00
+         * }
+         */
+
         /// <summary>
         /// Sets if we can convert into JSON and from JSON or not.
         /// </summary>
@@ -34,19 +48,6 @@ namespace SharpWrap2534.SupportingLogic
             if (ValueObject == null) { return; }
             PassThruStructs.PassThruMsg CastMessage = (PassThruStructs.PassThruMsg)ValueObject;
 
-            // Sample JSON message object output
-            /*
-             * {
-             *   ProtocolId: "ISO15765",
-             *   RxStatus: "No RxStatus",
-             *   TxFlags: "ISO15765_FRAME_PAD",
-             *   Timestamp: "10ms",
-             *   DataSize: 12 Bytes
-             *   ExtraDataIndex: 0,
-             *   Data: 0x00 0x00 0x07 0xDF 0x02 0x09 0x02 0x00 0x00 0x00 0x00 0x00
-             * }
-             */
-
             // Get all the string JSON properties we want to use for this object
             string ProtocolString = CastMessage.ProtocolId.ToString();
             string RxStatusString = CastMessage.RxStatus == 0 ? "No RxStatus" : ((RxStatus)CastMessage.RxStatus).ToString();
@@ -59,10 +60,13 @@ namespace SharpWrap2534.SupportingLogic
             // Create our dynamic object for JSON output
             var OutputObject = JObject.FromObject(new
             {
-                ProtocolID = CastMessage.ProtocolId,              
-                CastSettingEntry.SettingValue,               // Setting Value
-                CastSettingEntry.SettingDescription,         // Description of the setting
-                SettingControlType = TypeOfControlString,    // Setting UI Control Type
+                ProtocolId = ProtocolString,              
+                RxStatus = RxStatusString,
+                TxFlags = TxFlagsString,
+                Timestamp = TimeStampString,
+                DataSize = DataSizeString,
+                ExtraDataIndex = ExtraDataIndexString,
+                Data = DataValueString
             });
 
             // Now write this built object.
@@ -82,14 +86,38 @@ namespace SharpWrap2534.SupportingLogic
             JObject InputObject = JObject.Load(JReader);
             if (InputObject.HasValues == false) { return default; }
 
-            // Select the array of paths here.
-            string SettingName = InputObject["SettingName"]?.Value<string>();
-            object SettingValue = InputObject["SettingValue"]?.Value<object>();
-            string SettingDescription = InputObject["SettingDescription"]?.Value<string>();
-            Enum.TryParse(InputObject["SettingControlType"]?.Value<object>()?.ToString(), out ControlTypes SettingControlType);
+            // Enum values pulled in here
+            ProtocolId ProtocolRead = InputObject["ProtocolId"].Type == JTokenType.Integer ?
+                (ProtocolId)InputObject["ProtocolId"].Value<uint>() :
+                (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["ProtocolId"].Value<string>());
+            RxStatus RxStatusRead = InputObject["RxStatus"].Type == JTokenType.Integer ?
+                (RxStatus)InputObject["RxStatus"].Value<uint>() :
+                (RxStatus)Enum.Parse(typeof(RxStatus), InputObject["RxStatus"].Value<string>());
+            TxFlags TxFlagsRead = InputObject["TxFlags"].Type == JTokenType.Integer ?
+                (TxFlags)InputObject["TxFlags"].Value<uint>() :
+                (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["TxFlags"].Value<string>());
+            
+            // Basic Uint Values
+            uint TimeStampRead = uint.Parse(Regex.Match(InputObject["Timestamp"].Value<string>(), "\\d+").Value);
+            uint DataSizeRead = uint.Parse(InputObject["DataSize"].Value<string>().Split(' ')[0]);
+            uint ExtraDataIndexRead = uint.Parse(InputObject["ExtraDataIndex"].Value<string>());
+
+            // Message Data value
+            byte[] MessageDataAsBytes = InputObject["Data"].Value<string>().Split(' ')
+                .Select(BytePart => Convert.ToByte(BytePart.Replace("0x", string.Empty), 16))
+                .ToArray();
 
             // Return built output object
-            return new SettingsEntryModel(SettingName, SettingValue, SettingControlType, SettingDescription);
+            return new PassThruStructs.PassThruMsg()
+            {   
+                ProtocolId = ProtocolRead,
+                RxStatus = (uint)RxStatusRead,
+                TxFlags =  (uint)TxFlagsRead,
+                Timestamp = TimeStampRead,
+                DataSize =  DataSizeRead,
+                ExtraDataIndex = ExtraDataIndexRead,
+                Data = MessageDataAsBytes
+            };
         }
     }
 }

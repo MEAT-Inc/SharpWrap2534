@@ -26,8 +26,6 @@ namespace SharpWrap2534.PassThruTypes
             public uint Timestamp;
             public uint DataSize;
             public uint ExtraDataIndex;
-
-            // Data Contents as bytes and strings 
             public byte[] Data;
             
             /// <summary>

@@ -92,10 +92,14 @@ namespace SharpWrap2534.SupportingLogic
                 (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["ProtocolId"].Value<string>());
             RxStatus RxStatusRead = InputObject["RxStatus"].Type == JTokenType.Integer ?
                 (RxStatus)InputObject["RxStatus"].Value<uint>() :
-                (RxStatus)Enum.Parse(typeof(RxStatus), InputObject["RxStatus"].Value<string>());
+                InputObject["RxStatus"].Value<string>() == "No RxStatus" ? 
+                    0 : 
+                    (RxStatus)Enum.Parse(typeof(RxStatus), InputObject["RxStatus"].Value<string>());
             TxFlags TxFlagsRead = InputObject["TxFlags"].Type == JTokenType.Integer ?
                 (TxFlags)InputObject["TxFlags"].Value<uint>() :
-                (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["TxFlags"].Value<string>());
+                InputObject["TxFlags"].Value<string>() == "No TxFlags" ? 
+                    0 : 
+                    (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["TxFlags"].Value<string>());
             
             // Basic Uint Values
             uint TimeStampRead = uint.Parse(Regex.Match(InputObject["Timestamp"].Value<string>(), "\\d+").Value);

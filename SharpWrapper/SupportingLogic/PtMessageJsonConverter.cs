@@ -50,8 +50,8 @@ namespace SharpWrap2534.SupportingLogic
 
             // Get all the string JSON properties we want to use for this object
             string ProtocolString = CastMessage.ProtocolId.ToString();
-            string RxStatusString = CastMessage.RxStatus == 0 ? "No RxStatus" : ((RxStatus)CastMessage.RxStatus).ToString();
-            string TxFlagsString = CastMessage.TxFlags == 0 ? "No TxFlags" : ((TxFlags)CastMessage.TxFlags).ToString();
+            string RxStatusString = CastMessage.RxStatus == 0 ? "No RxStatus" : CastMessage.RxStatus.ToString();
+            string TxFlagsString = CastMessage.TxFlags == 0 ? "No TxFlags" : CastMessage.TxFlags.ToString();
             string TimeStampString = CastMessage.Timestamp + "ms";
             string DataSizeString = CastMessage.DataSize + (CastMessage.DataSize == 1 ? " Byte" : " Bytes");
             string ExtraDataIndexString = CastMessage.ExtraDataIndex.ToString();

@@ -52,6 +52,7 @@ namespace SharpWrap2534.PassThruTypes
             public string DataToAsciiString()
             {
                 // Convert the data into the given format here.
+                if (this.Data == null) return "No Data!";
                 if (this.Data.All(ByteObj => ByteObj == 0x00)) return "No Data!";
                 string AsciiString = Encoding.Default.GetString(this.Data);
                 return AsciiString;
@@ -64,6 +65,7 @@ namespace SharpWrap2534.PassThruTypes
             public string DataToHexString(bool Use0x = false)
             {
                 // Ensure we have data contents here
+                if (this.Data == null) return "No Data!";
                 if (this.Data.All(ByteObj => ByteObj == 0x00)) return "No Data!";
 
                 // Convert to a string Array by splitting on '-'

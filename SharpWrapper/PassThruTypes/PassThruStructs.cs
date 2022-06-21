@@ -17,7 +17,7 @@ namespace SharpWrap2534.PassThruTypes
         /// <summary>
         /// PassThur message struct
         /// </summary>
-        [JsonConverter(typeof(PtMessageJsonConverter))]
+        [JsonConverter(typeof(PtMsgConverter))]
         public struct PassThruMsg
         {
             public ProtocolId ProtocolId;

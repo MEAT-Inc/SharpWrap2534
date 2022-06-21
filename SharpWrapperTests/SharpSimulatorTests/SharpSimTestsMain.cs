@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using SharpLogger.LoggerSupport;
 using SharpSimulator.SimulationObjects;
 using SharpWrap2534.J2534Objects;
@@ -44,7 +45,7 @@ namespace SharpSimulatorTests
             // Build a new session for testing output here
             var ChannelLoader = new SimulationLoader();
             ChannelLoader.AddSimChannel(TestChannel);
-
+                
             // Build a new player, configure our reader and start reading output
             var SimulationPlayer = new SimulationPlayer(ChannelLoader, JVersion.V0404, "CarDAQ-Plus 3");
             var SimConfiguration = SimulationConfigLoader.LoadSimulationConfig(ProtocolId.ISO15765);
@@ -60,10 +61,29 @@ namespace SharpSimulatorTests
                 SimConfiguration.ReaderBaudRate
             );
 
-            // Begin reading here and then wait for 60 seconds
+            // Run our simulator init routine here and then start a new simulation
             SimulationPlayer.InitializeSimReader();
-            SimulationPlayer.StartSimulationReader();
-            while (SimulationPlayer.SimulationReading) continue;
+            SimulationPlayer.StartSimulationReader(); 
+
+            // Start a console key monitor here
+            while (true)
+            {
+                // Pull the next key value here
+                ConsoleKeyInfo NextKeyInfo = Console.ReadKey();
+                switch (NextKeyInfo.Key)
+                {
+                    // Toggles the simulation player totally.
+                    case ConsoleKey.Enter:
+                        if (SimulationPlayer.SimulationReading) SimulationPlayer.StopSimulationReader();
+                        else SimulationPlayer.StartSimulationReader();
+                        break;
+
+                    // Toggles responses being on or off
+                    case ConsoleKey.Spacebar:
+                        SimulationPlayer.SetResponsesEnabled(!SimulationPlayer.ResponsesEnabled);
+                        break;
+                }
+            }
         }
     }
 }

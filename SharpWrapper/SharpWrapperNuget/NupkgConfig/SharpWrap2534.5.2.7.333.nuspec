@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>SharpWrap2534</id>
+    <version>5.2.7.333</version>
+    <title>SharpWrap2534</title>
+    <authors>Zachary Walsh - MEAT Inc</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">AGPL-3.0-or-later</license>
+    <projectUrl>https://github.com/MEAT-Inc/Sharp2534Wrapper</projectUrl>
+    <repository type="git" url="https://github.com/MEAT-Inc/Sharp2534Wrapper/"/>
+    <description>
+## **SharpWrap2534**
+- SharpWrap2534 is an approach at trying to build and deploy and easily consumable, user friendly, J2534 API wrapper in C#.    
+- As always, pull this version in using the Nuget PM with the command 
+  - ` dotnet add PROJECT package SharpWrap2534 --version LATEST `
+--- 
+### Change Log For Release
+- Pushing yet another JSON conversion hotfix. 
+- This one is hopefully going to get our filter flags and rx status values to populate as expected
+</description>
+    <releaseNotes>
+- Pushing yet another JSON conversion hotfix. 
+- This one is hopefully going to get our filter flags and rx status values to populate as expected
+</releaseNotes>
+    <copyright>MEAT Inc (2021)</copyright>
+    <tags>5.2.7.333-json-hotfix</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="NLog" version="4.7.12"/>
+        <dependency id="SharpLogger" version="1.4.10.109"/>
+      </group>
+    </dependencies>
+    <references>
+      <group targetFramework="net472">
+        <reference file="NLog.dll"/>
+        <reference file="SharpLogger.dll" />
+        <reference file="SharpWrap2534.dll" />
+      </group>
+    </references>
+  </metadata>
+  <files>
+    <file src="lib\net472\**\*.*" target="lib\net472"/>
+  </files>
+</package>

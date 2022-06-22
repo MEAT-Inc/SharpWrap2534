@@ -31,7 +31,7 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
             J2534Filter CastFilter = (J2534Filter)ValueObject;
 
             // Now pull out the values for our filter and format them as desired
-            string FilterFlagString = CastFilter.FilterFlags == 0 ? "No TxFlags" : CastFilter.FilterFlags.ToString();
+            string FilterFlagString = CastFilter.FilterFlags.ToString();
             string FilterTypeString = CastFilter.FilterType.ToString();
             string FilterProtocolString = CastFilter.FilterProtocol.ToString();
             string FilterStatusString = CastFilter.FilterStatus.ToString();
@@ -71,10 +71,8 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
 
             // Enum values pulled in here
             TxFlags FlagsRead = InputObject["FilterFlags"].Type == JTokenType.Integer ?
-                (TxFlags)InputObject["FilterFlags"].Value<uint>() :
-                InputObject["FilterFlags"].Value<string>() == "No TxFlags" ?
-                    0 :
-                    (TxFlags)Enum.Parse(typeof(FilterDef), InputObject["FilterFlags"].Value<string>());
+                (TxFlags)InputObject["FilterFlags"].Value<uint>() : 
+                (TxFlags)Enum.Parse(typeof(FilterDef), InputObject["FilterFlags"].Value<string>());
             FilterDef TypeRead = InputObject["FilterType"].Type == JTokenType.Integer ?
                 (FilterDef)InputObject["FilterType"].Value<uint>() :
                 (FilterDef)Enum.Parse(typeof(FilterDef), InputObject["FilterType"].Value<string>());

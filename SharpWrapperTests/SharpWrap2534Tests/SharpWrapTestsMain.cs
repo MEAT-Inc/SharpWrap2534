@@ -23,6 +23,9 @@ namespace SharpWrap2534Tests
             // Test our execution routines here
             if (!JsonConvertTests.ExecuteTests()) 
                 throw new InvalidOperationException("JSON CONVERSION ROUTINES FAILED!");
+
+            // Read a new line to stop the window from closing right away
+            Console.ReadLine();
         }
     }
 }

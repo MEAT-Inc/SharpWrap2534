@@ -221,16 +221,16 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FlowControl">Flow Ctl Value</param>
         /// <param name="FilterFlags">Flags for the filter</param>
         /// <param name="ForcedIndex">Forces a filter to be applied to a given index.</param>
-        public J2534Filter StartMessageFilter(ProtocolId FilterProtocol, FilterDef FilterType, string MaskString, string PatternString, string FlowControl, uint FilterFlags = 0, int ForcedIndex = -1)
+        public J2534Filter StartMessageFilter(ProtocolId FilterProtocol, FilterDef FilterType, string MaskString, string PatternString, string FlowControl, TxFlags FilterFlags = 0, int ForcedIndex = -1)
         {
             // Make sure filter array exists and check for the filters being null or if one exists identical to this desired filter.
             if (ForcedIndex >= 10) { throw new ArgumentOutOfRangeException("UNABLE TO SET A FILTER INDEX OVER 9!"); }
             if (JChannelFilters == null) { JChannelFilters = new J2534Filter[new PassThruConstants(J2534Version).MaxFilters]; }
 
             // Build messages from filter strings.
-            PassThruStructs.PassThruMsg PtMaskMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, MaskString);
-            PassThruStructs.PassThruMsg PtPatternMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, PatternString);
-            PassThruStructs.PassThruMsg PtFlowCtlMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, FilterFlags, FlowControl);
+            PassThruStructs.PassThruMsg PtMaskMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, (uint)FilterFlags, MaskString);
+            PassThruStructs.PassThruMsg PtPatternMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, (uint)FilterFlags, PatternString);
+            PassThruStructs.PassThruMsg PtFlowCtlMsg = J2534Device.CreatePTMsgFromString(FilterProtocol, (uint)FilterFlags, FlowControl);
 
             // Check if we need to override/replace a filter.
             if (ForcedIndex != -1 && JChannelFilters[ForcedIndex] != null)

@@ -91,7 +91,7 @@ namespace SharpAutoId.SharpAutoIdRoutines
                         FilterMask,                         // Filter Mask
                         FilterPattern,                      // Filter Pattern
                         FilterFlowControl,                  // Filter Flow Control
-                        (uint)FilterObj.FilterFlags        // Filter Flags
+                        FilterObj.FilterFlags               // Filter Flags
                     );
 
                     // Log new filter ID, append it into our filter list, and return it.

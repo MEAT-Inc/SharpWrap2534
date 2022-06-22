@@ -81,7 +81,7 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
                 (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["FilterProtocol"].Value<string>());
             PTInstanceStatus StatusRead = InputObject["FilterStatus"].Type == JTokenType.Integer ?
                 (PTInstanceStatus)InputObject["FilterStatus"].Value<uint>() :
-                (PTInstanceStatus)Enum.Parse(typeof(PTInstanceStatus), InputObject["RxStatus"].Value<string>());
+                (PTInstanceStatus)Enum.Parse(typeof(PTInstanceStatus), InputObject["FilterStatus"].Value<string>());
 
             // Filter content values
             uint IdRead = InputObject["FilterId"].Value<uint>();

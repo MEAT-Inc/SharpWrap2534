@@ -87,8 +87,8 @@
     <Compile Include="PassThruTypes\PassThruEnums.cs" />
     <Compile Include="SupportingLogic\InstanceEnums.cs" />
     <Compile Include="SupportingLogic\LoggingSupport.cs" />
-    <Compile Include="SupportingLogic\PtFilterJsonConverter.cs" />
-    <Compile Include="SupportingLogic\PtMessageJsonConverter.cs" />
+    <Compile Include="SupportingLogic\JsonConverters\PtFilterJsonConverter.cs" />
+    <Compile Include="SupportingLogic\JsonConverters\PtMessageJsonConverter.cs" />
     <Compile Include="SupportingLogic\TextTableGenerator.cs" />
     <Compile Include="SupportingLogic\Win32Invokers.cs" />
   </ItemGroup>
@@ -104,6 +104,7 @@
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>

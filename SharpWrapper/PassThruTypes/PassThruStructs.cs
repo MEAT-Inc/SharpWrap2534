@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using Newtonsoft.Json;
 using SharpWrap2534.SupportingLogic;
+using SharpWrap2534.SupportingLogic.JsonConverters;
 
 namespace SharpWrap2534.PassThruTypes
 {
@@ -21,8 +22,8 @@ namespace SharpWrap2534.PassThruTypes
         public struct PassThruMsg
         {
             public ProtocolId ProtocolId;
-            public uint RxStatus;
-            public uint TxFlags;
+            public RxStatus RxStatus;
+            public TxFlags TxFlags;
             public uint Timestamp;
             public uint DataSize;
             public uint ExtraDataIndex;

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpWrap2534.PassThruTypes;
 
-namespace SharpWrap2534.SupportingLogic
+namespace SharpWrap2534.SupportingLogic.JsonConverters
 {
     /// <summary>
     /// Json Conversion helper for PTMessages.
@@ -117,8 +114,8 @@ namespace SharpWrap2534.SupportingLogic
             return new PassThruStructs.PassThruMsg()
             {   
                 ProtocolId = ProtocolRead,
-                RxStatus = (uint)RxStatusRead,
-                TxFlags =  (uint)TxFlagsRead,
+                RxStatus = RxStatusRead,
+                TxFlags =  TxFlagsRead,
                 Timestamp = TimeStampRead,
                 DataSize =  DataSizeRead,
                 ExtraDataIndex = ExtraDataIndexRead,

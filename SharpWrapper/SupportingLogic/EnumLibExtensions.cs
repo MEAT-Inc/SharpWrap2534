@@ -6,7 +6,7 @@ namespace SharpWrap2534.SupportingLogic
     /// <summary>
     /// Extension class for pulling description attributes from the enums
     /// </summary>
-    public static class EnumLibExtensions
+    internal static class EnumLibExtensions
     {
         /// <summary>
         /// Gets a descriptior string for the enum type provided.

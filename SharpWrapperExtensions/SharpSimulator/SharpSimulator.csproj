@@ -48,12 +48,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
-    <Compile Include="SimulationConfigLoader.cs" />
+    <Compile Include="SupportingLogic\SimulationConfigLoader.cs" />
     <Compile Include="SimulationObjects\SimulationChannel.cs" />
     <Compile Include="SimulationEvents\SimChannelEventArgs.cs" />
     <Compile Include="SimulationEvents\SimMessageEventArgs.cs" />
     <Compile Include="SimulationLoader.cs" />
-    <Compile Include="SimulationObjects\SimulationChannelJsonConverter.cs" />
+    <Compile Include="SupportingLogic\SimulationChannelJsonConverter.cs" />
     <Compile Include="SimulationObjects\SimulationConfig.cs" />
     <Compile Include="SimulationObjects\SimulationMessagePair.cs" />
     <Compile Include="SimulationPlayer.cs" />
@@ -72,12 +72,13 @@
       <Version>1.8.4.123</Version>
     </PackageReference>
     <PackageReference Include="SharpWrap2534">
-      <Version>5.2.6.332</Version>
+      <Version>5.2.7.333</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\DefaultSimConfigurations.json" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)SharpSimulatorNuget\lib\net472"</PostBuildEvent>

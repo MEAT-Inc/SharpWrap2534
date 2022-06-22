@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpLogger;
@@ -13,7 +9,7 @@ using SharpLogger.LoggerSupport;
 using SharpSimulator.SimulationObjects;
 using SharpWrap2534.PassThruTypes;
 
-namespace SharpSimulator
+namespace SharpSimulator.SupportingLogic
 {
     /// <summary>
     /// Pulls in a simulation configuration for a specified protocol value

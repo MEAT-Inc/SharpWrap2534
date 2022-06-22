@@ -44,7 +44,7 @@ namespace SharpSimulator.SimulationObjects
             {
                 // Channel Properties
                 CastChannel.ChannelId,
-                BaudRate = BaudRateString,
+                ChannelBaudRate = BaudRateString,
                 ChannelProtocol = ProtocolString,
                 ChannelConnectFlags = ConnectFlagsString,
 
@@ -79,16 +79,16 @@ namespace SharpSimulator.SimulationObjects
             ProtocolId ProtocolRead = InputObject["ChannelProtocol"].Type == JTokenType.Integer ?
                 (ProtocolId)InputObject["ChannelProtocol"].Value<uint>() :
                 (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["ChannelProtocol"].Value<string>());
-            PassThroughConnect ConnectFlagsRead = InputObject["PassThroughConnect"].Type == JTokenType.Integer ?
-                (PassThroughConnect)InputObject["PassThroughConnect"].Value<uint>() :
-                (PassThroughConnect)Enum.Parse(typeof(PassThroughConnect), InputObject["PassThroughConnect"].Value<string>());
+            PassThroughConnect ConnectFlagsRead = InputObject["ChannelConnectFlags"].Type == JTokenType.Integer ?
+                (PassThroughConnect)InputObject["ChannelConnectFlags"].Value<uint>() :
+                (PassThroughConnect)Enum.Parse(typeof(PassThroughConnect), InputObject["ChannelConnectFlags"].Value<string>());
 
             // Basic pulled uint values and other 
             uint IdRead = InputObject["ChannelId"].Value<uint>();
-            J2534Filter[] FiltersRead = InputObject["MessageFilters"].Value<J2534Filter[]>();
-            SimulationMessagePair[] PairsRead = InputObject["MessagePairs"].Value<SimulationMessagePair[]>();
-            PassThruStructs.PassThruMsg[] ReadMessagesSent = InputObject["MessagesSent"].Value<PassThruStructs.PassThruMsg[]>();
-            PassThruStructs.PassThruMsg[] ReadMessagesRead = InputObject["MessagesRead"].Value<PassThruStructs.PassThruMsg[]>();
+            J2534Filter[] FiltersRead = InputObject["MessageFilters"].ToObject<J2534Filter[]>();
+            SimulationMessagePair[] PairsRead = InputObject["MessagePairs"].ToObject<SimulationMessagePair[]>();
+            PassThruStructs.PassThruMsg[] ReadMessagesSent = InputObject["MessagesSent"].ToObject<PassThruStructs.PassThruMsg[]>();
+            PassThruStructs.PassThruMsg[] ReadMessagesRead = InputObject["MessagesRead"].ToObject<PassThruStructs.PassThruMsg[]>();
 
             // Return built output object
             return new SimulationChannel(IdRead, ProtocolRead, ConnectFlagsRead, BaudRateRead)

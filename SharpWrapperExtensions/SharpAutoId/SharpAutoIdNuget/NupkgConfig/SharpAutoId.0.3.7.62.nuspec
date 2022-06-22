@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>SharpAutoId</id>
+    <version>0.3.7.62</version>
+    <title>SharpAutoId</title>
+    <authors>Zachary Walsh - MEAT Inc</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">AGPL-3.0-or-later</license>
+    <projectUrl>https://github.com/MEAT-Inc/Sharp2534Wrapper</projectUrl>
+    <repository type="git" url="https://github.com/MEAT-Inc/Sharp2534Wrapper/"/>
+    <description>
+## **SharpAutoId**
+- SharpAutoId is an extension method set for the SharpSession object which allows AutoID routine support 
+- As always, pull this version in using the Nuget PM with the command 
+  - ` dotnet add PROJECT package SharpAutoId --version LATEST `
+--- 
+### Change Log For Release
+--Pushing new hotfix to include requirement for latest version of SharpWrap2534
+</description>
+    <releaseNotes>--Pushing new hotfix to include requirement for latest version of SharpWrap2534
+</releaseNotes>
+    <copyright>MEAT Inc (2021)</copyright>
+    <tags>0.3.7.62-json-fixes</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="NLog" version="4.7.12"/>
+        <dependency id="SharpLogger" version="1.4.10.109"/>
+        <dependency id="SharpWrap2534" version="5.2.6.330"/>        
+      </group>
+    </dependencies>
+    <references>
+      <group targetFramework="net472">
+        <reference file="NLog.dll"/>
+        <reference file="SharpLogger.dll" />
+        <reference file="SharpAutoId.dll" />
+        <reference file="SharpWrap2534.dll" />
+      </group>
+    </references>
+  </metadata>
+  <files>
+    <file src="lib\net472\**\*.*" target="lib\net472"/>
+  </files>
+</package>

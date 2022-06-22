@@ -78,7 +78,7 @@ namespace SharpSimulator.SupportingLogic
                 (PassThroughConnect)Enum.Parse(typeof(PassThroughConnect), InputObject["ChannelConnectFlags"].Value<string>());
 
             // Find the BaudRate value here
-            string BaudRateString = InputObject["ChannelBaudRate"].Value<string>().Split('_')[1];
+            string BaudRateString = InputObject["ChannelBaudRate"].Value<string>();
             var BaudRateRead = (BaudRate)Enum.Parse(typeof(BaudRate), Enum.GetNames(typeof(BaudRate))
                 .FirstOrDefault(BaudObj => BaudObj.Contains(ProtocolRead.ToString()) && BaudObj.Contains(BaudRateString)));
 

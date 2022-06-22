@@ -93,7 +93,7 @@ namespace SharpWrap2534Tests
             var FilterToConvert = new J2534Filter()
             {
                 FilterId = 0,
-                FilterFlags = TxFlags.ISO15765_FRAME_PAD,
+                FilterFlags = (TxFlags)0x40,
                 FilterMask = "00 00 FF FF",
                 FilterPattern = "00 00 07 E0",
                 FilterFlowCtl = "00 00 07 E8",

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpAutoId</id>
-    <version>0.0.0.0</version>
+    <version>0.3.10.64</version>
     <title>SharpAutoId</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -16,15 +16,20 @@
   - ` dotnet add PROJECT package SharpAutoId --version LATEST `
 --- 
 ### Change Log For Release
-    </description>
-    <releaseNotes>RELEASE NOTES GO HERE</releaseNotes>
+- Fixing a set of issues found with the Enum Parse JSON routines. 
+- No major updates to this package other than a new version of SharpWrap2534
+</description>
+    <releaseNotes>
+- Fixing a set of issues found with the Enum Parse JSON routines. 
+- No major updates to this package other than a new version of SharpWrap2534
+</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>0.0.0.0</tags>
+    <tags>0.3.10.64-enum-fix</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>
         <dependency id="SharpLogger" version="1.4.10.109"/>
-        <dependency id="SharpWrap2534" version="5.2.11.336"/>        
+        <dependency id="SharpWrap2534" version="5.2.9.334"/>        
       </group>
     </dependencies>
     <references>

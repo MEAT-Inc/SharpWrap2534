@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SharpLogger.LoggerSupport;
 using SharpSimulator.SimulationObjects;
+using SharpSimulator.SupportingLogic;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 
@@ -41,6 +42,14 @@ namespace SharpSimulatorTests
                 MessagePairs = SimLoadingTestData.PairedMessages,
                 MessageFilters = SimLoadingTestData.SimChannelFilters,
             };
+
+            // Test JSON Converting Channels
+            string JSONChannel = JsonConvert.SerializeObject(TestChannel);
+            var ConvertedChannel = JsonConvert.DeserializeObject<SimulationChannel>(JSONChannel);
+
+            // Test JSON Converting Simulation Configs 
+            string JsonConfig = JsonConvert.SerializeObject(SimulationConfigLoader.LoadSimulationConfig(ProtocolId.ISO15765));
+            var ConvertedConfig = JsonConvert.DeserializeObject<SimulationConfig>(JsonConfig);
 
             // Build a new session for testing output here
             var ChannelLoader = new SimulationLoader();

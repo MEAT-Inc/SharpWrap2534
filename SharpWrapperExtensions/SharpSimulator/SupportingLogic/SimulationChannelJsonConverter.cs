@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SharpSimulator.SimulationObjects;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 
-namespace SharpSimulator.SimulationObjects
+namespace SharpSimulator.SupportingLogic
 {
     /// <summary>
     /// Class used to convert Simulation channels into readable format in JSON
@@ -35,7 +33,6 @@ namespace SharpSimulator.SimulationObjects
             SimulationChannel CastChannel = (SimulationChannel)ValueObject;
 
             // Pull out the values for the channel and format them as desired
-            string BaudRateString = CastChannel.ChannelBaudRate.ToString();
             string ProtocolString = CastChannel.ChannelProtocol.ToString();
             string ConnectFlagsString = CastChannel.ChannelConnectFlags.ToString();
 
@@ -44,7 +41,7 @@ namespace SharpSimulator.SimulationObjects
             {
                 // Channel Properties
                 CastChannel.ChannelId,
-                ChannelBaudRate = BaudRateString,
+                CastChannel.ChannelBaudRate,
                 ChannelProtocol = ProtocolString,
                 ChannelConnectFlags = ConnectFlagsString,
 
@@ -73,15 +70,17 @@ namespace SharpSimulator.SimulationObjects
             if (InputObject.HasValues == false) { return default; }
 
             // Enum values pulled in here
-            BaudRate BaudRateRead = InputObject["ChannelBaudRate"].Type == JTokenType.Integer ?
-                (BaudRate)InputObject["ChannelBaudRate"].Value<uint>() :
-                (BaudRate)Enum.Parse(typeof(ProtocolId), InputObject["ChannelBaudRate"].Value<string>());
             ProtocolId ProtocolRead = InputObject["ChannelProtocol"].Type == JTokenType.Integer ?
                 (ProtocolId)InputObject["ChannelProtocol"].Value<uint>() :
                 (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["ChannelProtocol"].Value<string>());
             PassThroughConnect ConnectFlagsRead = InputObject["ChannelConnectFlags"].Type == JTokenType.Integer ?
                 (PassThroughConnect)InputObject["ChannelConnectFlags"].Value<uint>() :
                 (PassThroughConnect)Enum.Parse(typeof(PassThroughConnect), InputObject["ChannelConnectFlags"].Value<string>());
+
+            // Find the BaudRate value here
+            string BaudRateString = InputObject["ChannelBaudRate"].Value<string>();
+            var BaudRateRead = (BaudRate)Enum.Parse(typeof(BaudRate), Enum.GetNames(typeof(BaudRate))
+                .FirstOrDefault(BaudObj => BaudObj.Contains(ProtocolRead.ToString()) && BaudObj.Contains(BaudRateString)));
 
             // Basic pulled uint values and other 
             uint IdRead = InputObject["ChannelId"].Value<uint>();

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SharpAutoId</id>
-    <version>0.0.0.0</version>
+    <version>0.3.8.62</version>
     <title>SharpAutoId</title>
     <authors>Zachary Walsh - MEAT Inc</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -16,15 +16,17 @@
   - ` dotnet add PROJECT package SharpAutoId --version LATEST `
 --- 
 ### Change Log For Release
-    </description>
-    <releaseNotes>RELEASE NOTES GO HERE</releaseNotes>
+Removed baudRate values that did not have Baud Names in them
+</description>
+    <releaseNotes>Removed baudRate values that did not have Baud Names in them
+</releaseNotes>
     <copyright>MEAT Inc (2021)</copyright>
-    <tags>0.0.0.0</tags>
+    <tags>0.3.8.62-baudRate-fix</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
         <dependency id="NLog" version="4.7.12"/>
         <dependency id="SharpLogger" version="1.4.10.109"/>
-        <dependency id="SharpWrap2534" version="5.2.11.336"/>        
+        <dependency id="SharpWrap2534" version="5.2.6.332"/>        
       </group>
     </dependencies>
     <references>

@@ -29,7 +29,7 @@ namespace SharpSimulator
         public J2534Channel SimulationChannel { get; private set; }
         public J2534Filter[] DefaultMessageFilters { get; private set; }
         public PassThruStructs.SConfigList DefaultConfigParamConfig { get; private set; }
-        public Tuple<ProtocolId, PassThroughConnect, uint> DefaultConnectionConfig { get; private set; }
+        public Tuple<ProtocolId, PassThroughConnect, BaudRate> DefaultConnectionConfig { get; private set; }
 
         // Values for our reader configuration.
         public uint ReaderTimeout { get; private set; }
@@ -142,10 +142,10 @@ namespace SharpSimulator
         /// <param name="ConnectionFlags"></param>
         /// <param name="ChannelBaudrate"></param>
         /// <returns></returns>
-        public bool SetDefaultConnectionType(ProtocolId Protocol, PassThroughConnect ConnectionFlags, uint ChannelBaudrate)
+        public bool SetDefaultConnectionType(ProtocolId Protocol, PassThroughConnect ConnectionFlags, BaudRate ChannelBaudRate)
         {
             // Store our configuration values here
-            this.DefaultConnectionConfig = new Tuple<ProtocolId, PassThroughConnect, uint>(Protocol, ConnectionFlags, ChannelBaudrate);
+            this.DefaultConnectionConfig = new Tuple<ProtocolId, PassThroughConnect, BaudRate>(Protocol, ConnectionFlags, ChannelBaudRate);
             this._simPlayingLogger.WriteLog("STORED NEW CONFIGURATION FOR CHANNEL SETUP OK!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog("CHANGES WILL NOT TAKE PLACE UNTIL THE NEXT TIME A CHANNEL IS CLOSED AND REOPENED!", LogType.InfoLog);
             return true;
@@ -234,14 +234,14 @@ namespace SharpSimulator
             // Check if channel configuration was setup or not.
             if (this.DefaultConnectionConfig == null) {
                 this._simPlayingLogger.WriteLog("WARNING! CONNECTION CONFIGURATION IS NULL! SETTING DEFAULT CHANNEL CONNECTIONS NOW!", LogType.WarnLog);
-                this.SetDefaultConnectionType(ProtocolId.ISO15765, 0x00, 500000);
+                this.SetDefaultConnectionType(ProtocolId.ISO15765, PassThroughConnect.NO_CONNECT_FLAGS, BaudRate.ISO15765_500000);
             }
 
             // Connect a new Channel value
             this.SimulationChannel = this.SimulationSession.PTConnect(
                 0, 
-                this.DefaultConnectionConfig.Item1, 
-                (uint)this.DefaultConnectionConfig.Item2, 
+                this.DefaultConnectionConfig.Item1,
+                this.DefaultConnectionConfig.Item2,
                 this.DefaultConnectionConfig.Item3,
                 out uint ChannelIdBuilt
             );

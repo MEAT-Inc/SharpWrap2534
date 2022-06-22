@@ -18,7 +18,7 @@ namespace SharpSimulator.SimulationObjects
         public uint ReaderMsgCount;
 
         // Basic Channel Configurations
-        public uint ReaderBaudRate;
+        public BaudRate ReaderBaudRate;
         public ProtocolId ReaderProtocol;
         public PassThroughConnect ReaderChannelFlags;
 
@@ -31,7 +31,7 @@ namespace SharpSimulator.SimulationObjects
         /// <summary>
         /// Builds a new configuration object and sets defaults to null/empty
         /// </summary>
-        public SimulationConfig(ProtocolId ProtocolInUse, uint BaudRate)
+        public SimulationConfig(ProtocolId ProtocolInUse, BaudRate BaudRate)
         {
             // Store protocol and BaudRate
             this.ReaderBaudRate = BaudRate;

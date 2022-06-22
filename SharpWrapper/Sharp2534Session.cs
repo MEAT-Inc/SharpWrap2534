@@ -495,7 +495,7 @@ namespace SharpWrap2534
         /// Builds a new Message filter from a set of input data and returns it. Passed out the Id of the filter built.
         /// </summary>
         /// <returns>Filter object built from this command.</returns>
-        public J2534Filter PTStartMessageFilter(ProtocolId FilterProtocol, FilterDef FilterType, string Mask, string Pattern, string FlowControl = null, uint FilterFlags = 0x00, int ChannelId = -1)
+        public J2534Filter PTStartMessageFilter(ProtocolId FilterProtocol, FilterDef FilterType, string Mask, string Pattern, string FlowControl = null, TxFlags FilterFlags = 0x00, int ChannelId = -1)
         {
             // Log information, build our filter object, and issue command to start it.
             if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {

@@ -56,7 +56,7 @@ namespace SharpWrap2534Tests
             try 
             {
                 // Convert into a string value here
-                string BuiltMsgString = JsonConvert.SerializeObject(MessageToConvert);
+                string BuiltMsgString = JsonConvert.SerializeObject(MessageToConvert, Formatting.Indented);
                 Console.WriteLine(BuiltMsgString);
                 return true;
             }
@@ -93,7 +93,7 @@ namespace SharpWrap2534Tests
             var FilterToConvert = new J2534Filter()
             {
                 FilterId = 0,
-                FilterFlags = 0x40,
+                FilterFlags = TxFlags.ISO15765_FRAME_PAD,
                 FilterMask = "00 00 FF FF",
                 FilterPattern = "00 00 07 E0",
                 FilterFlowCtl = "00 00 07 E8",
@@ -105,7 +105,7 @@ namespace SharpWrap2534Tests
             try
             {
                 // Convert into a string value here
-                string BuiltFilterString = JsonConvert.SerializeObject(FilterToConvert);
+                string BuiltFilterString = JsonConvert.SerializeObject(FilterToConvert, Formatting.Indented);
                 Console.WriteLine(BuiltFilterString);
                 return true;
             }

@@ -35,12 +35,16 @@ namespace SharpSimulatorTests
             LogBroker.BrokerInstance.FillBrokerPool();
 
             // Build a new Simulation Channel and store message pairs on it
-            var TestChannel = new SimulationChannel(0, SimLoadingTestData.Protocol, SimLoadingTestData.BaudRate, SimLoadingTestData.ChannelFlags)
+            var TestChannel = new SimulationChannel(0, SimLoadingTestData.Protocol, SimLoadingTestData.ChannelFlags, SimLoadingTestData.BaudRate)
             {
                 // Store messages onto our simulation channel
                 MessagePairs = SimLoadingTestData.PairedMessages,
                 MessageFilters = SimLoadingTestData.SimChannelFilters,
             };
+
+            // Test JSON Converting Channels
+            string JSONChannel = JsonConvert.SerializeObject(TestChannel);
+            var ConvertedBack = JsonConvert.DeserializeObject<SimulationChannel>(JSONChannel);
 
             // Build a new session for testing output here
             var ChannelLoader = new SimulationLoader();

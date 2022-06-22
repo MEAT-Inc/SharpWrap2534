@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 using SharpWrap2534.J2534Objects;
@@ -9,6 +10,7 @@ namespace SharpSimulator.SimulationObjects
     /// <summary>
     /// Simulation Channel object used for easy importing and sharing simulation data
     /// </summary>
+    [JsonConverter(typeof(SimulationChannelJsonConverter))]
     public class SimulationChannel
     {
         // Sim Channel Logger

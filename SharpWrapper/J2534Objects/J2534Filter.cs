@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
+using SharpWrap2534.SupportingLogic.JsonConverters;
 
 namespace SharpWrap2534.J2534Objects
 {
     /// <summary>
     /// J2534 filter object for PassThru channels.
     /// </summary>
+    [JsonConverter(typeof(PtFilterJsonConverter))]
     public class J2534Filter : IComparable
     {
         // Filter Type info

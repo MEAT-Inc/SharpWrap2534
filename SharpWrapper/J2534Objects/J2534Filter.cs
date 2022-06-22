@@ -14,7 +14,7 @@ namespace SharpWrap2534.J2534Objects
     public class J2534Filter : IComparable
     {
         // Filter Type info
-        public uint FilterFlags;
+        public TxFlags FilterFlags;
         public FilterDef FilterType;
         public ProtocolId FilterProtocol;
         public PTInstanceStatus FilterStatus;
@@ -57,7 +57,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FilterFlowCtl"></param>
         /// <param name="FilterFlags"></param>
         /// <param name="FilterId"></param>
-        internal J2534Filter(ProtocolId Protocol, FilterDef FilterType, string FilterMask, string FilterPattern, string FilterFlowCtl, uint FilterFlags, uint FilterId)
+        internal J2534Filter(ProtocolId Protocol, FilterDef FilterType, string FilterMask, string FilterPattern, string FilterFlowCtl, TxFlags FilterFlags, uint FilterId)
         {
             // Store filter values.
             this.FilterProtocol = Protocol;
@@ -79,7 +79,7 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="FilterPattern"></param>
         /// <param name="FilterFlags"></param>
         /// <param name="FilterId"></param>
-        internal J2534Filter(ProtocolId Protocol, FilterDef FilterType, string FilterMask, string FilterPattern, uint FilterFlags, uint FilterId)
+        internal J2534Filter(ProtocolId Protocol, FilterDef FilterType, string FilterMask, string FilterPattern, TxFlags FilterFlags, uint FilterId)
         {
             // Set filter values
             this.FilterProtocol = Protocol;

@@ -96,7 +96,7 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
             return new J2534Filter()
             {
                 // Setup for enum values
-                FilterFlags = (uint)FlagsRead,
+                FilterFlags = FlagsRead,
                 FilterType = TypeRead,
                 FilterProtocol = ProtocolRead,
                 FilterStatus = StatusRead,

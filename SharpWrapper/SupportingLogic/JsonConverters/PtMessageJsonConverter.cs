@@ -47,8 +47,8 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
 
             // Get all the string JSON properties we want to use for this object
             string ProtocolString = CastMessage.ProtocolId.ToString();
-            string RxStatusString = CastMessage.RxStatus == 0 ? "No RxStatus" : CastMessage.RxStatus.ToString();
-            string TxFlagsString = CastMessage.TxFlags == 0 ? "No TxFlags" : CastMessage.TxFlags.ToString();
+            string RxStatusString = CastMessage.RxStatus.ToString();
+            string TxFlagsString =  CastMessage.TxFlags.ToString();
             string TimeStampString = CastMessage.Timestamp + "ms";
             string DataSizeString = CastMessage.DataSize + (CastMessage.DataSize == 1 ? " Byte" : " Bytes");
             string ExtraDataIndexString = CastMessage.ExtraDataIndex.ToString();
@@ -89,14 +89,10 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
                 (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["ProtocolId"].Value<string>());
             RxStatus RxStatusRead = InputObject["RxStatus"].Type == JTokenType.Integer ?
                 (RxStatus)InputObject["RxStatus"].Value<uint>() :
-                InputObject["RxStatus"].Value<string>() == "No RxStatus" ? 
-                    0 : 
-                    (RxStatus)Enum.Parse(typeof(RxStatus), InputObject["RxStatus"].Value<string>());
+                (RxStatus)Enum.Parse(typeof(RxStatus), InputObject["RxStatus"].Value<string>());
             TxFlags TxFlagsRead = InputObject["TxFlags"].Type == JTokenType.Integer ?
                 (TxFlags)InputObject["TxFlags"].Value<uint>() :
-                InputObject["TxFlags"].Value<string>() == "No TxFlags" ? 
-                    0 : 
-                    (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["TxFlags"].Value<string>());
+                (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["TxFlags"].Value<string>());
             
             // Basic Uint Values
             uint TimeStampRead = uint.Parse(Regex.Match(InputObject["Timestamp"].Value<string>(), "\\d+").Value);

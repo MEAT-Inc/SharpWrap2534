@@ -42,10 +42,6 @@ namespace SharpSimulatorTests
                 MessageFilters = SimLoadingTestData.SimChannelFilters,
             };
 
-            // Test JSON Converting Channels
-            string JSONChannel = JsonConvert.SerializeObject(TestChannel);
-            var ConvertedBack = JsonConvert.DeserializeObject<SimulationChannel>(JSONChannel);
-
             // Build a new session for testing output here
             var ChannelLoader = new SimulationLoader();
             ChannelLoader.AddSimChannel(TestChannel);

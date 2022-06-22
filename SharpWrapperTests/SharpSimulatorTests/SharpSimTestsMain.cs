@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SharpLogger.LoggerSupport;
 using SharpSimulator.SimulationObjects;
+using SharpSimulator.SupportingLogic;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 

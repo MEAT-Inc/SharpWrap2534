@@ -21,8 +21,8 @@ namespace SharpWrap2534Tests
             // Convert tests execute here
             var ResultsList = new[]
             {
-                TestJsonWrite(),    // Testing JSON convert from a message to string
-                TestJsonRead()      // Testing JSON read into a message from a string
+                TestJsonMessageWrite(),    // Testing JSON convert from a message to string
+                TestJsonMessageRead()      // Testing JSON read into a message from a string
             };
 
             // Return if all tests passed or not.
@@ -33,7 +33,7 @@ namespace SharpWrap2534Tests
         /// Tests conversion of messages out to JSON
         /// </summary>
         /// <returns>True if converted. False if not.</returns>
-        private static bool TestJsonWrite()
+        private static bool TestJsonMessageWrite()
         {
             // Build message to convert out
             var MessageToConvert = new PassThruStructs.PassThruMsg()
@@ -56,7 +56,7 @@ namespace SharpWrap2534Tests
         /// Tests the reading of a JSON string to a message
         /// </summary>
         /// <returns>True if conversion passes. False if it does not.</returns>
-        private static bool TestJsonRead()
+        private static bool TestJsonMessageRead()
         {
             // Setup our JSON string here
             string JsonToParse = "{\"ProtocolId\": \"ISO15765\", \"RxStatus\": \"No RxStatus\", \"TxFlags\": \"ISO15765_FRAME_PAD\", \"Timestamp\": \"10ms\", \"DataSize\": \"12 Bytes\", \"ExtraDataIndex\": 0, \"Data\": \"0x00 0x00 0x07 0xDF 0x02 0x09 0x02 0x00 0x00 0x00 0x00 0x00\"}";

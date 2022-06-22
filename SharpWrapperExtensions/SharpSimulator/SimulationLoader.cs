@@ -21,8 +21,8 @@ namespace SharpSimulator
         public SimulationChannel[] SimulationChannels { get; private set; }
 
         // Properties of all channels for the simulation
-        public uint[] BaudRates => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelBaudRate).ToArray();
-        public uint[] ChannelFlags => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelConnectFlags).ToArray();
+        public BaudRate[] BaudRates => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelBaudRate).ToArray();
+        public PassThroughConnect[] ChannelFlags => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelConnectFlags).ToArray();
         public ProtocolId[] ChannelProtocols => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelProtocol).ToArray();
         public J2534Filter[][] ChannelFilters => this.SimulationChannels.Select(SimChannel => SimChannel.MessageFilters).ToArray();
 
@@ -70,10 +70,10 @@ namespace SharpSimulator
         /// <param name="Filters">Filters of the channel</param>
         /// <param name="PairedSimulationMessages">Messages To Read and Respond to</param>
         /// <returns>Index of the newest built channel</returns>
-        public int AddSimChannel(int ChannelId, ProtocolId Protocol, uint BaudRate, uint Flags, J2534Filter[] Filters, SimulationMessagePair[] PairedSimulationMessages)
+        public int AddSimChannel(uint ChannelId, ProtocolId Protocol, PassThroughConnect Flags, BaudRate BaudRate, J2534Filter[] Filters, SimulationMessagePair[] PairedSimulationMessages)
         {
             // Build a temporary simulation channel
-            SimulationChannel TempChannel = new SimulationChannel(ChannelId, Protocol, BaudRate, Flags);
+            SimulationChannel TempChannel = new SimulationChannel(ChannelId, Protocol, Flags, BaudRate);
             TempChannel.MessagePairs = PairedSimulationMessages.ToArray();
 
             // Add this channel to our list of all channel objects

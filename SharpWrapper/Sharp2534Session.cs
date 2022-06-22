@@ -239,7 +239,7 @@ namespace SharpWrap2534
         /// <param name="Protocol">Protocol to use</param>
         /// <param name="Flags">Flags to use</param>
         /// <param name="ChannelBaud">Baudrate</param>
-        public J2534Channel PTConnect(int ChannelIndex, ProtocolId Protocol, uint Flags, uint ChannelBaud, out uint ChannelId)
+        public J2534Channel PTConnect(int ChannelIndex, ProtocolId Protocol, PassThroughConnect Flags, BaudRate ChannelBaud, out uint ChannelId)
         {
             // Log command being built out
             this._logSupport.WriteCommandLog("SENDING OUT PASSTHRU CONNECT METHOD NOW.", LogType.InfoLog);

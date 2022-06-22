@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SharpWrap2534.PassThruTypes
 {
@@ -137,7 +138,7 @@ namespace SharpWrap2534.PassThruTypes
     public enum FilterDef : uint
     {
         PASS_FILTER = 0x00000001,
-        BLOCK_FILTER = 0x00000002,
+        BLOCK_FILTER = 0x00000002, 
         FLOW_CONTROL_FILTER = 0x00000003,
     };
     /// <summary>
@@ -322,6 +323,7 @@ namespace SharpWrap2534.PassThruTypes
     /// </summary>
     public enum PassThroughConnect : uint
     {
+        NO_CONNECT_FLAGS = 0x00000000,
         CAN_29BIT_ID = 0x00000100,
         ISO9141_NO_CHECKSUM = 0x00000200,
         NO_CHECKSUM = ISO9141_NO_CHECKSUM,
@@ -337,6 +339,7 @@ namespace SharpWrap2534.PassThruTypes
     /// </summary>
     public enum RxStatus
     {
+        NO_RX_STATUS = 0x00000000,
         TX_MSG_TYPE = 0x00000001,
         START_OF_MESSAGE = 0x00000002,
         ISO15765_FIRST_FRAME = 0x00000002,
@@ -359,6 +362,7 @@ namespace SharpWrap2534.PassThruTypes
     /// </summary>
     public enum TxFlags : uint
     {
+        NO_TX_FLAGS = 0x00000000,
         ISO15765_FRAME_PAD = 0x00000040,
         CAN_29BIT_ID = 0x00000100,
         WAIT_P3_MIN_ONLY = 0x00000200,

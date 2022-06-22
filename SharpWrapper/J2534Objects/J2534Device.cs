@@ -172,7 +172,7 @@ namespace SharpWrap2534.J2534Objects
             uint MsgDataSize = (uint)SoapHexBin.Value.Length;
             PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize);
             BuiltPtMsg.ProtocolId = ProtocolId;
-            BuiltPtMsg.TxFlags = MsgFlags;
+            BuiltPtMsg.TxFlags = (TxFlags)MsgFlags;
             BuiltPtMsg.DataSize = MsgDataSize;
 
             // Apply message values into here.
@@ -196,7 +196,7 @@ namespace SharpWrap2534.J2534Objects
 
             // Store properties onto the message.
             BuiltMessage.ProtocolId = ProtocolId;
-            BuiltMessage.TxFlags = MessageFlags;
+            BuiltMessage.TxFlags = (TxFlags)MessageFlags;
             BuiltMessage.DataSize = (uint)MessageBytes.Length;
 
             // Apply message bytes.
@@ -293,11 +293,11 @@ namespace SharpWrap2534.J2534Objects
         /// <param name="Protocol">Channel protocol</param>
         /// <param name="ChannelFlags">Connect flags</param>
         /// <param name="ChannelBaud">Channel baud rate</param>
-        public void PTConnect(int ChannelIndex, ProtocolId Protocol, uint ChannelFlags, uint ChannelBaud)
+        public void PTConnect(int ChannelIndex, ProtocolId Protocol, PassThroughConnect ChannelFlags, BaudRate ChannelBaud)
         {
             // Issue the connect command and store our channel
-            ApiMarshall.PassThruConnect(DeviceId, Protocol, ChannelFlags, ChannelBaud, out uint ChannelId);
-            DeviceChannels[ChannelIndex].ConnectChannel(ChannelId, Protocol, ChannelFlags, ChannelBaud);
+            ApiMarshall.PassThruConnect(DeviceId, Protocol, (uint)ChannelFlags, ChannelBaud, out uint ChannelId);
+            DeviceChannels[ChannelIndex].ConnectChannel(ChannelId, Protocol, (uint)ChannelFlags, (uint)ChannelBaud);
             this.IsConnected = DeviceChannels.Any(ChObj => ChObj?.ChannelId != 0);
         }
         /// <summary>

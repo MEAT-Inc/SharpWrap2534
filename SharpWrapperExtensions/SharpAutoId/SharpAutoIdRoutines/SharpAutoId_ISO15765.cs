@@ -57,11 +57,11 @@ namespace SharpAutoId.SharpAutoIdRoutines
         {
             // Connect to our new channel instance.
             var BuiltChannel = this.SessionInstance.PTConnect(
-                0,                                // Channel Index
-                this.AutoIdType,                            // Type of protocol for scanning
-                (uint)this.AutoIdCommands.ConnectFlags,     // Connection Flags
-                (uint)this.AutoIdCommands.ConnectBaud,      // BaudRate value (ISO15765_50000)
-                out ChannelId                               // Channel ID pulled from the open routine
+                0,                          // Channel Index
+                this.AutoIdType,                      // Type of protocol for scanning
+                this.AutoIdCommands.ConnectFlags,     // Connection Flags
+                this.AutoIdCommands.ConnectBaud,      // BaudRate value (ISO15765_50000)
+                out ChannelId                         // Channel ID pulled from the open routine
             );
 
             // Log information about the newly issued command objects.

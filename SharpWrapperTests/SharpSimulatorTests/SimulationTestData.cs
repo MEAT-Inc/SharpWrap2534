@@ -16,9 +16,11 @@ namespace SharpSimulatorTests
     public static class SimLoadingTestData
     {
         // Start by building a new simulation channel object to load in.
-        public static readonly uint BaudRate = 500000;
-        public static readonly uint ChannelFlags = 0x00;
         public static readonly ProtocolId Protocol = ProtocolId.ISO15765;
+        public static readonly BaudRate BaudRate = BaudRate.ISO15765_500000;
+        public static readonly PassThroughConnect ChannelFlags = PassThroughConnect.NO_CONNECT_FLAGS;
+
+        // Filters and message objects for the simulation channel
         public static readonly J2534Filter[] SimChannelFilters = new[] { new J2534Filter()
         {
             FilterFlags = 0x40,
@@ -48,7 +50,7 @@ namespace SharpSimulatorTests
                     {
                         DataSize = 10,
                         ProtocolId = ProtocolId.ISO15765,
-                        TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
+                        TxFlags = TxFlags.ISO15765_FRAME_PAD,
                         Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x41, 0x00, 0xBF, 0xFF, 0xB9, 0x93 },
                     },
                 }
@@ -71,7 +73,7 @@ namespace SharpSimulatorTests
                     {
                         DataSize = 24,
                         ProtocolId = ProtocolId.ISO15765,
-                        TxFlags = (uint)TxFlags.ISO15765_FRAME_PAD,
+                        TxFlags = TxFlags.ISO15765_FRAME_PAD,
                         Data = new byte[] { 0x00, 0x00, 0x07, 0xE8, 0x49, 0x02, 0x01, 0x31, 0x47, 0x31, 0x46, 0x42, 0x33, 0x44, 0x53, 0x33, 0x4B, 0x30, 0x31, 0x31, 0x37, 0x32, 0x32, 0x38 },
                     },
                 }

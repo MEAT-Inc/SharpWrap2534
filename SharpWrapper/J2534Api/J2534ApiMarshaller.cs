@@ -56,8 +56,8 @@ namespace SharpWrap2534.J2534Api
         {
             // Set the values from the native message to the managed one.
             NativeMessage.ProtocolID = (uint)ManagedMessage.ProtocolId;
-            NativeMessage.RxStatus = ManagedMessage.RxStatus;
-            NativeMessage.TxFlags = ManagedMessage.TxFlags;
+            NativeMessage.RxStatus = (uint)ManagedMessage.RxStatus;
+            NativeMessage.TxFlags = (uint)ManagedMessage.TxFlags;
             NativeMessage.Timestamp = ManagedMessage.Timestamp;
             NativeMessage.DataSize = ManagedMessage.DataSize;
             NativeMessage.ExtraDataIndex = ManagedMessage.ExtraDataIndex;
@@ -76,8 +76,8 @@ namespace SharpWrap2534.J2534Api
             ManagedMessage = new PassThruStructs.PassThruMsg(NativeMessage.DataSize)
             {
                 ProtocolId = (ProtocolId)NativeMessage.ProtocolID,
-                RxStatus = NativeMessage.RxStatus,
-                TxFlags = NativeMessage.TxFlags,
+                RxStatus = (RxStatus)NativeMessage.RxStatus,
+                TxFlags = (TxFlags)NativeMessage.TxFlags,
                 Timestamp = NativeMessage.Timestamp,
                 DataSize = NativeMessage.DataSize,
                 ExtraDataIndex = NativeMessage.ExtraDataIndex

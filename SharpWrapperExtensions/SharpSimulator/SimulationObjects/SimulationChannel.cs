@@ -11,12 +11,14 @@ namespace SharpSimulator.SimulationObjects
     /// </summary>
     public class SimulationChannel
     {
+        // Sim Channel Logger
+        private readonly SubServiceLogger SimChannelLogger;
+
         // Channel ID Built and Logger
         public readonly uint ChannelId;
-        public readonly uint ChannelBaudRate;
-        public readonly uint ChannelConnectFlags;
+        public readonly BaudRate ChannelBaudRate;
         public readonly ProtocolId ChannelProtocol;
-        private readonly SubServiceLogger SimChannelLogger;
+        public readonly PassThroughConnect ChannelConnectFlags;
 
         // Class Values for a channel to simulate
         public J2534Filter[] MessageFilters;
@@ -30,7 +32,7 @@ namespace SharpSimulator.SimulationObjects
         /// Builds a new Channel Simulation object from the given channel ID
         /// </summary>
         /// <param name="ChannelId"></param>
-        public SimulationChannel(int ChannelId, ProtocolId ProtocolInUse, uint ChannelBaud, uint ChannelFlags)
+        public SimulationChannel(uint ChannelId, ProtocolId ProtocolInUse, PassThroughConnect ChannelFlags, BaudRate ChannelBaud)
         {
             // Store the Channel ID
             this.ChannelId = (uint)ChannelId;

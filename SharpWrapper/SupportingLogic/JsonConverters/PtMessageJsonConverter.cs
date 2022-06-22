@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpWrap2534.PassThruTypes;
 
-namespace SharpWrap2534.SupportingLogic
+namespace SharpWrap2534.SupportingLogic.JsonConverters
 {
     /// <summary>
     /// Json Conversion helper for PTMessages.
     /// Used mainly to write the data in 0x00 format to JSON and convert it back when pulled in.
     /// </summary>
-    public class PtMsgConverter : JsonConverter
+    internal class PtMsgConverter : JsonConverter
     {
         // Sample JSON message object output
         /*
@@ -50,8 +47,8 @@ namespace SharpWrap2534.SupportingLogic
 
             // Get all the string JSON properties we want to use for this object
             string ProtocolString = CastMessage.ProtocolId.ToString();
-            string RxStatusString = CastMessage.RxStatus == 0 ? "No RxStatus" : ((RxStatus)CastMessage.RxStatus).ToString();
-            string TxFlagsString = CastMessage.TxFlags == 0 ? "No TxFlags" : ((TxFlags)CastMessage.TxFlags).ToString();
+            string RxStatusString = CastMessage.RxStatus == 0 ? "No RxStatus" : CastMessage.RxStatus.ToString();
+            string TxFlagsString = CastMessage.TxFlags == 0 ? "No TxFlags" : CastMessage.TxFlags.ToString();
             string TimeStampString = CastMessage.Timestamp + "ms";
             string DataSizeString = CastMessage.DataSize + (CastMessage.DataSize == 1 ? " Byte" : " Bytes");
             string ExtraDataIndexString = CastMessage.ExtraDataIndex.ToString();
@@ -117,8 +114,8 @@ namespace SharpWrap2534.SupportingLogic
             return new PassThruStructs.PassThruMsg()
             {   
                 ProtocolId = ProtocolRead,
-                RxStatus = (uint)RxStatusRead,
-                TxFlags =  (uint)TxFlagsRead,
+                RxStatus = RxStatusRead,
+                TxFlags =  TxFlagsRead,
                 Timestamp = TimeStampRead,
                 DataSize =  DataSizeRead,
                 ExtraDataIndex = ExtraDataIndexRead,

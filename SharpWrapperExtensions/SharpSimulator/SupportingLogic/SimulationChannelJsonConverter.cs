@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SharpSimulator.SimulationObjects;
 using SharpWrap2534.J2534Objects;
 using SharpWrap2534.PassThruTypes;
 
-namespace SharpSimulator.SimulationObjects
+namespace SharpSimulator.SupportingLogic
 {
     /// <summary>
     /// Class used to convert Simulation channels into readable format in JSON
@@ -75,7 +72,7 @@ namespace SharpSimulator.SimulationObjects
             // Enum values pulled in here
             BaudRate BaudRateRead = InputObject["ChannelBaudRate"].Type == JTokenType.Integer ?
                 (BaudRate)InputObject["ChannelBaudRate"].Value<uint>() :
-                (BaudRate)Enum.Parse(typeof(ProtocolId), InputObject["ChannelBaudRate"].Value<string>());
+                (BaudRate)Enum.Parse(typeof(BaudRate), InputObject["ChannelBaudRate"].Value<string>());
             ProtocolId ProtocolRead = InputObject["ChannelProtocol"].Type == JTokenType.Integer ?
                 (ProtocolId)InputObject["ChannelProtocol"].Value<uint>() :
                 (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["ChannelProtocol"].Value<string>());

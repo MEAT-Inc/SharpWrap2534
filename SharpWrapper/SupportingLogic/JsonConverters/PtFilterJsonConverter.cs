@@ -72,7 +72,7 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
             // Enum values pulled in here
             TxFlags FlagsRead = InputObject["FilterFlags"].Type == JTokenType.Integer ?
                 (TxFlags)InputObject["FilterFlags"].Value<uint>() : 
-                (TxFlags)Enum.Parse(typeof(FilterDef), InputObject["FilterFlags"].Value<string>());
+                (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["FilterFlags"].Value<string>());
             FilterDef TypeRead = InputObject["FilterType"].Type == JTokenType.Integer ?
                 (FilterDef)InputObject["FilterType"].Value<uint>() :
                 (FilterDef)Enum.Parse(typeof(FilterDef), InputObject["FilterType"].Value<string>());
@@ -81,7 +81,7 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
                 (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["FilterProtocol"].Value<string>());
             PTInstanceStatus StatusRead = InputObject["FilterStatus"].Type == JTokenType.Integer ?
                 (PTInstanceStatus)InputObject["FilterStatus"].Value<uint>() :
-                (PTInstanceStatus)Enum.Parse(typeof(RxStatus), InputObject["RxStatus"].Value<string>());
+                (PTInstanceStatus)Enum.Parse(typeof(PTInstanceStatus), InputObject["RxStatus"].Value<string>());
 
             // Filter content values
             uint IdRead = InputObject["FilterId"].Value<uint>();

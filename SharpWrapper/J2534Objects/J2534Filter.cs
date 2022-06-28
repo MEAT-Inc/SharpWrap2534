@@ -118,8 +118,9 @@ namespace SharpWrap2534.J2534Objects
         public override string ToString()
         {
             // Build string to convert with.
-            string OutputString = $"Type: {FilterType} -- Flags: 0x{FilterFlags.ToString("X8").ToUpper()}";
-            OutputString += $"-- MessageData: {FilterMask ?? "NO_MASK"},{FilterPattern ?? "NO_PATTERN"},{FilterFlowCtl ?? "NO_FLOW"}";
+            uint FlagsUint = (uint)this.FilterFlags;
+            string OutputString = $"Type: {FilterType} -- Flags: 0x{FlagsUint.ToString("X8").ToUpper()}";
+            OutputString += $" -- MessageData: {FilterMask ?? "NO_MASK"}, {FilterPattern ?? "NO_PATTERN"}, {FilterFlowCtl ?? "NO_FLOW"}";
 
             // Return string built.
             return OutputString;
@@ -131,7 +132,7 @@ namespace SharpWrap2534.J2534Objects
         public string ToMessageDataString()
         {
             // Build and return string.
-            return $"MessageData: {FilterMask ?? "NO_MASK"},{FilterPattern ?? "NO_PATTERN"},{FilterFlowCtl ?? "NO_FLOW"}";
+            return $"MessageData: {FilterMask ?? "NO_MASK"}, {FilterPattern ?? "NO_PATTERN"}, {FilterFlowCtl ?? "NO_FLOW"}";
         }
         /// <summary>
         /// Compares two filter values.

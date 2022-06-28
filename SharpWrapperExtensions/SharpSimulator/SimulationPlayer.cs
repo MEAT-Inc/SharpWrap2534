@@ -457,7 +457,7 @@ namespace SharpSimulator
             try
             {
                 // Try and send the message, indicate passed sending routine
-                this.SimulationChannel.PTWriteMessages(PulledMessages.MessageResponses, 10);
+                this.SimulationChannel.PTWriteMessages(PulledMessages.MessageResponses, 100);
                 this.SimulationChannel.ClearTxBuffer(); this.SimulationChannel.ClearRxBuffer();
 
                 // Fire new event arguments.

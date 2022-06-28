@@ -23,7 +23,7 @@ namespace SharpSimulatorTests
         // Filters and message objects for the simulation channel
         public static readonly J2534Filter[] SimChannelFilters = new[] { new J2534Filter()
         {
-            FilterFlags = 0x40,
+            FilterFlags = TxFlags.ISO15765_FRAME_PAD,
             FilterMask = "00 00 FF FF",
             FilterPattern = "00 00 07 E0",
             FilterFlowCtl = "00 00 07 E8",

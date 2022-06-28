@@ -20,9 +20,30 @@ namespace SharpWrap2534Tests
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
+            // Log Starting Tests 
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("STARTING SHARPWRAP2534 TEST ROUTINES NOW...");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine();
+
             // Test our execution routines here
-            if (!JsonConvertTests.ExecuteTests()) 
-                throw new InvalidOperationException("JSON CONVERSION ROUTINES FAILED!");
+            if (!JsonConvertTests.ExecuteMessageTests()) 
+                throw new InvalidOperationException("MESSAGE JSON CONVERSION ROUTINES FAILED!");
+
+            // Test our execution routines here
+            if (!JsonConvertTests.ExecuteFilterTests())
+                throw new InvalidOperationException("FILTER JSON CONVERSION ROUTINES FAILED!");
+
+            // Log Done With Tests
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("ALL REQUESTED SHARPWRAP2534 TESTS HAVE BEEN EXECUTED AND PASSED!");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine();
 
             // Read a new line to stop the window from closing right away
             Console.ReadLine();

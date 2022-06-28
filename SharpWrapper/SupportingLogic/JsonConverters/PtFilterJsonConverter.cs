@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -81,7 +82,9 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
             // Enum values pulled in here
             TxFlags FlagsRead = InputObject["FilterFlags"].Type == JTokenType.Integer ?
                 (TxFlags)InputObject["FilterFlags"].Value<uint>() : 
-                (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["FilterFlags"].Value<string>());
+                uint.TryParse(InputObject["FilterFlags"].Value<string>(), out _) ?
+                    (TxFlags)uint.Parse(InputObject["FilterFlags"].Value<string>(), NumberStyles.HexNumber) :
+                    (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["FilterFlags"].Value<string>());
             FilterDef TypeRead = InputObject["FilterType"].Type == JTokenType.Integer ?
                 (FilterDef)InputObject["FilterType"].Value<uint>() :
                 (FilterDef)Enum.Parse(typeof(FilterDef), InputObject["FilterType"].Value<string>());

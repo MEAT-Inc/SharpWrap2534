@@ -44,7 +44,7 @@ namespace SharpSimulatorTests
                 MessagesRead = SimLoadingTestData.PairedMessages.Select(MsgSet => MsgSet.MessageRead).ToArray(),
                 MessagesSent = SimLoadingTestData.PairedMessages.SelectMany(MsgSet => MsgSet.MessageResponses).ToArray()
             };
-            
+
             // Build a new session for testing output here
             var ChannelLoader = new SimulationLoader();
             ChannelLoader.AddSimChannel(TestChannel);

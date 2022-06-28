@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpWrap2534.J2534Objects;
@@ -46,10 +47,18 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
                 FilterStatus = FilterStatusString,
 
                 // Basic values for filter
-                CastFilter.FilterId,
-                CastFilter.FilterMask,
-                CastFilter.FilterPattern,
-                FilterFlowCtl = string.IsNullOrWhiteSpace(CastFilter.FilterFlowCtl) ? "No Flow Control" : CastFilter.FilterFlowCtl 
+                CastFilter.FilterId, 
+                FilterMask = CastFilter.FilterMask.Contains("0x") ?
+                    CastFilter.FilterMask :
+                    string.Join(" ", CastFilter.FilterMask.Split(' ').Select(MaskPart => "0x" + MaskPart.Trim())),
+                FilterPattern =  CastFilter.FilterPattern.Contains("0x") ?
+                    CastFilter.FilterPattern :
+                    string.Join(" ", CastFilter.FilterPattern.Split(' ').Select(PatternPart => "0x" + PatternPart.Trim())),
+                FilterFlowCtl = string.IsNullOrWhiteSpace(CastFilter.FilterFlowCtl) ?
+                    "No Flow Control" : 
+                    CastFilter.FilterFlowCtl.Contains("0x") ? 
+                        CastFilter.FilterFlowCtl :
+                        string.Join(" ", CastFilter.FilterFlowCtl.Split(' ').Select(FlowPart => "0x" + FlowPart.Trim())) 
             });
 
             // Now write this built object.
@@ -85,9 +94,9 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
 
             // Filter content values
             uint IdRead = InputObject["FilterId"].Value<uint>();
-            string MaskRead = InputObject["FilterMask"].Value<string>();
-            string PatternRead = InputObject["FilterPattern"].Value<string>();
-            string FlowCtlRead = InputObject["FilterFlowCtl"].Value<string>();
+            string MaskRead = InputObject["FilterMask"].Value<string>()?.Replace("0x", string.Empty);
+            string PatternRead = InputObject["FilterPattern"].Value<string>()?.Replace("0x", string.Empty);
+            string FlowCtlRead = InputObject["FilterFlowCtl"].Value<string>()?.Replace("0x", string.Empty);
             if (FlowCtlRead == "No Flow Control") FlowCtlRead = string.Empty;
 
             // Return built output object

@@ -41,20 +41,14 @@ namespace SharpSimulatorTests
                 // Store messages onto our simulation channel
                 MessagePairs = SimLoadingTestData.PairedMessages,
                 MessageFilters = SimLoadingTestData.SimChannelFilters,
+                MessagesRead = SimLoadingTestData.PairedMessages.Select(MsgSet => MsgSet.MessageRead).ToArray(),
+                MessagesSent = SimLoadingTestData.PairedMessages.SelectMany(MsgSet => MsgSet.MessageResponses).ToArray()
             };
-
-            // Test JSON Converting Channels
-            string JSONChannel = JsonConvert.SerializeObject(TestChannel);
-            var ConvertedChannel = JsonConvert.DeserializeObject<SimulationChannel>(JSONChannel);
-
-            // Test JSON Converting Simulation Configs 
-            string JsonConfig = JsonConvert.SerializeObject(SimulationConfigLoader.LoadSimulationConfig(ProtocolId.ISO15765));
-            var ConvertedConfig = JsonConvert.DeserializeObject<SimulationConfig>(JsonConfig);
-
+            
             // Build a new session for testing output here
             var ChannelLoader = new SimulationLoader();
             ChannelLoader.AddSimChannel(TestChannel);
-                
+ 
             // Build a new player, configure our reader and start reading output
             var SimulationPlayer = new SimulationPlayer(ChannelLoader, JVersion.V0404, "CarDAQ-Plus 3");
             var SimConfiguration = SimulationConfigLoader.LoadSimulationConfig(ProtocolId.ISO15765);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -90,10 +91,12 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
             RxStatus RxStatusRead = InputObject["RxStatus"].Type == JTokenType.Integer ?
                 (RxStatus)InputObject["RxStatus"].Value<uint>() :
                 (RxStatus)Enum.Parse(typeof(RxStatus), InputObject["RxStatus"].Value<string>());
-            TxFlags TxFlagsRead = InputObject["TxFlags"].Type == JTokenType.Integer ?
-                (TxFlags)InputObject["TxFlags"].Value<uint>() :
-                (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["TxFlags"].Value<string>());
-            
+            TxFlags TxFlagsRead = InputObject["FilterFlags"].Type == JTokenType.Integer ?
+                (TxFlags)InputObject["FilterFlags"].Value<uint>() :
+                uint.TryParse(InputObject["FilterFlags"].Value<string>(), out _) ?
+                    (TxFlags)uint.Parse(InputObject["FilterFlags"].Value<string>(), NumberStyles.HexNumber) :
+                    (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["FilterFlags"].Value<string>());
+
             // Basic Uint Values
             uint TimeStampRead = uint.Parse(Regex.Match(InputObject["Timestamp"].Value<string>(), "\\d+").Value);
             uint DataSizeRead = uint.Parse(InputObject["DataSize"].Value<string>().Split(' ')[0]);

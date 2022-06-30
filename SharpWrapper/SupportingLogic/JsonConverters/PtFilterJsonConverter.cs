@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -32,10 +33,10 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
             J2534Filter CastFilter = (J2534Filter)ValueObject;
 
             // Now pull out the values for our filter and format them as desired
-            string FilterFlagString = CastFilter.FilterFlags.ToString();
             string FilterTypeString = CastFilter.FilterType.ToString();
-            string FilterProtocolString = CastFilter.FilterProtocol.ToString();
             string FilterStatusString = CastFilter.FilterStatus.ToString();
+            string FilterProtocolString = CastFilter.FilterProtocol.ToString();
+            string FilterFlagString = Enum.GetName(typeof(TxFlags), CastFilter.FilterFlags);
 
             // Build a custom object to output for our JSON
             var OutputObject = JObject.FromObject(new

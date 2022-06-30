@@ -34,6 +34,7 @@ namespace SharpSimulator
         // Values for our reader configuration.
         public uint ReaderTimeout { get; private set; }
         public uint ReaderMessageCount { get; private set; }
+        public uint SenderResponseTimeout { get; private set; }
 
         // Other Reader Configuration Values and States
         public bool SimulationReading { get; private set; }
@@ -122,16 +123,18 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="TimeoutValue">Timeout on each read command</param>
         /// <param name="MessageCount">Messages to read</param>
-        public void SetDefaultMessageValues(uint TimeoutValue = 100, uint MessageCount = 10)
+        public void SetDefaultMessageValues(uint ReadTimeoutValue = 100, uint MessageCount = 10, uint SenderTimeoutValue = 500)
         {
             // Store new values here and log them out
-            this.ReaderTimeout = TimeoutValue;
+            this.ReaderTimeout = ReadTimeoutValue;
             this.ReaderMessageCount = MessageCount;
+            this.SenderResponseTimeout = SenderTimeoutValue;
 
             // Log our stored values out as trace log.
             this._simPlayingLogger.WriteLog($"STORED NEW READER CONFIGURATION! VALUES SET {MessageCount}:\n" +
                 $"{this.ReaderMessageCount} MESSAGES TO READ\n" +
-                $"{this.ReaderTimeout} TIMEOUT ON EACH READ COMMAND",
+                $"{this.ReaderTimeout} TIMEOUT ON EACH READ COMMAND\n" +
+                $"{this.SenderResponseTimeout} TIMEOUT ON EACH RESPONSE COMMAND",
                 LogType.TraceLog
             );
         }
@@ -326,7 +329,9 @@ namespace SharpSimulator
         {
             // Setup ref count and read messages
             uint MessageCountRef = this.ReaderMessageCount;
-            var MessagesRead = this.SimulationChannel.PTReadMessages(ref MessageCountRef, this.ReaderTimeout);
+            PassThruStructs.PassThruMsg[] MessagesRead;
+            try { MessagesRead = this.SimulationChannel.PTReadMessages(ref MessageCountRef, this.ReaderTimeout); }
+            catch { MessagesRead = Array.Empty<PassThruStructs.PassThruMsg>(); }
 
             // Make sure we actually got some data back first.
             if (MessagesRead.Length == 0) return;
@@ -398,6 +403,15 @@ namespace SharpSimulator
                     // Log failures, move on to next attempt
                     this._simPlayingLogger.WriteLog("FAILED TO EXECUTE ONE OR MORE SIM ACTIONS! LOGGING EXCEPTION BELOW");
                     this._simPlayingLogger.WriteLog($"EXCEPTION THROWN: {RespEx}");
+
+                    // Return passed and setup a base channel object again
+                    if (!this.InitializeSimReader())
+                        throw new Exception(
+                            "SETUP_READER_EXCEPTION",
+                            new InvalidOperationException("FAILED TO RECONFIGURE READER CHANNEL!")
+                        );
+
+                    // Return passed and move onto next configuration
                     return;
                 }
             }
@@ -457,7 +471,7 @@ namespace SharpSimulator
             try
             {
                 // Try and send the message, indicate passed sending routine
-                this.SimulationChannel.PTWriteMessages(PulledMessages.MessageResponses, 100);
+                this.SimulationChannel.PTWriteMessages(PulledMessages.MessageResponses, this.SenderResponseTimeout);
                 this.SimulationChannel.ClearTxBuffer(); this.SimulationChannel.ClearRxBuffer();
 
                 // Fire new event arguments.

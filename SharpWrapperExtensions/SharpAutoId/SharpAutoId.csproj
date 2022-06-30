@@ -72,7 +72,7 @@
       <Version>1.8.4.123</Version>
     </PackageReference>
     <PackageReference Include="SharpWrap2534">
-      <Version>5.2.14.339</Version>
+      <Version>5.2.18.349</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

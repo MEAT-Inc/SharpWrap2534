@@ -49,8 +49,8 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
             // Get all the string JSON properties we want to use for this object
             string ProtocolString = CastMessage.ProtocolId.ToString();
             string RxStatusString = CastMessage.RxStatus.ToString();
-            string TxFlagsString =  CastMessage.TxFlags.ToString();
             string TimeStampString = CastMessage.Timestamp + "ms";
+            string TxFlagsString = Enum.GetName(typeof(TxFlags), CastMessage.TxFlags);
             string DataSizeString = CastMessage.DataSize + (CastMessage.DataSize == 1 ? " Byte" : " Bytes");
             string ExtraDataIndexString = CastMessage.ExtraDataIndex.ToString();
             string DataValueString = CastMessage.DataToHexString(true);
@@ -93,9 +93,7 @@ namespace SharpWrap2534.SupportingLogic.JsonConverters
                 (RxStatus)Enum.Parse(typeof(RxStatus), InputObject["RxStatus"].Value<string>());
             TxFlags TxFlagsRead = InputObject["TxFlags"].Type == JTokenType.Integer ?
                 (TxFlags)InputObject["TxFlags"].Value<uint>() :
-                uint.TryParse(InputObject["TxFlags"].Value<string>(), out _) ?
-                    (TxFlags)uint.Parse(InputObject["TxFlags"].Value<string>(), NumberStyles.HexNumber) :
-                    (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["TxFlags"].Value<string>());
+                (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["TxFlags"].Value<string>());
 
             // Basic Uint Values
             uint TimeStampRead = uint.Parse(Regex.Match(InputObject["Timestamp"].Value<string>(), "\\d+").Value);

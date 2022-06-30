@@ -48,6 +48,10 @@ namespace SharpSimulatorTests
             // Build a new session for testing output here
             var ChannelLoader = new SimulationLoader();
             ChannelLoader.AddSimChannel(TestChannel);
+
+            // Test JSON Conversion
+            string JsonChannel = JsonConvert.SerializeObject(TestChannel);
+            if (JsonChannel.Length == 0) throw new InvalidOperationException("FAILED TO CONVERT JSON FOR OUR CHANNEL!");
  
             // Build a new player, configure our reader and start reading output
             var SimulationPlayer = new SimulationPlayer(ChannelLoader, JVersion.V0404, "CarDAQ-Plus 3");
@@ -57,7 +61,7 @@ namespace SharpSimulatorTests
             SimulationPlayer.SetResponsesEnabled(true);
             SimulationPlayer.SetDefaultConfigurations(SimConfiguration.ReaderConfigs);
             SimulationPlayer.SetDefaultMessageFilters(SimConfiguration.ReaderFilters);
-            SimulationPlayer.SetDefaultMessageValues(SimConfiguration.ReaderTimeout, SimConfiguration.ReaderMsgCount);
+            SimulationPlayer.SetDefaultMessageValues(SimConfiguration.ReaderTimeout, SimConfiguration.ReaderMsgCount, SimConfiguration.ResponseTimeout);
             SimulationPlayer.SetDefaultConnectionType(
                 SimConfiguration.ReaderProtocol, 
                 SimConfiguration.ReaderChannelFlags,

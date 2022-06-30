@@ -16,6 +16,7 @@ namespace SharpSimulator.SimulationObjects
         // Reader default configurations
         public uint ReaderTimeout;
         public uint ReaderMsgCount;
+        public uint ResponseTimeout;
 
         // Basic Channel Configurations
         public BaudRate ReaderBaudRate;
@@ -40,6 +41,7 @@ namespace SharpSimulator.SimulationObjects
             // Store basic values here
             this.ReaderMsgCount = 1;
             this.ReaderTimeout = 100;
+            this.ResponseTimeout = 500;
             this.ReaderChannelFlags = 0x00;
 
             // Setup basic empty array for filters with a max count of 10

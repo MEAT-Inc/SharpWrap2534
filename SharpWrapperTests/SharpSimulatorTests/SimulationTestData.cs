@@ -63,6 +63,7 @@ namespace SharpSimulatorTests
                 MessageRead = new PassThruStructs.PassThruMsg()
                 {
                     DataSize = 12,
+                    ProtocolId = ProtocolId.CAN,
                     Data = new byte[] { 0x00, 0x00, 0x07, 0xDF, 0x02, 0x09, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00 },
                 },
 

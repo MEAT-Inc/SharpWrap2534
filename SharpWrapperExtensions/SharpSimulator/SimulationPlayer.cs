@@ -263,6 +263,11 @@ namespace SharpSimulator
                 if (!this.SetDefaultMessageFilters(this.DefaultMessageFilters)) return false;
             }
 
+            // Clear out the TX and RX buffers from the last channel instance to avoid overflows
+            this.SimulationChannel.ClearTxBuffer(); 
+            this.SimulationChannel.ClearRxBuffer();
+            this._simPlayingLogger.WriteLog("CLEARED OUT TX AND RX BUFFERS FOR OUR NEW CHANNEL WITHOUT ISSUES!", LogType.InfoLog);
+
             // Return the built channel here
             this._simPlayingLogger.WriteLog("SETUP NEW SIMULATION READER CHANNEL AND ALL CONFIGURATIONS/FILTERS OK!", LogType.InfoLog);
             return true;
@@ -437,7 +442,7 @@ namespace SharpSimulator
             // Close the current channel, build a new one using the given protocol and then setup our filters.
             this.SimulationChannel = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt);
             foreach (var ChannelFilter in FiltersToApply) { this.SimulationChannel.StartMessageFilter(ChannelFilter); }
-            
+
             // Build output message events here
             this.SimChannelModified(new SimChannelEventArgs(this.SimulationSession));
             return true;
@@ -458,37 +463,36 @@ namespace SharpSimulator
             if (!ResponsesEnabled)
             {
                 // Fake a reply output event and disconnect our channel
-                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
                 this.SimulationSession.PTDisconnect(0);
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
                 return true;
             }
 
-            // Log out all of the response messages
-            for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
-                this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
-
-            // Now issue each one out to the simulation interface
             try
             {
                 // Try and send the message, indicate passed sending routine
                 this.SimulationChannel.PTWriteMessages(PulledMessages.MessageResponses, this.SenderResponseTimeout);
-                this.SimulationChannel.ClearTxBuffer(); this.SimulationChannel.ClearRxBuffer();
-
-                // Fire new event arguments.
-                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
-
-                // Disconnect our channel and exit this routine
                 this.SimulationSession.PTDisconnect(0);
+
+                // Attempt to send output events in a task to stop hanging our response operations
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
+                for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
+                    this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
+
+                // Return passed sending output
                 return true;
             }
-            catch
+            catch (Exception SendResponseException)
             {
+                // Disconnect our channel and exit this routine
+                this.SimulationSession.PTDisconnect(0);
+                
                 // Log failed to send output, set sending failed.
                 this._simPlayingLogger.WriteLog($"ATTEMPT TO SEND MESSAGE RESPONSE FAILED!", LogType.ErrorLog);
+                this._simPlayingLogger.WriteLog("EXCEPTION IS BEING LOGGED BELOW", SendResponseException);
                 this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
 
-                // Disconnect our channel and exit this routine
-                this.SimulationSession.PTDisconnect(0); 
+                // Return failed sending output
                 return false;
             }
         }

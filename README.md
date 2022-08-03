@@ -112,7 +112,7 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
    ```XML
     <MEAT-Inc>
        <add key="Username" value="meatincreporting" />
-       <add key="ClearTextPassword" value="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" />
+       <add key="ClearTextPassword" value="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" />
     </MEAT-Inc>
     ```
  - Once added in, save this file and close it out. 
@@ -127,7 +127,7 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
               <packageSourceCredentials>
                   <MEAT-Inc>
                       <add key="Username" value="meatincreporting" />
-                      <add key="ClearTextPassword" value="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" />
+                      <add key="ClearTextPassword" value="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" />
                   </MEAT-Inc>
               </packageSourceCredentials>
               <packageRestore>

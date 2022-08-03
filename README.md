@@ -96,3 +96,49 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
             \__ Filter Count:   20 Filters Max across (Evenly Split On All Channels)
             \__ Periodic Count: 20 Periodic Msgs Max (Evenly Split On All Channels)
         ------------------------------------------------------------------------------------
+
+---
+
+### **Development Setup**
+- If you're looking to help develop this project, you'll need to add the NuGet server for the MEAT Inc workspace into your nuget configuration. 
+- To do so, navigate to your AppData\Roaming folder (You can do this by opening windows explorer and clicking the top path bar and typing %appdata%)
+- Now find the folder named NuGet and open the file named NuGet.config
+- Inside this file, under packageSources, you need to add a new source. Insert the following line into here 
+     ```XML 
+      <add key="MEAT-Inc" value="https://nuget.pkg.github.com/MEAT-Inc/index.json/" protocolVersion="3" />
+    ```
+- Once added in, scroll down to packageSourceCredentials (if it's not there, just make a new section for it)
+- Inside this section, put the following block of code into it.
+   ```XML
+    <MEAT-Inc>
+       <add key="Username" value="meatincreporting" />
+       <add key="ClearTextPassword" value="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" />
+    </MEAT-Inc>
+    ```
+ - Once added in, save this file and close it out. 
+ - Your NuGet.config should look something like this. This will allow you to access the packages inside the MEAT Inc repo/workspaces to be able to build the solution.
+    ```XML
+      <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+              <packageSources>
+                  <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+                  <add key="MEAT-Inc" value="https://nuget.pkg.github.com/MEAT-Inc/index.json/" protocolVersion="3" />
+              </packageSources>
+              <packageSourceCredentials>
+                  <MEAT-Inc>
+                      <add key="Username" value="meatincreporting" />
+                      <add key="ClearTextPassword" value="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" />
+                  </MEAT-Inc>
+              </packageSourceCredentials>
+              <packageRestore>
+                  <add key="enabled" value="True" />
+                  <add key="automatic" value="True" />
+              </packageRestore>
+              <bindingRedirects>
+                  <add key="skip" value="False" />
+              </bindingRedirects>
+              <packageManagement>
+                  <add key="format" value="1" />
+                  <add key="disabled" value="True" />
+              </packageManagement>
+          </configuration> 

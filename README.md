@@ -23,7 +23,7 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
     ### Install from PackageManager CLI
   - From the Nuget PackageManager CLI or other Nuget interface, run the following command.  The package itself does not have any third party depenednecies so version conflicts should't be an issue any any point.
     
-    ` dotnet add PROJECT package SharpWrap2534 --version 1.1.3.104 `
+    ` dotnet add PROJECT package SharpWrap2534 --version LATEST `
 
 --- 
 

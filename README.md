@@ -142,3 +142,11 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
                   <add key="disabled" value="True" />
               </packageManagement>
           </configuration> 
+
+---
+
+### Questions, Comments, Concerns? 
+- I don't wanna hear it...
+- But feel free to send an email to zack.walsh@meatinc.autos. He might feel like being generous sometimes...
+- Or if you're feeling like a good little nerd, make an issue on this repo's project and I'll take a peek at it.
+

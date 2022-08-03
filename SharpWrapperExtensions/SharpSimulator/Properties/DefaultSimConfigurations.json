@@ -6,7 +6,7 @@
     {
       "ReaderTimeout": 100,
       "ReaderMsgCount": 10,
-      "ResponseTimeout": 150,
+      "ResponseTimeout": 1000,
       "ReaderBaudRate": 500000,
       "ReaderChannelFlags": "NO_CONNECT_FLAGS",
       "ReaderProtocol": "ISO15765",

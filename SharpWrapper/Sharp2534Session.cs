@@ -523,6 +523,84 @@ namespace SharpWrap2534
         }
         #endregion
 
+        #region PTIoctl (Five Baud Init, Fast Init)
+        /// <summary>
+        /// Issues a new FiveBaudInit routine with the given connection byte
+        /// </summary>
+        /// <param name="InputByte">Byte to issue to the bus</param>
+        /// <param name="ChannelId">Forced ID of the channel to use</param>
+        /// <param name="ResponseBytes">Response byte from the bus</param>
+        /// <returns>True if execution passes, false if not.</returns>
+        public bool PTFiveBaudInit(byte InputByte, out byte[] ResponseBytes, int ChannelId = -1)
+        {
+            // Check for all null channels
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                ResponseBytes = null; return false;
+            }
+
+            // Log Clearing RX buffer, clear it and return 
+            J2534Channel ChannelInUse = this._defaultChannel;
+            this._logSupport.WriteCommandLog($"ISSUING FIVE BAUD INIT FOR DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse != null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this._logSupport.WriteCommandLog("CAN NOT RUN FIVE BAUD INIT ON NULL CHANNELS!", LogType.ErrorLog);
+                    ResponseBytes = null; return false;
+                }
+            }
+
+            // Issue the 5 Baud Init Command here
+            this._logSupport.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
+            this._logSupport.WriteCommandLog($"SENDING CONFIGURATION BYTE {InputByte.ToString("X")} FOR CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog); 
+            ResponseBytes = ChannelInUse.FiveBaudInit(InputByte);
+            return true;
+        }
+        /// <summary>
+        /// Issues a Fast init command to the desired channel object and returns the responses
+        /// </summary>
+        /// <param name="InputBytes">Bytes to send to the bus</param>
+        /// <param name="RequiresResponse">Response required or not.</param>
+        /// <param name="ResponseBytes">Bytes returned from the bus</param>
+        /// <param name="ChannelId">Forced ID of the channel to issue this command on</param>
+        /// <returns>True if execution passes, false if not.</returns>
+        public bool PTFastInit(byte[] InputBytes, bool RequiresResponse, out byte[] ResponseBytes, int ChannelId = -1)
+        {
+            // Check for all null channels
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                ResponseBytes = null; return false;
+            }
+
+            // Log Clearing RX buffer, clear it and return 
+            J2534Channel ChannelInUse = this._defaultChannel;
+            this._logSupport.WriteCommandLog($"ISSUING FAST INIT FOR DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse != null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this._logSupport.WriteCommandLog("CAN NOT FAST INIT ON NULL CHANNELS!", LogType.ErrorLog);
+                    ResponseBytes = null; return false;
+                }
+            }
+
+            // Issue the Fast Init Command here
+            string InputByteString = string.Join(" ", InputBytes.Select(ByteObj => "0x" + ByteObj.ToString("X")));
+            this._logSupport.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
+            this._logSupport.WriteCommandLog($"SENDING CONFIGURATION BYTES {InputByteString} FOR CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog);
+            ResponseBytes = ChannelInUse.FastInit(InputBytes, RequiresResponse);
+            return true;
+        }
+
+        #endregion
+
         #region PassThruWriteMessages - PassThruReadMessages
         /// <summary>
         /// Sends a message on the first possible channel found.

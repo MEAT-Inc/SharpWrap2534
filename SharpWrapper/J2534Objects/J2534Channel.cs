@@ -558,6 +558,44 @@ namespace SharpWrap2534.J2534Objects
         }
 
         // ----------------------------------------- VERSION 0500 CHANNEL SPECIFIC METHOD SET HERE --------------------------------
+        
+        /// <summary>
+        /// Issues a new PTLogical connect routine on this channel
+        /// </summary>
+        /// <param name="Protocol">Protocol to connect with</param>
+        /// <param name="Flags">Flags to connect using</param>
+        /// <param name="ChannelDescriptor">Connection configuration object</param>
+        /// <returns>The logical channel built when this method executes</returns>
+        public J2534Channel PTLogicalConnect(ProtocolId Protocol, uint Flags, PassThruStructs.ISO15765ChannelDescriptor ChannelDescriptor)
+        {
+            // Check if this can be done. Must be 0500 and must be physical
+            if (this.J2534Version == JVersion.V0404)
+                throw new InvalidOperationException("Can not issue a PTLogicalConnect on a version 0404 object!");
+            if (this.IsLogicalChannel)
+                throw new InvalidOperationException("Can not issue a PTLogicalConnect on a non physical channel!");
+
+            // Issue the connection command and build a new Logical channel.
+            this._jDevice.ApiMarshall.PassThruLogicalConnect(this.ChannelId, Protocol, Flags, ChannelDescriptor, out uint LogicalId);
+            J2534Channel LogicalChannelBuilt = new J2534Channel(this._jDevice, this);
+
+            // Return the built logical channel object
+            return LogicalChannelBuilt;
+        }
+        /// <summary>
+        /// Issues a PTLogicalDisconnect routine on this channel instance
+        /// </summary>
+        /// <param name="ChannelId">ID Of the channel to disconnect</param>
+        public void PTLogicalDisconnect(uint ChannelId)
+        {
+            // Check if this can be done. Must be 0500 and must be physical
+            if (this.J2534Version == JVersion.V0404)
+                throw new InvalidOperationException("Can not issue a PTLogicalConnect on a version 0404 object!");
+            if (this.IsLogicalChannel)
+                throw new InvalidOperationException("Can not issue a PTLogicalConnect on a non physical channel!");
+
+            // Issue the connection command and build a new Logical channel.
+            this._jDevice.ApiMarshall.PassThruLogicalDisconnect(ChannelId);
+        }
 
         /// <summary>
         /// Runs a logical select on the channel
@@ -568,8 +606,8 @@ namespace SharpWrap2534.J2534Objects
             // Check if this can be done. Must be 0500 and must be logical
             if (this.J2534Version == JVersion.V0404)
                 throw new InvalidOperationException("Can not issue a PTSelect on a version 0404 object!");
-            if (!this.IsLogicalChannel)
-                throw new InvalidOperationException("Can not issue a PTSelect on a non logical channel!");
+            if (this.IsLogicalChannel)
+                throw new InvalidOperationException("Can not issue a PTSelect on a logical channel!");
 
             // Build channel set struct
             PassThruStructs.SChannelSet ResultingChannels = new PassThruStructs.SChannelSet();
@@ -580,6 +618,39 @@ namespace SharpWrap2534.J2534Objects
             // Issue command to the API and return the struct output.
             _jDevice.ApiMarshall.PassThruSelect(ref ResultingChannels, 0);
             return ResultingChannels;
+        }
+
+        /// <summary>
+        /// Queues messages onto a given logical channel
+        /// </summary>
+        /// <param name="MessageToQueue">Messages to queue on the send operation channel</param>
+        /// <param name="MessageCount">Number of messages to be queued</param>
+        public void PTQueueMessages(PassThruStructs.PassThruMsg MessageToQueue, ref uint MessageCount)
+        {
+            // Check if this can be done. Must be 0500 and must be physical
+            if (this.J2534Version == JVersion.V0404)
+                throw new InvalidOperationException("Can not issue a PTLogicalConnect on a version 0404 object!");
+            if (!this.IsLogicalChannel)
+                throw new InvalidOperationException("Can not issue a PTLogicalConnect on a non physical channel!");
+
+            // Issue the command with our device API Marshall
+            _jDevice.ApiMarshall.PassThruQueueMsgs(this.ChannelId, MessageToQueue, ref MessageCount);
+        }
+        /// <summary>
+        /// Queues messages onto a given logical channel
+        /// </summary>
+        /// <param name="MessagesToQueue">Messages to queue on the send operation channel</param>
+        /// <param name="MessageCount">Number of messages to be queued</param>
+        public void PTQueueMessages(PassThruStructs.PassThruMsg[] MessagesToQueue, ref uint MessageCount)
+        {
+            // Check if this can be done. Must be 0500 and must be physical
+            if (this.J2534Version == JVersion.V0404)
+                throw new InvalidOperationException("Can not issue a PTLogicalConnect on a version 0404 object!");
+            if (!this.IsLogicalChannel)
+                throw new InvalidOperationException("Can not issue a PTLogicalConnect on a non physical channel!");
+
+            // Issue the command with our device API Marshall
+            _jDevice.ApiMarshall.PassThruQueueMsgs(this.ChannelId, MessagesToQueue, ref MessageCount);
         }
     }
 }

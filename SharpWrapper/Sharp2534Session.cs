@@ -199,7 +199,7 @@ namespace SharpWrap2534
             return DeviceDllInfoString + "\n\n" + DeviceInfoString;
         }
 
-        // ------------------------------------------------- PassThru Command Routines/Methods ------------------------------------------------------
+        // ------------------------------------------------- Universal PassThru Command Routines/Methods ------------------------------------------------------
 
         #region PassThruOpen - PassThruClose
         /// <summary>
@@ -264,6 +264,68 @@ namespace SharpWrap2534
             // Log information and issue disconnect.
             this._logSupport.WriteCommandLog($"DISCONNECTING CHANNEL INDEX: {ChannelIndex}", LogType.WarnLog);
             this.JDeviceInstance.PTDisconnect(ChannelIndex);
+        }
+        #endregion
+       
+        #region PassThruLogicalConnect - PassThruLogicalDisconnect
+        /// <summary>
+        /// Builds a new logical channel on the given physical channel for our current instance
+        /// If no physical channels are found, then one is built if possible.
+        /// </summary>
+        /// <param name="Protocol">Logical channel protocol</param>
+        /// <param name="Flags">Logical channel flags</param>
+        /// <param name="ChannelDescriptor">Connection configuration</param>
+        /// <param name="LogicalChannelId">ID of the built logical channel</param>
+        /// <returns>The logical channel built when this method executes</returns>
+        public J2534Channel PTLogicalConnect(ProtocolId Protocol, PassThroughConnect Flags, PassThruStructs.ISO15765ChannelDescriptor ChannelDescriptor, out uint LogicalChannelId)
+        {
+            // Start by finding a physical channel to connect onto.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE LOGICAL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                LogicalChannelId = 0; return null;
+            }
+
+            // Find our ISO15765 channel to build a logical connection on
+            var ParentPhysicalChannel = this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj.J2534Version == JVersion.V0500 && ChannelObj.ProtocolId == ProtocolId.ISO15765);
+            if (ParentPhysicalChannel == null) {
+                this._logSupport.WriteCommandLog("NO PHYSICAL CHANNEL OBJECTS WERE FOUND TO ISSUE LOGICAL COMMANDS ONTO!", LogType.ErrorLog);
+                LogicalChannelId = 0; return null;
+            }
+
+            // Now issue the logical connect command using the channel command
+            J2534Channel BuiltLogicalChannel = ParentPhysicalChannel.PTLogicalConnect(Protocol, (uint)Flags, ChannelDescriptor); 
+            this._logSupport.WriteCommandLog($"ISSUED A PTLOGICAL CONNECT COMMAND FOR PHYSICAL CHANNEL {ParentPhysicalChannel.ChannelId} WITHOUT ISSUES!", LogType.InfoLog);
+            if (BuiltLogicalChannel == null) {
+                this._logSupport.WriteCommandLog("FAILED TO BUILD A NEW LOGICAL CHANNEL! THE OUTPUT OBJECT WAS NULL!", LogType.ErrorLog);
+                LogicalChannelId = 0; return null;
+            }
+
+            // Store the channel output ID and return the channel
+            LogicalChannelId = BuiltLogicalChannel.ChannelId;
+            return BuiltLogicalChannel;
+        }
+        /// <summary>
+        /// Disconnects a Logical J2534 channel from a physical channel parent
+        /// </summary>
+        /// <param name="ChannelId"></param>
+        public void PTLogicalDisconnect(uint ChannelId)
+        {
+            // Start by finding a physical channel to connect onto.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE LOGICAL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return;
+            }
+
+            // Find our ISO15765 channel to build a logical connection on
+            var ParentPhysicalChannel = this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj.J2534Version == JVersion.V0500 && ChannelObj.ProtocolId == ProtocolId.ISO15765);
+            if (ParentPhysicalChannel == null) {
+                this._logSupport.WriteCommandLog("NO PHYSICAL CHANNEL OBJECTS WERE FOUND TO ISSUE LOGICAL COMMANDS ONTO!", LogType.ErrorLog);
+                return;
+            }
+
+            // Now issue our disconnect routine
+            ParentPhysicalChannel.PTLogicalDisconnect(ChannelId);
+            this._logSupport.WriteCommandLog($"ISSUED A PTLOGICAL DISCONNECT COMMAND FOR PHYSICAL CHANNEL {ParentPhysicalChannel.ChannelId} WITHOUT ISSUES!", LogType.InfoLog);
         }
         #endregion
 
@@ -351,6 +413,113 @@ namespace SharpWrap2534
             // Store our new voltage value here and return it.
             VoltageRead = ((double)VoltageInt / (double)1000);
             if (!SilentRead) this._logSupport.WriteCommandLog($"PULLED VOLTAGE VALUE OF {VoltageRead:F2} OK!", LogType.InfoLog);
+        }
+        #endregion
+
+        #region PTIoctl (Set Pins, Get Config, Set Config)
+        /// <summary>
+        /// Issues a Set pins command routine on our selected channel object
+        /// </summary>
+        /// <param name="PinsToSet">Pins to select</param>
+        /// <param name="ChannelId">ID of the channel to force this command onto</param>
+        public void PTSetPins(int PinsToSet, int ChannelId = -1)
+        {
+            // Check for all null channels
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return;
+            }
+
+            // Log Clearing RX buffer, clear it and return 
+            J2534Channel ChannelInUse = this._defaultChannel;
+            this._logSupport.WriteCommandLog($"SETTING PINS ON CHANNEL FOR DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse != null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this._logSupport.WriteCommandLog("CAN NOT SET PINS ON NULL CHANNELS!", LogType.ErrorLog);
+                    return;
+                }
+            }
+
+            // Issue the Set Pins command here
+            this._logSupport.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
+            this._logSupport.WriteCommandLog($"SETTING PINS TO {PinsToSet} FOR CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog);
+            ChannelInUse.SetPins((uint)PinsToSet);
+        }
+        /// <summary>
+        /// Runs a PTGetConfig command on the desired channel object
+        /// </summary>
+        /// <param name="ConfigParam">Configuration to get</param>
+        /// <param name="ChannelId">Force ID of the channel to use</param>
+        /// <param name="ConfigValue">Value located from the configuration object</param>
+        public bool PTGetConfig(ConfigParamId ConfigParam, out uint ConfigValue, int ChannelId = -1)
+        {
+            // Check for all null channels
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                ConfigValue = 0; return false;
+            }
+
+            // Log Clearing RX buffer, clear it and return 
+            J2534Channel ChannelInUse = this._defaultChannel;
+            this._logSupport.WriteCommandLog($"GETTING CONFIGURATION FROM CHANNEL CHANNEL FOR DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse != null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this._logSupport.WriteCommandLog("CAN NOT GET CONFIGURATIONS ON NULL CHANNELS!", LogType.ErrorLog);
+                    ConfigValue = 0; return false;
+                }
+            }
+
+            // Issue the Set Pins command here
+            this._logSupport.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
+            this._logSupport.WriteCommandLog($"GETTING CONFIGURATION {ConfigParam} FOR CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog); 
+            ConfigValue = ChannelInUse.GetConfig(ConfigParam);
+            return true;
+        }
+        /// <summary>
+        /// Issues a Set configuration routine on the channel desired with the config param and value wanted
+        /// </summary>
+        /// <param name="ConfigParam">Configuration param to set</param>
+        /// <param name="ConfigValue">Value to set on the configuration</param>
+        /// <param name="ChannelId">Forced ID of the channel to use</param>
+        /// <returns></returns>
+        public bool PTSetConfig(ConfigParamId ConfigParam, uint ConfigValue, int ChannelId = -1)
+        { 
+            // Check for all null channels
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE IOCTL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return false;
+            }
+
+            // Log Clearing RX buffer, clear it and return 
+            J2534Channel ChannelInUse = this._defaultChannel;
+            this._logSupport.WriteCommandLog($"SETTING CONFIGURATION FROM CHANNEL CHANNEL FOR DEVICE {this.DeviceName} NOW...", LogType.InfoLog);
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse != null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this._logSupport.WriteCommandLog("CAN NOT SET CONFIGURATIONS ON NULL CHANNELS!", LogType.ErrorLog);
+                    return false;
+                }
+            }
+
+            // Now issue the Set Configuration command on the channel in use
+            this._logSupport.WriteCommandLog($"USING DEVICE INSTANCE {this.DeviceName} FOR BUFFER OPERATIONS", LogType.InfoLog);
+            this._logSupport.WriteCommandLog($"SETTINGS CONFIGURATION {ConfigParam} WITH VALUE {ConfigValue} FOR CHANNEL ID: {ChannelInUse.ChannelId}!", LogType.WarnLog);
+            ChannelInUse.SetConfig(ConfigParam, ConfigValue);
+            return true;
         }
         #endregion
 
@@ -490,6 +659,115 @@ namespace SharpWrap2534
         }
         #endregion
 
+        #region PassThruSelect - PassThruQueueMessages
+        /// <summary>
+        /// Issues a PTSelect command on the given channel index
+        /// </summary>
+        /// <param name="ChannelId">ID of the PARENT channel to issue our PTSelect routine on</param>
+        /// <param name="SelectedChannelSet">Selected channel objects found and returned</param>
+        /// <returns>True if select routine passes, false if not.</returns>
+        public bool PTSelect(out PassThruStructs.SChannelSet SelectedChannelSet, int ChannelId = -1)
+        {
+            // Start by finding a physical channel to connect onto.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE LOGICAL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                SelectedChannelSet = new PassThruStructs.SChannelSet(0,0); return false;
+            }
+
+            // Find our ISO15765 channel to build a logical connection on
+            var ParentPhysicalChannel = ChannelId == -1 ?
+                this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj.J2534Version == JVersion.V0500 && ChannelObj.ProtocolId == ProtocolId.ISO15765) :
+                this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == ChannelId);
+            if (ParentPhysicalChannel == null) {
+                this._logSupport.WriteCommandLog("NO PHYSICAL CHANNEL OBJECTS WERE FOUND TO ISSUE LOGICAL COMMANDS ONTO!", LogType.ErrorLog);
+                SelectedChannelSet = new PassThruStructs.SChannelSet(0, 0); return false;
+            }
+            
+            // Issue the PTSelect command here
+            SelectedChannelSet = (PassThruStructs.SChannelSet)ParentPhysicalChannel.PTSelect();
+            this._logSupport.WriteCommandLog($"ISSUED A PTSELECT FOR PHYSICAL CHANNEL {ParentPhysicalChannel.ChannelId} WITHOUT ISSUES!", LogType.InfoLog);
+            return true;
+        }
+        /// <summary>
+        /// Issues a PTQueue messages command on a desired logical channel.
+        /// </summary>
+        /// <param name="LogicalChannelId">ID of the channel to issue the commands on</param>
+        /// <param name="MessageToWrite">Message to queue</param>
+        /// <param name="PhysicalChannelId">Forced ID of the parent physical channel</param>
+        /// <returns>True if the queue routine passes, false if not.</returns>
+        public bool PTQueueMessages(uint LogicalChannelId, PassThruStructs.PassThruMsg MessageToWrite, int PhysicalChannelId = -1)
+        {
+             // Start by finding a physical channel to connect onto.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE LOGICAL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return false;
+            }
+
+            // Find our ISO15765 channel to build a logical connection on
+            var ParentPhysicalChannel = PhysicalChannelId == -1 ?
+                this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj.J2534Version == JVersion.V0500 && ChannelObj.ProtocolId == ProtocolId.ISO15765) :
+                this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == PhysicalChannelId);
+            if (ParentPhysicalChannel == null) {
+                this._logSupport.WriteCommandLog("NO PHYSICAL CHANNEL OBJECTS WERE FOUND TO ISSUE LOGICAL COMMANDS ONTO!", LogType.ErrorLog);
+                return false;
+            }
+
+            // Now find the logical channel to use for the send command
+            var LogicalChildChannel = ParentPhysicalChannel.LogicalChannels.FirstOrDefault(LogicalChannelObj => LogicalChannelObj.ChannelId == LogicalChannelId);
+            if (LogicalChildChannel == null) {
+                this._logSupport.WriteCommandLog($"NO LOGICAL COMMAND WITH ID {LogicalChannelId} COULD BE FOUND!", LogType.ErrorLog);
+                return false;
+            }
+
+            // Finally, use our logical channel to issue the PTQueue command
+            uint QueuedMessageCount = 0;
+            LogicalChildChannel.PTQueueMessages(MessageToWrite, ref QueuedMessageCount);
+            this._logSupport.WriteCommandLog($"ISSUED A PTQUEUE MESSAGES COMMAND TO PHYSICAL CHANNEL {ParentPhysicalChannel.ChannelId} AT LOGICAL CHANNEL {LogicalChildChannel.ChannelId} OK!", LogType.InfoLog);
+            return true;
+        }
+        /// <summary>
+        /// Issues a PTQueue messages command on a desired logical channel.
+        /// </summary>
+        /// <param name="LogicalChannelId">ID of the channel to issue the commands on</param>
+        /// <param name="MessagesToWrite">Message to queue</param>
+        /// <param name="PhysicalChannelId">Forced ID of the parent physical channel</param>
+        /// <returns>True if the queue routine passes, false if not.</returns>
+        public bool PTQueueMessages(uint LogicalChannelId, PassThruStructs.PassThruMsg[] MessagesToWrite, int PhysicalChannelId = -1)
+        {
+            // Start by finding a physical channel to connect onto.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null))
+            {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE LOGICAL COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return false;
+            }
+
+            // Find our ISO15765 channel to build a logical connection on
+            var ParentPhysicalChannel = PhysicalChannelId == -1 ?
+                this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj.J2534Version == JVersion.V0500 && ChannelObj.ProtocolId == ProtocolId.ISO15765) :
+                this.DeviceChannels.FirstOrDefault(ChannelObj => ChannelObj.ChannelId == PhysicalChannelId);
+            if (ParentPhysicalChannel == null)
+            {
+                this._logSupport.WriteCommandLog("NO PHYSICAL CHANNEL OBJECTS WERE FOUND TO ISSUE LOGICAL COMMANDS ONTO!", LogType.ErrorLog);
+                return false;
+            }
+
+            // Now find the logical channel to use for the send command
+            var LogicalChildChannel = ParentPhysicalChannel.LogicalChannels.FirstOrDefault(LogicalChannelObj => LogicalChannelObj.ChannelId == LogicalChannelId);
+            if (LogicalChildChannel == null)
+            {
+                this._logSupport.WriteCommandLog($"NO LOGICAL COMMAND WITH ID {LogicalChannelId} COULD BE FOUND!", LogType.ErrorLog);
+                return false;
+            }
+
+            // Finally, use our logical channel to issue the PTQueue command
+            uint QueuedMessageCount = 0;
+            LogicalChildChannel.PTQueueMessages(MessagesToWrite, ref QueuedMessageCount);
+            this._logSupport.WriteCommandLog($"ISSUED A PTQUEUE MESSAGES COMMAND TO PHYSICAL CHANNEL {ParentPhysicalChannel.ChannelId} AT LOGICAL CHANNEL {LogicalChildChannel.ChannelId} OK!", LogType.InfoLog);
+            return true;
+        }
+
+        #endregion
+
         #region PassThruStartMsgFilter - PassThruStopMessageFilter
         /// <summary>
         /// Builds a new Message filter from a set of input data and returns it. Passed out the Id of the filter built.
@@ -526,7 +804,43 @@ namespace SharpWrap2534
             if (OutputFilter != null) this._logSupport.WriteCommandLog($"STARTED NEW FILTER CORRECTLY! FILTER ID: {OutputFilter.FilterId}", LogType.InfoLog);
             this._logSupport.WriteCommandLog("FILTER OBJECT HAS BEEN STORED! RETURNING OUTPUT CONTENTS NOW");
             return OutputFilter;
-        } 
+        }
+        /// <summary>
+        /// Builds a new Message filter from a set of input data and returns it. Passed out the Id of the filter built.
+        /// </summary>
+        /// <returns>Filter object built from this command.</returns>
+        public J2534Filter PTStartMessageFilter(J2534Filter FilterToStart, int ChannelId = -1)
+        {
+            // Log information, build our filter object, and issue command to start it.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE FILTER COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return null;
+            }
+
+            // Find our channel object to use here
+            J2534Channel ChannelInUse = this._defaultChannel;
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse == null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this._logSupport.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    return null;
+                }
+            }
+
+            // Find the channel to use and send out the command.
+            this._logSupport.WriteCommandLog($"ISSUING A PASSTHRU FILTER ({FilterToStart.FilterType}) COMMAND NOW", LogType.InfoLog);
+            this._logSupport.WriteCommandLog($"STARTING FILTER ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
+
+            // Issue command, log output and return.
+            J2534Filter OutputFilter = ChannelInUse.StartMessageFilter(FilterToStart);
+            if (OutputFilter != null) this._logSupport.WriteCommandLog($"STARTED NEW FILTER CORRECTLY! FILTER ID: {OutputFilter.FilterId}", LogType.InfoLog);
+            this._logSupport.WriteCommandLog("FILTER OBJECT HAS BEEN STORED! RETURNING OUTPUT CONTENTS NOW");
+            return OutputFilter;
+        }
         /// <summary>
         /// Stops a filter by the ID of it provided.
         /// </summary>
@@ -592,5 +906,109 @@ namespace SharpWrap2534
         }
         #endregion
 
+        #region PassThruStartPeriodicMsg - PassThruStopPeriodicMsg
+        /// <summary>
+        /// Builds a new J2534 Periodic message using the given message and the send interval provided
+        /// </summary>
+        /// <param name="MessageToWrite">Message to send our device</param>
+        /// <param name="SendInterval">Delay between send commands </param>
+        /// <param name="ChannelId">Forced channel ID to use</param>
+        /// <returns></returns>
+        public J2534PeriodicMessage PTStartPeriodicMessage(PassThruStructs.PassThruMsg MessageToWrite, uint SendInterval, int ChannelId = -1)
+        {
+            // Log information. If all channels are null, then exit.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE PERIODIC COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return null;
+            }
+
+            // Find the channel to use and send out the command.
+            J2534Channel ChannelInUse = this._defaultChannel;
+            if (ChannelId != -1)
+            {
+                // Check our Device Channel ID
+                ChannelInUse = DeviceChannels?.FirstOrDefault(ChannelObj => ChannelObj != null);
+                if (ChannelInUse == null)
+                {
+                    // Log can't operate on a null channel and exit method
+                    this._logSupport.WriteCommandLog("CAN NOT CLEAR WRITE MESSAGES TO NULL CHANNELS!", LogType.ErrorLog);
+                    return null;
+                }
+            }
+
+            // Log information out and prepare to send our periodic message
+            this._logSupport.WriteCommandLog($"SENDING PERIODIC MESSAGES ON CHANNEL WITH ID: {ChannelInUse.ChannelId}", LogType.InfoLog);
+            this._logSupport.WriteCommandLog($"ISSUING PASSTHRU START PERIODIC COMMAND WITH TIMEOUT AND MESSAGE: {SendInterval}ms - 1 MESSAGES", LogType.InfoLog);
+
+            // Issue command, log output and return.
+            J2534PeriodicMessage MessageBuilt = ChannelInUse.StartPeriodicMessage(MessageToWrite, SendInterval);
+            this._logSupport.WriteCommandLog($"ISSUED A PTSTARTPERIODIC MESSAGE COMMAND TO OUR API INSTANCE", LogType.WarnLog);
+            if (MessageBuilt == null) { this._logSupport.WriteCommandLog("ERROR! FAILED TO SEND OUT THE REQUESTED PT MESSAGE!", LogType.ErrorLog); }
+            return MessageBuilt;
+        }
+        /// <summary>
+        /// Stops a Periodic Message based on the ID of the message
+        /// </summary>
+        /// <param name="MessageId">ID of the message to stop sending</param>
+        /// <returns>True if removed, false if it fails</returns>
+        public bool PTStopPeriodicMessage(uint MessageId)
+        {
+            // Log information, build our filter object, and issue command to stop it.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE PERIODIC COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return false;
+            }
+
+            // Find the message object here and store value for it.
+            var LocatedPeriodicMsg = this.ChannelPeriodicMsgs
+                .SelectMany(MsgSet => MsgSet)
+                .FirstOrDefault(MessageObject => MessageObject.MessageId == MessageId);
+
+            // Ensure message object is not null and continue.
+            if (LocatedPeriodicMsg == null) {
+                this._logSupport.WriteCommandLog($"ERROR! NO MESSAGES FOUND FOR THE GIVEN MESSAGE ID OF {MessageId}", LogType.ErrorLog);
+                return false;
+            }
+
+            // Issue the stop command here.
+            for (int ChannelIndex = 0; ChannelIndex < this.DeviceChannels.Length; ChannelIndex++)
+            {
+                if (!this.ChannelPeriodicMsgs[ChannelIndex].Contains(LocatedPeriodicMsg)) continue;
+                this._logSupport.WriteCommandLog($"STOPPING PERIODIC MESSAGE WITH ID {MessageId} ON CHANNEL {ChannelIndex} (ID: {this.DeviceChannels[ChannelIndex].ChannelId}) NOW!", LogType.InfoLog);
+                this.DeviceChannels[ChannelIndex].StopPeriodicMessage(LocatedPeriodicMsg);
+                return true;
+            }
+
+            // If we get here, something is wrong.
+            this._logSupport.WriteCommandLog("ERROR! COULD NOT FIND A CHANNEL WITH THE GIVEN PERIODIC MESSAGE TO STOP ON! THIS IS WEIRD!", LogType.ErrorLog);
+            return false;
+        }
+        /// <summary>
+        /// Stops a Periodic Message based on the ID of the message
+        /// </summary>
+        /// <param name="MessageInstance">The built message object object to stop</param>
+        /// <returns>True if removed, false if it fails</returns>
+        public bool PTStopPeriodicMessage(J2534PeriodicMessage MessageInstance)
+        {
+            // Log information, build our filter object, and issue command to stop it.
+            if (this.DeviceChannels.All(ChannelObj => ChannelObj == null)) {
+                this._logSupport.WriteCommandLog("CAN NOT ISSUE PERIODIC COMMANDS ON A DEVICE WITH NO OPENED CHANNELS!", LogType.ErrorLog);
+                return false;
+            }
+
+            // Issue the stop command here.
+            for (int ChannelIndex = 0; ChannelIndex < this.DeviceChannels.Length; ChannelIndex++)
+            {
+                if (!this.ChannelPeriodicMsgs[ChannelIndex].Contains(MessageInstance)) continue;
+                this._logSupport.WriteCommandLog($"STOPPING PERIODIC MESSAGE WITH ON CHANNEL {ChannelIndex} (ID: {this.DeviceChannels[ChannelIndex].ChannelId}) NOW!", LogType.InfoLog);
+                this.DeviceChannels[ChannelIndex].StopPeriodicMessage(MessageInstance);
+                return true;
+            }
+
+            // If we get here, something is wrong.
+            this._logSupport.WriteCommandLog("ERROR! COULD NOT FIND A CHANNEL WITH THE GIVEN PERIODIC MESSAGE TO STOP ON! THIS IS WEIRD!", LogType.ErrorLog);
+            return false;
+        }
+        #endregion
     }
 }

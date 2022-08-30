@@ -105,6 +105,30 @@ namespace SharpSimulator
             this._simPlayingLogger.WriteLog($"PULLED IN A NEW VOLTAGE VALUE OF {VoltsRead}!", LogType.InfoLog);
             if (VoltsRead < 12.0) this._simPlayingLogger.WriteLog("WARNING! INPUT VOLTAGE IS LESS THAN 12.0 VOLTS!", LogType.ErrorLog);
         }
+        /// <summary>
+        /// Uses an existing PT Instance that will read commands over and over waiting for content.
+        /// </summary>
+        /// <param name="Loader">Simulation Loader</param>
+        /// <param name="InputSession">Session object to use for our simaulations</param>
+        public SimulationPlayer(SimulationLoader Loader, Sharp2534Session InputSession)
+        {
+            // Store class values and build a simulation loader.
+            this.InputSimulation = Loader;
+            this.ResponsesEnabled = true;
+            this.SimulationSession = InputSession;
+
+            // Log Built new Session
+            this._playerGuid = Guid.NewGuid();
+            this._simPlayingLogger = new SubServiceLogger($"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}");
+            this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION PLAYBACK LOGGER OK!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog("READY TO PLAY BACK THE LOADED CONTENTS OF THE PROVIDED SIMULATION LOADER!");
+
+            // Open up a PT Device, read the voltage value, and begin reading messages over and over.
+            this._simPlayingLogger.WriteLog($"STARTING A NEW SIM READER FOR DEVICE {this.SimulationSession.DeviceName}", LogType.WarnLog);
+            this.SimulationSession.PTOpen(); this.SimulationSession.PTReadVoltage(out var VoltsRead);
+            this._simPlayingLogger.WriteLog($"PULLED IN A NEW VOLTAGE VALUE OF {VoltsRead}!", LogType.InfoLog);
+            if (VoltsRead < 12.0) this._simPlayingLogger.WriteLog("WARNING! INPUT VOLTAGE IS LESS THAN 12.0 VOLTS!", LogType.ErrorLog);
+        }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 

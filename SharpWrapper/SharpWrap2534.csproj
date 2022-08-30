@@ -42,11 +42,11 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpLogger.1.8.4.123\lib\net472\NLog.dll</HintPath>
+    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpLogger.1.9.0.123\lib\net472\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="SharpLogger, Version=1.7.4.122, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpLogger.1.8.4.123\lib\net472\SharpLogger.dll</HintPath>
+    <Reference Include="SharpLogger, Version=1.9.0.123, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpLogger.1.9.0.123\lib\net472\SharpLogger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

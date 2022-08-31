@@ -87,11 +87,5 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\SharpWrapperExtensions\SharpAutoId\SharpAutoId.csproj">
-      <Project>{d3bcd896-7593-4cd8-94b5-7636d4061a00}</Project>
-      <Name>SharpAutoId</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

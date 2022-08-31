@@ -392,3 +392,4 @@ FalconMainAPI/SwaggerDocGenerator/_secrets.js
 **/NugetPublish
 
 SharpWrap2534Nuget/
+**/*Nuget/

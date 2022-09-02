@@ -16,17 +16,6 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
    -   Each of these methods are mapped using their pointer delegates for unmanaged access and when called, are passed through an API Marshall to convert them into managed types.
 -   For more information on each of the different packages inside this repository, go into each directory according to the name of the package. There's a README for each of them inside there.
   
----
-
-## **Installing SharpWrap**
-- SharpWrap can either be manually imported into a project using the DLLs (and debugging symbols for best results) under the releases page. Or, the package is published on Nuget for easy updates and other support.
-
-    ### Install from PackageManager CLI
-  - From the Nuget PackageManager CLI or other Nuget interface, run the following command.  The package itself does not have any third party depenednecies so version conflicts should't be an issue any any point.
-    
-    ` dotnet add PROJECT package SharpWrap2534 --version LATEST `
----
-
 ### **Development Setup**
 - If you're looking to help develop this project, you'll need to add the NuGet server for the MEAT Inc workspace into your nuget configuration. 
 - To do so, navigate to your AppData\Roaming folder (You can do this by opening windows explorer and clicking the top path bar and typing %appdata%)

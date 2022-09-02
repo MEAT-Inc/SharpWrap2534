@@ -25,6 +25,7 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
    | ------------ | -------------- | ------------------- |
    | **[SharpAutoId](https://github.com/MEAT-Inc/SharpWrap2534/tree/main/SharpAutoId)**  | 0.3.13.72 | SharpAutoId is a package which contains a set of routines used to pull a VIN number from a vehicle using a given protocol. This package acts as an extension method on top of the SharpSession object and exposes commands to pull VIN numbers.
    | **[SharpSimulator](https://github.com/MEAT-Inc/SharpWrap2534/tree/main/SharpSimulator)** | 0.8.1.142 | SharpSimulator provides easy to consume simulation framework which allows easy simulation playback for any J2534 device. When combined with the FulcrumShim application, we can build a simulation and play it back from nearly any J2534 diagnostic log source. |
+   | **[SharpWrapper](https://github.com/MEAT-Inc/SharpWrap2534/tree/main/SharpWrapper)** | 5.3.2.365 | SharpWrapper is the main package for this project. It contains all the logic needed to allow a user to built a J2534 session, control J2534 devices, and more. |
    
 ---
 

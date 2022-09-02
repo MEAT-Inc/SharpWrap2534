@@ -1,3 +1,12 @@
+## **Installing SharpWrapper**
+- SharpWrap can either be manually imported into a project using the DLLs (and debugging symbols for best results) under the releases page. Or, the package is published on NuGet for easy updates and other support.
+
+    ### Install from PackageManager CLI
+  - From the Nuget PackageManager CLI or other NuGet interface, run the following command.  The package itself does not have any third party depenednecies so version conflicts should't be an issue any any point.
+    
+    ` dotnet add PROJECT package SharpWrapper --version LATEST `
+---
+
 ## **Using a New SharpSession**
 - Running a new SharpSession is as simple as calling a new instance of a SharpJ2534Session and building it using a JVersion value, and the name of the DLL you wish to pick.
 - Building these sessions can be run any number of times as long as you do not go over the max number of device instances allowed as defined in the PassThruConstants. These values are static and defined by the SAE Docs.

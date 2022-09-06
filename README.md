@@ -1,7 +1,7 @@
-# **SharpWrap2534 - The Ultimate J2534 Wrapper**
+# **SharpWrap2534 - The Ultimate J2534 Wrapper Suite**
 
-## **What is SharpWrap2534?**
-SharpWrap2534 is an approach at trying to build and deploy and easily consumable, user friendly, J2534 API wrapper in C#. While there's a good number of these out there, SharpWrap stands out from the rest for a number of reasons. Some of the key features of SharpWrap are:
+### **What is SharpWrap2534?**
+SharpWrap2534 is an approach at trying to build and deploy and easily consumable, user friendly, J2534 API wrapper in C# (along with some nifty extension packages that add support for more features). While there's a good number of these out there, SharpWrap stands out from the rest for a number of reasons. Some of the key features of SharpWrap are:
 -  Both Version 04.04 and Version 05.00 APIs are supported completely!
 -  All J2534 calls are setup in the background leaving the user with minimal configuration needed to consume this library
 -  Setting up a new instance of a J2534 device can be done in **ONE LINE OF CODE**. 
@@ -15,7 +15,20 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
    -   These methods include the PTGetNextDevice() PTGetNextCarDAQ() PTScanForDevice() and more.
    -   Each of these methods are mapped using their pointer delegates for unmanaged access and when called, are passed through an API Marshall to convert them into managed types.
 -   For more information on each of the different packages inside this repository, go into each directory according to the name of the package. There's a README for each of them inside there.
-  
+
+---
+
+### **Current Extensions**
+-  Below is a table containing all the currently built extensions for the SharpWrap2534 suite.  Each extension contains the URL to the source for it, the current version of it, and a brief overview of what it is.
+
+   | Package Name | Version | Package Information |
+   | ------------ | -------------- | ------------------- |
+   | **[SharpAutoId](https://github.com/MEAT-Inc/SharpWrap2534/tree/main/SharpAutoId)**  | 0.3.13.72 | SharpAutoId is a package which contains a set of routines used to pull a VIN number from a vehicle using a given protocol. This package acts as an extension method on top of the SharpSession object and exposes commands to pull VIN numbers.
+   | **[SharpSimulator](https://github.com/MEAT-Inc/SharpWrap2534/tree/main/SharpSimulator)** | 0.8.1.142 | SharpSimulator provides easy to consume simulation framework which allows easy simulation playback for any J2534 device. When combined with the FulcrumShim application, we can build a simulation and play it back from nearly any J2534 diagnostic log source. |
+   | **[SharpWrapper](https://github.com/MEAT-Inc/SharpWrap2534/tree/main/SharpWrapper)** | 5.3.2.365 | SharpWrapper is the main package for this project. It contains all the logic needed to allow a user to built a J2534 session, control J2534 devices, and more. |
+   
+---
+
 ### **Development Setup**
 - If you're looking to help develop this project, you'll need to add the NuGet server for the MEAT Inc workspace into your nuget configuration. 
 - To do so, navigate to your AppData\Roaming folder (You can do this by opening windows explorer and clicking the top path bar and typing %appdata%)

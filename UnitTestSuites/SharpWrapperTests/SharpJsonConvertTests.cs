@@ -14,7 +14,7 @@ namespace SharpWrap2534Tests
     /// <summary>
     /// Tests built for testing JSON conversions in the wrapper project
     /// </summary>
-    public class JsonConvertTests
+    internal class SharpJsonConvertTests
     {
         /// <summary>
         /// Executes all tests in this class

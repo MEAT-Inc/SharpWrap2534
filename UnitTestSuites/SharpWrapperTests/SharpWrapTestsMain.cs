@@ -28,19 +28,15 @@ namespace SharpWrap2534Tests
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine();
 
-            // Test our execution routines here
-            if (!JsonConvertTests.ExecuteMessageTests()) 
-                throw new InvalidOperationException("MESSAGE JSON CONVERSION ROUTINES FAILED!");
-
-            // Test our execution routines here
-            if (!JsonConvertTests.ExecuteFilterTests())
-                throw new InvalidOperationException("FILTER JSON CONVERSION ROUTINES FAILED!");
+            // Execute all the tests
+            if (!SharpSessionTests.ExecuteTests()) Console.WriteLine("FAILED TO SETUP SHARP SESSION!");
+            if (!SharpJsonConvertTests.ExecuteTests()) Console.WriteLine("FAILED TO EXECUTE JSON ROUTINES!");
 
             // Log Done With Tests
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("ALL REQUESTED SHARPWRAP2534 TESTS HAVE BEEN EXECUTED AND PASSED!");
+            Console.WriteLine("ALL REQUESTED SHARPWRAP2534 TESTS HAVE BEEN EXECUTED! CHECK THE CONSOLE FOR RESULTS!");
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine();

@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsonConvertTests.cs" />
+    <Compile Include="SharpSessionTests.cs" />
+    <Compile Include="SharpJsonConvertTests.cs" />
     <Compile Include="SharpWrapTestsMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

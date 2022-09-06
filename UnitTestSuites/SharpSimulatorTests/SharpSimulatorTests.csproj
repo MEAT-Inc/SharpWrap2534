@@ -58,5 +58,11 @@
       <Version>5.3.2.365</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharpSimulator\SharpSimulator.csproj">
+      <Project>{0a39e208-7927-41bc-a509-39e60b287969}</Project>
+      <Name>SharpSimulator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

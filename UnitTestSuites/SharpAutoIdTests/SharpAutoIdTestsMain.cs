@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using CommandLine;
 using SharpAutoId.SharpAutoIdHelpers;
-using SharpLogger;
 using SharpWrap2534;
 using SharpWrap2534.PassThruTypes;
 using SharpWrap2534.SupportingLogic;
 
-namespace P4VinReader
+namespace SharpAutoIdTests
 {
     /// <summary>
     /// Main entry class point for reading a VIN number from a P4 Box automatically.

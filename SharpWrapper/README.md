@@ -42,6 +42,9 @@
             // When done with the session object, issue a PTClose to clean up the device.
             SharpSession.PTDisconnect(0);
             SharpSession.PTClose();
+            
+            // When totally done with a session, it's best to dispose it using the CloseSession routine
+            Sharp2534Session.CloseSession(SharpSession);
         }
     }
     ```

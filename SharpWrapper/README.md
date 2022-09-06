@@ -20,7 +20,7 @@
         public static void Main(string[] args)
         {
             // Builds a new J2534 Session object using a CarDAQ Plus 3 DLL.
-            var SharpSession = new Sharp2534Session(JVersion.V0404, "CarDAQ-Plus 3");
+            var SharpSession = Sharp2534Session.OpenSession(JVersion.V0404, "CarDAQ-Plus 3");
 
             // Once the instance is built, the device begins in a closed state. 
             // To open it, simply run PTOpen command on the instance.
@@ -30,11 +30,11 @@
             // This call builds a massive output string that contains detailed information on 
             // the DLL and device objects built.
             Console.WriteLine(SharpSession.ToDetailedString());
-    
+
             // Once the Session exists, connecting to a channel is as simple as issuing the 
             // PTConnect call from the session.
             // Once a channel is opened, you can send messages on it by calling the index of it.
-            var OpenedChannel = SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, 500000);
+            var OpenedChannel = SharpSession.PTConnect(0, ProtocolId.ISO15765, 0x00, BaudRate.CAN_500000, out uint ChannelIdBuilt);
             OpenedChannel.ClearTxBuffer();
             OpenedChannel.ClearRxBuffer();
 

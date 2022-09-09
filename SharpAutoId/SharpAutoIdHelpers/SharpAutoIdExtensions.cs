@@ -5,8 +5,8 @@ using System.Reflection;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
-using SharpWrap2534;
-using SharpWrap2534.PassThruTypes;
+using SharpWrapper;
+using SharpWrapper.PassThruTypes;
 
 namespace SharpAutoId.SharpAutoIdHelpers
 {

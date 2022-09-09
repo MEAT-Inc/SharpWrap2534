@@ -3,8 +3,8 @@ using Newtonsoft.Json;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 using SharpSimulator.SupportingLogic;
-using SharpWrap2534.J2534Objects;
-using SharpWrap2534.PassThruTypes;
+using SharpWrapper.J2534Objects;
+using SharpWrapper.PassThruTypes;
 
 namespace SharpSimulator.SimulationObjects
 {

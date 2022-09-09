@@ -1,4 +1,4 @@
-﻿using SharpWrap2534.PassThruTypes;
+﻿using SharpWrapper.PassThruTypes;
 
 namespace SharpAutoId.SharpAutoIdModels
 {

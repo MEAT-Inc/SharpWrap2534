@@ -1,9 +1,9 @@
 ﻿using System;
 using CommandLine;
 using SharpAutoId.SharpAutoIdHelpers;
-using SharpWrap2534;
-using SharpWrap2534.PassThruTypes;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 
 namespace SharpAutoIdTests
 {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using SharpLogger.LoggerSupport;
-using SharpWrap2534;
-using SharpWrap2534.J2534Objects;
-using SharpWrap2534.PassThruTypes;
+using SharpWrapper;
+using SharpWrapper.J2534Objects;
+using SharpWrapper.PassThruTypes;
 
 namespace SharpAutoId.SharpAutoIdRoutines
 {

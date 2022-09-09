@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using SharpWrap2534;
-using SharpWrap2534.J2534Objects;
-using SharpWrap2534.PassThruTypes;
+using SharpWrapper;
+using SharpWrapper.J2534Objects;
+using SharpWrapper.PassThruTypes;
 
 namespace SharpSimulator.SimulationEvents
 {

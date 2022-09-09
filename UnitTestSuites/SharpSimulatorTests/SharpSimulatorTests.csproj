@@ -55,7 +55,7 @@
       <Version>1.9.0.123</Version>
     </PackageReference>
     <PackageReference Include="SharpWrapper">
-      <Version>5.3.3.372</Version>
+      <Version>5.3.4.374</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

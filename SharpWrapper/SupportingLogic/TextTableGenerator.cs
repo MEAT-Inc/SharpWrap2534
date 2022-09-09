@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace SharpWrap2534.SupportingLogic
+namespace SharpWrapper.SupportingLogic
 {
     /// <summary>
     /// Class used to convert a set of tuples of values into an ASCII printed text table.

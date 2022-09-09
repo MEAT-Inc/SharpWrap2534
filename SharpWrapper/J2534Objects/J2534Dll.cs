@@ -1,15 +1,15 @@
 // For comparing name values
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using SharpWrap2534.J2534Api;
-using SharpWrap2534.PassThruImport;
-using SharpWrap2534.PassThruTypes;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper.J2534Api;
+using SharpWrapper.PassThruImport;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 using static System.String;
 
-namespace SharpWrap2534.J2534Objects
+namespace SharpWrapper.J2534Objects
 {
     public class J2534Dll : IComparable
     {

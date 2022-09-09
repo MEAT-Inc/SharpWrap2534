@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using SharpWrap2534.PassThruTypes;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 
-namespace SharpWrap2534.J2534Objects
+namespace SharpWrapper.J2534Objects
 {
     /// <summary>
     /// Holds information about a J2534 Periodic Message object.

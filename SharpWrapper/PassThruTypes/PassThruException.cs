@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace SharpWrap2534.PassThruTypes
+namespace SharpWrapper.PassThruTypes
 {
     /// <summary>
     /// Exception object from a J2534 Call

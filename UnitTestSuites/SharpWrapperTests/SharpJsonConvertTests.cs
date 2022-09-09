@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SharpWrap2534.J2534Objects;
-using SharpWrap2534.PassThruTypes;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper.J2534Objects;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 
-namespace SharpWrap2534Tests
+namespace SharpWrapperTests
 {
     /// <summary>
     /// Tests built for testing JSON conversions in the wrapper project

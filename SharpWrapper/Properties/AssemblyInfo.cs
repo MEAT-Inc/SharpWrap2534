@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 using System.Resources;
 
 // General Information
-[assembly: AssemblyTitle("SharpWrap2534")]
+[assembly: AssemblyTitle("SharpWrapper")]
 [assembly: AssemblyDescription("A J2534 wrapper for any PassThru device")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MEAT Inc")]
-[assembly: AssemblyProduct("SharpWrap2534")]
+[assembly: AssemblyProduct("SharpWrapper")]
 [assembly: AssemblyCopyright("Copyright ©MEAT Inc 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Resources;
 [assembly: InternalsVisibleTo("SharpWrap2534Tests")]
 
 // Version information
-[assembly: AssemblyVersion("5.3.2.368")]
-[assembly: AssemblyFileVersion("5.3.2.368")]
+[assembly: AssemblyVersion("5.3.4.374")]
+[assembly: AssemblyFileVersion("5.3.4.374")]
 [assembly: NeutralResourcesLanguageAttribute( "en-US" )]
 

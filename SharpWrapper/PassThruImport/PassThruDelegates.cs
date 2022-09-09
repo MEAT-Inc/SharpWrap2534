@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using SharpWrap2534.PassThruTypes;
+using SharpWrapper.PassThruTypes;
 
-namespace SharpWrap2534.PassThruImport
+namespace SharpWrapper.PassThruImport
 {
     /// <summary>
     /// Delegates used for controlling API Logic.

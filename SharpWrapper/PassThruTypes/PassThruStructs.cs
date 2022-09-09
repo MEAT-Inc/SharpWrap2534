@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using Newtonsoft.Json;
-using SharpWrap2534.SupportingLogic;
-using SharpWrap2534.SupportingLogic.JsonConverters;
+using SharpWrapper.SupportingLogic.JsonConverters;
 
-namespace SharpWrap2534.PassThruTypes
+namespace SharpWrapper.PassThruTypes
 {
     /// <summary>
     /// Set of structure objects without signed value sets.
@@ -78,6 +75,21 @@ namespace SharpWrap2534.PassThruTypes
                 if (!Use0x) { return string.Join(" ", BytesAsStrings); }
                 BytesAsStrings = BytesAsStrings.Select(ByteString => $"0x{ByteString}").ToArray();
                 return string.Join(" ", BytesAsStrings);
+            }
+
+            /// <summary>
+            /// Writes a PTMessage out as a string containing information about all of the properties of it.
+            /// </summary>
+            /// <returns></returns>
+            public override string ToString()
+            {
+                // Build a new string output object which holds all the contents of our Message object
+                return $"PassThru Message\n" +
+                       $"   Protocol ID:  {this.ProtocolId}\n" +
+                       $"   Message Data: {this.DataToHexString(true)}\n" +
+                       $"   Message Size: {this.DataSize} Bytes\n" +
+                       $"   Tx Flags:     {this.TxFlags}\n" +
+                       $"   Rx Status:    {this.RxStatus}\n";
             }
         }
         /// <summary>
@@ -192,6 +204,26 @@ namespace SharpWrap2534.PassThruTypes
                 this.RemoteAddress = RemoteAddress;
                 this.LocalTxFlags = LocalFlags;
                 this.RemoteTxFlags = RemoteFlags;
+            }
+
+            /// <summary>
+            /// Overrides the ToString call to return a string holding all the information about our descriptor objects
+            /// </summary>
+            /// <returns>String containing all the values of this descriptor</returns>
+            public override string ToString()
+            {
+                // Setup string values of the contents to print out
+                string LocalTxFlagsString = "0x" + this.LocalTxFlags.ToString("X");
+                string RemoteTxFlagsString = "0x" + this.RemoteTxFlags.ToString("X");
+                string LocalAddressString = string.Join(" ", BitConverter.ToString(this.LocalAddress).Split('-').Select(BitString => $"0x{BitString}"));
+                string RemoteAddressString = string.Join(" ", BitConverter.ToString(this.RemoteAddress).Split('-').Select(BitString => $"0x{BitString}"));
+
+                // Build a new string output object which holds all the contents of our Message object
+                return $"ISO15765 Channel Descriptor\n" +
+                       $"   Local Address:   {LocalAddressString}\n" +
+                       $"   Local Tx Flags:  {LocalTxFlagsString}\n" +
+                       $"   Remote Address:  {RemoteAddressString}\n" +
+                       $"   Remote Tx Flags: {RemoteTxFlagsString}\n";
             }
         }
         /// <summary>

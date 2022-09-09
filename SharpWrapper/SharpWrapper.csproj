@@ -7,8 +7,8 @@
     <ProjectGuid>{E4508BD6-9045-4840-A659-BE40CC205C78}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharpWrap2534</RootNamespace>
-    <AssemblyName>SharpWrap2534</AssemblyName>
+    <RootNamespace>SharpWrapper</RootNamespace>
+    <AssemblyName>SharpWrapper</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <FileAlignment>512</FileAlignment>

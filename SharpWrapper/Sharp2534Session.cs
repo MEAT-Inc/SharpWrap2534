@@ -2,17 +2,15 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
-using SharpWrap2534.J2534Objects;
-using SharpWrap2534.PassThruImport;
-using SharpWrap2534.PassThruTypes;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper.J2534Objects;
+using SharpWrapper.PassThruImport;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 
-namespace SharpWrap2534
+namespace SharpWrapper
 {
     /// <summary>
     /// Contains the base information about our J2534 instance objects and types.

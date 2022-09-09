@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using SharpWrap2534.PassThruTypes;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 
-namespace SharpWrap2534.J2534Api
+namespace SharpWrapper.J2534Api
 {
     /// <summary>
     /// Used to marshall out API methods from an instance of the DLL Api

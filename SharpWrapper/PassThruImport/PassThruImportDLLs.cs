@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Win32;
-using SharpWrap2534.J2534Objects;
-using SharpWrap2534.PassThruTypes;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper.J2534Objects;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 
-namespace SharpWrap2534.PassThruImport
+namespace SharpWrapper.PassThruImport
 {
     /// <summary>
     /// This class contains the logic needed to build and use new PassThru DLLs from the J2534 DLL object type.

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace SharpWrap2534.PassThruTypes
+﻿namespace SharpWrapper.PassThruTypes
 {
     // This is a collection of SAE J2534 Enums needed to configure values for API Commands.
 

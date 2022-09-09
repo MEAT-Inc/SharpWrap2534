@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 
-namespace SharpWrap2534.SupportingLogic
+namespace SharpWrapper.SupportingLogic
 {
     /// <summary>
     /// Logging helpers for session logging configuration

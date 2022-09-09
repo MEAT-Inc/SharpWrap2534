@@ -1,7 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-using SharpWrap2534.SupportingLogic;
+﻿using SharpWrapper.SupportingLogic;
 
-namespace SharpWrap2534.PassThruTypes
+namespace SharpWrapper.PassThruTypes
 {
     /// <summary>
     /// Contains constants for PassThru types here.

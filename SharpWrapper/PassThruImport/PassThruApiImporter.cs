@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper.SupportingLogic;
 
-namespace SharpWrap2534.PassThruImport
+namespace SharpWrapper.PassThruImport
 {
     /// <summary>
     /// Impors a provided DLL file and maps functions out for the PassThru calls for it. 

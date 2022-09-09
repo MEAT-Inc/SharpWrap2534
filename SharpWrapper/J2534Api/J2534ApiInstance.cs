@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using SharpWrap2534.PassThruImport;
-using SharpWrap2534.PassThruTypes;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper.PassThruImport;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 
-namespace SharpWrap2534.J2534Api
+namespace SharpWrapper.J2534Api
 {
     /// <summary>
     /// Instance object for the API built in the PassThru logic class.

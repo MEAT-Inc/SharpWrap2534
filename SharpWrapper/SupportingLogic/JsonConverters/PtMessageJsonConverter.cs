@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SharpWrap2534.PassThruTypes;
+using SharpWrapper.PassThruTypes;
 
-namespace SharpWrap2534.SupportingLogic.JsonConverters
+namespace SharpWrapper.SupportingLogic.JsonConverters
 {
     /// <summary>
     /// Json Conversion helper for PTMessages.

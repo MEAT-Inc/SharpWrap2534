@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace SharpWrap2534.PassThruTypes
+namespace SharpWrapper.PassThruTypes
 {
     /// <summary>
     /// Native structures for Passthru objects.

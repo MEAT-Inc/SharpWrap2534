@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SharpWrap2534.SupportingLogic
+namespace SharpWrapper.SupportingLogic
 {
     // Enum types for standard DLL values.
     public enum PassThruPaths

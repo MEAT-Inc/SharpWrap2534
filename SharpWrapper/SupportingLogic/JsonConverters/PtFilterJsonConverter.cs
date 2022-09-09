@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SharpWrap2534.J2534Objects;
-using SharpWrap2534.PassThruTypes;
+using SharpWrapper.J2534Objects;
+using SharpWrapper.PassThruTypes;
 
-namespace SharpWrap2534.SupportingLogic.JsonConverters
+namespace SharpWrapper.SupportingLogic.JsonConverters
 {
     /// <summary>
     /// Converts a J2534 filter object around with a specified format routine

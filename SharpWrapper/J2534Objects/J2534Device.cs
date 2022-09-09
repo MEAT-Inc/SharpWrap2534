@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using SharpWrap2534.J2534Api;
-using SharpWrap2534.PassThruTypes;
-using SharpWrap2534.SupportingLogic;
+using SharpWrapper.J2534Api;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 
-namespace SharpWrap2534.J2534Objects
+namespace SharpWrapper.J2534Objects
 {
     /// <summary>
     /// J2534 Device object used to control the API, the Marshall, and other methods of it.

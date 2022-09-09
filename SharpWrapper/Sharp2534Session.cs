@@ -15,7 +15,7 @@ namespace SharpWrapper
     /// <summary>
     /// Contains the base information about our J2534 instance objects and types.
     /// </summary>
-    public class Sharp2534Session
+    public class Sharp2534Session   
     {
         // Singleton Configuration array for sessions
         private static Sharp2534Session[] _sharpSessions;

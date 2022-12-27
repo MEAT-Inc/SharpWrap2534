@@ -1,12 +1,12 @@
-﻿using SharpWrap2534.J2534Objects;
-using SharpWrap2534.PassThruTypes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SharpSimulator;
 using SharpSimulator.SimulationObjects;
+using SharpWrapper.J2534Objects;
+using SharpWrapper.PassThruTypes;
 
 namespace SharpSimulatorTests
 {

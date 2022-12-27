@@ -1,7 +1,6 @@
 ﻿using NLog.Config;
 using SharpLogger;
 using SharpSimulator;
-using SharpWrap2534.SupportingLogic;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,8 +12,8 @@ using Newtonsoft.Json;
 using SharpLogger.LoggerSupport;
 using SharpSimulator.SimulationObjects;
 using SharpSimulator.SupportingLogic;
-using SharpWrap2534.J2534Objects;
-using SharpWrap2534.PassThruTypes;
+using SharpWrapper.PassThruTypes;
+using SharpWrapper.SupportingLogic;
 
 namespace SharpSimulatorTests
 {

@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpLogger">
-      <Version>1.9.0.123</Version>
+      <Version>1.9.1.125</Version>
     </PackageReference>
     <PackageReference Include="SharpWrapper">
       <Version>5.3.4.375</Version>

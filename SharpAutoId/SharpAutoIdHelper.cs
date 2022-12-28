@@ -51,8 +51,7 @@ namespace SharpAutoId
 
             // Build our new logger object
             string LoggerName = $"{ProtocolValue}_AutoIdLogger_{this.Version}_{SessionInstance.DeviceName.Replace(" ", "-")}";
-            this.AutoIdLogger = (SubServiceLogger)LogBroker.LoggerQueue.GetLoggers(LoggerActions.SubServiceLogger)
-                .FirstOrDefault(LoggerObj => LoggerObj.LoggerName.StartsWith(LoggerName)) ?? new SubServiceLogger(LoggerName);
+            this.AutoIdLogger = (SubServiceLogger)LoggerQueue.SpawnLogger(LoggerName, LoggerActions.SubServiceLogger);
 
             // Log built new auto ID routine without issues.
             this.AutoIdLogger.WriteLog($"BUILT NEW AUTO ID LOGGER FOR PROTOCOL {this.AutoIdType} OK!", LogType.InfoLog);

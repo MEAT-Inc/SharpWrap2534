@@ -14,9 +14,6 @@ namespace SharpSimulator.SimulationObjects
     [JsonConverter(typeof(SimulationChannelJsonConverter))]
     public class SimulationChannel
     {
-        // Sim Channel Logger
-        private readonly SubServiceLogger SimChannelLogger;
-
         // Channel ID Built and Logger
         public readonly uint ChannelId;
         public readonly BaudRate ChannelBaudRate;
@@ -48,10 +45,6 @@ namespace SharpSimulator.SimulationObjects
             this.MessagePairs = Array.Empty<SimulationMessagePair>();
             this.MessagesRead = Array.Empty<PassThruStructs.PassThruMsg>(); 
             this.MessagesSent = Array.Empty<PassThruStructs.PassThruMsg>();
-
-            // Log new information output
-            this.SimChannelLogger = new SubServiceLogger($"SimChannelLogger_ID-{this.ChannelId}");
-            this.SimChannelLogger.WriteLog($"BUILT NEW SIM CHANNEL OBJECT FOR CHANNEL ID {this.ChannelId}!", LogType.InfoLog);
         }
     }
 }

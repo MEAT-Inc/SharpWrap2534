@@ -17,8 +17,7 @@ namespace SharpSimulator.SupportingLogic
     public static class SimulationConfigLoader
     {
         // Logger object for configuration of an AutoID JSON Reader
-        private static SubServiceLogger ConfigLogger => (SubServiceLogger)LogBroker.LoggerQueue.GetLoggers(LoggerActions.SubServiceLogger)
-            .FirstOrDefault(LoggerObj => LoggerObj.LoggerName.StartsWith("AutoIdConfigLogger")) ?? new SubServiceLogger("AutoIdConfigLogger");
+        private static SubServiceLogger ConfigLogger => (SubServiceLogger)LoggerQueue.SpawnLogger("AutoIdConfigLogger", LoggerActions.SubServiceLogger);
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
         

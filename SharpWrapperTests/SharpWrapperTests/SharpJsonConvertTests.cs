@@ -145,7 +145,7 @@ namespace SharpWrapperTests
                 FilterFlowCtl = "00 00 07 E8",
                 FilterProtocol = ProtocolId.ISO15765,
                 FilterType = FilterDef.FLOW_CONTROL_FILTER,
-                FilterStatus = PTInstanceStatus.INITIALIZED,
+                FilterStatus = SharpSessionStatus.INITIALIZED,
             };
 
             try

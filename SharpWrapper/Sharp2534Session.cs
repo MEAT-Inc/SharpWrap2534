@@ -137,12 +137,12 @@ namespace SharpWrapper
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         // Status of this session instance, device, and DLL objects
-        public PTInstanceStatus SessionStatus =>
-            DllStatus == PTInstanceStatus.INITIALIZED && DeviceStatus == PTInstanceStatus.INITIALIZED ?
-                PTInstanceStatus.INITIALIZED :
-                PTInstanceStatus.NULL;
-        public PTInstanceStatus DllStatus => JDeviceDll.JDllStatus;
-        public PTInstanceStatus DeviceStatus => JDeviceInstance.DeviceStatus;
+        public SharpSessionStatus SessionStatus =>
+            DllStatus == SharpSessionStatus.INITIALIZED && DeviceStatus == SharpSessionStatus.INITIALIZED ?
+                SharpSessionStatus.INITIALIZED :
+                SharpSessionStatus.NULL;
+        public SharpSessionStatus DllStatus => JDeviceDll.JDllStatus;
+        public SharpSessionStatus DeviceStatus => JDeviceInstance.DeviceStatus;
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 

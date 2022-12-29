@@ -36,7 +36,7 @@ namespace SharpWrapper.J2534Objects
             ApiInstance.SetupJApiInstance();
 
             // Build channels, set status output.
-            DeviceStatus = PTInstanceStatus.INITIALIZED;
+            DeviceStatus = SharpSessionStatus.INITIALIZED;
             J2534Version = ApiInstance.J2534Version;
             DeviceChannels = J2534Channel.BuildDeviceChannels(this);
 
@@ -72,7 +72,7 @@ namespace SharpWrapper.J2534Objects
 
         // Device information.
         public JVersion J2534Version { get; }
-        public PTInstanceStatus DeviceStatus { get; }
+        public SharpSessionStatus DeviceStatus { get; }
 
         // Device Members.
         internal J2534Dll JDll;

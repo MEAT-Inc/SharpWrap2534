@@ -84,7 +84,7 @@ namespace SharpExpressions
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
-        
+
         /// <summary>
         /// Processes the input line content and parses it for the regex we passed in.
         /// </summary>
@@ -96,19 +96,22 @@ namespace SharpExpressions
             var MatchResults = new Regex(this.ExpressionPattern).Match(InputLines);
 
             // If failed, return an empty string. If all groups, return here too.
-            if (!MatchResults.Success) {
+            if (!MatchResults.Success)
+            {
                 ResultStrings = new[] { "REGEX_FAILED" };
                 return false;
             }
 
             // If no groups given, return full match
-            if (this.ExpressionValueGroups.All(IndexObj => IndexObj == 0)) {
+            if (this.ExpressionValueGroups.All(IndexObj => IndexObj == 0))
+            {
                 ResultStrings = new[] { MatchResults.Value }; return true;
             }
 
             // Loop our pulled values out and store them
             List<string> PulledValues = new List<string>();
-            for (int GroupIndex = 0; GroupIndex < MatchResults.Groups.Count; GroupIndex++) { 
+            for (int GroupIndex = 0; GroupIndex < MatchResults.Groups.Count; GroupIndex++)
+            {
                 PulledValues.Add(MatchResults.Groups[GroupIndex].Value.Trim());
             }
 
@@ -118,16 +121,6 @@ namespace SharpExpressions
         }
 
         /// <summary>
-        /// Finds a PTRegex Model for the given PTCommand type
-        /// </summary>
-        /// <param name="InputExpressionType">Type to return</param>
-        /// <returns>Regex model for this PT Type if passed, or null if nothing found.</returns>
-        public static PassThruExpressionRegex GetRegexByType(PassThruExpressionType InputExpressionType)
-        {
-            // Find the command instance by name. Replace the input enum with a string and return.
-            return _expressionsLoaded.FirstOrDefault(RegexObj => RegexObj.ExpressionType == InputExpressionType);
-        }
-        /// <summary>
         /// Build a new regex model object from a given name value for a regex.
         /// </summary>
         /// <param name="RegexName"></param>
@@ -136,6 +129,16 @@ namespace SharpExpressions
         {
             // Finds the first Regex object matching the current name provided from a collection instance.
             return _expressionsLoaded.FirstOrDefault(RegexObj => RegexObj.ExpressionName.ToUpper().Contains(RegexName.ToUpper()));
+        }
+        /// <summary>
+        /// Finds a PTRegex Model for the given PTCommand type
+        /// </summary>
+        /// <param name="InputExpressionType">Type to return</param>
+        /// <returns>Regex model for this PT Type if passed, or null if nothing found.</returns>
+        public static PassThruExpressionRegex GetRegexByType(PassThruExpressionType InputExpressionType)
+        {
+            // Find the command instance by name. Replace the input enum with a string and return.
+            return _expressionsLoaded.FirstOrDefault(RegexObj => RegexObj.ExpressionType == InputExpressionType);
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
@@ -148,9 +151,7 @@ namespace SharpExpressions
         /// <returns>A built collection of all the RegexModels built for the contents of our input JSON configuration file</returns>
         public static PassThruExpressionRegex[] _generateRegexModels()
         {
-            // Loop all the values in our JSON store object and load them in as a regex one by one
-
-
+            // TODO: Build logic for loading all expressions values from our JSON Store and store the expressions on this instance
             // Store our newly built expressions objects and return them out now
             return _expressionsLoaded;
         }

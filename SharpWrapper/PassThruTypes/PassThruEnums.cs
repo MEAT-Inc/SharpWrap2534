@@ -1,6 +1,50 @@
-﻿namespace SharpWrapper.PassThruTypes
+﻿using System.ComponentModel;
+
+namespace SharpWrapper.PassThruTypes
 {
-    // This is a collection of SAE J2534 Enums needed to configure values for API Commands.
+    #region SharpSession Enum Values
+
+    /// <summary>
+    /// J2534 Version enumeration used to determine what version type is in use
+    /// </summary>
+    public enum JVersion
+    {
+        [Description("Version 04.04")] V0404,
+        [Description("Version 05.00")] V0500,
+        [Description("Any Version")] ALL_VERSIONS,      // Added 2/21/22 - Used for universal searching
+    }
+    /// <summary>
+    /// Enumeration value used to determine if a session is built, loaded, or destroyed
+    /// </summary>
+    public enum SharpSessionStatus
+    {
+        [Description("Not Configured")] NULL,
+        [Description("Instance Loaded")] INITIALIZED,
+        [Description("Freed")] FREED,
+    }
+    /// <summary>
+    /// Enumeration value that holds some useful path locations for the CarDAQ Plus 3 and CarDAQ Plus 4 DLLs
+    /// </summary>
+    internal enum PassThruPaths
+    {
+        // CDP3
+        [Description("C:\\Program Files (x86)\\Drew Technologies, Inc\\J2534\\CarDAQ Plus 3\\cardaqplus3_0404_32.dll")]
+        CarDAQPlus3_0404 = 0x10,
+        [Description("C:\\Program Files (x86)\\Drew Technologies, Inc\\J2534\\CarDAQ Plus 3\\0500\\cardaqplus3_0500_32.dll")]
+        CarDAQPlus3_0500 = 0x11,
+
+        // CDP4
+        [Description("C:\\Program Files (x86)\\Drew Technologies, Inc\\J2534\\CarDAQ Plus 4\\cardaqplus4_0404_32.dll")]
+        CarDAQPlus4_0404 = 0x10,
+        [Description("C:\\Program Files (x86)\\Drew Technologies, Inc\\J2534\\CarDAQ Plus 4\\0500\\cardaqplus4_0500_32.dll")]
+        CarDAQPlus4_0500 = 0x11,
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------------------------
+
+    #region SAE J2534 Enum Values
 
     /// <summary>
     /// Protocol ID Values to connect with
@@ -449,4 +493,6 @@
         KW82_SIMULTANEOUS = 0x0102,
         KW82_PS_J1962 = 0x0103
     };
+
+    #endregion
 }

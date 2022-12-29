@@ -85,7 +85,6 @@
     <Compile Include="PassThruTypes\PassThruStructsNative.cs" />
     <Compile Include="J2534Api\J2534ApiInstance.cs" />
     <Compile Include="PassThruTypes\PassThruEnums.cs" />
-    <Compile Include="SupportingLogic\InstanceEnums.cs" />
     <Compile Include="SupportingLogic\LoggingSupport.cs" />
     <Compile Include="SupportingLogic\JsonConverters\PtFilterJsonConverter.cs" />
     <Compile Include="SupportingLogic\JsonConverters\PtMessageJsonConverter.cs" />

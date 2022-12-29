@@ -88,9 +88,9 @@ namespace SharpWrapper.SupportingLogic.JsonConverters
             ProtocolId ProtocolRead = InputObject["FilterProtocol"].Type == JTokenType.Integer ?
                 (ProtocolId)InputObject["FilterProtocol"].Value<uint>() :
                 (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["FilterProtocol"].Value<string>());
-            PTInstanceStatus StatusRead = InputObject["FilterStatus"].Type == JTokenType.Integer ?
-                (PTInstanceStatus)InputObject["FilterStatus"].Value<uint>() :
-                (PTInstanceStatus)Enum.Parse(typeof(PTInstanceStatus), InputObject["FilterStatus"].Value<string>());
+            SharpSessionStatus StatusRead = InputObject["FilterStatus"].Type == JTokenType.Integer ?
+                (SharpSessionStatus)InputObject["FilterStatus"].Value<uint>() :
+                (SharpSessionStatus)Enum.Parse(typeof(SharpSessionStatus), InputObject["FilterStatus"].Value<string>());
 
             // Filter content values
             uint IdRead = InputObject["FilterId"].Value<uint>();

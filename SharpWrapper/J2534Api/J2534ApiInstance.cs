@@ -20,7 +20,7 @@ namespace SharpWrapper.J2534Api
         {
             // Store Number and status values.
             J2534DllPath = ApiDllPath;
-            ApiStatus = PTInstanceStatus.NULL;
+            ApiStatus = SharpSessionStatus.NULL;
 
             // Set the version and build our delegate/Importer objects
             J2534Version = J2534DllPath.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
@@ -39,7 +39,7 @@ namespace SharpWrapper.J2534Api
         // ------------------------------------ CLASS VALUES FOR J2534 API ---------------------------------
 
         // JDevice Number.
-        public PTInstanceStatus ApiStatus { get; private set; }
+        public SharpSessionStatus ApiStatus { get; private set; }
 
         // Version of the DLL for the J2534 DLL
         public JVersion J2534Version { get; private set; }
@@ -58,7 +58,7 @@ namespace SharpWrapper.J2534Api
         public bool SetupJApiInstance()
         {
             // Check status value.
-            if (ApiStatus == PTInstanceStatus.INITIALIZED) return false;
+            if (ApiStatus == SharpSessionStatus.INITIALIZED) return false;
 
             try
             {
@@ -73,7 +73,7 @@ namespace SharpWrapper.J2534Api
             }
 
             // Set the status value.
-            ApiStatus = PTInstanceStatus.INITIALIZED;
+            ApiStatus = SharpSessionStatus.INITIALIZED;
             return true;
         }
 

@@ -15,7 +15,7 @@ namespace SharpWrapper.J2534Objects
     {
         // DLL Version.
         public JVersion DllVersion { get; }
-        public PTInstanceStatus JDllStatus { get; private set; }
+        public SharpSessionStatus JDllStatus { get; private set; }
 
         // DLL Class values.
         public string Name { get; }
@@ -42,7 +42,7 @@ namespace SharpWrapper.J2534Objects
             FunctionLibrary = PathOfDLL;
             LongName = LocatedDll.LongName;
             DllVersion = LocatedDll.DllVersion;
-            JDllStatus = PTInstanceStatus.INITIALIZED;
+            JDllStatus = SharpSessionStatus.INITIALIZED;
             SupportedProtocols = LocatedDll.SupportedProtocols;
         }
         /// <summary>
@@ -62,7 +62,7 @@ namespace SharpWrapper.J2534Objects
             SupportedProtocols = ProtocolList;
 
             // Set Version.
-            JDllStatus = PTInstanceStatus.INITIALIZED;
+            JDllStatus = SharpSessionStatus.INITIALIZED;
             DllVersion = FunctionLibrary.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
         }
 
@@ -140,7 +140,7 @@ namespace SharpWrapper.J2534Objects
             }
 
             // If no devices found, set our DLL to null. This will help compare later on
-            if (PossibleDevices.Count == 0) { JDllStatus = PTInstanceStatus.NULL; }
+            if (PossibleDevices.Count == 0) { JDllStatus = SharpSessionStatus.NULL; }
 
             // Return device list and free device instance.
             return PossibleDevices.Where(DeviceObj => !IsNullOrWhiteSpace(DeviceObj.DeviceName))

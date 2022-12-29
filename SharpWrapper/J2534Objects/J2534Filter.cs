@@ -16,7 +16,7 @@ namespace SharpWrapper.J2534Objects
         public TxFlags FilterFlags;
         public FilterDef FilterType;
         public ProtocolId FilterProtocol;
-        public PTInstanceStatus FilterStatus;
+        public SharpSessionStatus FilterStatus;
 
         // Filter values.
         public uint FilterId;
@@ -29,7 +29,7 @@ namespace SharpWrapper.J2534Objects
         /// <summary>
         /// Empty CTOR For filter type output.
         /// </summary>
-        public J2534Filter() { FilterStatus = PTInstanceStatus.NULL; }
+        public J2534Filter() { FilterStatus = SharpSessionStatus.NULL; }
         /// <summary>
         /// Builds a new filter using a mask, pattern, and the Id of it.
         /// </summary>
@@ -45,7 +45,7 @@ namespace SharpWrapper.J2534Objects
             this.FilterId = FilterId;
 
             // Set status.
-            FilterStatus = PTInstanceStatus.INITIALIZED;
+            FilterStatus = SharpSessionStatus.INITIALIZED;
         }
         /// <summary>
         /// Builds a new flow control filter using the passed string values of it.
@@ -68,7 +68,7 @@ namespace SharpWrapper.J2534Objects
             this.FilterFlags = FilterFlags;
 
             // Set status.
-            FilterStatus = PTInstanceStatus.INITIALIZED;
+            FilterStatus = SharpSessionStatus.INITIALIZED;
         }
         /// <summary>
         /// Builds a new filter using a specified type.
@@ -89,7 +89,7 @@ namespace SharpWrapper.J2534Objects
             this.FilterId = FilterId;
 
             // Set status.
-            FilterStatus = PTInstanceStatus.INITIALIZED;
+            FilterStatus = SharpSessionStatus.INITIALIZED;
         }
         /// <summary>
         /// Builds a new Filter using a mask and pattern
@@ -105,7 +105,7 @@ namespace SharpWrapper.J2534Objects
             FilterId = 0;
 
             // Set status.
-            FilterStatus = PTInstanceStatus.INITIALIZED;
+            FilterStatus = SharpSessionStatus.INITIALIZED;
         }
 
         // ----------------------------------- OVERRIDES FOR STRING AND COMPARISON ----------------------------------------

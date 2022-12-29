@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExpressions
 {
     /// <summary>
     /// Regex object class for a PTReadMessages command
@@ -13,13 +13,13 @@ namespace SharpExpressions
         public readonly PassThruRegexModel PtReadMessagesRegex = PassThruRegexModelShare.PassThruReadMessages;
 
         // Strings of the command and results from the command output.
-        [PassThruExpression("Command Line")] public readonly string PtCommand;
-        [PassThruExpression("Channel ID")] public readonly string ChannelId;
-        [PassThruExpression("Channel Pointer")] public readonly string ChannelPointer;
-        [PassThruExpression("Message Pointer")] public readonly string MessagePointer;
-        [PassThruExpression("Timeout")] public readonly string TimeoutTime;
-        [PassThruExpression("Read Count")] public readonly string MessageCountRead;
-        [PassThruExpression("Expected Count")] public readonly string MessageCountTotal;
+        [PassThru("Command Line")] public readonly string PtCommand;
+        [PassThru("Channel ID")] public readonly string ChannelId;
+        [PassThru("Channel Pointer")] public readonly string ChannelPointer;
+        [PassThru("Message Pointer")] public readonly string MessagePointer;
+        [PassThru("Timeout")] public readonly string TimeoutTime;
+        [PassThru("Read Count")] public readonly string MessageCountRead;
+        [PassThru("Expected Count")] public readonly string MessageCountTotal;
 
         // Contents of message objects located. Shown as a set of tuples and values.
         // The output Array contains a list of tuples paired "Property, Value" 

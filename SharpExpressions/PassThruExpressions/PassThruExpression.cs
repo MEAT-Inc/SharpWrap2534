@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using SharpExpressions.PassThruRegex;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExpressions
 {
     // --------------------------------------------------------------------------------------------------------------
 
@@ -22,8 +23,8 @@ namespace SharpExpressions
 
         // Time values for the Regex on the command.
         public readonly PassThruCommandType TypeOfExpression;
-        public readonly PassThruRegexModel TimeRegex = PassThruRegexModelShare.PassThruTime;
-        public readonly PassThruRegexModel StatusCodeRegex = PassThruRegexModelShare.PassThruStatus;
+        public readonly PassThruRegex.PassThruRegex TimeRegex = PassThruRegexModelShare.PassThruTime;
+        public readonly PassThruRegex.PassThruRegex StatusCodeRegex = PassThruRegexModelShare.PassThruStatus;
 
         // Input command time and result values for regex searching.
         [PassThruExpression("Time Issued", "", new[] { "Timestamp Valid", "Invalid Timestamp" })]

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExpressions
 {
     /// <summary>
     /// Set of Regular Expressions for the PTConnect Command
@@ -13,13 +13,13 @@ namespace SharpExpressions
         public readonly PassThruRegexModel ChannelIdRegex = PassThruRegexModelShare.ChannelIdReturned;
 
         // Strings of the command and results from the command output.
-        [PassThruExpression("Command Line")] public readonly string PtCommand;
-        [PassThruExpression("Device ID")] public readonly string DeviceId;
-        [PassThruExpression("Protocol ID")] public readonly string ProtocolId;
-        [PassThruExpression("Connect Flags")] public readonly string ConnectFlags;
-        [PassThruExpression("BaudRate")] public readonly string BaudRate;
-        [PassThruExpression("Channel Pointer")] public readonly string ChannelPointer;
-        [PassThruExpression("Channel ID", "-1", new[] { "Channel Opened", "Invalid Channel!"}, true)] 
+        [PassThru("Command Line")] public readonly string PtCommand;
+        [PassThru("Device ID")] public readonly string DeviceId;
+        [PassThru("Protocol ID")] public readonly string ProtocolId;
+        [PassThru("Connect Flags")] public readonly string ConnectFlags;
+        [PassThru("BaudRate")] public readonly string BaudRate;
+        [PassThru("Channel Pointer")] public readonly string ChannelPointer;
+        [PassThru("Channel ID", "-1", new[] { "Channel Opened", "Invalid Channel!"}, true)] 
         public readonly string ChannelId;
 
         // ----------------------------------------------------------------------------------------------------

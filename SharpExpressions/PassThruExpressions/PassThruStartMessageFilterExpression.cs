@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExpressions
 {
     /// <summary>
     /// Class object for our PTStart filter regex methods.
@@ -13,14 +13,14 @@ namespace SharpExpressions
         public readonly PassThruRegexModel FilterIdReturnedRegex = PassThruRegexModelShare.FilterIdReturned;
 
         // Strings of the command and results from the command output.
-        [PassThruExpression("Command Line")] public readonly string PtCommand;
-        [PassThruExpression("Channel ID")] public readonly string ChannelID;
-        [PassThruExpression("Filter Type")] public readonly string FilterType;
-        [PassThruExpression("Mask Pointer")] public readonly string MaskPointer;
-        [PassThruExpression("Pattern Pointer")] public readonly string PatternPointer;
-        [PassThruExpression("Flow Control Pointer")] public readonly string FlowCtlPointer;
-        [PassThruExpression("Filter Pointer (Struct)")] public readonly string FilterPointer;
-        [PassThruExpression("Filter ID")] public readonly string FilterID;
+        [PassThru("Command Line")] public readonly string PtCommand;
+        [PassThru("Channel ID")] public readonly string ChannelID;
+        [PassThru("Filter Type")] public readonly string FilterType;
+        [PassThru("Mask Pointer")] public readonly string MaskPointer;
+        [PassThru("Pattern Pointer")] public readonly string PatternPointer;
+        [PassThru("Flow Control Pointer")] public readonly string FlowCtlPointer;
+        [PassThru("Filter Pointer (Struct)")] public readonly string FilterPointer;
+        [PassThru("Filter ID")] public readonly string FilterID;
 
         // Contents for our message objects here.
         public readonly List<string[]> MessageFilterContents;

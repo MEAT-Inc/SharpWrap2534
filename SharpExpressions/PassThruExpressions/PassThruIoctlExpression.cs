@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExpressions
 {
     /// <summary>
     /// Class object to help parse out the PTIoctl Control values from a PTIoctl command.
@@ -12,12 +12,12 @@ namespace SharpExpressions
         public readonly PassThruRegexModel PtIoctlRegex = PassThruRegexModelShare.PassThruIoctl;
 
         // Strings of the command and results from the command output.
-        [PassThruExpression("Command Line")] public readonly string PtCommand;
-        [PassThruExpression("Channel ID")] public readonly string ChannelID;
-        [PassThruExpression("IOCTL Type")] public readonly string IoctlType;
-        [PassThruExpression("IOCTL Input")] public readonly string IoctlInputStruct;
-        [PassThruExpression("IOCTL Output")] public readonly string IoctlOutputStruct;
-        [PassThruExpression("Parameter Count")] public readonly string ParameterCount;
+        [PassThru("Command Line")] public readonly string PtCommand;
+        [PassThru("Channel ID")] public readonly string ChannelID;
+        [PassThru("IOCTL Type")] public readonly string IoctlType;
+        [PassThru("IOCTL Input")] public readonly string IoctlInputStruct;
+        [PassThru("IOCTL Output")] public readonly string IoctlOutputStruct;
+        [PassThru("Parameter Count")] public readonly string ParameterCount;
 
         // Number of Parameters and values for the IOCTL command.
         public readonly Tuple<string, string, string>[] ParameterValues;

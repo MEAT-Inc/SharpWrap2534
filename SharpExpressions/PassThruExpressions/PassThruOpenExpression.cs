@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExpressions
 {
     // Regex Values for Different Command Types.
     public class PassThruOpenExpression : PassThruExpression
@@ -11,10 +11,10 @@ namespace SharpExpressions
         public readonly PassThruRegexModel DeviceIdRegex = PassThruRegexModelShare.DeviceIdReturned;
 
         // Strings of the command and results from the command output.
-        [PassThruExpression("Command Line")] public readonly string PtCommand;
-        [PassThruExpression("Device Name")] public readonly string DeviceName;
-        [PassThruExpression("Device Pointer")] public readonly string DevicePointer;
-        [PassThruExpression("Device ID", "-1", new[] { "Device Opened", "Invalid Device ID!" }, true)]
+        [PassThru("Command Line")] public readonly string PtCommand;
+        [PassThru("Device Name")] public readonly string DeviceName;
+        [PassThru("Device Pointer")] public readonly string DevicePointer;
+        [PassThru("Device ID", "-1", new[] { "Device Opened", "Invalid Device ID!" }, true)]
         public readonly string DeviceId;
 
         // ------------------------------------------------------------------------------------------

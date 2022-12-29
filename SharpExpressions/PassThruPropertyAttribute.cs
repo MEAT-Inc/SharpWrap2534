@@ -7,7 +7,7 @@ namespace SharpExpressions
     /// Result Attribute for a Regex command operation
     /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
-    sealed class PassThruExpressionAttribute : Attribute
+    sealed class PassThruPropertyAttribute : Attribute
     {
         // Name of result to set
         public readonly int LineNumber;
@@ -27,7 +27,7 @@ namespace SharpExpressions
         /// </summary>
         /// <param name="Name">Name of result</param>
         /// <param name="DesiredResult">Value to equal.</param>
-        public PassThruExpressionAttribute(string Name, string ResultValue = "", string[] ResultStates = null, bool OnFail = false, [CallerLineNumber]int LineNumber = 0)
+        public PassThruPropertyAttribute(string Name, string ResultValue = "", string[] ResultStates = null, bool OnFail = false, [CallerLineNumber]int LineNumber = 0)
         {
             // Store values for attribute
             this.ResultName = Name;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExpressions
 {
     /// <summary>
     /// PTClose Command Regex Operations
@@ -14,8 +14,8 @@ namespace SharpExpressions
         // -----------------------------------------------------------------------------------------
 
         // Strings of the command and results from the command output.
-        [PassThruExpression("Command Line")] public readonly string PtCommand;
-        [PassThruExpression("Device ID", "-1", new[] { "Device Closed", "Device Invalid!" }, true)] 
+        [PassThru("Command Line")] public readonly string PtCommand;
+        [PassThru("Device ID", "-1", new[] { "Device Closed", "Device Invalid!" }, true)] 
         public readonly string DeviceId;    
 
         // ------------------------------------------------------------------------------------------

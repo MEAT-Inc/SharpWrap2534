@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExpressions
 {
     /// <summary>
     /// Class object for regex parsing out a PTStopMsgFilter command instance.
@@ -12,9 +12,9 @@ namespace SharpExpressions
         public readonly PassThruRegexModel PtStopMsgFilterRegex = PassThruRegexModelShare.PassThruStopMsgFilter;
 
         // Strings of the command and results from the command output.
-        [PassThruExpression("Command Line")] public readonly string PtCommand;
-        [PassThruExpression("Channel ID")] public readonly string ChannelID;
-        [PassThruExpression("Filter ID")] public readonly string FilterID;
+        [PassThru("Command Line")] public readonly string PtCommand;
+        [PassThru("Channel ID")] public readonly string ChannelID;
+        [PassThru("Filter ID")] public readonly string FilterID;
 
         // ----------------------------------------------------------------------------------------------------
 

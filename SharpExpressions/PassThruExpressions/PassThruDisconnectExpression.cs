@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExpressions
 {
     /// <summary>
     /// Class object used to find a PTDisconnect command instance from an input line set.
@@ -12,8 +12,8 @@ namespace SharpExpressions
         public readonly PassThruRegexModel PTDisconnectRegex = PassThruRegexModelShare.PassThruDisconnect;
 
         // Strings of the command and results from the command output.
-        [PassThruExpression("Command Line")] public readonly string PtCommand;
-        [PassThruExpression("Channel ID", "-1", new[] { "Channel Closed", "Invalid Channel!" }, true)]
+        [PassThru("Command Line")] public readonly string PtCommand;
+        [PassThru("Channel ID", "-1", new[] { "Channel Closed", "Invalid Channel!" }, true)]
         public readonly string ChannelId;
 
         // -------------------------------------------------------------------------------------------------------

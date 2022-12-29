@@ -5,9 +5,9 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrapper", "SharpWrapper\SharpWrapper.csproj", "{E4508BD6-9045-4840-A659-BE40CC205C78}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{A0E99799-02A6-4A90-ACF9-594AE69FBE67}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharpWrapperExtensions", "SharpWrapperExtensions", "{A0E99799-02A6-4A90-ACF9-594AE69FBE67}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B6099884-8A36-4D3F-918B-E547FB010DD5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharpWrapperTests", "SharpWrapperTests", "{B6099884-8A36-4D3F-918B-E547FB010DD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSimulator", "SharpSimulator\SharpSimulator.csproj", "{0A39E208-7927-41BC-A509-39E60B287969}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSimulatorTests", "UnitTestSuites\SharpSimulatorTests\SharpSimulatorTests.csproj", "{1D0B8238-B3D9-47D7-B12F-B53102FDC024}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrapperTests", "UnitTestSuites\SharpWrapperTests\SharpWrapperTests.csproj", "{021B2C1A-2670-46C7-AC4B-EF6F1F20C78D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpExpressions", "SharpExpressions\SharpExpressions.csproj", "{D7F2FBA3-281E-432D-96D8-7E6FBF1147F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{021B2C1A-2670-46C7-AC4B-EF6F1F20C78D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{021B2C1A-2670-46C7-AC4B-EF6F1F20C78D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{021B2C1A-2670-46C7-AC4B-EF6F1F20C78D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7F2FBA3-281E-432D-96D8-7E6FBF1147F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7F2FBA3-281E-432D-96D8-7E6FBF1147F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7F2FBA3-281E-432D-96D8-7E6FBF1147F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7F2FBA3-281E-432D-96D8-7E6FBF1147F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{4179AA2A-2255-4E13-8D30-A7074F768598} = {B6099884-8A36-4D3F-918B-E547FB010DD5}
 		{1D0B8238-B3D9-47D7-B12F-B53102FDC024} = {B6099884-8A36-4D3F-918B-E547FB010DD5}
 		{021B2C1A-2670-46C7-AC4B-EF6F1F20C78D} = {B6099884-8A36-4D3F-918B-E547FB010DD5}
+		{D7F2FBA3-281E-432D-96D8-7E6FBF1147F7} = {A0E99799-02A6-4A90-ACF9-594AE69FBE67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9FF76CD-E2BD-4A81-93B6-6EBCF2CEC566}

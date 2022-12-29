@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using SharpExpressions.PassThruRegex;
+using SharpLogger;
+using SharpLogger.LoggerObjects;
+using SharpLogger.LoggerSupport;
 
 namespace SharpExpressions.PassThruExpressions
 {
-    // --------------------------------------------------------------------------------------------------------------
-
     /// <summary>
     /// This class instance is used to help configure the Regex tools and commands needed to perform highlighting on output from
     /// the shim DLL.
     /// </summary>
     public class PassThruExpression
     {
-        // Logger Object
+        // Logger instance for the expression in use. This should only ever log failures
         protected internal readonly SubServiceLogger ExpressionLogger;
 
         // String Values for Command content
@@ -22,14 +22,14 @@ namespace SharpExpressions.PassThruExpressions
         public readonly string[] SplitCommandLines;
 
         // Time values for the Regex on the command.
-        public readonly PassThruCommandType TypeOfExpression;
-        public readonly PassThruRegex.PassThruRegex TimeRegex = PassThruRegexModelShare.PassThruTime;
-        public readonly PassThruRegex.PassThruRegex StatusCodeRegex = PassThruRegexModelShare.PassThruStatus;
+        public readonly PassThruExpressionType TypeOfExpression;
+        public readonly PassThruExpressionRegex TimeRegex = PassThruExpressionRegex.GetRegexByName("CommandTime");
+        public readonly PassThruExpressionRegex StatusCodeRegex = PassThruExpressionRegex.GetRegexByName("CommandStatus");
 
         // Input command time and result values for regex searching.
-        [PassThruExpression("Time Issued", "", new[] { "Timestamp Valid", "Invalid Timestamp" })]
+        [PassThruProperty("Time Issued", "", new[] { "Timestamp Valid", "Invalid Timestamp" })]
         public readonly string ExecutionTime;
-        [PassThruExpression("J2534 Status", "0:STATUS_NOERROR", new[] { "Command Passed", "Command Failed" })]
+        [PassThruProperty("J2534 Status", "0:STATUS_NOERROR", new[] { "Command Passed", "Command Failed" })]
         public readonly string JStatusCode;
 
         // --------------------------------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ namespace SharpExpressions.PassThruExpressions
             // Find Field object values here.
             var ResultFieldInfos = this.GetType()
                 .GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(MemberObj => MemberObj.GetCustomAttribute(typeof(PassThruExpressionAttribute)) != null)
+                .Where(MemberObj => MemberObj.GetCustomAttribute(typeof(PassThruPropertyAttribute)) != null)
                 .ToArray();
 
             // Build default Tuple LIst value set and apply new values into it from property attributes
@@ -63,8 +63,8 @@ namespace SharpExpressions.PassThruExpressions
                 if (CurrentValue.Length >= 60) CurrentValue = CurrentValue.Substring(0, 49) + " (Truncated)";
 
                 // Now cast the result attribute of the member and store the value of it.
-                var ResultValue = (PassThruExpressionAttribute)MemberObj
-                    .GetCustomAttributes(typeof(PassThruExpressionAttribute))
+                var ResultValue = (PassThruPropertyAttribute)MemberObj
+                    .GetCustomAttributes(typeof(PassThruPropertyAttribute))
                     .FirstOrDefault();
 
                 // Build our output tuple object here. Compare current value to the desired one and return a state value.
@@ -153,7 +153,7 @@ namespace SharpExpressions.PassThruExpressions
             {
                 // Pull the ResultAttribute object.
                 var CurrentValue = FieldObj.GetValue(this).ToString().Trim();
-                var ResultAttribute = (PassThruExpressionAttribute)FieldObj.GetCustomAttributes(typeof(PassThruExpressionAttribute)).FirstOrDefault();
+                var ResultAttribute = (PassThruPropertyAttribute)FieldObj.GetCustomAttributes(typeof(PassThruPropertyAttribute)).FirstOrDefault();
 
                 // Now compare value to the passed/failed setup.
                 return ResultAttribute != null && ResultAttribute.ResultState(CurrentValue) == ResultAttribute.ResultValue;
@@ -172,22 +172,19 @@ namespace SharpExpressions.PassThruExpressions
         public PassThruExpression()
         {
             // Store the none type for our expression and exit out
-            this.TypeOfExpression = PassThruCommandType.NONE;
+            this.TypeOfExpression = PassThruExpressionType.NONE;
         }
         /// <summary>
         /// Builds a new set of PassThruCommand Regex Operations
         /// </summary>
         /// <param name="CommandInput">Input command string</param>
-        public PassThruExpression(string CommandInput, PassThruCommandType ExpressionType)
+        public PassThruExpression(string CommandInput, PassThruExpressionType ExpressionType)
         {
             // Store input lines
             this.CommandLines = CommandInput;
             this.TypeOfExpression = ExpressionType;
             this.SplitCommandLines = CommandInput.Split('\r');
-
-            // Build a logger object for our expression here
-            this.ExpressionLogger = (SubServiceLogger)LoggerQueue.SpawnLogger($"{this.GetType().Name}Logger", LoggerActions.SubServiceLogger);
-
+            
             // Find command issue request values. (Pull using Base Class)
             this.TimeRegex.Evaluate(CommandInput, out var TimeStrings);
             var FieldsToSet = this.GetExpressionProperties(true);
@@ -210,8 +207,8 @@ namespace SharpExpressions.PassThruExpressions
 
             // Now apply values using base method and exit out of this routine
             bool StorePassed = this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray());
-            if (!StorePassed) throw new InvalidOperationException("FAILED TO SET BASE CLASS VALUES FOR EXPRESSION OBJECT!"); 
-            // this.ExpressionLogger.WriteLog($"BUILT NEW EXPRESSION OBJECT WITH TYPE OF {this.GetType().Name}", LogType.InfoLog);
+            if (!StorePassed) throw new InvalidOperationException("FAILED TO SET BASE CLASS VALUES FOR EXPRESSION OBJECT!");
+            this.ExpressionLogger = (SubServiceLogger)LoggerQueue.SpawnLogger($"{this.GetType().Name}Logger", LoggerActions.SubServiceLogger);
         }
 
         // --------------------------------------------------------------------------------------------------------------
@@ -228,8 +225,8 @@ namespace SharpExpressions.PassThruExpressions
             // Pull our property values here.
             var PropertiesLocated = this.GetType()
                 .GetFields().Where(FieldObj => FieldObj.DeclaringType == DeclaredTypeExpected)
-                .Where(PropObj => Attribute.IsDefined(PropObj, typeof(PassThruExpressionAttribute)))
-                .OrderBy(PropObj => ((PassThruExpressionAttribute)PropObj.GetCustomAttributes(typeof(PassThruExpressionAttribute), false).Single()).LineNumber)
+                .Where(PropObj => Attribute.IsDefined(PropObj, typeof(PassThruPropertyAttribute)))
+                .OrderBy(PropObj => ((PassThruPropertyAttribute)PropObj.GetCustomAttributes(typeof(PassThruPropertyAttribute), false).Single()).LineNumber)
                 .ToArray();
 
             // Return them here.

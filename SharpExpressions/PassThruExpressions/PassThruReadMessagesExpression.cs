@@ -39,7 +39,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new Regex helper to search for our PTRead Messages Command
         /// </summary>
         /// <param name="CommandInput">Input text for the command to find.</param>
-        public PassThruReadMessagesExpression(string CommandInput) : base(CommandInput, PassThruCommandType.PTReadMsgs)
+        public PassThruReadMessagesExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTReadMsgs)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();

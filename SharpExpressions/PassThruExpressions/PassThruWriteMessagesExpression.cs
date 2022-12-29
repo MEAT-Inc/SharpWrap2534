@@ -39,7 +39,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new PTWrite Messages Command instance.
         /// </summary>
         /// <param name="CommandInput">Input Command Lines</param>
-        public PassThruWriteMessagesExpression(string CommandInput) : base(CommandInput, PassThruCommandType.PTWriteMsgs)
+        public PassThruWriteMessagesExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTWriteMsgs)
         { 
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();

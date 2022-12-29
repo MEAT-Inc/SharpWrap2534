@@ -9,7 +9,7 @@ namespace SharpExpressions
     [AttributeUsage(AttributeTargets.Field)]
     sealed class PassThruPropertyAttribute : Attribute
     {
-        // Name of result to set
+        // Public readonly fields for the information about our expression object
         public readonly int LineNumber;
         public readonly bool FailOnMatch;
         public readonly string ResultName;

@@ -22,7 +22,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new instance of a stop filter parsing command.
         /// </summary>
         /// <param name="CommandInput"></param>
-        public PassThruStopMessageFilterExpression(string CommandInput) : base(CommandInput, PassThruCommandType.PTStopMsgFilter)
+        public PassThruStopMessageFilterExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTStopMsgFilter)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();

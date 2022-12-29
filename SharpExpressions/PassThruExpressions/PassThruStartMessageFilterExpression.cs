@@ -31,7 +31,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new instance of a PTStartMsgFilter expression 
         /// </summary>
         /// <param name="CommandInput"></param>
-        public PassThruStartMessageFilterExpression(string CommandInput) : base(CommandInput, PassThruCommandType.PTStartMsgFilter)
+        public PassThruStartMessageFilterExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTStartMsgFilter)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();

@@ -28,7 +28,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new instance of a PTIoctl expression for parsing a PTIoctl command.
         /// </summary>
         /// <param name="CommandInput">Input command lines.</param>
-        public PassThruIoctlExpression(string CommandInput) : base(CommandInput, PassThruCommandType.PTIoctl)
+        public PassThruIoctlExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTIoctl)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();

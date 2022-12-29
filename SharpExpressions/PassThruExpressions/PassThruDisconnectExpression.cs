@@ -22,7 +22,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new instance of a PTDisconnect Regex Helper 
         /// </summary>
         /// <param name="CommandInput">Lines to filter out of.</param>
-        public PassThruDisconnectExpression(string CommandInput) : base(CommandInput, PassThruCommandType.PTDisconnect)
+        public PassThruDisconnectExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTDisconnect)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();

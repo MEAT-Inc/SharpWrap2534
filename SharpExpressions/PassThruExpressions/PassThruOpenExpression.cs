@@ -23,7 +23,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new PTOpen Regex command type.
         /// </summary>
         /// <param name="CommandInput">Input expression lines to store.</param>
-        public PassThruOpenExpression(string CommandInput) : base(CommandInput, PassThruCommandType.PTOpen)
+        public PassThruOpenExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTOpen)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();

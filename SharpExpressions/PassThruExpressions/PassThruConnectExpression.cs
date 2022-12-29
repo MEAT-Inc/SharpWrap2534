@@ -28,7 +28,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new Regex helper to search for our PTConnect Command
         /// </summary>
         /// <param name="CommandInput">Input text for the command to find.</param>
-        public PassThruConnectExpression(string CommandInput) : base(CommandInput, PassThruCommandType.PTConnect)
+        public PassThruConnectExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTConnect)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();

@@ -24,7 +24,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new instance of a PTClose Regex type output.
         /// </summary>
         /// <param name="CommandInput">InputLines for the command object strings.</param>
-        public PassThruCloseExpression(string CommandInput) : base(CommandInput, PassThruCommandType.PTClose)
+        public PassThruCloseExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTClose)
         {
             // Find the PTClose Command Results.
             var FieldsToSet = this.GetExpressionProperties();

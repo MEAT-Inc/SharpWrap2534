@@ -109,6 +109,6 @@
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)SharpWrapperNuget\lib\net472"</PostBuildEvent>
+    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)$(ProjectName)Nuget\lib\net472"</PostBuildEvent>
   </PropertyGroup>
 </Project>

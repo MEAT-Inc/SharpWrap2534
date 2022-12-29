@@ -81,7 +81,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)SharpSimulatorNuget\lib\net472"</PostBuildEvent>
+    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)$(ProjectName)Nuget\lib\net472"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>

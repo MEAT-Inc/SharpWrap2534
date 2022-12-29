@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D3BCD896-7593-4CD8-94B5-7636D4061A00}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharpAutoId</RootNamespace>
-    <AssemblyName>SharpAutoId</AssemblyName>
+    <ProjectGuid>{D9BD1769-762A-40EE-8580-1B9D58D4E626}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SharpExpressionsTests</RootNamespace>
+    <AssemblyName>SharpExpressionsTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,45 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AssemblyInfo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SharpAutoIdHelpers\SharpAutoIdConfig.cs" />
-    <Compile Include="SharpAutoIdHelpers\SharpAutoIdExtensions.cs" />
-    <Compile Include="SharpAutoIdHelper.cs" />
-    <Compile Include="SharpAutoIdRoutines\SharpAutoId_ISO15765.cs" />
-    <Compile Include="SharpAutoIdModels\SharpIdConfiguration.cs" />
-    <Compile Include="SharpAutoIdModels\SharpAutoIdObjects.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\AssemblyInfo.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\AutoIdRoutines.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="SharpLogger">
-      <Version>1.10.0.127</Version>
-    </PackageReference>
-    <PackageReference Include="SharpWrapper">
-      <Version>5.3.5.382</Version>
-    </PackageReference>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)$(ProjectName)Nuget\lib\net472"</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>
-  </PropertyGroup>
 </Project>

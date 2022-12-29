@@ -4,7 +4,6 @@ using System.Reflection;
 using Newtonsoft.Json;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapperTests
 {

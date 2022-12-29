@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace SharpWrapper.SupportingLogic
+namespace SharpWrapper.PassThruSupport
 {
     /// <summary>
     /// Extension class for pulling description attributes from the enums

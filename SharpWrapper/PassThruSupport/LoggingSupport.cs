@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 
-namespace SharpWrapper.SupportingLogic
+namespace SharpWrapper.PassThruSupport
 {
     /// <summary>
     /// Logging helpers for session logging configuration

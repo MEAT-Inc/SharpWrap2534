@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapper.J2534Objects
 {

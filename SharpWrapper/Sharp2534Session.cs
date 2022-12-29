@@ -7,8 +7,8 @@ using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruImport;
+using SharpWrapper.PassThruSupport;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapper
 {

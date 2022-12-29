@@ -13,7 +13,6 @@ using SharpLogger.LoggerSupport;
 using SharpSimulator.SimulationObjects;
 using SharpSimulator.SupportingLogic;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpSimulatorTests
 {

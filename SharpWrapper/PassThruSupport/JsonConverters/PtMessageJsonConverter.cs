@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpWrapper.PassThruTypes;
 
-namespace SharpWrapper.SupportingLogic.JsonConverters
+namespace SharpWrapper.PassThruSupport.JsonConverters
 {
     /// <summary>
     /// Json Conversion helper for PTMessages.

@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
 
-namespace SharpWrapper.SupportingLogic.JsonConverters
+namespace SharpWrapper.PassThruSupport.JsonConverters
 {
     /// <summary>
     /// Converts a J2534 filter object around with a specified format routine

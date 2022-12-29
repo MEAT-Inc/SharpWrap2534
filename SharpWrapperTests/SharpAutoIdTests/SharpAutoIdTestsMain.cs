@@ -3,7 +3,6 @@ using CommandLine;
 using SharpAutoId.SharpAutoIdHelpers;
 using SharpWrapper;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpAutoIdTests
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using SharpWrapper.SupportingLogic;
+using SharpWrapper.PassThruSupport;
 
 namespace SharpWrapper.PassThruImport
 {

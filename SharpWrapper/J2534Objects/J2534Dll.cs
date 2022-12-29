@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using SharpWrapper.J2534Api;
 using SharpWrapper.PassThruImport;
+using SharpWrapper.PassThruSupport;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 using static System.String;
 
 namespace SharpWrapper.J2534Objects

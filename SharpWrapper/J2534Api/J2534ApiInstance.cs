@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using SharpWrapper.PassThruImport;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapper.J2534Api
 {

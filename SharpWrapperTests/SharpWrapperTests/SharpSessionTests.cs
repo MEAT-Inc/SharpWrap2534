@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using SharpWrapper;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapperTests
 {

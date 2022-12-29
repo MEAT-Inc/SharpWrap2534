@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace SharpWrapper.SupportingLogic
+namespace SharpWrapper.PassThruSupport
 {
     /// <summary>
     /// Static methods for running Win32 importing calls.

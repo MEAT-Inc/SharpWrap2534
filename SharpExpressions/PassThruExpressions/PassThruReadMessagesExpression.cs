@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using SharpExpressions.PassThruExtensions;
+
+// Static using for Regex lookups and type values
+using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
 
 namespace SharpExpressions.PassThruExpressions
 {
@@ -8,18 +13,18 @@ namespace SharpExpressions.PassThruExpressions
     /// </summary>
     public class PassThruReadMessagesExpression : PassThruExpression
     {
-        // Command for the open command it self
-        public readonly PassThruRegexModel MessagesReadRegex = PassThruRegexModelShare.NumberOfMessages;
-        public readonly PassThruRegexModel PtReadMessagesRegex = PassThruRegexModelShare.PassThruReadMessages;
-
+        // Regex for the read messages command (PTReadMsgs) and the number of messages processed 
+        public readonly PassThruRegex PtReadMessagesRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTReadMsgs);
+        public readonly PassThruRegex MessagesReadRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.MessageCount);
+        
         // Strings of the command and results from the command output.
-        [PassThru("Command Line")] public readonly string PtCommand;
-        [PassThru("Channel ID")] public readonly string ChannelId;
-        [PassThru("Channel Pointer")] public readonly string ChannelPointer;
-        [PassThru("Message Pointer")] public readonly string MessagePointer;
-        [PassThru("Timeout")] public readonly string TimeoutTime;
-        [PassThru("Read Count")] public readonly string MessageCountRead;
-        [PassThru("Expected Count")] public readonly string MessageCountTotal;
+        [PassThruProperty("Command Line")] public readonly string PtCommand;
+        [PassThruProperty("Channel ID")] public readonly string ChannelId;
+        [PassThruProperty("Channel Pointer")] public readonly string ChannelPointer;
+        [PassThruProperty("Message Pointer")] public readonly string MessagePointer;
+        [PassThruProperty("Timeout")] public readonly string TimeoutTime;
+        [PassThruProperty("Read Count")] public readonly string MessageCountRead;
+        [PassThruProperty("Expected Count")] public readonly string MessageCountTotal;
 
         // Contents of message objects located. Shown as a set of tuples and values.
         // The output Array contains a list of tuples paired "Property, Value" 
@@ -54,8 +59,12 @@ namespace SharpExpressions.PassThruExpressions
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruReadMsgsStrings[0] };
-            StringsToApply.AddRange(from NextIndex in this.PtReadMessagesRegex.ExpressionValueGroups where NextIndex <= PassThruReadMsgsStrings.Length select PassThruReadMsgsStrings[NextIndex]);
-            StringsToApply.AddRange(from NextIndex in this.MessagesReadRegex.ExpressionValueGroups where NextIndex <= MessagesReadStrings.Length select MessagesReadStrings[NextIndex]);
+            StringsToApply.AddRange(this.PtReadMessagesRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= PassThruReadMsgsStrings.Length)
+                .Select(NextIndex => PassThruReadMsgsStrings[NextIndex]));
+            StringsToApply.AddRange(this.MessagesReadRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= MessagesReadStrings.Length)
+                .Select(NextIndex => MessagesReadStrings[NextIndex]));
 
             // Now apply values using base method and exit out of this routine
             this.FindMessageContents(out this.MessageProperties);

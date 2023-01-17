@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PassThruExpressionExtensions.cs" />
+    <Compile Include="PassThruExtensions\PassThruEnumExtensions.cs" />
+    <Compile Include="PassThruExtensions\PassThruExpressionExtensions.cs" />
+    <Compile Include="PassThruExpressionGenerator.cs" />
     <Compile Include="PassThruExpressions\PassThruCloseExpression.cs" />
     <Compile Include="PassThruExpressionType.cs" />
     <Compile Include="PassThruExpressions\PassThruConnectExpression.cs" />
@@ -63,6 +65,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="PassThruTextTableGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\ExpressionRegexValues.json">
@@ -80,6 +83,7 @@
       <Version>1.10.0.127</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>

@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+// Static using for Regex lookups and type values
+using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
 
 namespace SharpExpressions.PassThruExpressions
 {
@@ -8,18 +12,18 @@ namespace SharpExpressions.PassThruExpressions
     /// </summary>
     public class PassThruConnectExpression : PassThruExpression
     {
-        // Command for the open command it self
-        public readonly PassThruRegexModel PtConnectRegex = PassThruRegexModelShare.PassThruConnect;
-        public readonly PassThruRegexModel ChannelIdRegex = PassThruRegexModelShare.ChannelIdReturned;
+        // Regex for the connect channel command (PTConnect) and the channel ID returned
+        public readonly PassThruRegex PtConnectRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTConnect);
+        public readonly PassThruRegex ChannelIdRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.ChannelId);
 
         // Strings of the command and results from the command output.
-        [PassThru("Command Line")] public readonly string PtCommand;
-        [PassThru("Device ID")] public readonly string DeviceId;
-        [PassThru("Protocol ID")] public readonly string ProtocolId;
-        [PassThru("Connect Flags")] public readonly string ConnectFlags;
-        [PassThru("BaudRate")] public readonly string BaudRate;
-        [PassThru("Channel Pointer")] public readonly string ChannelPointer;
-        [PassThru("Channel ID", "-1", new[] { "Channel Opened", "Invalid Channel!"}, true)] 
+        [PassThruProperty("Command Line")] public readonly string PtCommand;
+        [PassThruProperty("Device ID")] public readonly string DeviceId;
+        [PassThruProperty("Protocol ID")] public readonly string ProtocolId;
+        [PassThruProperty("Connect Flags")] public readonly string ConnectFlags;
+        [PassThruProperty("BaudRate")] public readonly string BaudRate;
+        [PassThruProperty("Channel Pointer")] public readonly string ChannelPointer;
+        [PassThruProperty("Channel ID", "-1", new[] { "Channel Opened", "Invalid Channel!"}, true)] 
         public readonly string ChannelId;
 
         // ----------------------------------------------------------------------------------------------------
@@ -38,8 +42,12 @@ namespace SharpExpressions.PassThruExpressions
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruConnectStrings[0] };
-            StringsToApply.AddRange(from NextIndex in this.PtConnectRegex.ExpressionValueGroups where NextIndex <= PassThruConnectStrings.Length select PassThruConnectStrings[NextIndex]);
-            StringsToApply.AddRange(from NextIndex in this.ChannelIdRegex.ExpressionValueGroups where NextIndex <= ChannelIdStrings.Length select ChannelIdStrings[NextIndex]);
+            StringsToApply.AddRange(this.PtConnectRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= PassThruConnectStrings.Length)
+                .Select(NextIndex => PassThruConnectStrings[NextIndex]));
+            StringsToApply.AddRange(this.ChannelIdRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= ChannelIdStrings.Length)
+                .Select(NextIndex => ChannelIdStrings[NextIndex]));
           
             // Now apply values using base method and exit out of this routine
             if (!this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray()))

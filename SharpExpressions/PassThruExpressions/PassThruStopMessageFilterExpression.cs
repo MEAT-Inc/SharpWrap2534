@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+// Static using for Regex lookups and type values
+using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
 
 namespace SharpExpressions.PassThruExpressions
 {
@@ -8,13 +12,13 @@ namespace SharpExpressions.PassThruExpressions
     /// </summary>
     public class PassThruStopMessageFilterExpression : PassThruExpression
     {
-        // Command for the open command it self
-        public readonly PassThruRegexModel PtStopMsgFilterRegex = PassThruRegexModelShare.PassThruStopMsgFilter;
+        // Regex for the stop message filter command (PTStopMsgFilter)
+        public readonly PassThruRegex PtStopMsgFilterRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTStopMsgFilter);
 
         // Strings of the command and results from the command output.
-        [PassThru("Command Line")] public readonly string PtCommand;
-        [PassThru("Channel ID")] public readonly string ChannelID;
-        [PassThru("Filter ID")] public readonly string FilterID;
+        [PassThruProperty("Command Line")] public readonly string PtCommand;
+        [PassThruProperty("Channel ID")] public readonly string ChannelID;
+        [PassThruProperty("Filter ID")] public readonly string FilterID;
 
         // ----------------------------------------------------------------------------------------------------
 
@@ -31,7 +35,9 @@ namespace SharpExpressions.PassThruExpressions
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruFilterStrings[0] };
-            StringsToApply.AddRange(from NextIndex in this.PtStopMsgFilterRegex.ExpressionValueGroups where NextIndex <= PassThruFilterStrings.Length select PassThruFilterStrings[NextIndex]);
+            StringsToApply.AddRange(this.PtStopMsgFilterRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= PassThruFilterStrings.Length)
+                .Select(NextIndex => PassThruFilterStrings[NextIndex]));
 
             // Now apply values using base method and exit out of this routine
             if (!this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray()))

@@ -1,5 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using SharpExpressions.PassThruExtensions;
+using SharpLogger.LoggerSupport;
+
+// Static using for Regex lookups and type values
+using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
 
 namespace SharpExpressions.PassThruExpressions
 {
@@ -8,18 +14,18 @@ namespace SharpExpressions.PassThruExpressions
     /// </summary>
     public class PassThruWriteMessagesExpression : PassThruExpression
     {
-        // Command for the write command it self
-        public readonly PassThruRegexModel MessagesWrittenRegex = PassThruRegexModelShare.NumberOfMessages;
-        public readonly PassThruRegexModel PtWriteMessagesRegex = PassThruRegexModelShare.PassThruWriteMessages;
-
+        // Regex for the write messages command (PTWriteMsgs) and the number of messages written by the command
+        public readonly PassThruRegex PtWriteMessagesRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTWriteMsgs);
+        public readonly PassThruRegex MessagesWrittenRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.MessageCount);
+        
         // Strings of the command and results from the command output.
-        [PassThru("Command Line")] public readonly string PtCommand;
-        [PassThru("Channel ID")] public readonly string ChannelId;
-        [PassThru("Channel Pointer")] public readonly string ChannelPointer;
-        [PassThru("Message Pointer")] public readonly string MessagePointer;
-        [PassThru("Timeout")] public readonly string TimeoutTime;
-        [PassThru("Sent Count")] public readonly string MessageCountSent;
-        [PassThru("Expected Count")] public readonly string MessageCountTotal;
+        [PassThruProperty("Command Line")] public readonly string PtCommand;
+        [PassThruProperty("Channel ID")] public readonly string ChannelId;
+        [PassThruProperty("Channel Pointer")] public readonly string ChannelPointer;
+        [PassThruProperty("Message Pointer")] public readonly string MessagePointer;
+        [PassThruProperty("Timeout")] public readonly string TimeoutTime;
+        [PassThruProperty("Sent Count")] public readonly string MessageCountSent;
+        [PassThruProperty("Expected Count")] public readonly string MessageCountTotal;
 
         // Contents of message objects located. Shown as a set of tuples and values.
         // The output Array contains a list of tuples paired "Property, Value" 
@@ -45,12 +51,17 @@ namespace SharpExpressions.PassThruExpressions
             var FieldsToSet = this.GetExpressionProperties();
             bool PtWriteMsgsResult = this.PtWriteMessagesRegex.Evaluate(CommandInput, out var PassThruWriteMsgsStrings);
             bool MessagesWrittenResult = this.MessagesWrittenRegex.Evaluate(CommandInput, out var MessagesSentStrings);
-            if (!PtWriteMsgsResult || !MessagesWrittenResult) this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+            if (!PtWriteMsgsResult || !MessagesWrittenResult) 
+                this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruWriteMsgsStrings[0] };
-            StringsToApply.AddRange(from NextIndex in this.PtWriteMessagesRegex.ExpressionValueGroups where NextIndex <= PassThruWriteMsgsStrings.Length select PassThruWriteMsgsStrings[NextIndex]);
-            StringsToApply.AddRange(from NextIndex in this.MessagesWrittenRegex.ExpressionValueGroups where NextIndex <= MessagesSentStrings.Length select MessagesSentStrings[NextIndex]);
+            StringsToApply.AddRange(this.PtWriteMessagesRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= PassThruWriteMsgsStrings.Length)
+                .Select(NextIndex => PassThruWriteMsgsStrings[NextIndex]));
+            StringsToApply.AddRange(this.MessagesWrittenRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= MessagesSentStrings.Length)
+                .Select(NextIndex => MessagesSentStrings[NextIndex]));
 
             // Find our message content values here.
             string MessageTable = this.FindMessageContents(out this.MessageProperties);

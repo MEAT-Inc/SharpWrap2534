@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace SharpWrapper.PassThruSupport
+namespace SharpExpressions.PassThruExtensions
 {
     /// <summary>
     /// Extension class for pulling description attributes from the enums
     /// </summary>
-    public static class EnumLibExtensions
+    public static class PassThruEnumExtensions
     {
         /// <summary>
         /// Gets a descriptior string for the enum type provided.

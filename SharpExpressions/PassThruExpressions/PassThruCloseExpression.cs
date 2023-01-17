@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+// Static using for Regex lookups and type values
+using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
 
 namespace SharpExpressions.PassThruExpressions
 {
@@ -8,14 +12,14 @@ namespace SharpExpressions.PassThruExpressions
     /// </summary>
     public class PassThruCloseExpression : PassThruExpression
     {
-        // Command for the open command it self
-        public readonly PassThruRegexModel PtCloseRegex = PassThruRegexModelShare.PassThruClose;
+        // Regex for the connect close device command (PTClose)
+        public readonly PassThruRegex PtCloseRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTClose);
 
         // -----------------------------------------------------------------------------------------
 
         // Strings of the command and results from the command output.
-        [PassThru("Command Line")] public readonly string PtCommand;
-        [PassThru("Device ID", "-1", new[] { "Device Closed", "Device Invalid!" }, true)] 
+        [PassThruProperty("Command Line")] public readonly string PtCommand;
+        [PassThruProperty("Device ID", "-1", new[] { "Device Closed", "Device Invalid!" }, true)] 
         public readonly string DeviceId;    
 
         // ------------------------------------------------------------------------------------------
@@ -33,7 +37,9 @@ namespace SharpExpressions.PassThruExpressions
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruCloseStrings[0] };
-            StringsToApply.AddRange(from NextIndex in this.PtCloseRegex.ExpressionValueGroups where NextIndex <= PassThruCloseStrings.Length select PassThruCloseStrings[NextIndex]);
+            StringsToApply.AddRange(this.PtCloseRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= PassThruCloseStrings.Length)
+                .Select(NextIndex => PassThruCloseStrings[NextIndex]));
 
             // Now apply values using base method and exit out of this routine
             if (!this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray()))

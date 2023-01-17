@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using SharpExpressions.PassThruExtensions;
+
+// Static using for Regex lookups and type values
+using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
 
 namespace SharpExpressions.PassThruExpressions
 {
@@ -8,16 +13,16 @@ namespace SharpExpressions.PassThruExpressions
     /// </summary>
     public class PassThruIoctlExpression : PassThruExpression
     {
-        // Command for the open command it self
-        public readonly PassThruRegexModel PtIoctlRegex = PassThruRegexModelShare.PassThruIoctl;
+        // Regex for the IO Control command (PTIoctl)
+        public readonly PassThruRegex PtIoctlRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTIoctl);
 
         // Strings of the command and results from the command output.
-        [PassThru("Command Line")] public readonly string PtCommand;
-        [PassThru("Channel ID")] public readonly string ChannelID;
-        [PassThru("IOCTL Type")] public readonly string IoctlType;
-        [PassThru("IOCTL Input")] public readonly string IoctlInputStruct;
-        [PassThru("IOCTL Output")] public readonly string IoctlOutputStruct;
-        [PassThru("Parameter Count")] public readonly string ParameterCount;
+        [PassThruProperty("Command Line")] public readonly string PtCommand;
+        [PassThruProperty("Channel ID")] public readonly string ChannelID;
+        [PassThruProperty("IOCTL Type")] public readonly string IoctlType;
+        [PassThruProperty("IOCTL Input")] public readonly string IoctlInputStruct;
+        [PassThruProperty("IOCTL Output")] public readonly string IoctlOutputStruct;
+        [PassThruProperty("Parameter Count")] public readonly string ParameterCount;
 
         // Number of Parameters and values for the IOCTL command.
         public readonly Tuple<string, string, string>[] ParameterValues;
@@ -37,7 +42,9 @@ namespace SharpExpressions.PassThruExpressions
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruIoctlStrings[0] };
-            StringsToApply.AddRange(from NextIndex in this.PtIoctlRegex.ExpressionValueGroups where NextIndex <= PassThruIoctlStrings.Length select PassThruIoctlStrings[NextIndex]);
+            StringsToApply.AddRange(this.PtIoctlRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= PassThruIoctlStrings.Length)
+                .Select(NextIndex => PassThruIoctlStrings[NextIndex]));
 
             // Now build the Ioctl Parameters from the input content if any exist.
             this.FindIoctlParameters(out this.ParameterValues);

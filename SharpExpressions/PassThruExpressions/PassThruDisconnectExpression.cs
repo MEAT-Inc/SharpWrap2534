@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+// Static using for Regex lookups and type values
+using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
 
 namespace SharpExpressions.PassThruExpressions
 {
@@ -8,12 +12,12 @@ namespace SharpExpressions.PassThruExpressions
     /// </summary>
     public class PassThruDisconnectExpression : PassThruExpression
     {
-        // Command for the open command it self
-        public readonly PassThruRegexModel PTDisconnectRegex = PassThruRegexModelShare.PassThruDisconnect;
+        // Regex for the disconnect channel command (PTDisconnect)
+        public readonly PassThruRegex PTDisconnectRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTDisconnect);
 
         // Strings of the command and results from the command output.
-        [PassThru("Command Line")] public readonly string PtCommand;
-        [PassThru("Channel ID", "-1", new[] { "Channel Closed", "Invalid Channel!" }, true)]
+        [PassThruProperty("Command Line")] public readonly string PtCommand;
+        [PassThruProperty("Channel ID", "-1", new[] { "Channel Closed", "Invalid Channel!" }, true)]
         public readonly string ChannelId;
 
         // -------------------------------------------------------------------------------------------------------
@@ -31,7 +35,9 @@ namespace SharpExpressions.PassThruExpressions
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruDisconnectStrings[0] };
-            StringsToApply.AddRange(from NextIndex in this.PTDisconnectRegex.ExpressionValueGroups where NextIndex <= PassThruDisconnectStrings.Length select PassThruDisconnectStrings[NextIndex]);
+            StringsToApply.AddRange(this.PTDisconnectRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= PassThruDisconnectStrings.Length)
+                .Select(NextIndex => PassThruDisconnectStrings[NextIndex]));
 
             // Now apply values using base method and exit out of this routine
             if (!this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray()))

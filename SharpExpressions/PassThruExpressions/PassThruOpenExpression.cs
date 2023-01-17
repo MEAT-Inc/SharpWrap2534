@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+// Static using for Regex lookups and type values
+using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
 
 namespace SharpExpressions.PassThruExpressions
 {
     // Regex Values for Different Command Types.
     public class PassThruOpenExpression : PassThruExpression
     {
-        // Command for the open command it self
-        public readonly PassThruRegexModel PtOpenRegex = PassThruRegexModelShare.PassThruOpen;
-        public readonly PassThruRegexModel DeviceIdRegex = PassThruRegexModelShare.DeviceIdReturned;
+        // Regex for the open device command (PTOpen) and the properties of the device processed
+        public readonly PassThruRegex PtOpenRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTOpen);
+        public readonly PassThruRegex DeviceIdRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.DeviceId);
 
         // Strings of the command and results from the command output.
-        [PassThru("Command Line")] public readonly string PtCommand;
-        [PassThru("Device Name")] public readonly string DeviceName;
-        [PassThru("Device Pointer")] public readonly string DevicePointer;
-        [PassThru("Device ID", "-1", new[] { "Device Opened", "Invalid Device ID!" }, true)]
+        [PassThruProperty("Command Line")] public readonly string PtCommand;
+        [PassThruProperty("Device Name")] public readonly string DeviceName;
+        [PassThruProperty("Device Pointer")] public readonly string DevicePointer;
+        [PassThruProperty("Device ID", "-1", new[] { "Device Opened", "Invalid Device ID!" }, true)] 
         public readonly string DeviceId;
 
         // ------------------------------------------------------------------------------------------
@@ -33,8 +37,12 @@ namespace SharpExpressions.PassThruExpressions
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruOpenStrings[0] };
-            StringsToApply.AddRange(from NextIndex in this.PtOpenRegex.ExpressionValueGroups where NextIndex <= PassThruOpenStrings.Length select PassThruOpenStrings[NextIndex]);
-            StringsToApply.AddRange(from NextIndex in this.DeviceIdRegex.ExpressionValueGroups where NextIndex <= DeviceIdStrings.Length select DeviceIdStrings[NextIndex]);
+            StringsToApply.AddRange(this.PtOpenRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= PassThruOpenStrings.Length)
+                .Select(NextIndex => PassThruOpenStrings[NextIndex]));
+            StringsToApply.AddRange(this.DeviceIdRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= DeviceIdStrings.Length)
+                .Select(NextIndex => DeviceIdStrings[NextIndex]));
 
             // Now apply values using base method and exit out of this routine
             if (!this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray()))

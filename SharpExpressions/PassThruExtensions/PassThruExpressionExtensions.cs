@@ -7,7 +7,7 @@ using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 
-namespace SharpExpressions
+namespace SharpExpressions.PassThruExtensions
 {
     /// <summary>
     /// Extensions for parsing out commands into new types of output for PT Regex Classes

@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using SharpExpressions.PassThruExtensions;
+
+// Static using for Regex lookups and type values
+using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
 
 namespace SharpExpressions.PassThruExpressions
 {
@@ -8,19 +13,19 @@ namespace SharpExpressions.PassThruExpressions
     /// </summary>
     public class PassThruStartMessageFilterExpression : PassThruExpression
     {
-        // Command for the open command it self
-        public readonly PassThruRegexModel PtStartMsgFilterRegex = PassThruRegexModelShare.PassThruStartMsgFilter;
-        public readonly PassThruRegexModel FilterIdReturnedRegex = PassThruRegexModelShare.FilterIdReturned;
+        // Regex for the stop message filter command (PTStartMsgFilter) and the filter ID started 
+        public readonly PassThruRegex FilterIdReturnedRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.FilterId);
+        public readonly PassThruRegex PtStartMsgFilterRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTStartMsgFilter);
 
         // Strings of the command and results from the command output.
-        [PassThru("Command Line")] public readonly string PtCommand;
-        [PassThru("Channel ID")] public readonly string ChannelID;
-        [PassThru("Filter Type")] public readonly string FilterType;
-        [PassThru("Mask Pointer")] public readonly string MaskPointer;
-        [PassThru("Pattern Pointer")] public readonly string PatternPointer;
-        [PassThru("Flow Control Pointer")] public readonly string FlowCtlPointer;
-        [PassThru("Filter Pointer (Struct)")] public readonly string FilterPointer;
-        [PassThru("Filter ID")] public readonly string FilterID;
+        [PassThruProperty("Command Line")] public readonly string PtCommand;
+        [PassThruProperty("Channel ID")] public readonly string ChannelID;
+        [PassThruProperty("Filter Type")] public readonly string FilterType;
+        [PassThruProperty("Mask Pointer")] public readonly string MaskPointer;
+        [PassThruProperty("Pattern Pointer")] public readonly string PatternPointer;
+        [PassThruProperty("Flow Control Pointer")] public readonly string FlowCtlPointer;
+        [PassThruProperty("Filter Pointer (Struct)")] public readonly string FilterPointer;
+        [PassThruProperty("Filter ID")] public readonly string FilterID;
 
         // Contents for our message objects here.
         public readonly List<string[]> MessageFilterContents;

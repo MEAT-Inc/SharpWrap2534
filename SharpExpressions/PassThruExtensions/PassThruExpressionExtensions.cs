@@ -32,8 +32,9 @@ namespace SharpExpressions.PassThruExtensions
             }
 
             // Pull the object, find our matches based on our type object value.
-            var MessageContentRegex = ExpressionObject.GetType() == typeof(PassThruReadMessagesExpression) ?
-                PassThruExpressionRegex.GetRegexByName("MessageReadInfo") : PassThruExpressionRegex.GetRegexByName("MessageSentInfo");
+            var MessageContentRegex = ExpressionObject.GetType() == typeof(PassThruReadMessagesExpression)
+                ? PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.MessageReadInfo)
+                : PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.MessageSentInfo);
 
             // Make our value lookup table here and output tuples
             bool IsReadExpression = ExpressionObject.GetType() == typeof(PassThruReadMessagesExpression);
@@ -174,7 +175,7 @@ namespace SharpExpressions.PassThruExtensions
             // Setup Loop constants for parsing operations
             FilterProperties = new List<string[]>();
             List<string> OutputMessages = new List<string>();
-            var MessageContentRegex = PassThruExpressionRegex.GetRegexByName("MessageFilterInfo");
+            var MessageContentRegex = PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.MessageFilterInfo);
 
             // Now parse out our content matches. Add a trailing newline to force matches.
             SplitMessageLines = CombinedOutputs.Select(LineSet => LineSet + "\n").ToArray();
@@ -252,7 +253,7 @@ namespace SharpExpressions.PassThruExtensions
             }
 
             // Try and parse out the IOCTL Command objects from the input strings here.
-            var IoctlRegex = PassThruExpressionRegex.GetRegexByName("IoctlParameterValue");
+            var IoctlRegex = PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.IoctlParamInfo);
             bool IoctlResults = IoctlRegex.Evaluate(ExpressionObject.CommandLines, out var IoctlResultStrings);
             if (!IoctlResults) {
                 ParameterProperties = Array.Empty<Tuple<string, string, string>>();
@@ -291,18 +292,7 @@ namespace SharpExpressions.PassThruExtensions
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
-
-        /// <summary>
-        /// Converts an input Regex command type enum into a type output
-        /// </summary>
-        /// <param name="InputType">Enum Regex Typ</param>
-        /// <returns>Type of regex for the class output</returns>
-        public static PassThruExpression ToPassThruExpression(this PassThruExpressionType InputType, string[] InputLogLines)
-        {
-            // Join the log lines on newline characters and get the type value here
-            string JoinedLogLines = string.Join(string.Empty, InputLogLines.Select(LogLine => LogLine.Trim()));
-            return ToPassThruExpression(InputType, JoinedLogLines);
-        }
+        
         /// <summary>
         /// Converts an input Regex command type enum into a type output
         /// </summary>
@@ -316,7 +306,7 @@ namespace SharpExpressions.PassThruExtensions
                 string InputTypeName = InputType.ToDescriptionString();
                 string ClassNamespace = typeof(PassThruExpression).Namespace;
                 string ClassType = $"{ClassNamespace}.{InputTypeName}";
-                
+
                 // Build a new PassThru Expression object here based on the type found for our expression
                 Type RegexClassType = Type.GetType(ClassType);
                 PassThruExpression BuiltExpression = RegexClassType == null
@@ -330,11 +320,22 @@ namespace SharpExpressions.PassThruExtensions
             {
                 // Catch this exception for debugging use later on
                 _expExtLogger.WriteLog($"AN INPUT LOG LINE SET COULD NOT BE PARSED OUT TO AN EXPRESSION TYPE!", LogType.TraceLog);
-                _expExtLogger.WriteLog("EXCEPTION THROWN DURING CONVERSION ROUTINE IS LOGGED BELOW", InvokeTypeEx, new[] { LogType.TraceLog, LogType.TraceLog});
-                
+                _expExtLogger.WriteLog("EXCEPTION THROWN DURING CONVERSION ROUTINE IS LOGGED BELOW", InvokeTypeEx, new[] { LogType.TraceLog, LogType.TraceLog });
+
                 // Return null at this point since the log line objects could not be parsed for some reason
                 return null;
             }
+        }
+        /// <summary>
+        /// Converts an input Regex command type enum into a type output
+        /// </summary>
+        /// <param name="InputType">Enum Regex Typ</param>
+        /// <returns>Type of regex for the class output</returns>
+        public static PassThruExpression ToPassThruExpression(this PassThruExpressionType InputType, string[] InputLogLines)
+        {
+            // Join the log lines on newline characters and get the type value here
+            string JoinedLogLines = string.Join(string.Empty, InputLogLines.Select(LogLine => LogLine.Trim()));
+            return ToPassThruExpression(InputType, JoinedLogLines);
         }
     }
 }

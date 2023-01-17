@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -53,14 +54,14 @@ namespace SharpExpressions
         /// JSON constructor for this object type
         /// </summary>
         [JsonConstructor]
-        public PassThruExpressionRegex() {  }
+        internal PassThruExpressionRegex() {  }
         /// <summary>
         /// Makes a new regex model object from the input values given
         /// </summary>
         /// <param name="ExpressionName"></param>
         /// <param name="ExpressionPattern"></param>
         /// <param name="ExpressionGroups"></param>
-        public PassThruExpressionRegex(string ExpressionName, string ExpressionPattern, PassThruExpressionType ExpressionType = PassThruExpressionType.NONE, int ExpressionGroup = 0)
+        internal PassThruExpressionRegex(string ExpressionName, string ExpressionPattern, PassThruExpressionType ExpressionType = PassThruExpressionType.NONE, int ExpressionGroup = 0)
         {
             // Store model object values here.
             this.ExpressionName = ExpressionName;
@@ -74,7 +75,7 @@ namespace SharpExpressions
         /// <param name="ExpressionName"></param>
         /// <param name="ExpressionPattern"></param>
         /// <param name="ExpressionGroups"></param>
-        public PassThruExpressionRegex(string ExpressionName, string ExpressionPattern, PassThruExpressionType ExpressionType = PassThruExpressionType.NONE, int[] ExpressionGroups = null)
+        internal PassThruExpressionRegex(string ExpressionName, string ExpressionPattern, PassThruExpressionType ExpressionType = PassThruExpressionType.NONE, int[] ExpressionGroups = null)
         {
             // Store model object values here.
             this.ExpressionName = ExpressionName;
@@ -120,16 +121,8 @@ namespace SharpExpressions
             return true;
         }
 
-        /// <summary>
-        /// Build a new regex model object from a given name value for a regex.
-        /// </summary>
-        /// <param name="RegexName"></param>
-        /// <returns></returns>
-        public static PassThruExpressionRegex GetRegexByName(string RegexName)
-        {
-            // Finds the first Regex object matching the current name provided from a collection instance.
-            return _expressionsLoaded.FirstOrDefault(RegexObj => RegexObj.ExpressionName.ToUpper().Contains(RegexName.ToUpper()));
-        }
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
         /// <summary>
         /// Finds a PTRegex Model for the given PTCommand type
         /// </summary>
@@ -141,8 +134,6 @@ namespace SharpExpressions
             return _expressionsLoaded.FirstOrDefault(RegexObj => RegexObj.ExpressionType == InputExpressionType);
         }
 
-        // ------------------------------------------------------------------------------------------------------------------------------------------
-
         /// <summary>
         /// Loads in all the PassThru regex strings and stores them in the static regex store.
         /// This routine will load our Regex string values from the packaged JSON Configuration file.
@@ -151,8 +142,27 @@ namespace SharpExpressions
         /// <returns>A built collection of all the RegexModels built for the contents of our input JSON configuration file</returns>
         public static PassThruExpressionRegex[] _generateRegexModels()
         {
-            // TODO: Build logic for loading all expressions values from our JSON Store and store the expressions on this instance
-            // Store our newly built expressions objects and return them out now
+            // Load in all the regex values found and convert them all into regex objects to use for parsing
+            JArray LoadedRegexArray = JArray.FromObject(_allocateResource("ExpressionRegexValues.json", "ExpressionRegexValues"));
+            foreach (var RegexJToken in LoadedRegexArray)
+            {
+                // Store the name of the regex and get the pattern for it now
+                string RegexName = RegexJToken["RegexName"].ToString();
+                string RegexValue = RegexJToken["RegexPattern"].ToString();
+                Match RegexGroups = Regex.Match(RegexValue, @"\*GROUPS_\(([^\)]+)\)\*");
+
+                // Parse out the group values and and the pattern itself. Then build a new regex model object
+                string FullGroupsString = RegexGroups.Groups[1].Value;
+                int[] GroupValues = FullGroupsString.Split(',').Select(int.Parse).ToArray();
+                string RegexPattern = RegexGroups.Groups[0].Value.Replace(FullGroupsString, string.Empty).Trim();
+                string ExpressionTypeString = RegexName
+                    .Replace("Regex", string.Empty)
+                    .Replace(" ", string.Empty);
+
+                // Now build the expression type string value to pull in an enum type for the regex
+                Enum.TryParse(ExpressionTypeString, out PassThruExpressionType ExpressionType);
+            }
+
             return _expressionsLoaded;
         }
         /// <summary>
@@ -161,7 +171,7 @@ namespace SharpExpressions
         /// <param name="ResourceFileName">Name of the file</param>
         /// <param name="ObjectName">Object name</param>
         /// <returns></returns>
-        private static object _allocateResource(string ResourceFileName, string ObjectName)
+        private static object _allocateResource(string ResourceFileName, string ObjectName = null)
         {
             // Get the current Assembly
             var CurrentAssy = Assembly.GetExecutingAssembly();
@@ -170,8 +180,9 @@ namespace SharpExpressions
             using (StreamReader RescReader = new StreamReader(RescStream))
             {
                 // Build basic object and then return it to be pulled from
+                string RescFileContent = RescReader.ReadToEnd();
                 JObject RescObject = JObject.Parse(RescReader.ReadToEnd());
-                return RescObject[ObjectName] ?? RescObject;
+                return ObjectName == null ? RescObject : RescObject[ObjectName];
             }
         }
     }

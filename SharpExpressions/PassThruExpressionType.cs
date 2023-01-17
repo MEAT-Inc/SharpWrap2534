@@ -14,7 +14,7 @@ namespace SharpExpressions
     [JsonConverter(typeof(StringEnumConverter))]
     public enum PassThruExpressionType
     {
-        // Command Types for PassThru Regex. Pulled values from settings parse into here.
+        // Expression types for the different base PassThruCommands supported for parsing
         [EnumMember(Value = "NONE")] [Description("PassThruExpresssion")] NONE,
         [EnumMember(Value = "PTOpen")] [Description("PassThruOpenExpression")] PTOpen,
         [EnumMember(Value = "PTClose")] [Description("PassThruCloseExpression")] PTClose,
@@ -31,11 +31,18 @@ namespace SharpExpressions
         // TODO: Write PTReadVersion (Not Needed for Sims)
         // TODO: Write PassThruGetLastError (Not needed for Sims)
 
-        // Expression types for the different supporting Rexex objects used to pull command values
-        [EnumMember(Value = "MessageCount")] MessageCount,      // Supporting regex for message counts
-        [EnumMember(Value = "FilterID")] FilterId,              // Supporting regex for filter ID values returned
-        [EnumMember(Value = "DeviceID")] DeviceId,              // Supporting regex for Device ID values returned
-        [EnumMember(Value = "ChannelID")] ChannelId,            // Supporting regex for channel ID values returnd
+        // Expression types for the different supporting Regex objects used to pull command values
+        [EnumMember(Value = "Filter ID")] FilterId,                       // Supporting regex for filter ID values returned
+        [EnumMember(Value = "Device ID")] DeviceId,                       // Supporting regex for Device ID values returned
+        [EnumMember(Value = "Channel ID")] ChannelId,                     // Supporting regex for channel ID values returned
+        [EnumMember(Value = "Message Data")] MessageData,                 // Supporting regex for message data read or sent
+        [EnumMember(Value = "Command Time")] CommandTime,                 // Supporting regex for time commands were issued
+        [EnumMember(Value = "Message Count")] MessageCount,               // Supporting regex for message counts
+        [EnumMember(Value = "Command Status")] CommandStatus,             // Supporting regex for command status values
+        [EnumMember(Value = "Message Sent Info")] MessageSentInfo,        // Supporting regex for sent message objects
+        [EnumMember(Value = "Message Read Info")] MessageReadInfo,        // Supporting regex for read message objects
+        [EnumMember(Value = "Ioctl Parameter Info")] IoctlParamInfo,      // Supporting regex for PTIoctl parameter objects
+        [EnumMember(Value = "Message Filter Info")] MessageFilterInfo,    // Supporting regex for message filter objects
     }
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------

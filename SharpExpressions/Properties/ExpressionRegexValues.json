@@ -83,6 +83,14 @@
     {
       "RegexName": "Ioctl Parameter Info Regex",
       "RegexPattern": "\\s+(\\d+ parameter\\(s\\)) at ([^:]+):\\r(\\s+(?>\\d+:[^\\s]+\\s+=\\s+[^\\r\\r]+\\s+)+) *GROUPS_(1,2,3)*"
+    },
+    {
+      "RegexName": "Import Expressions Split Regex",
+      "RegexPattern": "=+\n\n=+ *GROUPS_(0)*"
+    },
+    {
+      "RegexName": "Import Expressions Replace Regex",
+      "RegexPattern": "=+|\\+=+\\+\\s+(?>\\|[^\\r\\n]+\\s+)+\\+=+\\+\\s+ *GROUPS_(0)*"
     }
   ]
 }

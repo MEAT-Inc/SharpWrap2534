@@ -22,20 +22,23 @@ namespace SharpExpressions
         #region Fields
         
         // Private static collection of PassThruRegex objects that represent all built expression values
-        private static Dictionary<PassThruExpressionType, PassThruExpressionRegex> _expressionsLoaded;
+        private static Dictionary<PassThruExpressionType, PassThruExpressionRegex> _loadedExpressions;
 
         #endregion // Fields
 
         #region Properties
 
         // Public facing collection of PassThruRegex objects that we can query for expression objects by name
-        public static Dictionary<PassThruExpressionType, PassThruExpressionRegex> ExpressionsLoaded => _expressionsLoaded ??= _generateRegexModels();
+        public static Dictionary<PassThruExpressionType, PassThruExpressionRegex> LoadedExpressions => _loadedExpressions ??= _generateRegexModels();
 
         // Public facing properties for the regex object.
         public string ExpressionName { get; set; }
         public string ExpressionPattern { get; set; }
         public int[] ExpressionValueGroups { get; set; }
         public PassThruExpressionType ExpressionType { get; set; }
+
+        // Regex object built from the provided input pattern
+        public Regex ExpressionRegex => new Regex(this.ExpressionPattern, RegexOptions.Compiled);
 
         #endregion // Properties
 
@@ -64,9 +67,9 @@ namespace SharpExpressions
             this.ExpressionValueGroups = ExpressionGroups;
 
             // Store this regex object on our dictionary of built regex models now
-            _expressionsLoaded ??= new Dictionary<PassThruExpressionType, PassThruExpressionRegex>();
-            if (_expressionsLoaded.ContainsKey(ExpressionType)) _expressionsLoaded[ExpressionType] = this;
-            else _expressionsLoaded.Add(ExpressionType, this);
+            _loadedExpressions ??= new Dictionary<PassThruExpressionType, PassThruExpressionRegex>();
+            if (_loadedExpressions.ContainsKey(ExpressionType)) _loadedExpressions[ExpressionType] = this;
+            else _loadedExpressions.Add(ExpressionType, this);
         }
 
         /// <summary>
@@ -106,12 +109,12 @@ namespace SharpExpressions
                 // Now build the expression type string value to pull in an enum type for the regex and store it on our dictionary
                 Enum.TryParse(ExpressionTypeString, out PassThruExpressionType ExpressionType);
                 var BuiltExpression = new PassThruExpressionRegex(RegexName, RegexPattern, ExpressionType, GroupValues);
-                if (!_expressionsLoaded.ContainsValue(BuiltExpression))
+                if (!_loadedExpressions.ContainsValue(BuiltExpression))
                     throw new DataException($"Error! Failed to build a new regex model for type {ExpressionType}!");
             }
 
             // Return the built output dictionary of Regex models and types defined
-            return _expressionsLoaded;
+            return _loadedExpressions;
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------

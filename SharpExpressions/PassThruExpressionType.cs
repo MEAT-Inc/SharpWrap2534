@@ -43,6 +43,10 @@ namespace SharpExpressions
         [EnumMember(Value = "Message Read Info")] MessageReadInfo,        // Supporting regex for read message objects
         [EnumMember(Value = "Ioctl Parameter Info")] IoctlParamInfo,      // Supporting regex for PTIoctl parameter objects
         [EnumMember(Value = "Message Filter Info")] MessageFilterInfo,    // Supporting regex for message filter objects
+
+        // Expression types used for importing existing expressions files
+        [EnumMember(Value = "Import Expressions Split")] SplitExpImport,      // Supporting regex for splitting input expression file content
+        [EnumMember(Value = "Import Expressions Split")] ReplaceExpImport,    // Supporting regex for replacing content in an imported expression set
     }
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------

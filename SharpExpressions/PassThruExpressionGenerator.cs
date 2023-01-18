@@ -96,7 +96,7 @@ namespace SharpExpressions
             this._expressionsLogger.WriteLog($"CONVERTING INPUT LOG FILE {this.LogFileName} INTO AN EXPRESSION SET NOW...", LogType.InfoLog);
 
             // Store our regex matches and regex object for the time string values located here
-            var TimeRegex = new Regex(PassThruExpressionRegex.GetRegexByName("CommandTime").ExpressionPattern, RegexOptions.Compiled);
+            var TimeRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.CommandTime].ExpressionRegex;
             var TimeMatches = TimeRegex.Matches(this.LogFileContents).Cast<Match>().ToArray();
 
             // Build an output list of lines for content, find our matches from a built expressions Regex, and generate output lines
@@ -181,13 +181,14 @@ namespace SharpExpressions
         /// Takes an input set of PTExpressions and writes them to a file object desired.
         /// </summary>
         /// <param name="BaseFileName">Input file name to save our output expressions file content as</param>
+        /// <param name="OutputLogFileFolder">Optional folder to store the output file in. Defaults to the injector folder</param>
         /// <returns>Path of our built expression file</returns>
-        public string SaveExpressionsFile(string BaseFileName = "")
+        public string SaveExpressionsFile(string BaseFileName = "", string OutputLogFileFolder = null)
         {
             // First build our output location for our file.
             // string OutputFolder = ValueLoaders.GetConfigValue<string>("FulcrumInjectorConstants.InjectorLogging.DefaultExpressionsPath");
-            string OutputFolder = "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumExpressions";
-            string FinalOutputPath = Path.Combine(OutputFolder, Path.GetFileNameWithoutExtension(BaseFileName)) + ".ptExp";
+            OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumExpressions";
+            string FinalOutputPath = Path.Combine(OutputLogFileFolder, Path.GetFileNameWithoutExtension(BaseFileName)) + ".ptExp";
 
             // Get a logger object for saving expression sets.
             string LoggerName = $"{Path.GetFileNameWithoutExtension(BaseFileName)}_ExpressionsLogger";
@@ -250,18 +251,24 @@ namespace SharpExpressions
         /// <summary>
         /// Imports an expression file and converts it into a list of expression objects
         /// </summary>
+        /// <param name="InputFilePath">Path to the file which we need to convert into a log file set</param>
+        /// <param name="OutputLogFileFolder">Optional folder to store the output file in. Defaults to the injector folder</param>
         /// <returns>A temporary file name which contains the contents of our log file.</returns>
-        public static string ImportExpressionSet(string InputFilePath)
+        public static string LoadExpressionsFile(string InputFilePath, string OutputLogFileFolder = null)
         {
+            // Pull in the string values for the regex objects needed here
+            string SplitPattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.SplitExpImport].ExpressionPattern;
+            string ReplacePattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.ReplaceExpImport].ExpressionPattern;
+
             // Read the contents of the file and store them. Split them out based on the expression splitting line entries
             string InputExpressionContent = File.ReadAllText(InputFilePath);
-            string[] ExpressionStringsSplit = Regex.Split(InputExpressionContent, @"=+\n\n=+");
+            string[] ExpressionStringsSplit = Regex.Split(InputExpressionContent, SplitPattern);
 
             // Now find JUST the log file content values and store them.
             string[] LogLinesPulled = ExpressionStringsSplit.Select(ExpressionEntrySet =>
             {
                 // Regex match our content values desired
-                string RegexLogLinesFound = Regex.Replace(ExpressionEntrySet, @"=+|\+=+\+\s+(?>\|[^\r\n]+\s+)+\+=+\+\s+", string.Empty);
+                string RegexLogLinesFound = Regex.Replace(ExpressionEntrySet, ReplacePattern, string.Empty);
                 string[] SplitRegexLogLines = RegexLogLinesFound
                     .Split('\n')
                     .Where(LogLine =>
@@ -279,12 +286,13 @@ namespace SharpExpressions
 
             // Convert pulled strings into one whole object. Convert the log content into an expression here
             string CombinedOutputLogLines = string.Join("\n", LogLinesPulled);
-            string OutputLogFileDirectory = "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumConversions";
-            string ConvertedLogFilePath = Path.Combine(OutputLogFileDirectory, "ExpressionImport_" + Path.GetFileName(Path.ChangeExtension(InputFilePath, ".txt")));
+            OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumConversions";
+            string ConvertedLogFilePath = Path.Combine(OutputLogFileFolder, 
+                "ExpressionImport_" + Path.GetFileName(Path.ChangeExtension(InputFilePath, ".txt")));
 
             // Remove old files and write out the new contents
             if (File.Exists(ConvertedLogFilePath)) File.Delete(ConvertedLogFilePath);
-            if (!Directory.Exists(OutputLogFileDirectory)) Directory.CreateDirectory(OutputLogFileDirectory);
+            if (!Directory.Exists(OutputLogFileFolder)) Directory.CreateDirectory(OutputLogFileFolder);
             File.WriteAllText(ConvertedLogFilePath, CombinedOutputLogLines);
 
             // Return the built file path

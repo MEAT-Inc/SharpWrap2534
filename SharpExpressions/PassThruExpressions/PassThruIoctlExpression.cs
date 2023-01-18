@@ -14,7 +14,7 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruIoctlExpression : PassThruExpression
     {
         // Regex for the IO Control command (PTIoctl)
-        public readonly PassThruRegex PtIoctlRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTIoctl);
+        public readonly PassThruRegex PtIoctlRegex = PassThruRegex.ExpressionsLoaded[PassThruExpressionType.PTIoctl];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;

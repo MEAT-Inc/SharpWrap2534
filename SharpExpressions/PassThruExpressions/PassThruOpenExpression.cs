@@ -11,8 +11,8 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruOpenExpression : PassThruExpression
     {
         // Regex for the open device command (PTOpen) and the properties of the device processed
-        public readonly PassThruRegex PtOpenRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTOpen);
-        public readonly PassThruRegex DeviceIdRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.DeviceId);
+        public readonly PassThruRegex PtOpenRegex = PassThruRegex.ExpressionsLoaded[PassThruExpressionType.PTOpen];
+        public readonly PassThruRegex DeviceIdRegex = PassThruRegex.ExpressionsLoaded[PassThruExpressionType.DeviceId];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;

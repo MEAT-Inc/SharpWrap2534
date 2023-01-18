@@ -24,8 +24,8 @@ namespace SharpExpressions.PassThruExpressions
 
         // Time values for the Regex on the command.
         public readonly PassThruExpressionType TypeOfExpression;
-        public readonly PassThruExpressionRegex TimeRegex = PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.CommandTime);
-        public readonly PassThruExpressionRegex StatusCodeRegex = PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.CommandStatus);
+        public readonly PassThruExpressionRegex TimeRegex = PassThruExpressionRegex.ExpressionsLoaded[PassThruExpressionType.CommandTime];
+        public readonly PassThruExpressionRegex StatusCodeRegex = PassThruExpressionRegex.ExpressionsLoaded[PassThruExpressionType.CommandStatus];
 
         // Input command time and result values for regex searching.
         [PassThruProperty("Time Issued", "", new[] { "Timestamp Valid", "Invalid Timestamp" })]

@@ -33,8 +33,8 @@ namespace SharpExpressions.PassThruExtensions
 
             // Pull the object, find our matches based on our type object value.
             var MessageContentRegex = ExpressionObject.GetType() == typeof(PassThruReadMessagesExpression)
-                ? PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.MessageReadInfo)
-                : PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.MessageSentInfo);
+                ? PassThruExpressionRegex.ExpressionsLoaded[PassThruExpressionType.MessageReadInfo]
+                : PassThruExpressionRegex.ExpressionsLoaded[PassThruExpressionType.MessageSentInfo];
 
             // Make our value lookup table here and output tuples
             bool IsReadExpression = ExpressionObject.GetType() == typeof(PassThruReadMessagesExpression);
@@ -175,7 +175,7 @@ namespace SharpExpressions.PassThruExtensions
             // Setup Loop constants for parsing operations
             FilterProperties = new List<string[]>();
             List<string> OutputMessages = new List<string>();
-            var MessageContentRegex = PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.MessageFilterInfo);
+            var MessageContentRegex = PassThruExpressionRegex.ExpressionsLoaded[PassThruExpressionType.MessageFilterInfo];
 
             // Now parse out our content matches. Add a trailing newline to force matches.
             SplitMessageLines = CombinedOutputs.Select(LineSet => LineSet + "\n").ToArray();
@@ -253,7 +253,7 @@ namespace SharpExpressions.PassThruExtensions
             }
 
             // Try and parse out the IOCTL Command objects from the input strings here.
-            var IoctlRegex = PassThruExpressionRegex.GetRegexByType(PassThruExpressionType.IoctlParamInfo);
+            var IoctlRegex = PassThruExpressionRegex.ExpressionsLoaded[PassThruExpressionType.IoctlParamInfo];
             bool IoctlResults = IoctlRegex.Evaluate(ExpressionObject.CommandLines, out var IoctlResultStrings);
             if (!IoctlResults) {
                 ParameterProperties = Array.Empty<Tuple<string, string, string>>();

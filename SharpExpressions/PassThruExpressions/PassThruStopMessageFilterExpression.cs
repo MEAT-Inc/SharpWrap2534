@@ -13,7 +13,7 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruStopMessageFilterExpression : PassThruExpression
     {
         // Regex for the stop message filter command (PTStopMsgFilter)
-        public readonly PassThruRegex PtStopMsgFilterRegex = PassThruRegex.GetRegexByType(PassThruExpressionType.PTStopMsgFilter);
+        public readonly PassThruRegex PtStopMsgFilterRegex = PassThruRegex.ExpressionsLoaded[PassThruExpressionType.PTStopMsgFilter];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;

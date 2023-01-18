@@ -9,7 +9,7 @@ namespace SharpExpressions.PassThruExtensions
     public static class PassThruEnumExtensions
     {
         /// <summary>
-        /// Gets a descriptior string for the enum type provided.
+        /// Gets a descriptor string for the enum type provided.
         /// </summary>
         /// <param name="EnumValue">Enum to convert/get description on</param>
         /// <returns>Enum description</returns>
@@ -23,7 +23,7 @@ namespace SharpExpressions.PassThruExtensions
             return EnumAtribs.Length > 0 ? EnumAtribs[0].Description : string.Empty;
         }
         /// <summary>
-        /// Converts an input string (enum descriptor) into a MEssangerHubTypes output enum object.
+        /// Converts an input string (enum descriptor) into an output enum object.
         /// </summary>
         /// <param name="EnumDescription">The enum object output we wish to use.</param>
         /// <returns>A parsed enum if passed. Otherwise an invalid arg exception is thrown</returns>
@@ -32,7 +32,7 @@ namespace SharpExpressions.PassThruExtensions
             // Find the types first, then pull the potential file value types.
             foreach (var EnumFieldObj in typeof(TEnumType).GetFields())
             {
-                // Check the atributes here. If one matches the type provided and the description is correct, return it.
+                // Check the attributes here. If one matches the type provided and the description is correct, return it.
                 if (Attribute.GetCustomAttribute(EnumFieldObj, typeof(DescriptionAttribute)) is DescriptionAttribute EnumAtrib)
                     if (EnumAtrib.Description == EnumDescription) return (TEnumType)EnumFieldObj.GetValue(null);
                     else { if (EnumFieldObj.Name == EnumDescription) return (TEnumType)EnumFieldObj.GetValue(null); }

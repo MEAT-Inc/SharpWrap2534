@@ -82,8 +82,16 @@
     <PackageReference Include="SharpLogger">
       <Version>1.10.0.127</Version>
     </PackageReference>
+    <PackageReference Include="SharpWrapper">
+      <Version>5.3.5.382</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SharpWrapper\SharpWrapper.csproj">
+      <Project>{E4508BD6-9045-4840-A659-BE40CC205C78}</Project>
+      <Name>SharpWrapper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>

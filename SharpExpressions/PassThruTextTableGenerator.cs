@@ -54,7 +54,7 @@ namespace SharpExpressions
         public static string ToStringTable(this string[,] InputArrayValues)
         {
             // Set Col Width value and the header splitting value string size.
-            int[] MaxColWidth = GetMaxColumnsWidth(InputArrayValues);
+            int[] MaxColWidth = _getMaxColumnsWidth(InputArrayValues);
             var HeaderSplitter = new string('-', MaxColWidth.Sum(i => i + 3) - 1);
 
             // Now build output via string builder.
@@ -88,13 +88,12 @@ namespace SharpExpressions
             return string.Join("\n", FinalTableString.Split('\n').Select(LineObj => LineObj.TrimStart()));
         }
 
-
         /// <summary>
         /// Gets the max size of a column width based on the input values given
         /// </summary>
         /// <param name="InputArrayValues"></param>
         /// <returns>Sizes based on array input values.</returns>
-        private static int[] GetMaxColumnsWidth(string[,] InputArrayValues)
+        private static int[] _getMaxColumnsWidth(string[,] InputArrayValues)
         {
             // Find the new max size and store them into an equal size output array
             var MaxWidth = new int[InputArrayValues.GetLength(1)];

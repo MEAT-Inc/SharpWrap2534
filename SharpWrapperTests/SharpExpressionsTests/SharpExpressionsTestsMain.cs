@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharpExpressionsTests
 {
-    internal class Program
+    internal class SharpExpressionsTestsMain
     {
         static void Main(string[] args)
         {

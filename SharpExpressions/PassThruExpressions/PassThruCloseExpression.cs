@@ -13,7 +13,7 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruCloseExpression : PassThruExpression
     {
         // Regex for the connect close device command (PTClose)
-        public readonly PassThruRegex PtCloseRegex = PassThruRegex.ExpressionsLoaded[PassThruExpressionType.PTClose];
+        public readonly PassThruRegex PtCloseRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTClose];
 
         // -----------------------------------------------------------------------------------------
 

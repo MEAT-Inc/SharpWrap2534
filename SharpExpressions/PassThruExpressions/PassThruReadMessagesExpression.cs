@@ -14,8 +14,8 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruReadMessagesExpression : PassThruExpression
     {
         // Regex for the read messages command (PTReadMsgs) and the number of messages processed 
-        public readonly PassThruRegex PtReadMessagesRegex = PassThruRegex.ExpressionsLoaded[PassThruExpressionType.PTReadMsgs];
-        public readonly PassThruRegex MessagesReadRegex = PassThruRegex.ExpressionsLoaded[PassThruExpressionType.MessageCount];
+        public readonly PassThruRegex PtReadMessagesRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTReadMsgs];
+        public readonly PassThruRegex MessagesReadRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.MessageCount];
         
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;

@@ -13,7 +13,7 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruDisconnectExpression : PassThruExpression
     {
         // Regex for the disconnect channel command (PTDisconnect)
-        public readonly PassThruRegex PTDisconnectRegex = PassThruRegex.ExpressionsLoaded[PassThruExpressionType.PTDisconnect];
+        public readonly PassThruRegex PTDisconnectRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTDisconnect];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;

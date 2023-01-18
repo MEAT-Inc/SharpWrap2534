@@ -14,7 +14,7 @@ namespace SharpExpressions
     /// <summary>
     /// Class used to build an expressions setup object from an input log file.
     /// </summary>
-    public class ExpressionsGenerator
+    public class PassThruExpressionsGenerator
     {
         #region Custom Events
         #endregion // Custom Events
@@ -50,7 +50,7 @@ namespace SharpExpressions
         /// </summary>
         /// <param name="LogFileName"></param>
         /// <param name="LogFileContents"></param>
-        public ExpressionsGenerator(string LogFileName, string LogFileContents = null)
+        public PassThruExpressionsGenerator(string LogFileName, string LogFileContents = null)
         {
             // Store our File nam e and contents here
             this.LogFileName = LogFileName;
@@ -251,17 +251,17 @@ namespace SharpExpressions
         /// <summary>
         /// Imports an expression file and converts it into a list of expression objects
         /// </summary>
-        /// <param name="InputFilePath">Path to the file which we need to convert into a log file set</param>
+        /// <param name="ExpressionsFilePath">Path to the file which we need to convert into a log file set</param>
         /// <param name="OutputLogFileFolder">Optional folder to store the output file in. Defaults to the injector folder</param>
         /// <returns>A temporary file name which contains the contents of our log file.</returns>
-        public static string LoadExpressionsFile(string InputFilePath, string OutputLogFileFolder = null)
+        public static string LoadExpressionsFile(string ExpressionsFilePath, string OutputLogFileFolder = null)
         {
             // Pull in the string values for the regex objects needed here
             string SplitPattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.SplitExpImport].ExpressionPattern;
             string ReplacePattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.ReplaceExpImport].ExpressionPattern;
 
             // Read the contents of the file and store them. Split them out based on the expression splitting line entries
-            string InputExpressionContent = File.ReadAllText(InputFilePath);
+            string InputExpressionContent = File.ReadAllText(ExpressionsFilePath);
             string[] ExpressionStringsSplit = Regex.Split(InputExpressionContent, SplitPattern);
 
             // Now find JUST the log file content values and store them.
@@ -288,7 +288,7 @@ namespace SharpExpressions
             string CombinedOutputLogLines = string.Join("\n", LogLinesPulled);
             OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumConversions";
             string ConvertedLogFilePath = Path.Combine(OutputLogFileFolder, 
-                "ExpressionImport_" + Path.GetFileName(Path.ChangeExtension(InputFilePath, ".txt")));
+                "ExpressionImport_" + Path.GetFileName(Path.ChangeExtension(ExpressionsFilePath, ".txt")));
 
             // Remove old files and write out the new contents
             if (File.Exists(ConvertedLogFilePath)) File.Delete(ConvertedLogFilePath);

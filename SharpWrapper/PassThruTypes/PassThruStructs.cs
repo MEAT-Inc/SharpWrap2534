@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
-using SharpWrapper.PassThruSupport.JsonConverters;
+using SharpWrapper.PassThruSupport;
 
 namespace SharpWrapper.PassThruTypes
 {

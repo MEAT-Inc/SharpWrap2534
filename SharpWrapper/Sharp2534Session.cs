@@ -5,9 +5,9 @@ using System.Reflection;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
+using SharpSupport;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruImport;
-using SharpWrapper.PassThruSupport;
 using SharpWrapper.PassThruTypes;
 
 namespace SharpWrapper

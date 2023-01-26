@@ -3,12 +3,12 @@ using System.Runtime.CompilerServices;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 
-namespace SharpWrapper.PassThruSupport
+namespace SharpSupport
 {
     /// <summary>
     /// Logging helpers for session logging configuration
     /// </summary>
-    internal class LoggingSupport
+    public class LoggingSupport
     {
         // Logging Helper Object
         private readonly string DeviceName;

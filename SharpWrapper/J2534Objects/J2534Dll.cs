@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SharpSupport;
 using SharpWrapper.J2534Api;
 using SharpWrapper.PassThruImport;
 using SharpWrapper.PassThruSupport;

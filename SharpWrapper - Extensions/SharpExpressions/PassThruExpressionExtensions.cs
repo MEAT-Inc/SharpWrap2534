@@ -7,10 +7,11 @@ using SharpExpressions.PassThruExpressions;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
+using SharpSupport;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
 
-namespace SharpExpressions.PassThruExtensions
+namespace SharpExpressions
 {
     /// <summary>
     /// Extensions for parsing out commands into new types of output for PT Regex Classes

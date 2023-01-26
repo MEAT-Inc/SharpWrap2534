@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using SharpExpressions.PassThruExtensions;
+using SharpExpressions.PassThruExpressions;
 using SharpLogger;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
+using SharpSupport;
 
-namespace SharpExpressions.PassThruExpressions
+namespace SharpExpressions
 {
     /// <summary>
     /// This class instance is used to help configure the Regex tools and commands needed to perform highlighting on output from

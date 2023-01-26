@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0A39E208-7927-41BC-A509-39E60B287969}</ProjectGuid>
+    <ProjectGuid>{C23C0E3C-7B15-47AF-B358-77592BACEEAF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharpSimulator</RootNamespace>
-    <AssemblyName>SharpSimulator</AssemblyName>
+    <RootNamespace>SharpSupport</RootNamespace>
+    <AssemblyName>SharpSupport</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -21,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +29,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -43,52 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AssemblyInfo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SupportingLogic\SimulationConfigLoader.cs" />
-    <Compile Include="SimulationObjects\SimulationChannel.cs" />
-    <Compile Include="SimulationEvents\SimChannelEventArgs.cs" />
-    <Compile Include="SimulationEvents\SimMessageEventArgs.cs" />
-    <Compile Include="SimulationLoader.cs" />
-    <Compile Include="SupportingLogic\SimulationChannelJsonConverter.cs" />
-    <Compile Include="SimulationObjects\SimulationConfig.cs" />
-    <Compile Include="SimulationObjects\SimulationMessagePair.cs" />
-    <Compile Include="SimulationPlayer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Properties\AssemblyInfo.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Compile Include="EnumLibExtensions.cs" />
+    <Compile Include="LoggingSupport.cs" />
+    <Compile Include="TextTableGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpLogger">
       <Version>1.10.0.127</Version>
     </PackageReference>
-    <PackageReference Include="SharpWrapper">
-      <Version>5.3.5.382</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\DefaultSimConfigurations.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SharpSupport\SharpSupport.csproj">
-      <Project>{c23c0e3c-7b15-47af-b358-77592baceeaf}</Project>
-      <Name>SharpSupport</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)$(ProjectName)Nuget\lib\net472"</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>
-  </PropertyGroup>
 </Project>

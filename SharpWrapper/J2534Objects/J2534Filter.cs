@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
-using SharpWrapper.PassThruSupport.JsonConverters;
+using SharpWrapper.PassThruSupport;
 using SharpWrapper.PassThruTypes;
 
 namespace SharpWrapper.J2534Objects

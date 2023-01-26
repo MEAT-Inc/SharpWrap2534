@@ -75,6 +75,12 @@
       <Version>5.3.5.382</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpSupport\SharpSupport.csproj">
+      <Project>{c23c0e3c-7b15-47af-b358-77592baceeaf}</Project>
+      <Name>SharpSupport</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)$(ProjectName)Nuget\lib\net472"</PostBuildEvent>

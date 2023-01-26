@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SharpExpressions
+namespace SharpSupport
 {
     /// <summary>
     /// Class used to convert a set of tuples of values into an ASCII printed text table.
     /// </summary>
-    internal static class PassThruTextTableGenerator
+    public static class TextTableGenerator
     {
         /// <summary>
         /// Converts table object into our string output.

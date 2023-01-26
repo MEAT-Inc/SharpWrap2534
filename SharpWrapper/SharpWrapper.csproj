@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="J2534Api\J2534ApiMarshaller.cs" />
+    <Compile Include="PassThruSupport\Win32Invokers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -71,7 +72,6 @@
     </Compile>
     <Compile Include="Sharp2534Session.cs" />
     <Compile Include="PassThruTypes\PassThruConstants.cs" />
-    <Compile Include="PassThruSupport\EnumLibExtensions.cs" />
     <Compile Include="J2534Objects\J2534Channel.cs" />
     <Compile Include="J2534Objects\J2534Device.cs" />
     <Compile Include="J2534Objects\J2534Dll.cs" />
@@ -85,11 +85,8 @@
     <Compile Include="PassThruTypes\PassThruStructsNative.cs" />
     <Compile Include="J2534Api\J2534ApiInstance.cs" />
     <Compile Include="PassThruTypes\PassThruEnums.cs" />
-    <Compile Include="PassThruSupport\LoggingSupport.cs" />
-    <Compile Include="PassThruSupport\JsonConverters\PtFilterJsonConverter.cs" />
-    <Compile Include="PassThruSupport\JsonConverters\PtMessageJsonConverter.cs" />
-    <Compile Include="PassThruSupport\TextTableGenerator.cs" />
-    <Compile Include="PassThruSupport\Win32Invokers.cs" />
+    <Compile Include="PassThruSupport\PtFilterJsonConverter.cs" />
+    <Compile Include="PassThruSupport\PtMessageJsonConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -102,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpWrapper - Extensions\SharpSupport\SharpSupport.csproj">
+      <Project>{c23c0e3c-7b15-47af-b358-77592baceeaf}</Project>
+      <Name>SharpSupport</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

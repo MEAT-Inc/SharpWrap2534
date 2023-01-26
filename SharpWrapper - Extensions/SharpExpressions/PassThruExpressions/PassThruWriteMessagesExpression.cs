@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharpExpressions.PassThruExtensions;
 using SharpLogger.LoggerSupport;
 
 // Static using for Regex lookups and type values

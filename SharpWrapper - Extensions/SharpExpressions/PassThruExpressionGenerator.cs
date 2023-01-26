@@ -17,6 +17,10 @@ namespace SharpExpressions
     public class PassThruExpressionsGenerator
     {
         #region Custom Events
+
+        // Event handler for progress updates while a simulation is building
+        public EventHandler<ExpressionProgressEventArgs> OnGeneratorProgress;
+
         #endregion // Custom Events
 
         #region Fields
@@ -41,6 +45,33 @@ namespace SharpExpressions
         #endregion // Properties
 
         #region Structs and Classes
+
+        /// <summary>
+        /// Event args for progress during a simulation building routine
+        /// </summary>
+        public class ExpressionProgressEventArgs : EventArgs
+        {
+            // Properties holding the needed information about the generation routine
+            public readonly int MaxSteps;                 // The number of total steps to run
+            public readonly int CurrentSteps;             // The current number of steps to run
+            public readonly double CurrentProgress;       // The current progress percentage value
+
+            // --------------------------------------------------------------------------------------------------------------------------------------
+            
+            /// <summary>
+            /// Builds a new event arg object to invoke for progress events while simulations are building
+            /// </summary>
+            /// <param name="Current">Current step number</param>
+            /// <param name="Max">Total number of steps to run</param>
+            internal ExpressionProgressEventArgs(int Current, int Max)
+            {
+                // Store values and calculate percentage
+                this.MaxSteps = Max;
+                this.CurrentSteps = Current;
+                this.CurrentProgress = ((double)CurrentSteps / (double)MaxSteps) * 100.0;
+            }
+        }
+
         #endregion // Structs and Classes
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,9 +119,8 @@ namespace SharpExpressions
         ///     8) Store the built values on this class instance to return out our built expression objects
         ///     9) Log completed building and return the collection of built expressions
         /// </summary>
-        /// <param name="UpdateParseProgress">When true, progress on the injector log review window will be updated</param>
         /// <returns>Returns a set of file objects which contain the PT commands from a file.</returns>
-        public PassThruExpression[] GenerateLogExpressions(bool UpdateParseProgress = false)
+        public PassThruExpression[] GenerateLogExpressions()
         {
             // Log building expression log command line sets now
             this._expressionsLogger.WriteLog($"CONVERTING INPUT LOG FILE {this.LogFileName} INTO AN EXPRESSION SET NOW...", LogType.InfoLog);
@@ -125,7 +155,7 @@ namespace SharpExpressions
                     Match NextMatch = MatchIndex + 1 == TimeMatches.Length
                         ? TimeMatches[MatchIndex]
                         : TimeMatches[MatchIndex + 1];
-                        
+
                     // Pull a substring of our file contents here and store them now
                     int EndingIndex = NextMatch.Index;
                     int FileSubstringLength = EndingIndex - StartingIndex;
@@ -155,12 +185,8 @@ namespace SharpExpressions
                     this._expressionsLogger.WriteLog("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, new[] { LogType.WarnLog, LogType.TraceLog });
                 }
 
-                // Update progress values if needed now
-                if (!UpdateParseProgress) return;
-            
-                // Get the new progress value and update our UI value with it
-                // int CurrentProgress = (int)((double)LoopsCompleted++ / (double)TimeMatches.Length * 100.00);
-                // if (OldProgress != CurrentProgress) FulcrumConstants.FulcrumLogReviewViewModel.ProcessingProgress = CurrentProgress;
+                // Update progress values if needed now using the event for the progress checker
+                this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted++, TimeMatches.Length));
             });
 
             // Prune all null values off the array of expressions
@@ -170,6 +196,7 @@ namespace SharpExpressions
             // Log done building log command line sets and expressions
             this._expressionsLogger.WriteLog($"DONE BUILDING EXPRESSION SETS FROM INPUT FILE {this.LogFileName}!", LogType.InfoLog);
             this._expressionsLogger.WriteLog($"BUILT A TOTAL OF {OutputExpressions.Length} LOG LINE SETS OK!", LogType.InfoLog);
+            this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(100, 100));
 
             // Return the built set of commands.
             this.ExpressionsBuilt = OutputExpressions.ToArray();

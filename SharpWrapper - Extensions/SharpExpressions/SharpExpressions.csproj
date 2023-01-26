@@ -87,7 +87,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpWrapper\SharpWrapper.csproj">
+    <ProjectReference Include="..\..\SharpWrapper\SharpWrapper.csproj">
       <Project>{E4508BD6-9045-4840-A659-BE40CC205C78}</Project>
       <Name>SharpWrapper</Name>
     </ProjectReference>

@@ -130,22 +130,19 @@ namespace SharpExpressions
             var MatchResults = new Regex(this.ExpressionPattern).Match(InputLines);
 
             // If failed, return an empty string. If all groups, return here too.
-            if (!MatchResults.Success)
-            {
+            if (!MatchResults.Success) {
                 ResultStrings = new[] { "REGEX_FAILED" };
                 return false;
             }
 
             // If no groups given, return full match
-            if (this.ExpressionValueGroups.All(IndexObj => IndexObj == 0))
-            {
+            if (this.ExpressionValueGroups.All(IndexObj => IndexObj == 0)) {
                 ResultStrings = new[] { MatchResults.Value }; return true;
             }
 
             // Loop our pulled values out and store them
             List<string> PulledValues = new List<string>();
-            for (int GroupIndex = 0; GroupIndex < MatchResults.Groups.Count; GroupIndex++)
-            {
+            for (int GroupIndex = 0; GroupIndex < MatchResults.Groups.Count; GroupIndex++) {
                 PulledValues.Add(MatchResults.Groups[GroupIndex].Value.Trim());
             }
 

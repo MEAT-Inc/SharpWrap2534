@@ -17,25 +17,23 @@ namespace SharpExpressions
     {
         #region Custom Events
 
-        // Event handler for progress updates while a simulation is building
+        // Event handler for progress updates while an expression set is building
         public EventHandler<ExpressionProgressEventArgs> OnGeneratorProgress;
 
         #endregion // Custom Events
 
         #region Fields
 
-        // Logger object and private helpers
-        private readonly SubServiceLogger _expressionsLogger;
-
-        // Input objects for this class instance to build simulations
-        public readonly string LogFileName;         // Name of the input log file to use for conversion
-        public readonly string LogFileContents;     // The input content of our log file as it was seen in the file 
+        // Logger object and private log contents read in to this generator
+        private readonly SubServiceLogger _expressionsLogger;                  // Logger object used to help debug this generator
+        private readonly string _logFileContents;                              // The input content of our log file when loaded
 
         #endregion // Fields
 
         #region Properties
 
         // Expressions file output information
+        public string PassThruLogFile { get; private set; }
         public string ExpressionsFile { get; private set; }                     // Path to the newly built expressions file
         public string[] LogFileContentsSplit { get; private set; }              // Split input log file content based on commands
         public string[] ExpressionContentSplit { get; private set; }            // The Expressions file content split out based on commands
@@ -78,16 +76,87 @@ namespace SharpExpressions
         /// <summary>
         /// Builds a new expressions generator from a given input content file set.
         /// </summary>
-        /// <param name="LogFileName"></param>
-        /// <param name="LogFileContents"></param>
-        public PassThruExpressionsGenerator(string LogFileName, string LogFileContents = null)
+        /// <param name="LogFileName">Name of the log file to load into this generator</param>
+        private PassThruExpressionsGenerator(string LogFileName)
         {
             // Store our File nam e and contents here
-            this.LogFileName = LogFileName;
-            this.LogFileContents = LogFileContents ?? File.ReadAllText(LogFileName);
-            string LoggerName = $"ExpGeneratorLogger_{Path.GetFileNameWithoutExtension(this.LogFileName)}";
+            this.PassThruLogFile = LogFileName;
+            this._logFileContents = File.ReadAllText(LogFileName);
+            string LoggerName = $"ExpGeneratorLogger_{Path.GetFileNameWithoutExtension(this.PassThruLogFile)}";
             this._expressionsLogger = (SubServiceLogger)LoggerQueue.SpawnLogger(LoggerName, LoggerActions.SubServiceLogger);
             this._expressionsLogger.WriteLog("BUILT NEW SETUP FOR AN EXPRESSIONS GENERATOR OK! READY TO BUILD OUR EXPRESSIONS FILE!", LogType.InfoLog);
+        }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Spawns a new PassThruExpressionGenerator from a PassThru log file.
+        /// </summary>
+        /// <param name="PassThruLogFile">The log file to load into expressions. This MUST be a normal PassThru log!</param>
+        /// <returns>A new expressions generator ready to load all content inside of the input log file</returns>
+        public static PassThruExpressionsGenerator LoadPassThruLogFile(string PassThruLogFile)
+        {
+            // Build and return a new generator using this static constructors
+            PassThruExpressionsGenerator OutputGenerator = new PassThruExpressionsGenerator(PassThruLogFile);
+            return OutputGenerator;
+        }
+        /// <summary>
+        /// Spawns a new PassThruExpressionGenerator from a PassThru expressions file
+        /// </summary>
+        /// <param name="ExpressionsFile">The expressions file to load and convert. This MUST be an Expressions log!</param>
+        /// <returns>A new expressions generator ready to load all content inside of the input expressions file</returns>
+        public static PassThruExpressionsGenerator LoadExistingExpressions(string ExpressionsFile)
+        {
+            // Convert the input expressions file into a log file and build a generator from it
+            string SplitPattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.SplitExpImport].ExpressionPattern;
+            string ReplacePattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.ReplaceExpImport].ExpressionPattern;
+
+            // Read the contents of the file and store them. Split them out based on the expression splitting line entries
+            string InputExpressionContent = File.ReadAllText(ExpressionsFile);
+            string[] ExpressionStringsSplit = Regex.Split(InputExpressionContent, SplitPattern);
+
+            // Now find JUST the log file content values and store them.
+            string[] LogLinesPulled = ExpressionStringsSplit.Select(ExpressionEntrySet =>
+            {
+                // Regex match our content values desired
+                string RegexLogLinesFound = Regex.Replace(ExpressionEntrySet, ReplacePattern, string.Empty);
+                string[] SplitRegexLogLines = RegexLogLinesFound
+                    .Split('\n')
+                    .Where(LogLine =>
+                        LogLine.Length > 3 &&
+                        !LogLine.Contains("No Parameters") &&
+                        !LogLine.Contains("No Messages Found!") &&
+                        !string.IsNullOrWhiteSpace(LogLine))
+                    .Select(LogLine => LogLine.Substring(3))
+                    .ToArray();
+
+                // Now trim the padding edges off and return
+                string OutputRegexStrings = string.Join("\n", SplitRegexLogLines);
+                return OutputRegexStrings;
+            }).ToArray();
+
+            // Convert pulled strings into one whole object. Convert the log content into an expression here
+            string CombinedOutputLogLines = string.Join("\n", LogLinesPulled);
+            string OutputFileName = Path.GetFileName(Path.ChangeExtension(ExpressionsFile, ".txt"));
+
+            // Build the final output file path and write it out 
+            string OutputFilePath = Path.Combine(Path.GetTempPath(), OutputFileName);
+            if (File.Exists(OutputFilePath)) File.Delete(OutputFilePath);
+            File.WriteAllText(OutputFilePath, CombinedOutputLogLines);
+
+            // Now check if the conversions folder exists and copy the output file into there if needed
+            string InjectorConversions = "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumConversions";
+            if (Directory.Exists(InjectorConversions))
+            {
+                // Copy the output file into the injector conversions folder now
+                string InjectorCopy = Path.Combine(InjectorConversions, OutputFileName);
+                if (File.Exists(InjectorCopy)) File.Delete(InjectorCopy);
+                File.Copy(OutputFilePath, InjectorCopy);
+            }
+
+            // Now build a new generator using the built output log file and return it
+            PassThruExpressionsGenerator BuiltGenerator = new PassThruExpressionsGenerator(OutputFilePath);
+            return BuiltGenerator;
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
@@ -122,11 +191,11 @@ namespace SharpExpressions
         public PassThruExpression[] GenerateLogExpressions()
         {
             // Log building expression log command line sets now
-            this._expressionsLogger.WriteLog($"CONVERTING INPUT LOG FILE {this.LogFileName} INTO AN EXPRESSION SET NOW...", LogType.InfoLog);
+            this._expressionsLogger.WriteLog($"CONVERTING INPUT LOG FILE {this.PassThruLogFile} INTO AN EXPRESSION SET NOW...", LogType.InfoLog);
 
             // Store our regex matches and regex object for the time string values located here
             var TimeRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.CommandTime].ExpressionRegex;
-            var TimeMatches = TimeRegex.Matches(this.LogFileContents).Cast<Match>().ToArray();
+            var TimeMatches = TimeRegex.Matches(this._logFileContents).Cast<Match>().ToArray();
 
             // Build an output list of lines for content, find our matches from a built expressions Regex, and generate output lines
             var OutputCommands = Enumerable.Repeat(string.Empty, TimeMatches.Length).ToArray();
@@ -158,7 +227,7 @@ namespace SharpExpressions
                     // Pull a substring of our file contents here and store them now
                     int EndingIndex = NextMatch.Index;
                     int FileSubstringLength = EndingIndex - StartingIndex;
-                    FileSubString = this.LogFileContents.Substring(StartingIndex, FileSubstringLength);
+                    FileSubString = this._logFileContents.Substring(StartingIndex, FileSubstringLength);
                     OutputCommands[MatchIndex] = FileSubString;
 
                     // If we've got the zero messages error line, then just return on
@@ -193,7 +262,7 @@ namespace SharpExpressions
             OutputExpressions = OutputExpressions.Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionType.NONE).ToArray();
 
             // Log done building log command line sets and expressions
-            this._expressionsLogger.WriteLog($"DONE BUILDING EXPRESSION SETS FROM INPUT FILE {this.LogFileName}!", LogType.InfoLog);
+            this._expressionsLogger.WriteLog($"DONE BUILDING EXPRESSION SETS FROM INPUT FILE {this.PassThruLogFile}!", LogType.InfoLog);
             this._expressionsLogger.WriteLog($"BUILT A TOTAL OF {OutputExpressions.Length} LOG LINE SETS OK!", LogType.InfoLog);
             this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(100, 100));
 
@@ -270,59 +339,6 @@ namespace SharpExpressions
                 // Return nothing.
                 return string.Empty;
             }
-        }
-
-        // ------------------------------------------------------------------------------------------------------------------------------------------
-
-        /// <summary>
-        /// Imports an expression file and converts it into a list of expression objects
-        /// </summary>
-        /// <param name="ExpressionsFilePath">Path to the file which we need to convert into a log file set</param>
-        /// <param name="OutputLogFileFolder">Optional folder to store the output file in. Defaults to the injector folder</param>
-        /// <returns>A temporary file name which contains the contents of our log file.</returns>
-        public static string LoadExpressionsFile(string ExpressionsFilePath, string OutputLogFileFolder = null)
-        {
-            // Pull in the string values for the regex objects needed here
-            string SplitPattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.SplitExpImport].ExpressionPattern;
-            string ReplacePattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.ReplaceExpImport].ExpressionPattern;
-
-            // Read the contents of the file and store them. Split them out based on the expression splitting line entries
-            string InputExpressionContent = File.ReadAllText(ExpressionsFilePath);
-            string[] ExpressionStringsSplit = Regex.Split(InputExpressionContent, SplitPattern);
-
-            // Now find JUST the log file content values and store them.
-            string[] LogLinesPulled = ExpressionStringsSplit.Select(ExpressionEntrySet =>
-            {
-                // Regex match our content values desired
-                string RegexLogLinesFound = Regex.Replace(ExpressionEntrySet, ReplacePattern, string.Empty);
-                string[] SplitRegexLogLines = RegexLogLinesFound
-                    .Split('\n')
-                    .Where(LogLine =>
-                        LogLine.Length > 3 &&
-                        !LogLine.Contains("No Parameters") &&
-                        !LogLine.Contains("No Messages Found!") &&
-                        !string.IsNullOrWhiteSpace(LogLine))
-                    .Select(LogLine => LogLine.Substring(3))
-                    .ToArray();
-
-                // Now trim the padding edges off and return
-                string OutputRegexStrings = string.Join("\n", SplitRegexLogLines);
-                return OutputRegexStrings;
-            }).ToArray();
-
-            // Convert pulled strings into one whole object. Convert the log content into an expression here
-            string CombinedOutputLogLines = string.Join("\n", LogLinesPulled);
-            OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumConversions";
-            string ConvertedLogFilePath = Path.Combine(OutputLogFileFolder, 
-                "ExpressionImport_" + Path.GetFileName(Path.ChangeExtension(ExpressionsFilePath, ".txt")));
-
-            // Remove old files and write out the new contents
-            if (File.Exists(ConvertedLogFilePath)) File.Delete(ConvertedLogFilePath);
-            if (!Directory.Exists(OutputLogFileFolder)) Directory.CreateDirectory(OutputLogFileFolder);
-            File.WriteAllText(ConvertedLogFilePath, CombinedOutputLogLines);
-
-            // Return the built file path
-            return ConvertedLogFilePath;
         }
     }
 }

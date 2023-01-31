@@ -2,7 +2,6 @@
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SharpSimulator.SimulationObjects;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
 
@@ -85,7 +84,7 @@ namespace SharpSimulator.SupportingLogic
             // Basic pulled uint values and other 
             uint IdRead = InputObject["ChannelId"].Value<uint>();
             J2534Filter[] FiltersRead = InputObject["MessageFilters"].ToObject<J2534Filter[]>();
-            SimulationMessagePair[] PairsRead = InputObject["MessagePairs"].ToObject<SimulationMessagePair[]>();
+            SimulationChannel.SimulationMessagePair[] PairsRead = InputObject["MessagePairs"].ToObject<SimulationChannel.SimulationMessagePair[]>();
             PassThruStructs.PassThruMsg[] ReadMessagesSent = InputObject["MessagesSent"].ToObject<PassThruStructs.PassThruMsg[]>();
             PassThruStructs.PassThruMsg[] ReadMessagesRead = InputObject["MessagesRead"].ToObject<PassThruStructs.PassThruMsg[]>();
 

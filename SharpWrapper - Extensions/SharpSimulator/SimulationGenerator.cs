@@ -156,7 +156,7 @@ namespace SharpSimulator
         public static SimulationGenerator LoadExpressionsFile(string ExpressionsFile)
         {
             // Build an expressions generator and then use it to build a new simulation generator
-            var ExpressionGenerator = PassThruExpressionsGenerator.LoadExistingExpressions(ExpressionsFile);
+            var ExpressionGenerator = PassThruExpressionsGenerator.LoadExpressionsFile(ExpressionsFile);
             return new SimulationGenerator(ExpressionGenerator);
         }
 

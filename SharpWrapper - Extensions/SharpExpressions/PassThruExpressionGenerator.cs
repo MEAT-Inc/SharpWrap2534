@@ -105,7 +105,7 @@ namespace SharpExpressions
         /// </summary>
         /// <param name="ExpressionsFile">The expressions file to load and convert. This MUST be an Expressions log!</param>
         /// <returns>A new expressions generator ready to load all content inside of the input expressions file</returns>
-        public static PassThruExpressionsGenerator LoadExistingExpressions(string ExpressionsFile)
+        public static PassThruExpressionsGenerator LoadExpressionsFile(string ExpressionsFile)
         {
             // Convert the input expressions file into a log file and build a generator from it
             string SplitPattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.SplitExpImport].ExpressionPattern;

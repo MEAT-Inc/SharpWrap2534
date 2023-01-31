@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.Win32;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapper.PassThruImport
 {

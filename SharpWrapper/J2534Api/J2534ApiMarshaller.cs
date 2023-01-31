@@ -3,7 +3,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapper.J2534Api
 {
@@ -14,11 +13,11 @@ namespace SharpWrapper.J2534Api
     {
         // Class values for the marshall configuration
         internal J2534ApiInstance ApiInstance { get; private set; }
-        public PTInstanceStatus MarshallStatus { get; private set; }
+        public SharpSessionStatus MarshallStatus { get; private set; }
 
         // Reflected API Values.
         public JVersion J2534Version => ApiInstance.J2534Version;        // Version of the API
-        public PTInstanceStatus ApiStatus => ApiInstance.ApiStatus;     // Status of the API
+        public SharpSessionStatus ApiStatus => ApiInstance.ApiStatus;     // Status of the API
 
         // -------------------------------- CONSTRUCTOR FOR A NEW J2534 API MARSHALL -------------------------------
 
@@ -30,7 +29,7 @@ namespace SharpWrapper.J2534Api
         {
             // Store API Values.
             this.ApiInstance = ApiInstance;
-            MarshallStatus = PTInstanceStatus.INITIALIZED;
+            MarshallStatus = SharpSessionStatus.INITIALIZED;
         }
 
         /// <summary>
@@ -40,7 +39,7 @@ namespace SharpWrapper.J2534Api
         {
             // Breakdown values.
             ApiInstance = null;
-            MarshallStatus = PTInstanceStatus.FREED;
+            MarshallStatus = SharpSessionStatus.FREED;
         }
 
         // -------------------------------- PASSTHRU MESSAGE SUPPORTING METHODS ------------------------------------

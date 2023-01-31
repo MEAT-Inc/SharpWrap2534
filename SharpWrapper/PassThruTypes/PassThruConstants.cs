@@ -1,6 +1,4 @@
-﻿using SharpWrapper.SupportingLogic;
-
-namespace SharpWrapper.PassThruTypes
+﻿namespace SharpWrapper.PassThruTypes
 {
     /// <summary>
     /// Contains constants for PassThru types here.

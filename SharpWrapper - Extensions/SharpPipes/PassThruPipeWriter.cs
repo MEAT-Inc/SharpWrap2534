@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SharpLogger.LoggerSupport;
 
-namespace SharpPassThruPipes
+namespace SharpPipes
 {
     /// <summary>
     /// Fulcrum pipe writing class. Sends data out to our DLLs

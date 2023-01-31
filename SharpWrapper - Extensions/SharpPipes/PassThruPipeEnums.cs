@@ -1,4 +1,4 @@
-﻿namespace SharpPassThruPipes
+﻿namespace SharpPipes
 {
     /// <summary>
     /// Enums for pipe types

@@ -19,15 +19,9 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
 ---
 
 ### **Current Extensions**
--  Below is a table containing all the currently built extensions for the SharpWrap2534 suite.  Each extension contains the URL to the source for it, the current version of it, and a brief overview of what it is.
-
-   | Package Name | Version | Package Information |
-   | ------------ | -------------- | ------------------- |
-   | **[SharpAutoId](https://github.com/MEAT-Inc/SharpWrap2534/tree/main/SharpAutoId)**  | 0.3.13.72 | SharpAutoId is a package which contains a set of routines used to pull a VIN number from a vehicle using a given protocol. This package acts as an extension method on top of the SharpSession object and exposes commands to pull VIN numbers.
-   | **[SharpSimulator](https://github.com/MEAT-Inc/SharpWrap2534/tree/main/SharpSimulator)** | 0.8.1.142 | SharpSimulator provides easy to consume simulation framework which allows easy simulation playback for any J2534 device. When combined with the FulcrumShim application, we can build a simulation and play it back from nearly any J2534 diagnostic log source. |
-   | **[SharpWrapper](https://github.com/MEAT-Inc/SharpWrap2534/tree/main/SharpWrapper)** | 5.3.2.365 | SharpWrapper is the main package for this project. It contains all the logic needed to allow a user to built a J2534 session, control J2534 devices, and more. |
-   
----
+- As of now, there's a collection of 4/5 extensions ready for the SharpWrapper package.
+- They're all located in the Extensions folder of this repository and each have their own requirements. 
+- As of 1/31/2023, we've got the SharpAudoId, SharpExpressions, SharpPipes, and SharpSimulator packages ready to run. Just grab them from NuGet like you'd pull in the SharpWrapper package.
 
 ### **Development Setup**
 - If you're looking to help develop this project, you'll need to add the NuGet server for the MEAT Inc workspace into your nuget configuration. 

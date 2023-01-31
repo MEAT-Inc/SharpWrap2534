@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 
-namespace SharpPassThruPipes
+namespace SharpPipes
 {
     /// <summary>
     /// Instance object for reading pipe server data from our fulcrum DLL

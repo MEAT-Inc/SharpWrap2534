@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SharpLogger.LoggerSupport;
 
-namespace SharpPassThruPipes.J2534Pipes
+namespace SharpPassThruPipes
 {
     /// <summary>
     /// Pipe reading instance for our fulcrum server

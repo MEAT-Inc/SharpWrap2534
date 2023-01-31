@@ -4,11 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
-using SharpSimulator.SimulationEvents;
 using SharpWrapper;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpSimulator
 {
@@ -17,40 +15,11 @@ namespace SharpSimulator
     /// </summary>
     public class SimulationPlayer
     {
-        // Logger object 
-        private readonly Guid _playerGuid;
-        private readonly SubServiceLogger _simPlayingLogger;
+        #region Custom Events
 
-        // Simulation Session Helpers
-        public readonly SimulationLoader InputSimulation;
-        public readonly Sharp2534Session SimulationSession;
-
-        // Channel objects and default configuration
-        public J2534Channel SimulationChannel { get; private set; }
-        public J2534Filter[] DefaultMessageFilters { get; private set; }
-        public PassThruStructs.SConfigList DefaultConfigParamConfig { get; private set; }
-        public Tuple<ProtocolId, PassThroughConnect, BaudRate> DefaultConnectionConfig { get; private set; }
-
-        // Values for our reader configuration.
-        public uint ReaderTimeout { get; private set; }
-        public uint ReaderMessageCount { get; private set; }
-        public uint SenderResponseTimeout { get; private set; }
-
-        // Other Reader Configuration Values and States
-        public bool SimulationReading { get; private set; }
-        public bool ResponsesEnabled { get; private set; }
-
-        // ------------------------------------------------------------------------------------------------------------------------------------------
-
-        // Task configuration objects for our simulations
-        private CancellationToken _readerCancelToken;
-        private CancellationTokenSource _readerTokenSource;
-
-        // ------------------------------------------------------------------------------------------------------------------------------------------
-
-        // Events for processing sim actions outside this project
-        public event EventHandler<SimChannelEventArgs> SimChannelChanged;
-        public event EventHandler<SimMessageEventArgs> SimMessageProcessed;
+        // Events to fire when a simulation channel is changed or a message is processed
+        public event EventHandler<SimChannelEventArgs> SimChannelChanged;       // Channel change event
+        public event EventHandler<SimMessageEventArgs> SimMessageProcessed;     // Message processed event
 
         /// <summary>
         /// Processes an action for a new channel being changed around
@@ -73,25 +42,136 @@ namespace SharpSimulator
             EventHandlerCalled?.Invoke(this, MessageArgs);
         }
 
-        // ------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion // Custom Events
+
+        #region Fields
+
+        // Basic information about this simulation player
+        private readonly Guid _playerGuid;                      
+        public readonly Sharp2534Session SimulationSession;     
+        private readonly SubServiceLogger _simPlayingLogger;    
+        public readonly SimulationChannel[] SimulationChannels;
+
+        // TokenSource and token used to cancel a simulation while running in an Async thread
+        private CancellationToken _readerCancelToken;
+        private CancellationTokenSource _readerTokenSource;
+
+        #endregion // Fields
+
+        #region Properties
+
+        // Values for our reader configuration.
+        public uint ReaderTimeout { get; private set; }
+        public uint ReaderMessageCount { get; private set; }
+        public uint SenderResponseTimeout { get; private set; }
+
+        // Other Reader Configuration Values and States
+        public bool SimulationReading { get; private set; }
+        public bool ResponsesEnabled { get; private set; }
+
+        // Simulation channel (physical on device) configuration for playback
+        public J2534Channel PhysicalChannel { get; private set; }
+        public J2534Filter[] DefaultMessageFilters { get; private set; }
+        public PassThruStructs.SConfigList DefaultConfigParamConfig { get; private set; }
+        public Tuple<ProtocolId, PassThroughConnect, BaudRate> DefaultConnectionConfig { get; private set; }
+
+        // Properties of all channels for the simulation that have been built out from this generator
+        public BaudRate[] BaudRates => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelBaudRate).ToArray();
+        public PassThroughConnect[] ChannelFlags => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelConnectFlags).ToArray();
+        public ProtocolId[] ChannelProtocols => this.SimulationChannels.Select(SimChannel => SimChannel.ChannelProtocol).ToArray();
+        public J2534Filter[][] ChannelFilters => this.SimulationChannels.Select(SimChannel => SimChannel.MessageFilters).ToArray();
+
+        // Message pairing collections holding information about all messages read or written for a simulation
+        public SimulationChannel.SimulationMessagePair[][] PairedSimulationMessages => this.SimulationChannels
+            .Select(SimChannel => SimChannel.MessagePairs)
+            .ToArray();
+        public PassThruStructs.PassThruMsg[] MessagesToRead => (PassThruStructs.PassThruMsg[])PairedSimulationMessages
+            .SelectMany(MsgSet => MsgSet.Select(MsgPair => MsgPair.MessageRead)
+                .ToArray());
+        public PassThruStructs.PassThruMsg[][] MessagesToWrite => (PassThruStructs.PassThruMsg[][])PairedSimulationMessages
+            .SelectMany(MsgSet => MsgSet.Select(MsgPair => MsgPair.MessageResponses)
+                .ToArray());
+
+        #endregion // Properties
+
+        #region Structs and Classes
 
         /// <summary>
-        /// Spins up a new PT Instance that will read commands over and over waiting for content.
+        /// Fired off when a new session creates a simulation channel object
         /// </summary>
-        /// <param name="Loader">Simulation Loader</param>
-        /// <param name="PassThruDevice">Forced Device Name</param>
-        /// <param name="PassThruDLL">Forced DLL Name</param>
-        public SimulationPlayer(SimulationLoader Loader, JVersion Version = JVersion.V0404, string PassThruDLL = null, string PassThruDevice = null)
+        public class SimChannelEventArgs : EventArgs
+        {
+            // Event objects for this event
+            public readonly Sharp2534Session Session;       // Controlling Session
+            public readonly J2534Device SessionDevice;      // Device controlled by the session
+            public readonly J2534Channel SessionChannel;    // Channel being controlled for this simulation
+
+            // ------------------------------------------------------------------------------------------------------------------------------------------
+
+            /// <summary>
+            /// Pulls in the current session instance and stores values for this event onto our class
+            /// </summary>
+            /// <param name="InputSession"></param>
+            public SimChannelEventArgs(Sharp2534Session InputSession)
+            {
+                // Store session objects here
+                this.Session = InputSession;
+                this.SessionDevice = this.Session.JDeviceInstance;
+                this.SessionChannel = this.SessionDevice.DeviceChannels.First(ChObj => ChObj.ChannelId != 0);
+            }
+        }
+        /// <summary>
+        /// Event args for a new simulation message being processed and responded to
+        /// </summary>
+        public class SimMessageEventArgs : EventArgs
+        {
+            // Event objects for this event
+            public readonly Sharp2534Session Session;       // Controlling Session
+            public readonly J2534Device SessionDevice;      // Device controlled by the session
+            public readonly J2534Channel SessionChannel;    // Channel being controlled for this simulation
+
+            // Messages processed by our sim event
+            public readonly bool ResponsePassed;
+            public readonly PassThruStructs.PassThruMsg ReadMessage;
+            public readonly PassThruStructs.PassThruMsg[] Responses;
+
+            // ------------------------------------------------------------------------------------------------------------------------------------------
+
+            /// <summary>
+            /// Builds a new event argument helper for this session
+            /// </summary>
+            /// <param name="InputSession">Session to process</param>
+            /// <param name="MessageRead">Message read</param>
+            /// <param name="MessagesReplied">Responses sent out</param>
+            public SimMessageEventArgs(Sharp2534Session InputSession, bool ResponseSent, PassThruStructs.PassThruMsg MessageRead, PassThruStructs.PassThruMsg[] MessagesReplied)
+            {
+                // Store session objects here
+                this.Session = InputSession;
+                this.SessionDevice = this.Session.JDeviceInstance;
+                this.SessionChannel = this.SessionDevice.DeviceChannels.First(ChObj => ChObj.ChannelId != 0);
+
+                // Store Messages here
+                this.ResponsePassed = ResponseSent;
+                this.ReadMessage = MessageRead;
+                this.Responses = MessagesReplied;
+            }
+        }
+
+        #endregion // Structs and Classes
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// Uses an existing PT Instance that will read commands over and over waiting for content.
+        /// </summary>
+        /// <param name="SimChannels">Channels to simulate</param>
+        /// <param name="InputSession">Session object to use for our simulations</param>
+        public SimulationPlayer(SimulationChannel[] SimChannels, Sharp2534Session InputSession)
         {
             // Store class values and build a simulation loader.
-            this.InputSimulation = Loader;
             this.ResponsesEnabled = true;
-            PassThruDLL ??= "NO_DLL"; PassThruDevice ??= "NO_DEVICE";
-            this.SimulationSession = Sharp2534Session.OpenSession(
-                Version,
-                PassThruDLL == "NO_DLL" ? "" : PassThruDLL,
-                PassThruDevice == "NO_DEVICE" ? "" : PassThruDevice
-            );
+            this.SimulationChannels = SimChannels;
+            this.SimulationSession = InputSession;
 
             // Log Built new Session
             this._playerGuid = Guid.NewGuid();
@@ -106,16 +186,23 @@ namespace SharpSimulator
             if (VoltsRead < 12.0) this._simPlayingLogger.WriteLog("WARNING! INPUT VOLTAGE IS LESS THAN 12.0 VOLTS!", LogType.ErrorLog);
         }
         /// <summary>
-        /// Uses an existing PT Instance that will read commands over and over waiting for content.
+        /// Spawns a new Simulation playback helper for the provided simulation channels
         /// </summary>
-        /// <param name="Loader">Simulation Loader</param>
-        /// <param name="InputSession">Session object to use for our simaulations</param>
-        public SimulationPlayer(SimulationLoader Loader, Sharp2534Session InputSession)
+        /// <param name="SimChannels">Channels to simulate</param>
+        /// <param name="Version">J2534 Version for the simulation</param>
+        /// <param name="PassThruDLL">The name of the DLL we wish to use</param>
+        /// <param name="PassThruDevice">The name of the device we wish to use</param>
+        public SimulationPlayer(SimulationChannel[] SimChannels, JVersion Version = JVersion.V0404, string PassThruDLL = null, string PassThruDevice = null)
         {
             // Store class values and build a simulation loader.
-            this.InputSimulation = Loader;
             this.ResponsesEnabled = true;
-            this.SimulationSession = InputSession;
+            this.SimulationChannels = SimChannels;
+            PassThruDLL ??= "NO_DLL"; PassThruDevice ??= "NO_DEVICE";
+            this.SimulationSession = Sharp2534Session.OpenSession(
+                Version,
+                PassThruDLL == "NO_DLL" ? "" : PassThruDLL,
+                PassThruDevice == "NO_DEVICE" ? "" : PassThruDevice
+            );
 
             // Log Built new Session
             this._playerGuid = Guid.NewGuid();
@@ -186,7 +273,7 @@ namespace SharpSimulator
         {
             // Ensure our channel object is not null at this point.
             this.DefaultConfigParamConfig = DefaultConfiguration;
-            if (this.SimulationChannel == null) {
+            if (this.PhysicalChannel == null) {
                 this._simPlayingLogger.WriteLog("NOT STORING DEFAULT CONFIGURATIONS SINCE THE SIMULATION CHANNEL OBJECT IS CURRENTLY NULL OR IT IS CURRENTLY READING!", LogType.InfoLog);
                 return true;
             }
@@ -197,7 +284,7 @@ namespace SharpSimulator
             {
                 // Issue out an IOCTL for each configuration
                 this._simPlayingLogger.WriteLog($"SETTING CONFIGURATION ID PAIR: {TupleObject.SConfigParamId} -- {TupleObject.SConfigValue}");
-                try { this.SimulationChannel.SetConfig(TupleObject.SConfigParamId, TupleObject.SConfigValue); }
+                try { this.PhysicalChannel.SetConfig(TupleObject.SConfigParamId, TupleObject.SConfigValue); }
                 catch (Exception SetConfigEx)
                 {
                     // Log failure, return false
@@ -220,7 +307,7 @@ namespace SharpSimulator
         {
             // Ensure our channel object is not null at this point.
             this.DefaultMessageFilters = DefaultFilters;
-            if (this.SimulationChannel == null) {
+            if (this.PhysicalChannel == null) {
                 this._simPlayingLogger.WriteLog("NOT SETTING DEFAULT FILTERS SINCE THE SIMULATION CHANNEL OBJECT IS CURRENTLY NULL OR IT IS CURRENTLY READING!", LogType.InfoLog);
                 return true;
             }
@@ -235,7 +322,7 @@ namespace SharpSimulator
                     $"{(!string.IsNullOrWhiteSpace(FilterObject.FilterFlowCtl) ? $" -- {FilterObject.FilterFlowCtl}" : string.Empty)}");
 
                 // Setup filter using the PTStartFilter method
-                try { this.SimulationChannel.StartMessageFilter(FilterObject); }
+                try { this.PhysicalChannel.StartMessageFilter(FilterObject); }
                 catch (Exception SetFilterEx)
                 {
                     // Log failure, return false
@@ -265,7 +352,7 @@ namespace SharpSimulator
             }
 
             // Connect a new Channel value
-            this.SimulationChannel = this.SimulationSession.PTConnect(
+            this.PhysicalChannel = this.SimulationSession.PTConnect(
                 0, 
                 this.DefaultConnectionConfig.Item1,
                 this.DefaultConnectionConfig.Item2,
@@ -274,7 +361,7 @@ namespace SharpSimulator
             );
             
             // Log channel built and check to make sure it is not null
-            if (this.SimulationChannel == null) throw new InvalidOperationException("FAILED TO OPEN A NEW CHANNEL FOR OUR SIMULATION ROUTINE! THIS IS FATAL!");
+            if (this.PhysicalChannel == null) throw new InvalidOperationException("FAILED TO OPEN A NEW CHANNEL FOR OUR SIMULATION ROUTINE! THIS IS FATAL!");
             this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION CHANNEL WITH GIVEN INPUT VALUES OK!", LogType.InfoLog);
 
             // Check if we need to build default configuration for filters of config params
@@ -288,8 +375,8 @@ namespace SharpSimulator
             }
 
             // Clear out the TX and RX buffers from the last channel instance to avoid overflows
-            this.SimulationChannel.ClearTxBuffer(); 
-            this.SimulationChannel.ClearRxBuffer();
+            this.PhysicalChannel.ClearTxBuffer(); 
+            this.PhysicalChannel.ClearRxBuffer();
             this._simPlayingLogger.WriteLog("CLEARED OUT TX AND RX BUFFERS FOR OUR NEW CHANNEL WITHOUT ISSUES!", LogType.InfoLog);
 
             // Return the built channel here
@@ -302,7 +389,7 @@ namespace SharpSimulator
         public void StartSimulationReader()
         {
             // Ensure the channel we need is built and not active
-            if (this.SimulationChannel == null) throw new InvalidOperationException("CAN NOT BEGIN SIMULATION READING ON A NULL CHANNEL!");
+            if (this.PhysicalChannel == null) throw new InvalidOperationException("CAN NOT BEGIN SIMULATION READING ON A NULL CHANNEL!");
             if (this.SimulationReading) throw new InvalidOperationException("CAN NOT START A NEW SIMULATION READER WHEN THE CHANNEL IS ALREADY RUNNING!");
 
             // Now start a looping task to get read messages and write the responses to them.
@@ -359,15 +446,15 @@ namespace SharpSimulator
             // Setup ref count and read messages
             uint MessageCountRef = this.ReaderMessageCount;
             PassThruStructs.PassThruMsg[] MessagesRead;
-            try { MessagesRead = this.SimulationChannel.PTReadMessages(ref MessageCountRef, this.ReaderTimeout); }
+            try { MessagesRead = this.PhysicalChannel.PTReadMessages(ref MessageCountRef, this.ReaderTimeout); }
             catch { MessagesRead = Array.Empty<PassThruStructs.PassThruMsg>(); }
 
             // Make sure we actually got some data back first.
             if (MessagesRead.Length == 0) return;
 
             // Purge TX and RX Buffers
-            this.SimulationChannel.ClearTxBuffer(); 
-            this.SimulationChannel.ClearRxBuffer();
+            this.PhysicalChannel.ClearTxBuffer(); 
+            this.PhysicalChannel.ClearRxBuffer();
 
             // Now check out our read data values and prepare to operate on them based on the values.
             foreach (var ReadMessage in MessagesRead)
@@ -376,7 +463,7 @@ namespace SharpSimulator
                 // Now using those messages try and figure out what channel we need to open up.
                 // Finds the Index of the channel object and the index of the message object on the channel
                 int IndexOfMessageFound = -1; int IndexOfMessageSet = -1;
-                foreach (var ChannelMessagePair in this.InputSimulation.PairedSimulationMessages)
+                foreach (var ChannelMessagePair in this.PairedSimulationMessages)
                 {
                     // Check each of the messages found on each channel object
                     foreach (var MessageSet in ChannelMessagePair)
@@ -387,7 +474,7 @@ namespace SharpSimulator
 
                         // Check if we have this string value or not.
                         if (!ReadMessageData.Contains(SentMessageData)) continue;
-                        IndexOfMessageSet = this.InputSimulation.PairedSimulationMessages.ToList().IndexOf(ChannelMessagePair);
+                        IndexOfMessageSet = this.PairedSimulationMessages.ToList().IndexOf(ChannelMessagePair);
                         IndexOfMessageFound = ChannelMessagePair.ToList().IndexOf(MessageSet);
                     }
                 }
@@ -453,19 +540,19 @@ namespace SharpSimulator
         private bool _generateResponseChannel(int IndexOfMessageSet)
         {
             // Check the index value
-            if (IndexOfMessageSet < 0 || IndexOfMessageSet >= this.InputSimulation.PairedSimulationMessages.Length)
+            if (IndexOfMessageSet < 0 || IndexOfMessageSet >= this.PairedSimulationMessages.Length)
                 throw new InvalidOperationException($"CAN NOT APPLY CHANNEL OF INDEX {IndexOfMessageSet} SINCE IT IS OUT OF RANGE!");
 
             // Store channel messages and filters
             this.SimulationSession.PTDisconnect(0);
-            var ChannelFlags = this.InputSimulation.ChannelFlags[IndexOfMessageSet];
-            var ChannelBaudRate = this.InputSimulation.BaudRates[IndexOfMessageSet];
-            var ProtocolValue = this.InputSimulation.ChannelProtocols[IndexOfMessageSet];
-            var FiltersToApply = this.InputSimulation.ChannelFilters[IndexOfMessageSet];
+            var ChannelFlags = this.ChannelFlags[IndexOfMessageSet];
+            var ChannelBaudRate = this.BaudRates[IndexOfMessageSet];
+            var ProtocolValue = this.ChannelProtocols[IndexOfMessageSet];
+            var FiltersToApply = this.ChannelFilters[IndexOfMessageSet];
 
             // Close the current channel, build a new one using the given protocol and then setup our filters.
-            this.SimulationChannel = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt);
-            foreach (var ChannelFilter in FiltersToApply) { this.SimulationChannel.StartMessageFilter(ChannelFilter); }
+            this.PhysicalChannel = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt);
+            foreach (var ChannelFilter in FiltersToApply) { this.PhysicalChannel.StartMessageFilter(ChannelFilter); }
 
             // Build output message events here
             this.SimChannelModified(new SimChannelEventArgs(this.SimulationSession));
@@ -480,7 +567,7 @@ namespace SharpSimulator
         {
             // Pull out the message set, then find the response messages and send them out
             this._simPlayingLogger.WriteLog(string.Join("", Enumerable.Repeat("=", 100)));
-            var PulledMessages = this.InputSimulation.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
+            var PulledMessages = this.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
 
             // Log message contents out and then log the responses out if we are going to be sending them
             this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.MessageRead.Data)}", LogType.InfoLog);
@@ -495,7 +582,7 @@ namespace SharpSimulator
             try
             {
                 // Try and send the message, indicate passed sending routine
-                this.SimulationChannel.PTWriteMessages(PulledMessages.MessageResponses, this.SenderResponseTimeout);
+                this.PhysicalChannel.PTWriteMessages(PulledMessages.MessageResponses, this.SenderResponseTimeout);
                 this.SimulationSession.PTDisconnect(0);
 
                 // Attempt to send output events in a task to stop hanging our response operations

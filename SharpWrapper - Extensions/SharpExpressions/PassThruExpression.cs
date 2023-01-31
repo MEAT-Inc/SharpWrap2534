@@ -218,7 +218,7 @@ namespace SharpExpressions
         /// <summary>
         /// Gets the list of properties linked to a regex group and returns them in order of decleration
         /// </summary>
-        protected internal FieldInfo[] GetExpressionProperties(bool BaseClassValues = false)
+        public FieldInfo[] GetExpressionProperties(bool BaseClassValues = false)
         {
             // Determine the type of base property to use
             var DeclaredTypeExpected = BaseClassValues ?

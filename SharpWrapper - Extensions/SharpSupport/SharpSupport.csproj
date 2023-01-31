@@ -45,6 +45,7 @@
     <Compile Include="LoggingSupport.cs" />
     <Compile Include="TextTableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Win32Invokers.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpLogger">

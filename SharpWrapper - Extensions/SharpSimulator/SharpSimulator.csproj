@@ -43,11 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExpressionToJ2534Object.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
+    <Compile Include="SimulationGenerator.cs" />
     <Compile Include="SupportingLogic\SimulationConfigLoader.cs" />
     <Compile Include="SimulationObjects\SimulationChannel.cs" />
     <Compile Include="SimulationEvents\SimChannelEventArgs.cs" />
@@ -68,6 +70,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="SharpExpressions">
+      <Version>0.2.1.9</Version>
+    </PackageReference>
     <PackageReference Include="SharpLogger">
       <Version>1.10.0.127</Version>
     </PackageReference>

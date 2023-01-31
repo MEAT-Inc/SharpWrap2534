@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace SharpWrapper.PassThruSupport
+namespace SharpSupport
 {
     /// <summary>
     /// Static methods for running Win32 importing calls.
     /// </summary>
-    internal static class Win32Invokers
+    public static class Win32Invokers
     {
         // Loads a DLL into the memory.
         [DllImport("kernel32.dll", EntryPoint = "LoadLibrary", SetLastError = true)]

@@ -23,6 +23,8 @@ SharpWrap2534 is an approach at trying to build and deploy and easily consumable
 - They're all located in the Extensions folder of this repository and each have their own requirements. 
 - As of 1/31/2023, we've got the SharpAudoId, SharpExpressions, SharpPipes, and SharpSimulator packages ready to run. Just grab them from NuGet like you'd pull in the SharpWrapper package.
 
+---
+
 ### **Development Setup**
 - If you're looking to help develop this project, you'll need to add the NuGet server for the MEAT Inc workspace into your nuget configuration. 
 - To do so, navigate to your AppData\Roaming folder (You can do this by opening windows explorer and clicking the top path bar and typing %appdata%)

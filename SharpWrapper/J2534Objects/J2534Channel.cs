@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapper.J2534Objects
 {
@@ -28,7 +27,7 @@ namespace SharpWrapper.J2534Objects
             // Setup device channel properties.
             _jDevice = JDevice;
             J2534Version = _jDevice.J2534Version;
-            ChannelStatus = PTInstanceStatus.INITIALIZED;
+            ChannelStatus = SharpSessionStatus.INITIALIZED;
 
             // PTConstants
             var TypeConstants = new PassThruConstants(JDevice.J2534Version);
@@ -56,7 +55,7 @@ namespace SharpWrapper.J2534Objects
                     this._jDevice.DeviceChannels.All(ChannelObj => ChannelObj == null) ? 0 :
                     this._jDevice.DeviceChannels
                         .ToList()
-                        .FindIndex(ChannelObj => ChannelObj?.ChannelStatus is PTInstanceStatus.INITIALIZED or PTInstanceStatus.FREED);
+                        .FindIndex(ChannelObj => ChannelObj?.ChannelStatus is SharpSessionStatus.INITIALIZED or SharpSessionStatus.FREED);
                 
                 // Check index value
                 if (ChannelIndex == -1) 
@@ -114,7 +113,7 @@ namespace SharpWrapper.J2534Objects
         // Status values.
         public int ChannelIndex { get; }
         public JVersion J2534Version { get; }
-        public PTInstanceStatus ChannelStatus { get; }
+        public SharpSessionStatus ChannelStatus { get; }
 
         // Device information
         private readonly J2534Device _jDevice;

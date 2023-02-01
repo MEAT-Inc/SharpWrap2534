@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using SharpWrapper.PassThruImport;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapper.J2534Api
 {
@@ -20,7 +19,7 @@ namespace SharpWrapper.J2534Api
         {
             // Store Number and status values.
             J2534DllPath = ApiDllPath;
-            ApiStatus = PTInstanceStatus.NULL;
+            ApiStatus = SharpSessionStatus.NULL;
 
             // Set the version and build our delegate/Importer objects
             J2534Version = J2534DllPath.Contains("0500") ? JVersion.V0500 : JVersion.V0404;
@@ -39,7 +38,7 @@ namespace SharpWrapper.J2534Api
         // ------------------------------------ CLASS VALUES FOR J2534 API ---------------------------------
 
         // JDevice Number.
-        public PTInstanceStatus ApiStatus { get; private set; }
+        public SharpSessionStatus ApiStatus { get; private set; }
 
         // Version of the DLL for the J2534 DLL
         public JVersion J2534Version { get; private set; }
@@ -58,7 +57,7 @@ namespace SharpWrapper.J2534Api
         public bool SetupJApiInstance()
         {
             // Check status value.
-            if (ApiStatus == PTInstanceStatus.INITIALIZED) return false;
+            if (ApiStatus == SharpSessionStatus.INITIALIZED) return false;
 
             try
             {
@@ -73,7 +72,7 @@ namespace SharpWrapper.J2534Api
             }
 
             // Set the status value.
-            ApiStatus = PTInstanceStatus.INITIALIZED;
+            ApiStatus = SharpSessionStatus.INITIALIZED;
             return true;
         }
 
@@ -627,6 +626,40 @@ namespace SharpWrapper.J2534Api
 
             // Throw exception here.
             throw new PassThruException(PTCommandError, ErrorBuilder);
+        }
+
+        // ------------------------------------- FULCRUM SHIM DLL LOGGING CALLS (MARSHALL RELAY) -------------------------------------
+
+        /// <summary>
+        /// Saves a log file buffer to a given file path
+        /// </summary>
+        /// <param name="LogFilePath">Path to save log file into</param>
+        public void PassThruSaveLog(string LogFilePath)
+        {
+            // Issue our save log file delegate command and exit out
+            _delegateSet.PTSaveLog(LogFilePath);
+        }
+        /// <summary>
+        /// Logs a new message value using the PTWriteLogA call
+        /// </summary>
+        /// <param name="MessageToLog">Message value to log out for our log string</param>
+        /// <param name="EntryHeader">Optional log line heading value</param>
+        public void PassThruWriteLog_A(string MessageToLog, string EntryHeader = null)
+        {
+            // Invoke the write log method based on the header value provided
+            if (EntryHeader == null) _delegateSet.PTWriteLogA(MessageToLog);
+            else _delegateSet.PTWriteLogA.Invoke($"{EntryHeader}{MessageToLog}");
+        }
+        /// <summary>
+        /// Logs a new message value using the PTWriteLogW call
+        /// </summary>
+        /// <param name="MessageToLog"></param>
+        /// <param name="EntryHeader">Optional log line heading value</param>
+        public void PassThruWriteLog_W(string MessageToLog, string EntryHeader = null)
+        {
+            // Invoke the write log method based on the header value provided
+            if (EntryHeader == null) _delegateSet.PTWriteLogW(MessageToLog);
+            else _delegateSet.PTWriteLogW.Invoke($"{EntryHeader}{MessageToLog}");
         }
     }
 }

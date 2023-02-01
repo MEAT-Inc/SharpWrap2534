@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpWrapper.J2534Objects
 {
@@ -11,7 +10,7 @@ namespace SharpWrapper.J2534Objects
     public class J2534PeriodicMessage : IComparable
     {
         // Message Status.
-        public PTInstanceStatus MessageStatus;
+        public SharpSessionStatus MessageStatus;
 
         // Message values.
         public uint MessageId;
@@ -23,7 +22,7 @@ namespace SharpWrapper.J2534Objects
         /// <summary>
         /// Builds and empty PTPeriodic Message object.
         /// </summary>
-        public J2534PeriodicMessage() { MessageStatus = PTInstanceStatus.NULL; }
+        public J2534PeriodicMessage() { MessageStatus = SharpSessionStatus.NULL; }
         /// <summary>
         /// Builds a new message.
         /// </summary>
@@ -38,7 +37,7 @@ namespace SharpWrapper.J2534Objects
             this.MessageId = MessageId;
 
             // Set Status
-            MessageStatus = PTInstanceStatus.INITIALIZED;
+            MessageStatus = SharpSessionStatus.INITIALIZED;
         }
 
         // ----------------------------------- OVERRIDES FOR STRING AND COMPARISON ----------------------------------------

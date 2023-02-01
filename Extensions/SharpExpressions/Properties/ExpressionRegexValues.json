@@ -1,0 +1,96 @@
+{
+  "ExpressionRegexValues": [
+    {
+      "RegexName": "PTOpen Regex",
+      "RegexPattern": "(PTOpen)\\(([^,]+),\\s+([^,)]+)\\) *GROUPS_(2,3)*"
+    },
+    {
+      "RegexName": "PTClose Regex",
+      "RegexPattern": "(PTClose)\\((\\d+)\\) *GROUPS_(2)*"
+    },
+    {
+      "RegexName": "PTConnect Regex",
+      "RegexPattern": "(PTConnect)\\((\\d+),\\s+([^,]+),\\s([^,]+),\\s+([^,]+),\\s+([^)]+)\\) *GROUPS_(2,3,4,5,6)*"
+    },
+    {
+      "RegexName": "PTDisconnect Regex",
+      "RegexPattern": "(PTDisconnect)\\((\\d+)\\) *GROUPS_(2)*"
+    },
+    {
+      "RegexName": "PTReadMsgs Regex",
+      "RegexPattern": "(PTReadMsgs)\\((\\d+),\\s+([^,]+),\\s+([^,]+),\\s+(\\d+)\\) *GROUPS_(2,3,4,5)*"
+    },
+    {
+      "RegexName": "PTWriteMsgs Regex",
+      "RegexPattern": "(PTWriteMsgs)\\((\\d+),\\s+([^,]+),\\s+([^,]+),\\s+(\\d+)\\) *GROUPS_(2,3,4,5)*"
+    },
+    {
+      "RegexName": "PTStartMsgFilter Regex",
+      "RegexPattern": "(PTStartMsgFilter)\\((\\d+),\\s+([^,]+),\\s+([^,]+),\\s+([^,]+),\\s+([^,]+),\\s+([^)]+)\\) *GROUPS_(2,3,4,5,6,7)*"
+    },
+    {
+      "RegexName": "PTStopMsgFilter Regex",
+      "RegexPattern": "(PTStopMsgFilter)\\((\\d+)\\s{0,},\\s{0,}(\\d+)\\) *GROUPS_(2,3)*"
+    },
+    {
+      "RegexName": "PTIoctl Regex",
+      "RegexPattern": "(PTIoctl)\\((\\d+),\\s+([^,]+),\\s+([^,]+),\\s+([^\\)]+)\\) *GROUPS_(2,3,4,5)*"
+    },
+    {
+      "RegexName": "Command Time Regex",
+      "RegexPattern": "(\\+\\+|--|!!|\\*\\*|>>|<<)\\s+(\\d+\\.\\d+s)\\s(PT[^\\(]+) *GROUPS_(2)*"
+    },
+    {
+      "RegexName": "Command Parameter Info Regex",
+      "RegexPattern": "PT[^\\(]+(\\([^\\)]+\\)) *GROUPS_(1)*"
+    },
+    {
+      "RegexName": "Command Status Regex",
+      "RegexPattern": "(\\d+\\.\\d+s)\\s+(\\d+:[^\\r]+) *GROUPS_(2)*"
+    },
+    {
+      "RegexName": "Device ID Regex",
+      "RegexPattern": "returning DeviceID(:|) (\\d+) *GROUPS_(2)*"
+    },
+    {
+      "RegexName": "Channel ID Regex",
+      "RegexPattern": "returning ChannelID(:|) (\\d+) *GROUPS_(2)*"
+    },
+    {
+      "RegexName": "Filter ID Regex",
+      "RegexPattern": "returning FilterID(:|) (\\d+) *GROUPS_(2)*"
+    },
+    {
+      "RegexName": "Message Count Regex",
+      "RegexPattern": "(?>[Ss]ent|[Rr]ead|[Qq]ueued) (\\d+)(?>\\/| of )(\\d) *GROUPS_(1,2)*"
+    },
+    {
+      "RegexName": "Message Data Regex",
+      "RegexPattern": "(?>\\\\__\\s+|\\s{4,})((?>[\\[a-fA-F0-9\\]]{2,4}|[\\r\\n\\s]+\\s+)+) *GROUPS_(1)*"
+    },
+    {
+      "RegexName": "Message Sent Info Regex",
+      "RegexPattern": "Msg\\[\\s{0,}(?<MessageIndex>\\d+)\\s{0,}\\]\\s+(?<ProtocolId>\\d+:[^.]+)\\.\\s+(?<MessageDataSize>\\d+ bytes)\\.\\s+(?<TxFlags>(?>TxF=[^\\r\\n]+)(?>\\n|\\r)|)\\s+(?>TxFlags: (?<TxFlagDefinitions>(?>{|)[^\\r\\n}]+(?>}|\\n|\\r))\\s+|)(?>\\\\__|\\s{5,})\\s+(?<MessageData>(?>[0-9a-fA-F\\s])+) *GROUPS_(1,2,3,4,5,6)*"
+    },
+    {
+      "RegexName": "Message Read Info Regex",
+      "RegexPattern": "Msg\\[\\s{0,}(?<MessageIndex>\\d+)\\s{0,}\\]\\s+(?<MessageTime>\\d+\\.\\d+s)\\.\\s+(?<ProtocolId>\\d+:[^.]+)\\. Actual data (?<MessageDataSize>\\d+ of \\d+ bytes)\\.\\s+(?<RxStatus>RxS=[^\\r\\n]+)(?>\\n|\\r)\\s+(?>RxStatus: (?<RxStatusDefinitions>[^\\r\\n]+)|)\\s+(?>\\\\__|\\s{5,})\\s+(?<MessageData>(?>[0-9A-Fa-f]{2}\\s{1,10})+|[\\[\\]0-9a-fA-F]+) *GROUPS_(1,2,3,4,5,6,7)*"
+    },
+    {
+      "RegexName": "Message Filter Info Regex",
+      "RegexPattern": "(?<FilterType>Mask|Pattern|FlowControl)\\[\\s{0,}(?<MessageNumber>\\d+)\\s{0,}\\]\\s+(?<ProtocolId>\\d+:[^.]+)\\.\\s+(?<MessageDataSize>\\d+ bytes)\\.\\s+(?<TxFlags>TxF=[^\\r\\n]+)(?>\\r|\\n)\\s+(?>TxFlags: (?>{|)(?<FlagDefinitions>[^\\r\\n}]+)|)(?>}\\s+|\\s+)\\\\__\\s+(?<FilterData>[0-9a-fA-F ]+) *GROUPS_(1,2,3,4,5,6,7)*"
+    },
+    {
+      "RegexName": "Ioctl Parameter Info Regex",
+      "RegexPattern": "\\s+(\\d+ parameter\\(s\\)) at ([^:]+):\\r(\\s+(?>\\d+:[^\\s]+\\s+=\\s+[^\\r\\r]+\\s+)+) *GROUPS_(1,2,3)*"
+    },
+    {
+      "RegexName": "Import Expressions Split Regex",
+      "RegexPattern": "=+\n\n=+ *GROUPS_(0)*"
+    },
+    {
+      "RegexName": "Import Expressions Replace Regex",
+      "RegexPattern": "=+|\\+=+\\+\\s+(?>\\|[^\\r\\n]+\\s+)+\\+=+\\+\\s+ *GROUPS_(0)*"
+    }
+  ]
+}

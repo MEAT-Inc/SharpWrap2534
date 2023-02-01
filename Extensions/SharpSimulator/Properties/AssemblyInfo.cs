@@ -5,22 +5,21 @@ using System.Runtime.InteropServices;
 using System.Resources;
 
 // General Information
-[assembly: AssemblyTitle("SharpWrapper")]
-[assembly: AssemblyDescription("A J2534 wrapper for any PassThru device")]
+[assembly: AssemblyTitle("SharpSimulator")]
+[assembly: AssemblyDescription("An Simulation Loading and Plyaing extension set for the SharpWrap project")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MEAT Inc")]
-[assembly: AssemblyProduct("SharpWrapper")]
-[assembly: AssemblyCopyright("Copyright ©MEAT Inc 2021")]
+[assembly: AssemblyProduct("SharpSimulator")]
+[assembly: AssemblyCopyright("Copyright ©MEAT Inc 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Internal Visibility for testing
 [assembly: ComVisible(false)]
-[assembly: Guid("e4508bd6-9045-4840-a659-be40cc205c78")]
-[assembly: InternalsVisibleTo("SharpWrap2534Tests")]
+[assembly: Guid("183F7A6A-E107-4209-8A11-044A08DEAEE4")]
 
 // Version information
-[assembly: AssemblyVersion("5.3.6.402")]
-[assembly: AssemblyFileVersion("5.3.6.402")]
+[assembly: AssemblyVersion("0.9.1.175")]
+[assembly: AssemblyFileVersion("0.9.1.175")]
 [assembly: NeutralResourcesLanguageAttribute( "en-US" )]
 

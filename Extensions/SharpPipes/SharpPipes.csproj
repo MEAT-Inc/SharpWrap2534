@@ -54,8 +54,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FulcrumShim_Debug.dll" />
-    <Content Include="FulcrumShim_Release.dll" />
     <Content Include="Properties\AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
@@ -78,8 +76,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(ProjectDir)\FulcrumShim_$(ConfigurationName).dll" "$(TargetDir)\FulcrumShim.dll"
-copy /Y  "$(TargetDir)*" "$(ProjectDir)$(ProjectName)Nuget\lib\net472"</PostBuildEvent>
+    <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)$(ProjectName)Nuget\lib\net472"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>"$(DevEnvDir)\TextTransform.exe" -a !!build!true "$(ProjectDir)Properties\AssemblyInfo.tt"</PreBuildEvent>

@@ -131,6 +131,21 @@ namespace SharpWrapper.PassThruImport
         public delegate int DelegatePassThruQueueMsgs(uint ChannelId, [In] PassThruStructsNative.PASSTHRU_MSG[] MessagePointer, ref uint MessageCount);
         public DelegatePassThruQueueMsgs PTQueueMsgs;
 
-        // -------------------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------- API DELEGATES FOR FULCRUM SHIM LOGGING FUNCTIONS -------------------------------------
+
+        // PT Write Log Append Method object
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePTWriteLogA([MarshalAs(UnmanagedType.LPStr)] string MessageValue);
+        public DelegatePTWriteLogA PTWriteLogA;
+
+        // PT Write Log Write Method object
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePTWriteLogW([MarshalAs(UnmanagedType.LPWStr)] string MessageValue);
+        public DelegatePTWriteLogW PTWriteLogW;
+
+        // PT Save Log Method object
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate int DelegatePTSaveLog([MarshalAs(UnmanagedType.LPWStr)] string LogFilePath);
+        public DelegatePTSaveLog PTSaveLog;
     }
 }

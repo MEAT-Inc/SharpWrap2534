@@ -627,5 +627,39 @@ namespace SharpWrapper.J2534Api
             // Throw exception here.
             throw new PassThruException(PTCommandError, ErrorBuilder);
         }
+
+        // ------------------------------------- FULCRUM SHIM DLL LOGGING CALLS (MARSHALL RELAY) -------------------------------------
+
+        /// <summary>
+        /// Saves a log file buffer to a given file path
+        /// </summary>
+        /// <param name="LogFilePath">Path to save log file into</param>
+        public void PassThruSaveLog(string LogFilePath)
+        {
+            // Issue our save log file delegate command and exit out
+            _delegateSet.PTSaveLog(LogFilePath);
+        }
+        /// <summary>
+        /// Logs a new message value using the PTWriteLogA call
+        /// </summary>
+        /// <param name="MessageToLog">Message value to log out for our log string</param>
+        /// <param name="EntryHeader">Optional log line heading value</param>
+        public void PassThruWriteLog_A(string MessageToLog, string EntryHeader = null)
+        {
+            // Invoke the write log method based on the header value provided
+            if (EntryHeader == null) _delegateSet.PTWriteLogA(MessageToLog);
+            else _delegateSet.PTWriteLogA.Invoke($"{EntryHeader}{MessageToLog}");
+        }
+        /// <summary>
+        /// Logs a new message value using the PTWriteLogW call
+        /// </summary>
+        /// <param name="MessageToLog"></param>
+        /// <param name="EntryHeader">Optional log line heading value</param>
+        public void PassThruWriteLog_W(string MessageToLog, string EntryHeader = null)
+        {
+            // Invoke the write log method based on the header value provided
+            if (EntryHeader == null) _delegateSet.PTWriteLogW(MessageToLog);
+            else _delegateSet.PTWriteLogW.Invoke($"{EntryHeader}{MessageToLog}");
+        }
     }
 }

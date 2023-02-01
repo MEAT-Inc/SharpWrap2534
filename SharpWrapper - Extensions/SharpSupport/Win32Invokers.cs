@@ -19,5 +19,9 @@ namespace SharpSupport
         // Unloads the lib object.
         [DllImport("kernel32.dll", EntryPoint = "FreeLibrary")]
         public static extern bool FreeLibrary(IntPtr hModule);
+
+        // Get the error from the import call
+        [DllImport("kernel32.dll")]
+        internal static extern uint GetLastError();
     }
 }

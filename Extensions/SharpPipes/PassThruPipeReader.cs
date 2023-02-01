@@ -30,9 +30,9 @@ namespace SharpPipes
         private readonly NamedPipeClientStream _fulcrumPipe;
 
         // Default value for pipe processing buffer
-        private static int DefaultBufferValue = 10240;
-        private static int DefaultReadingTimeout = 100;
-        private static int DefaultConnectionTimeout = 10000;
+        public static int DefaultBufferValue = 10240;
+        public static int DefaultReadingTimeout = 100;
+        public static int DefaultConnectionTimeout = 10000;
 
         // Task objects for monitoring background readers
         private CancellationTokenSource _asyncConnectionTokenSource;
@@ -74,9 +74,6 @@ namespace SharpPipes
             this.PipeLogger.WriteLog($"STORED NEW DEFAULT BUFFER SIZE VALUE OK! VALUE STORED IS: {DefaultBufferValue}", LogType.WarnLog);
             this.PipeLogger.WriteLog($"STORED NEW CONNECTION TIMEOUT VALUE OK! VALUE STORED IS: {DefaultConnectionTimeout}", LogType.WarnLog);
             this.PipeLogger.WriteLog($"STORED NEW READ OPERATION TIMEOUT VALUE OK! VALUE STORED IS: {DefaultReadingTimeout}", LogType.WarnLog);
-
-            // Build our new pipe instance here and wait for it to update a state value at some point
-            this.StartPipeConnectionAsync();
         }
         /// <summary>
         /// Singleton constructor for the PassThruReader pipe type.
@@ -84,7 +81,7 @@ namespace SharpPipes
         /// <param name="ConnectionTask">The async task used to connect to our pipe instance.</param>
         /// <returns>A built pipe reader instance which is being used to connect</returns>
         /// <exception cref="InvalidOperationException">Thrown when the pipe instance built appears to be null</exception>
-        public static PassThruPipeReader AllocatePipe(out Task<bool> ConnectionTask)
+        public static PassThruPipeReader AllocatePipe()
         {
             // Configure a new lazy reader instance if needed
             if (_lazyReader == null)
@@ -101,9 +98,6 @@ namespace SharpPipes
             }
 
             // Reset Pipe here if needed and invoke a new connection task if needed
-            ConnectionTask = null;
-            if (_pipeInstance.PipeState != PassThruPipeStates.Connected) { ConnectionTask = _pipeInstance.StartPipeConnectionAsync(); }
-            else { _pipeInstance.PipeLogger.WriteLog("WRITER PIPE WAS ALREADY CONNECTED! NOT RECONFIGURING IT!", LogType.WarnLog); }
             return _pipeInstance;
         }
 
@@ -125,7 +119,7 @@ namespace SharpPipes
                         : "PIPE WAS ALREADY CONNECTED! RETURNING OUT NOW...", LogType.WarnLog);
 
                 // Exit this method
-                return default;
+                return new Task<bool>(() => false);
             }
 
             // Build task token objects
@@ -180,7 +174,7 @@ namespace SharpPipes
                     this.PipeLogger.WriteLog("CONNECTED NEW SERVER INSTANCE TO OUR READER!", LogType.WarnLog);
                     this.PipeLogger.WriteLog($"PIPE SERVER CONNECTED TO FULCRUM PIPER {this.PipeTypes} OK!", LogType.InfoLog);
 
-                    // Now boot the reader process.
+                    // Now boot the reader process
                     this.StartReadPipeDataAsync();
                 }
 

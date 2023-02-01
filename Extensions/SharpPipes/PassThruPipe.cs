@@ -156,18 +156,16 @@ namespace SharpPipes
         /// Builds and returns a new pipe instance based on the Pipe type value provided
         /// </summary>
         /// <param name="PipeType">The type of pipe we wish to use for this routine</param>
-        /// <param name="ConnectionTask">The running async connection routine used to help find when pipes connect</param>
         /// <returns>A newly built PassThruPipe (Reader or writer) based on the type value provided</returns>
         /// <exception cref="InvalidCastException">Thrown when the pipe type provided is impossible</exception>
-        public static PassThruPipe AllocatePipe(PassThruPipeTypes PipeType, out Task<bool> ConnectionTask)
+        public static PassThruPipe AllocatePipe(PassThruPipeTypes PipeType)
         {
             // Build and return out the connection task object based on the pipe helper type
-            ConnectionTask = null;
             return PipeType switch
             {
                 // See if we're a reader or writer pipe first
-                PassThruPipeTypes.ReaderPipe => PassThruPipeReader.AllocatePipe(out ConnectionTask),
-                PassThruPipeTypes.WriterPipe => PassThruPipeWriter.AllocatePipe(out ConnectionTask),
+                PassThruPipeTypes.ReaderPipe => PassThruPipeReader.AllocatePipe(),
+                PassThruPipeTypes.WriterPipe => PassThruPipeWriter.AllocatePipe(),
                 _ => throw new InvalidCastException("Error! Pipe object did not have a defined Reader or Writer type!")
             };
         }

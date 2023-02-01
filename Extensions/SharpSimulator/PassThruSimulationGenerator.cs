@@ -246,9 +246,12 @@ namespace SharpSimulator
             {
                 // Now Build output string content from each expression object.
                 ExpressionLogger.WriteLog("CONVERTING TO STRINGS NOW...", LogType.WarnLog);
-                string OutputJsonValues = JsonConvert.SerializeObject(this.SimulationChannels, Formatting.Indented);
+                Tuple<uint, PassThruSimulationChannel>[] ChannelsConstructed = this.SimulationChannels
+                    .Select(SimChannel => new Tuple<uint, PassThruSimulationChannel>(SimChannel.ChannelId, SimChannel))
+                    .ToArray();
 
                 // Log information and write output.
+                string OutputJsonValues = JsonConvert.SerializeObject(ChannelsConstructed, Formatting.Indented);
                 ExpressionLogger.WriteLog($"CONVERTED INPUT OBJECTS INTO A JSON OUTPUT STRING OK!", LogType.WarnLog);
                 ExpressionLogger.WriteLog("WRITING OUTPUT CONTENTS NOW...", LogType.WarnLog);
                 File.WriteAllText(FinalOutputPath, OutputJsonValues);

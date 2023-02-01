@@ -22,7 +22,7 @@ namespace SharpPipes
         private CancellationTokenSource _asyncConnectionTokenSource;
 
         // Singleton configuration to avoid building more than one instance of 
-        public static PassThruPipeWriter PipeInstance;
+        private static PassThruPipeWriter _pipeInstance;
         private static Lazy<PassThruPipeWriter> _lazyReader;
 
         #endregion // Fields
@@ -68,30 +68,26 @@ namespace SharpPipes
         /// <summary>
         /// Singleton constructor for the PassThrWriter pipe type.
         /// </summary>
-        /// <param name="ConnectionTask">The async task used to connect to our pipe instance.</param>
         /// <returns>A built pipe reader instance which is being used to connect</returns>
         /// <exception cref="InvalidOperationException">Thrown when the pipe instance built appears to be null</exception>
-        public static PassThruPipeWriter AllocatePipe(out Task<bool> ConnectionTask)
+        public static PassThruPipeWriter AllocatePipe()
         {
             // Configure a new lazy reader instance if needed
             if (_lazyReader == null)
             {
                 // Build a new lazy reader and store the value of it as our reader instance
                 _lazyReader = new(() => new PassThruPipeWriter());
-                PipeInstance = _lazyReader.Value;
+                _pipeInstance = _lazyReader.Value;
             }
-            if (PipeInstance == null)
+            if (_pipeInstance == null)
             {
                 // Store the pipe type and log the issue out 
                 string PipeType = _lazyReader.Value.GetType().Name;
                 throw new InvalidOperationException($"Error! Failed to create new pipe instance for type {PipeType}!");
             }
 
-            // Reset Pipe here if needed and can
-            ConnectionTask = null;
-            if (PipeInstance.PipeState != PassThruPipeStates.Connected) { PipeInstance.StartPipeConnectionAsync().Wait(); }
-            else { PipeInstance.PipeLogger.WriteLog("WRITER PIPE WAS ALREADY CONNECTED! NOT RECONFIGURING IT!", LogType.WarnLog); }
-            return PipeInstance;
+            // Return out the newly build pipe instance here
+            return _pipeInstance;
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------

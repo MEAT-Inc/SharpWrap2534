@@ -13,7 +13,7 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruStartMessageFilterExpression : PassThruExpression
     {
         // Regex for the stop message filter command (PTStartMsgFilter) and the filter ID started 
-        public readonly PassThruRegex FilterIdReturnedRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.FilterId];
+        public readonly PassThruRegex FilterIdReturnedRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.FilterID];
         public readonly PassThruRegex PtStartMsgFilterRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTStartMsgFilter];
 
         // Strings of the command and results from the command output.

@@ -41,7 +41,7 @@
       "RegexPattern": "(\\+\\+|--|!!|\\*\\*|>>|<<)\\s+(\\d+\\.\\d+s)\\s(PT[^\\(]+) *GROUPS_(2)*"
     },
     {
-      "RegexName": "Command Parameter Regex",
+      "RegexName": "Command Parameter Info Regex",
       "RegexPattern": "PT[^\\(]+(\\([^\\)]+\\)) *GROUPS_(1)*"
     },
     {

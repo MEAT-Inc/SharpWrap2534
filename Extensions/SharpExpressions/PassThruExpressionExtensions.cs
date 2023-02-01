@@ -262,7 +262,7 @@ namespace SharpExpressions
             }
 
             // Try and parse out the IOCTL Command objects from the input strings here.
-            var IoctlRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.IoctlParamInfo];
+            var IoctlRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.IoctlParameterInfo];
             bool IoctlResults = IoctlRegex.Evaluate(ExpressionObject.CommandLines, out var IoctlResultStrings);
             if (!IoctlResults)
             {

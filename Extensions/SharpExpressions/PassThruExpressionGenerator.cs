@@ -108,8 +108,8 @@ namespace SharpExpressions
         public static PassThruExpressionsGenerator LoadExpressionsFile(string ExpressionsFile)
         {
             // Convert the input expressions file into a log file and build a generator from it
-            string SplitPattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.SplitExpImport].ExpressionPattern;
-            string ReplacePattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.ReplaceExpImport].ExpressionPattern;
+            string SplitPattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.ImportExpressionsSplit].ExpressionPattern;
+            string ReplacePattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.ImportExpressionsReplace].ExpressionPattern;
 
             // Read the contents of the file and store them. Split them out based on the expression splitting line entries
             string InputExpressionContent = File.ReadAllText(ExpressionsFile);

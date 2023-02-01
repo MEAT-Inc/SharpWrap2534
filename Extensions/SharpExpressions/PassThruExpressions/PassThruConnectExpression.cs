@@ -14,7 +14,7 @@ namespace SharpExpressions.PassThruExpressions
     {
         // Regex for the connect channel command (PTConnect) and the channel ID returned
         public readonly PassThruRegex PtConnectRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTConnect];
-        public readonly PassThruRegex ChannelIdRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.ChannelId];
+        public readonly PassThruRegex ChannelIdRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.ChannelID];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;

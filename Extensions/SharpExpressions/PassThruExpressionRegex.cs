@@ -90,7 +90,7 @@ namespace SharpExpressions
                 LoadedJsonObject = JObject.Parse(RescReader.ReadToEnd());
 
             // Iterate through all the objects found in the JArray of settings values and store them all on our share object
-            JArray LoadedRegexArray = JArray.FromObject(LoadedJsonObject);
+            JArray LoadedRegexArray = JArray.FromObject(LoadedJsonObject["ExpressionRegexValues"]);
             foreach (var RegexJToken in LoadedRegexArray)
             {
                 // Store the name of the regex and get the pattern for it now
@@ -101,10 +101,8 @@ namespace SharpExpressions
                 // Parse out the group values and and the pattern itself. Then build a new regex model object
                 string FullGroupsString = RegexGroups.Groups[1].Value;
                 int[] GroupValues = FullGroupsString.Split(',').Select(int.Parse).ToArray();
-                string RegexPattern = RegexGroups.Groups[0].Value.Replace(FullGroupsString, string.Empty).Trim();
-                string ExpressionTypeString = RegexName
-                    .Replace("Regex", string.Empty)
-                    .Replace(" ", string.Empty);
+                string RegexPattern = $"{RegexValue.Replace(RegexGroups.Value, string.Empty)}";
+                string ExpressionTypeString = RegexName.Replace("Regex", string.Empty).Replace(" ", string.Empty);
 
                 // Now build the expression type string value to pull in an enum type for the regex and store it on our dictionary
                 Enum.TryParse(ExpressionTypeString, out PassThruExpressionType ExpressionType);

@@ -32,22 +32,22 @@ namespace SharpExpressions
         // TODO: Write PassThruGetLastError (Not needed for Sims)
 
         // Expression types for the different supporting Regex objects used to pull command values
-        [EnumMember(Value = "Filter ID")] FilterId,                       // Supporting regex for filter ID values returned
-        [EnumMember(Value = "Device ID")] DeviceId,                       // Supporting regex for Device ID values returned
-        [EnumMember(Value = "Channel ID")] ChannelId,                     // Supporting regex for channel ID values returned
-        [EnumMember(Value = "Message Data")] MessageData,                 // Supporting regex for message data read or sent
-        [EnumMember(Value = "Command Time")] CommandTime,                 // Supporting regex for time commands were issued
-        [EnumMember(Value = "Message Count")] MessageCount,               // Supporting regex for message counts
-        [EnumMember(Value = "Command Status")] CommandStatus,             // Supporting regex for command status values
-        [EnumMember(Value = "Command Parameter")] CommandParams,          // Supporting regex for the parameters of a command
-        [EnumMember(Value = "Message Sent Info")] MessageSentInfo,        // Supporting regex for sent message objects
-        [EnumMember(Value = "Message Read Info")] MessageReadInfo,        // Supporting regex for read message objects
-        [EnumMember(Value = "Ioctl Parameter Info")] IoctlParamInfo,      // Supporting regex for PTIoctl parameter objects
-        [EnumMember(Value = "Message Filter Info")] MessageFilterInfo,    // Supporting regex for message filter objects
+        [EnumMember(Value = "Filter ID")] FilterID,                              // Supporting regex for filter ID values returned
+        [EnumMember(Value = "Device ID")] DeviceID,                              // Supporting regex for Device ID values returned
+        [EnumMember(Value = "Channel ID")] ChannelID,                            // Supporting regex for channel ID values returned
+        [EnumMember(Value = "Message Data")] MessageData,                        // Supporting regex for message data read or sent
+        [EnumMember(Value = "Command Time")] CommandTime,                        // Supporting regex for time commands were issued
+        [EnumMember(Value = "Message Count")] MessageCount,                      // Supporting regex for message counts
+        [EnumMember(Value = "Command Status")] CommandStatus,                    // Supporting regex for command status values
+        [EnumMember(Value = "Message Sent Info")] MessageSentInfo,               // Supporting regex for sent message objects
+        [EnumMember(Value = "Message Read Info")] MessageReadInfo,               // Supporting regex for read message objects
+        [EnumMember(Value = "Message Filter Info")] MessageFilterInfo,           // Supporting regex for message filter objects
+        [EnumMember(Value = "Ioctl Parameter Info")] IoctlParameterInfo,         // Supporting regex for PTIoctl parameter objects
+        [EnumMember(Value = "Command Parameter Info")] CommandParameterInfo,     // Supporting regex for the parameters of a command
 
         // Expression types used for importing existing expressions files
-        [EnumMember(Value = "Import Expressions Split")] SplitExpImport,      // Supporting regex for splitting input expression file content
-        [EnumMember(Value = "Import Expressions Split")] ReplaceExpImport,    // Supporting regex for replacing content in an imported expression set
+        [EnumMember(Value = "Import Expressions Split")] ImportExpressionsSplit,        // Supporting regex for splitting input expression file content
+        [EnumMember(Value = "Import Expressions Replace")] ImportExpressionsReplace,    // Supporting regex for replacing content in imported expressions
     }
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------

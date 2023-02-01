@@ -12,7 +12,7 @@ namespace SharpExpressions.PassThruExpressions
     {
         // Regex for the open device command (PTOpen) and the properties of the device processed
         public readonly PassThruRegex PtOpenRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTOpen];
-        public readonly PassThruRegex DeviceIdRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.DeviceId];
+        public readonly PassThruRegex DeviceIdRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.DeviceID];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;

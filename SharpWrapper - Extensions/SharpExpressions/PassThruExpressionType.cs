@@ -39,6 +39,7 @@ namespace SharpExpressions
         [EnumMember(Value = "Command Time")] CommandTime,                 // Supporting regex for time commands were issued
         [EnumMember(Value = "Message Count")] MessageCount,               // Supporting regex for message counts
         [EnumMember(Value = "Command Status")] CommandStatus,             // Supporting regex for command status values
+        [EnumMember(Value = "Command Parameter")] CommandParams,          // Supporting regex for the parameters of a command
         [EnumMember(Value = "Message Sent Info")] MessageSentInfo,        // Supporting regex for sent message objects
         [EnumMember(Value = "Message Read Info")] MessageReadInfo,        // Supporting regex for read message objects
         [EnumMember(Value = "Ioctl Parameter Info")] IoctlParamInfo,      // Supporting regex for PTIoctl parameter objects

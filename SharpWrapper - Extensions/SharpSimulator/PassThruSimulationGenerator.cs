@@ -19,7 +19,7 @@ namespace SharpSimulator
     /// <summary>
     /// Takes a set of PT Expression objects and converts them into simulation ready commands.
     /// </summary>
-    public class SimulationGenerator
+    public class PassThruSimulationGenerator
     {
         #region Custom Events
         
@@ -43,7 +43,7 @@ namespace SharpSimulator
         public string SimulationFile { get; private set; }
 
         // Built dictionary objects that are used to help configure the simulations
-        public SimulationChannel[] SimulationChannels { get; private set; }
+        public PassThruSimulationChannel[] SimulationChannels { get; private set; }
         public PassThruExpression[] ExpressionsLoaded { get; private set; }
 
         // Properties of all channels for the simulation that have been built out from this generator
@@ -53,7 +53,7 @@ namespace SharpSimulator
         public J2534Filter[][] ChannelFilters => this.SimulationChannels.Select(SimChannel => SimChannel.MessageFilters).ToArray();
 
         // Message pairing collections holding information about all messages read or written for a simulation
-        public SimulationChannel.SimulationMessagePair[][] PairedSimulationMessages => this.SimulationChannels
+        public PassThruSimulationChannel.SimulationMessagePair[][] PairedSimulationMessages => this.SimulationChannels
             .Select(SimChannel => SimChannel.MessagePairs)
             .ToArray();
         public PassThruStructs.PassThruMsg[] MessagesToRead => (PassThruStructs.PassThruMsg[])PairedSimulationMessages
@@ -102,7 +102,7 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="PassThruLogName">Name of the simulation to use for writing our output</param>
         /// <param name="GeneratedExpressions">The expressions to be used for building our simulation</param>
-        public SimulationGenerator(string PassThruLogName, IEnumerable<PassThruExpression> GeneratedExpressions)
+        public PassThruSimulationGenerator(string PassThruLogName, IEnumerable<PassThruExpression> GeneratedExpressions)
         {
             // Store the name of the simulation and configure our logger
             this.PassThruLogFile = PassThruLogName;
@@ -122,7 +122,7 @@ namespace SharpSimulator
         /// This is used only by the static CTORs to allow easier configuration of simulations based on log files
         /// </summary>
         /// <param name="GeneratorToSimulate">The built expressions generator which should hold all expression objects</param>
-        private SimulationGenerator(PassThruExpressionsGenerator GeneratorToSimulate)
+        private PassThruSimulationGenerator(PassThruExpressionsGenerator GeneratorToSimulate)
         {
             // Store the expressions file name/path and convert it into a collection of expressions
             this.PassThruLogFile = GeneratorToSimulate.PassThruLogFile;
@@ -142,22 +142,22 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="PassThruLogFile">The log file to load into expressions. This MUST be a normal PassThru log!</param>
         /// <returns>A new simulation generator ready to load all content inside of the input log file</returns>
-        public static SimulationGenerator LoadPassThruLogFile(string PassThruLogFile)
+        public static PassThruSimulationGenerator LoadPassThruLogFile(string PassThruLogFile)
         {
             // Build an expressions generator and then use it to build a new simulation generator
             var ExpressionGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(PassThruLogFile);
-            return new SimulationGenerator(ExpressionGenerator);
+            return new PassThruSimulationGenerator(ExpressionGenerator);
         }
         /// <summary>
         /// Spawns a new SimulationGenerator from a PassThru expressions file
         /// </summary>
         /// <param name="ExpressionsFile">The expressions file to load and convert. This MUST be an Expressions log!</param>
         /// <returns>A new simulation generator ready to load all content inside of the input expressions file</returns>
-        public static SimulationGenerator LoadExpressionsFile(string ExpressionsFile)
+        public static PassThruSimulationGenerator LoadExpressionsFile(string ExpressionsFile)
         {
             // Build an expressions generator and then use it to build a new simulation generator
             var ExpressionGenerator = PassThruExpressionsGenerator.LoadExpressionsFile(ExpressionsFile);
-            return new SimulationGenerator(ExpressionGenerator);
+            return new PassThruSimulationGenerator(ExpressionGenerator);
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
@@ -167,13 +167,13 @@ namespace SharpSimulator
         /// These are then written to a file for our simulation output
         /// </summary>
         /// <returns>The collection of built simulation channels from our log file</returns>
-        public SimulationChannel[] GenerateLogSimulation()
+        public PassThruSimulationChannel[] GenerateLogSimulation()
         {
             // Start by pulling in our grouped simulation channel objects
             var GroupedExpressions = this._generateGroupedIds();
 
             // Build a dictionary for return output objects and log we're starting to update our values
-            var SimChannelsBuilt = new Dictionary<uint, SimulationChannel>();
+            var SimChannelsBuilt = new Dictionary<uint, PassThruSimulationChannel>();
             this._simulationLogger.WriteLog("BUILDING CHANNEL OBJECTS FROM CHANNEL ID VALUES NOW...", LogType.WarnLog);
 
             // Loop all the expression sets built in parallel and generate a simulation channel for them
@@ -185,7 +185,7 @@ namespace SharpSimulator
                     // Pull the Channel ID and the expression objects here and build a channel from it
                     uint SimChannelId = ExpressionSet.Key;
                     PassThruExpression[] ChannelExpressions = ExpressionSet.Value;
-                    SimulationChannel BuiltChannel = ChannelExpressions.BuildChannelsFromExpressions(SimChannelId);
+                    PassThruSimulationChannel BuiltChannel = ChannelExpressions.BuildChannelsFromExpressions(SimChannelId);
 
                     // If our channel object is not null, then store it on our output collection now
                     if (BuiltChannel != null)

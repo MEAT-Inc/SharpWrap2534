@@ -10,14 +10,14 @@ namespace SharpSimulator.SupportingLogic
     /// <summary>
     /// Class used to convert Simulation channels into readable format in JSON
     /// </summary>
-    internal class SimulationChannelJsonConverter: JsonConverter
+    internal class PassThruSimChannelJsonConverter: JsonConverter
     {
         /// <summary>
         /// Sets if we can convert the input object or not.
         /// </summary>
         /// <param name="ObjectType"></param>
         /// <returns></returns>
-        public override bool CanConvert(Type ObjectType) { return ObjectType == typeof(SimulationChannel); }
+        public override bool CanConvert(Type ObjectType) { return ObjectType == typeof(PassThruSimulationChannel); }
 
         /// <summary>
         /// Writes a J2534 Filter object to JSON
@@ -29,7 +29,7 @@ namespace SharpSimulator.SupportingLogic
         {
             // Check if value object is null. Build output
             if (ValueObject == null) return;
-            SimulationChannel CastChannel = (SimulationChannel)ValueObject;
+            PassThruSimulationChannel CastChannel = (PassThruSimulationChannel)ValueObject;
 
             // Pull out the values for the channel and format them as desired
             string ProtocolString = CastChannel.ChannelProtocol.ToString();
@@ -84,12 +84,12 @@ namespace SharpSimulator.SupportingLogic
             // Basic pulled uint values and other 
             uint IdRead = InputObject["ChannelId"].Value<uint>();
             J2534Filter[] FiltersRead = InputObject["MessageFilters"].ToObject<J2534Filter[]>();
-            SimulationChannel.SimulationMessagePair[] PairsRead = InputObject["MessagePairs"].ToObject<SimulationChannel.SimulationMessagePair[]>();
+            PassThruSimulationChannel.SimulationMessagePair[] PairsRead = InputObject["MessagePairs"].ToObject<PassThruSimulationChannel.SimulationMessagePair[]>();
             PassThruStructs.PassThruMsg[] ReadMessagesSent = InputObject["MessagesSent"].ToObject<PassThruStructs.PassThruMsg[]>();
             PassThruStructs.PassThruMsg[] ReadMessagesRead = InputObject["MessagesRead"].ToObject<PassThruStructs.PassThruMsg[]>();
 
             // Return built output object
-            return new SimulationChannel(IdRead, ProtocolRead, ConnectFlagsRead, BaudRateRead)
+            return new PassThruSimulationChannel(IdRead, ProtocolRead, ConnectFlagsRead, BaudRateRead)
             {
                 // Store channel configuration values here
                 MessageFilters = FiltersRead,

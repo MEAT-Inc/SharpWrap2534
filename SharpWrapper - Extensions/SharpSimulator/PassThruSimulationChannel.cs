@@ -9,8 +9,8 @@ namespace SharpSimulator
     /// <summary>
     /// Simulation Channel object used for easy importing and sharing simulation data
     /// </summary>
-    [JsonConverter(typeof(SimulationChannelJsonConverter))]
-    public class SimulationChannel
+    [JsonConverter(typeof(PassThruSimChannelJsonConverter))]
+    public class PassThruSimulationChannel
     {
         #region Custom Events
         #endregion // Custom Events
@@ -68,7 +68,7 @@ namespace SharpSimulator
         /// Builds a new Channel Simulation object from the given channel ID
         /// </summary>
         /// <param name="ChannelId"></param>
-        public SimulationChannel(uint ChannelId, ProtocolId ProtocolInUse, PassThroughConnect ChannelFlags, BaudRate ChannelBaud)
+        public PassThruSimulationChannel(uint ChannelId, ProtocolId ProtocolInUse, PassThroughConnect ChannelFlags, BaudRate ChannelBaud)
         {
             // Store the Channel ID
             this.ChannelId = (uint)ChannelId;

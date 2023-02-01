@@ -17,7 +17,7 @@ namespace SharpSimulator.SupportingLogic
     /// <summary>
     /// Collection of extension methods for building simulation channels and populating their values
     /// </summary>
-    public static class SimulationChannelExtensions
+    public static class PassThruSimChannelExtensions
     {
         // Logger Object for the expressions extension methods. This should again only be run for exceptions
         private static SubServiceLogger _simExtLogger => (SubServiceLogger)LoggerQueue.SpawnLogger($"SimulationsExtLogger", LoggerActions.SubServiceLogger);
@@ -30,7 +30,7 @@ namespace SharpSimulator.SupportingLogic
         /// <param name="GroupedExpression">Expression set to convert</param>
         /// <param name="ChannelId">ID of the channel object to create</param>
         /// <returns>Builds a channel session object to simulate (converted to JSON)</returns>
-        public static SimulationChannel BuildChannelsFromExpressions(this PassThruExpression[] GroupedExpression, uint ChannelId)
+        public static PassThruSimulationChannel BuildChannelsFromExpressions(this PassThruExpression[] GroupedExpression, uint ChannelId)
         {
             // Find all the PTFilter commands first and invert them.
             var PTConnectCommands = GroupedExpression
@@ -64,7 +64,7 @@ namespace SharpSimulator.SupportingLogic
 
             // Build simulation channel here and return it out
             if (PTReadCommands.Length == 0 || PTWriteCommands.Length == 0) return null;
-            var NextChannel = new SimulationChannel(ChannelId, ProtocolInUse, ChannelFlags, ChannelBaud);
+            var NextChannel = new PassThruSimulationChannel(ChannelId, ProtocolInUse, ChannelFlags, ChannelBaud);
             NextChannel.StoreMessageFilters(PTFilterCommands);
             NextChannel.StoreMessagesRead(PTReadCommands);
             NextChannel.StoreMessagesWritten(PTWriteCommands);
@@ -92,7 +92,7 @@ namespace SharpSimulator.SupportingLogic
         /// </summary>
         /// <param name="ExpressionsToStore">Expressions to extract and store</param>
         /// <returns>The Filters built</returns>
-        public static J2534Filter[] StoreMessageFilters(this SimulationChannel InputChannel, PassThruStartMessageFilterExpression[] ExpressionsToStore)
+        public static J2534Filter[] StoreMessageFilters(this PassThruSimulationChannel InputChannel, PassThruStartMessageFilterExpression[] ExpressionsToStore)
         {
             // Loop each of these filter objects in parallel and update contents.
             List<J2534Filter> BuiltFilters = new List<J2534Filter>();
@@ -106,7 +106,7 @@ namespace SharpSimulator.SupportingLogic
         /// Stores a set of PTWrite Message commands into the current sim channel as messages to READ IN
         /// </summary>
         /// <returns>List of messages stored</returns>
-        public static PassThruStructs.PassThruMsg[] StoreMessagesWritten(this SimulationChannel InputChannel, PassThruWriteMessagesExpression[] ExpressionsToStore)
+        public static PassThruStructs.PassThruMsg[] StoreMessagesWritten(this PassThruSimulationChannel InputChannel, PassThruWriteMessagesExpression[] ExpressionsToStore)
         {
             // Loop each of these filter objects in parallel and update contents.
             List<PassThruStructs.PassThruMsg> BuiltMessages = new List<PassThruStructs.PassThruMsg>();
@@ -127,7 +127,7 @@ namespace SharpSimulator.SupportingLogic
         /// Stores a set of PTWrite Message commands into the current sim channel as messages to READ IN
         /// </summary>
         /// <returns>List of messages stored</returns>
-        public static PassThruStructs.PassThruMsg[] StoreMessagesRead(this SimulationChannel InputChannel, PassThruReadMessagesExpression[] ExpressionsToStore)
+        public static PassThruStructs.PassThruMsg[] StoreMessagesRead(this PassThruSimulationChannel InputChannel, PassThruReadMessagesExpression[] ExpressionsToStore)
         {
             // Loop each of these filter objects in parallel and update contents.
             List<PassThruStructs.PassThruMsg> BuiltMessages = new List<PassThruStructs.PassThruMsg>();
@@ -148,7 +148,7 @@ namespace SharpSimulator.SupportingLogic
         /// Pairs off a set of input Expressions to find their pairings
         /// </summary>
         /// <param name="GroupedExpression">Expressions to search thru</param>
-        public static SimulationChannel.SimulationMessagePair[] StorePassThruPairs(this SimulationChannel InputChannel, PassThruExpression[] GroupedExpression)
+        public static PassThruSimulationChannel.SimulationMessagePair[] StorePassThruPairs(this PassThruSimulationChannel InputChannel, PassThruExpression[] GroupedExpression)
         {
             // Order the input expression objects by time fired off and then pull out our pairing values
             GroupedExpression = GroupedExpression.OrderBy(ExpObj =>
@@ -204,7 +204,7 @@ namespace SharpSimulator.SupportingLogic
             }
 
             // Store onto the class, return built values.
-            List<SimulationChannel.SimulationMessagePair> MessagePairOutput = new List<SimulationChannel.SimulationMessagePair>();
+            List<PassThruSimulationChannel.SimulationMessagePair> MessagePairOutput = new List<PassThruSimulationChannel.SimulationMessagePair>();
             foreach (var PairedMessageSet in MessagesPaired)
             {
                 // Store basic values for contents here
@@ -212,7 +212,7 @@ namespace SharpSimulator.SupportingLogic
                 PassThruStructs.PassThruMsg[][] ReadExpressionsAsMessages = PairedMessageSet.Item2.Select(ConvertReadExpression).ToArray();
 
                 // Append all messages into our list here
-                MessagePairOutput.Add(new SimulationChannel.SimulationMessagePair(SendExpressionAsMessage, ReadExpressionsAsMessages.SelectMany(MsgObj => MsgObj).ToArray()));
+                MessagePairOutput.Add(new PassThruSimulationChannel.SimulationMessagePair(SendExpressionAsMessage, ReadExpressionsAsMessages.SelectMany(MsgObj => MsgObj).ToArray()));
             }
 
             // Store values for the input channel and return output

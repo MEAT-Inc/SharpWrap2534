@@ -22,6 +22,6 @@ namespace SharpSupport
 
         // Get the error from the import call
         [DllImport("kernel32.dll")]
-        internal static extern uint GetLastError();
+        public static extern uint GetLastError();
     }
 }

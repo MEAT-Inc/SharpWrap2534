@@ -14,7 +14,7 @@ namespace SharpSimulator
     /// <summary>
     /// Default simulation configuration layout
     /// </summary>
-    public class SimulationConfig
+    public class PassThruSimulationConfiguration
     {
         #region Custom Events
         #endregion // Custom Events
@@ -46,8 +46,8 @@ namespace SharpSimulator
         public static ProtocolId[] SupportedProtocols => JArray.FromObject(_allocateResource("DefaultSimConfigurations.json", "SupportedProtocols"))
             .Select(ValueObject => ValueObject.ToObject<ProtocolId>())
             .ToArray();
-        public static SimulationConfig[] SupportedConfigurations => JArray.FromObject(_allocateResource("DefaultSimConfigurations.json", "SimulationConfigurations"))
-            .Select(ValueObject => JsonConvert.DeserializeObject<SimulationConfig>(ValueObject.ToString()))
+        public static PassThruSimulationConfiguration[] SupportedConfigurations => JArray.FromObject(_allocateResource("DefaultSimConfigurations.json", "SimulationConfigurations"))
+            .Select(ValueObject => JsonConvert.DeserializeObject<PassThruSimulationConfiguration>(ValueObject.ToString()))
             .ToArray();
 
         #endregion // Properties
@@ -60,7 +60,7 @@ namespace SharpSimulator
         /// <summary>
         /// Builds a new configuration object and sets defaults to null/empty
         /// </summary>
-        public SimulationConfig(ProtocolId ProtocolInUse, BaudRate BaudRate)
+        public PassThruSimulationConfiguration(ProtocolId ProtocolInUse, BaudRate BaudRate)
         {
             // Store protocol and BaudRate
             this.ReaderBaudRate = BaudRate;
@@ -84,7 +84,7 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="ProtocolToUse">Protocol To use for the AutoID</param>
         /// <returns>Routine matching the given protocol or null</returns>
-        public static SimulationConfig LoadSimulationConfig(ProtocolId ProtocolToUse)
+        public static PassThruSimulationConfiguration LoadSimulationConfig(ProtocolId ProtocolToUse)
         {
             // Find our routine.
             var RoutineLocated = SupportedConfigurations.FirstOrDefault(RoutineObj => RoutineObj.ReaderProtocol == ProtocolToUse);

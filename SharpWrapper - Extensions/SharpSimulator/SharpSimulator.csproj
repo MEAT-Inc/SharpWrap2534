@@ -48,12 +48,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
-    <Compile Include="SimulationGenerator.cs" />
-    <Compile Include="SupportingLogic\SimulationChannelExtensions.cs" />
-    <Compile Include="SimulationConfig.cs" />
-    <Compile Include="SimulationChannel.cs" />
-    <Compile Include="SupportingLogic\SimulationChannelJsonConverter.cs" />
-    <Compile Include="SimulationPlayer.cs" />
+    <Compile Include="PassThruSimulationGenerator.cs" />
+    <Compile Include="SupportingLogic\PassThruSimChannelExtensions.cs" />
+    <Compile Include="PassThruSimulationConfiguration.cs" />
+    <Compile Include="PassThruSimulationChannel.cs" />
+    <Compile Include="SupportingLogic\PassThruSimChannelJsonConverter.cs" />
+    <Compile Include="PassThruSimulationPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AssemblyInfo.tt">

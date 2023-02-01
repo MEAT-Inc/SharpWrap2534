@@ -14,7 +14,7 @@ namespace SharpSimulator
     /// <summary>
     /// Plays back the contents of a SimulationLoader
     /// </summary>
-    public class SimulationPlayer
+    public class PassThruSimulationPlayer
     {
         #region Custom Events
 
@@ -51,7 +51,7 @@ namespace SharpSimulator
         private readonly Guid _playerGuid;                      
         public readonly Sharp2534Session SimulationSession;     
         private readonly SubServiceLogger _simPlayingLogger;
-        private List<SimulationChannel> _simulationChannels;
+        private List<PassThruSimulationChannel> _simulationChannels;
 
         // TokenSource and token used to cancel a simulation while running in an Async thread
         private CancellationToken _readerCancelToken;
@@ -62,7 +62,7 @@ namespace SharpSimulator
         #region Properties
 
         // Collection of channels for our simulations
-        public SimulationChannel[] SimulationChannels => this._simulationChannels.ToArray();
+        public PassThruSimulationChannel[] SimulationChannels => this._simulationChannels.ToArray();
 
         // Values for our reader configuration.
         public uint ReaderTimeout { get; private set; }
@@ -86,7 +86,7 @@ namespace SharpSimulator
         public J2534Filter[][] ChannelFilters => this.SimulationChannels.Select(SimChannel => SimChannel.MessageFilters).ToArray();
 
         // Message pairing collections holding information about all messages read or written for a simulation
-        public SimulationChannel.SimulationMessagePair[][] PairedSimulationMessages => this.SimulationChannels
+        public PassThruSimulationChannel.SimulationMessagePair[][] PairedSimulationMessages => this.SimulationChannels
             .Select(SimChannel => SimChannel.MessagePairs)
             .ToArray();
         public PassThruStructs.PassThruMsg[] MessagesToRead => (PassThruStructs.PassThruMsg[])PairedSimulationMessages
@@ -169,12 +169,12 @@ namespace SharpSimulator
         /// Uses an existing PT Instance that will read commands over and over waiting for content.
         /// </summary>
         /// <param name="InputSession">Session object to use for our simulations</param>
-        public SimulationPlayer(Sharp2534Session InputSession)
+        public PassThruSimulationPlayer(Sharp2534Session InputSession)
         {
             // Store class values and build a simulation loader.
             this.ResponsesEnabled = true;
             this.SimulationSession = InputSession;
-            this._simulationChannels = new List<SimulationChannel>();
+            this._simulationChannels = new List<PassThruSimulationChannel>();
 
             // Log Built new Session
             this._playerGuid = Guid.NewGuid();
@@ -193,7 +193,7 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="SimChannels">Channels to simulate</param>
         /// <param name="InputSession">Session object to use for our simulations</param>
-        public SimulationPlayer(IEnumerable<SimulationChannel> SimChannels, Sharp2534Session InputSession)
+        public PassThruSimulationPlayer(IEnumerable<PassThruSimulationChannel> SimChannels, Sharp2534Session InputSession)
         {
             // Store class values and build a simulation loader.
             this.ResponsesEnabled = true;
@@ -218,7 +218,7 @@ namespace SharpSimulator
         /// <param name="Version">J2534 Version for the simulation</param>
         /// <param name="PassThruDLL">The name of the DLL we wish to use</param>
         /// <param name="PassThruDevice">The name of the device we wish to use</param>
-        public SimulationPlayer(JVersion Version = JVersion.V0404, string PassThruDLL = null, string PassThruDevice = null)
+        public PassThruSimulationPlayer(JVersion Version = JVersion.V0404, string PassThruDLL = null, string PassThruDevice = null)
         {
             // Store class values and build a simulation loader.
             this.ResponsesEnabled = true;
@@ -248,7 +248,7 @@ namespace SharpSimulator
         /// <param name="Version">J2534 Version for the simulation</param>
         /// <param name="PassThruDLL">The name of the DLL we wish to use</param>
         /// <param name="PassThruDevice">The name of the device we wish to use</param>
-        public SimulationPlayer(IEnumerable<SimulationChannel> SimChannels, JVersion Version = JVersion.V0404, string PassThruDLL = null, string PassThruDevice = null)
+        public PassThruSimulationPlayer(IEnumerable<PassThruSimulationChannel> SimChannels, JVersion Version = JVersion.V0404, string PassThruDLL = null, string PassThruDevice = null)
         {
             // Store class values and build a simulation loader.
             this.ResponsesEnabled = true;
@@ -280,7 +280,7 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="ChannelToAdd">Channel to store on our loader</param>
         /// <returns>The index of the channel added</returns>
-        public int AddSimulationChannel(SimulationChannel ChannelToAdd)
+        public int AddSimulationChannel(PassThruSimulationChannel ChannelToAdd)
         {
             // Store all values of our channel here
             this._simulationChannels = this.SimulationChannels
@@ -313,7 +313,7 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="ChannelToRemove">Channel to pull out of our list of input channels</param>
         /// <returns>True if removed. False if not</returns>
-        public bool RemoveSimulationChannel(SimulationChannel ChannelToRemove)
+        public bool RemoveSimulationChannel(PassThruSimulationChannel ChannelToRemove)
         {
             // Find the channel to remove and pull it out.
             this._simPlayingLogger.WriteLog($"TRYING TO REMOVE CHANNEL WITH ID {ChannelToRemove.ChannelId}...");

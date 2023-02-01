@@ -102,11 +102,11 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="PassThruLogName">Name of the simulation to use for writing our output</param>
         /// <param name="GeneratedExpressions">The expressions to be used for building our simulation</param>
-        public SimulationGenerator(string PassThruLogName, PassThruExpression[] GeneratedExpressions)
+        public SimulationGenerator(string PassThruLogName, IEnumerable<PassThruExpression> GeneratedExpressions)
         {
             // Store the name of the simulation and configure our logger
             this.PassThruLogFile = PassThruLogName;
-            this.ExpressionsLoaded = GeneratedExpressions;
+            this.ExpressionsLoaded = GeneratedExpressions.ToArray();
 
             // Finally build our logger object and exit out of this constructor
             string SimGeneratorName = Path.GetFileNameWithoutExtension(this.PassThruLogFile);
@@ -216,58 +216,6 @@ namespace SharpSimulator
             this.SimulationChannels = SimChannelsBuilt.Values.ToArray();
             return this.SimulationChannels;
         }
-
-        /// <summary>
-        /// Appends a new simulation channel into our loader using an input channel object
-        /// </summary>
-        /// <param name="ChannelToAdd">Channel to store on our loader</param>
-        /// <returns>The index of the channel added</returns>
-        public int AddSimulationChannel(SimulationChannel ChannelToAdd)
-        {
-            // Store all values of our channel here
-            this.SimulationChannels = this.SimulationChannels
-                .Append(ChannelToAdd)
-                .ToArray();
-
-            // Find new index and return it. Check the min index of the filters and the channels then the messages.
-            this._simulationLogger.WriteLog($"ADDED NEW VALUES FOR A SIMULATION CHANNEL {ChannelToAdd.ChannelId} WITHOUT ISSUES!", LogType.InfoLog);
-            return PairedSimulationMessages.Length - 1;
-        }
-        /// <summary>
-        /// Removes a channel by the ID value passed in
-        /// </summary>
-        /// <param name="ChannelId">ID of the channel to remove</param>
-        /// <returns>True if removed. False if not.</returns>
-        public bool RemoveSimulationChannel(int ChannelId)
-        {
-            // Find the channel to remove and pull it out.
-            this._simulationLogger.WriteLog($"TRYING TO REMOVE CHANNEL WITH ID {ChannelId}...");
-            this.SimulationChannels = this.SimulationChannels
-                .Where(SimChannel => SimChannel.ChannelId != ChannelId)
-                .ToArray();
-
-            // Check if it exists or not.
-            this._simulationLogger.WriteLog($"{(this.SimulationChannels.Any(SimChannel => SimChannel.ChannelId == ChannelId) ? "FAILED TO REMOVE CHANNEL OBJECT!" : "CHANNEL REMOVED OK!")}");
-            return this.SimulationChannels.All(SimChannel => SimChannel.ChannelId != ChannelId);
-        }
-        /// <summary>
-        /// Removes a simulation channel from the list of all channel objects
-        /// </summary>
-        /// <param name="ChannelToRemove">Channel to pull out of our list of input channels</param>
-        /// <returns>True if removed. False if not</returns>
-        public bool RemoveSimulationChannel(SimulationChannel ChannelToRemove)
-        {
-            // Find the channel to remove and pull it out.
-            this._simulationLogger.WriteLog($"TRYING TO REMOVE CHANNEL WITH ID {ChannelToRemove.ChannelId}...");
-            this.SimulationChannels = this.SimulationChannels
-                .Where(SimChannel => SimChannel.ChannelId != ChannelToRemove.ChannelId)
-                .ToArray();
-
-            // Check if it exists or not.
-            this._simulationLogger.WriteLog($"{(this.SimulationChannels.Contains(ChannelToRemove) ? "FAILED TO REMOVE CHANNEL OBJECT!" : "CHANNEL REMOVED OK!")}");
-            return !this.SimulationChannels.Contains(ChannelToRemove);
-        }
-
         /// <summary>
         /// Takes an input set of PTSimulations and writes them to a file object desired.
         /// </summary>
@@ -278,7 +226,7 @@ namespace SharpSimulator
         {
             // First build our output location for our file.
             // string OutputFolder = ValueLoaders.GetConfigValue<string>("FulcrumInjectorConstants.InjectorLogging.DefaultExpressionsPath");
-            OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumExpressions";
+            OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumSimulations";
             string FinalOutputPath = Path.Combine(OutputLogFileFolder, Path.GetFileNameWithoutExtension(BaseFileName)) + ".ptSim";
 
             // Get a logger object for saving expression sets.
@@ -339,7 +287,7 @@ namespace SharpSimulator
         /// Converts an input set of expression objects into a grouped set of expressions paired off by a Channel ID Value
         /// </summary>
         /// <returns>A collection of built expression objects paired off by channel ID values</returns>
-        public Dictionary<uint, PassThruExpression[]> _generateGroupedIds()
+        private Dictionary<uint, PassThruExpression[]> _generateGroupedIds()
         {
             // Build a dictionary for return output objects and log we're starting to update our values
             var GroupedExpressions = new Dictionary<uint, PassThruExpression[]>();

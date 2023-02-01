@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,8 +50,8 @@ namespace SharpSimulator
         // Basic information about this simulation player
         private readonly Guid _playerGuid;                      
         public readonly Sharp2534Session SimulationSession;     
-        private readonly SubServiceLogger _simPlayingLogger;    
-        public readonly SimulationChannel[] SimulationChannels;
+        private readonly SubServiceLogger _simPlayingLogger;
+        private List<SimulationChannel> _simulationChannels;
 
         // TokenSource and token used to cancel a simulation while running in an Async thread
         private CancellationToken _readerCancelToken;
@@ -59,6 +60,9 @@ namespace SharpSimulator
         #endregion // Fields
 
         #region Properties
+
+        // Collection of channels for our simulations
+        public SimulationChannel[] SimulationChannels => this._simulationChannels.ToArray();
 
         // Values for our reader configuration.
         public uint ReaderTimeout { get; private set; }
@@ -160,18 +164,70 @@ namespace SharpSimulator
         #endregion // Structs and Classes
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
-        
+
+        /// <summary>
+        /// Uses an existing PT Instance that will read commands over and over waiting for content.
+        /// </summary>
+        /// <param name="InputSession">Session object to use for our simulations</param>
+        public SimulationPlayer(Sharp2534Session InputSession)
+        {
+            // Store class values and build a simulation loader.
+            this.ResponsesEnabled = true;
+            this.SimulationSession = InputSession;
+            this._simulationChannels = new List<SimulationChannel>();
+
+            // Log Built new Session
+            this._playerGuid = Guid.NewGuid();
+            this._simPlayingLogger = new SubServiceLogger($"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}");
+            this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION PLAYBACK LOGGER OK!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog("READY TO PLAY BACK THE LOADED CONTENTS OF THE PROVIDED SIMULATION LOADER!");
+
+            // Open up a PT Device, read the voltage value, and begin reading messages over and over.
+            this._simPlayingLogger.WriteLog($"STARTING A NEW SIM READER FOR DEVICE {this.SimulationSession.DeviceName}", LogType.WarnLog);
+            this.SimulationSession.PTOpen(); this.SimulationSession.PTReadVoltage(out var VoltsRead);
+            this._simPlayingLogger.WriteLog($"PULLED IN A NEW VOLTAGE VALUE OF {VoltsRead}!", LogType.InfoLog);
+            if (VoltsRead < 12.0) this._simPlayingLogger.WriteLog("WARNING! INPUT VOLTAGE IS LESS THAN 12.0 VOLTS!", LogType.ErrorLog);
+        }
         /// <summary>
         /// Uses an existing PT Instance that will read commands over and over waiting for content.
         /// </summary>
         /// <param name="SimChannels">Channels to simulate</param>
         /// <param name="InputSession">Session object to use for our simulations</param>
-        public SimulationPlayer(SimulationChannel[] SimChannels, Sharp2534Session InputSession)
+        public SimulationPlayer(IEnumerable<SimulationChannel> SimChannels, Sharp2534Session InputSession)
         {
             // Store class values and build a simulation loader.
             this.ResponsesEnabled = true;
-            this.SimulationChannels = SimChannels;
             this.SimulationSession = InputSession;
+            this._simulationChannels = SimChannels.ToList();
+
+            // Log Built new Session
+            this._playerGuid = Guid.NewGuid();
+            this._simPlayingLogger = new SubServiceLogger($"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}");
+            this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION PLAYBACK LOGGER OK!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog("READY TO PLAY BACK THE LOADED CONTENTS OF THE PROVIDED SIMULATION LOADER!");
+
+            // Open up a PT Device, read the voltage value, and begin reading messages over and over.
+            this._simPlayingLogger.WriteLog($"STARTING A NEW SIM READER FOR DEVICE {this.SimulationSession.DeviceName}", LogType.WarnLog);
+            this.SimulationSession.PTOpen(); this.SimulationSession.PTReadVoltage(out var VoltsRead);
+            this._simPlayingLogger.WriteLog($"PULLED IN A NEW VOLTAGE VALUE OF {VoltsRead}!", LogType.InfoLog);
+            if (VoltsRead < 12.0) this._simPlayingLogger.WriteLog("WARNING! INPUT VOLTAGE IS LESS THAN 12.0 VOLTS!", LogType.ErrorLog);
+        }
+        /// <summary>
+        /// Spawns a new Simulation playback helper for the provided simulation channels
+        /// </summary>
+        /// <param name="Version">J2534 Version for the simulation</param>
+        /// <param name="PassThruDLL">The name of the DLL we wish to use</param>
+        /// <param name="PassThruDevice">The name of the device we wish to use</param>
+        public SimulationPlayer(JVersion Version = JVersion.V0404, string PassThruDLL = null, string PassThruDevice = null)
+        {
+            // Store class values and build a simulation loader.
+            this.ResponsesEnabled = true;
+            PassThruDLL ??= "NO_DLL"; PassThruDevice ??= "NO_DEVICE";
+            this.SimulationSession = Sharp2534Session.OpenSession(
+                Version,
+                PassThruDLL == "NO_DLL" ? "" : PassThruDLL,
+                PassThruDevice == "NO_DEVICE" ? "" : PassThruDevice
+            );
 
             // Log Built new Session
             this._playerGuid = Guid.NewGuid();
@@ -192,11 +248,11 @@ namespace SharpSimulator
         /// <param name="Version">J2534 Version for the simulation</param>
         /// <param name="PassThruDLL">The name of the DLL we wish to use</param>
         /// <param name="PassThruDevice">The name of the device we wish to use</param>
-        public SimulationPlayer(SimulationChannel[] SimChannels, JVersion Version = JVersion.V0404, string PassThruDLL = null, string PassThruDevice = null)
+        public SimulationPlayer(IEnumerable<SimulationChannel> SimChannels, JVersion Version = JVersion.V0404, string PassThruDLL = null, string PassThruDevice = null)
         {
             // Store class values and build a simulation loader.
             this.ResponsesEnabled = true;
-            this.SimulationChannels = SimChannels;
+            this._simulationChannels = SimChannels.ToList();
             PassThruDLL ??= "NO_DLL"; PassThruDevice ??= "NO_DEVICE";
             this.SimulationSession = Sharp2534Session.OpenSession(
                 Version,
@@ -215,6 +271,59 @@ namespace SharpSimulator
             this.SimulationSession.PTOpen(); this.SimulationSession.PTReadVoltage(out var VoltsRead);
             this._simPlayingLogger.WriteLog($"PULLED IN A NEW VOLTAGE VALUE OF {VoltsRead}!", LogType.InfoLog);
             if (VoltsRead < 12.0) this._simPlayingLogger.WriteLog("WARNING! INPUT VOLTAGE IS LESS THAN 12.0 VOLTS!", LogType.ErrorLog);
+        }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Appends a new simulation channel into our loader using an input channel object
+        /// </summary>
+        /// <param name="ChannelToAdd">Channel to store on our loader</param>
+        /// <returns>The index of the channel added</returns>
+        public int AddSimulationChannel(SimulationChannel ChannelToAdd)
+        {
+            // Store all values of our channel here
+            this._simulationChannels = this.SimulationChannels
+                .Append(ChannelToAdd)
+                .ToList();
+
+            // Find new index and return it. Check the min index of the filters and the channels then the messages.
+            this._simPlayingLogger.WriteLog($"ADDED NEW VALUES FOR A SIMULATION CHANNEL {ChannelToAdd.ChannelId} WITHOUT ISSUES!", LogType.InfoLog);
+            return PairedSimulationMessages.Length - 1;
+        }
+        /// <summary>
+        /// Removes a channel by the ID value passed in
+        /// </summary>
+        /// <param name="ChannelId">ID of the channel to remove</param>
+        /// <returns>True if removed. False if not.</returns>
+        public bool RemoveSimulationChannel(int ChannelId)
+        {
+            // Find the channel to remove and pull it out.
+            this._simPlayingLogger.WriteLog($"TRYING TO REMOVE CHANNEL WITH ID {ChannelId}...");
+            this._simulationChannels = this.SimulationChannels
+                .Where(SimChannel => SimChannel.ChannelId != ChannelId)
+                .ToList();
+
+            // Check if it exists or not.
+            this._simPlayingLogger.WriteLog($"{(this.SimulationChannels.Any(SimChannel => SimChannel.ChannelId == ChannelId) ? "FAILED TO REMOVE CHANNEL OBJECT!" : "CHANNEL REMOVED OK!")}");
+            return this.SimulationChannels.All(SimChannel => SimChannel.ChannelId != ChannelId);
+        }
+        /// <summary>
+        /// Removes a simulation channel from the list of all channel objects
+        /// </summary>
+        /// <param name="ChannelToRemove">Channel to pull out of our list of input channels</param>
+        /// <returns>True if removed. False if not</returns>
+        public bool RemoveSimulationChannel(SimulationChannel ChannelToRemove)
+        {
+            // Find the channel to remove and pull it out.
+            this._simPlayingLogger.WriteLog($"TRYING TO REMOVE CHANNEL WITH ID {ChannelToRemove.ChannelId}...");
+            this._simulationChannels = this.SimulationChannels
+                .Where(SimChannel => SimChannel.ChannelId != ChannelToRemove.ChannelId)
+                .ToList();
+
+            // Check if it exists or not.
+            this._simPlayingLogger.WriteLog($"{(this.SimulationChannels.Contains(ChannelToRemove) ? "FAILED TO REMOVE CHANNEL OBJECT!" : "CHANNEL REMOVED OK!")}");
+            return !this.SimulationChannels.Contains(ChannelToRemove);
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------

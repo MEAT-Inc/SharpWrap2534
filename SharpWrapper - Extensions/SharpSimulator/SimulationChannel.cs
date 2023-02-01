@@ -18,7 +18,7 @@ namespace SharpSimulator
         #region Fields
 
         // Readonly field information about the channel being simulated
-        public readonly uint ChannelId;
+        public readonly uint ChannelId; 
         public readonly BaudRate ChannelBaudRate;
         public readonly ProtocolId ChannelProtocol;
         public readonly PassThroughConnect ChannelConnectFlags;

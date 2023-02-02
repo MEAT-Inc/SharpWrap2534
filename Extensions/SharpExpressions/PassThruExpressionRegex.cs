@@ -38,7 +38,7 @@ namespace SharpExpressions
         public PassThruExpressionType ExpressionType { get; set; }
 
         // Regex object built from the provided input pattern
-        public Regex ExpressionRegex => new Regex(this.ExpressionPattern, RegexOptions.Compiled);
+        public Regex ExpressionRegex => new Regex(this.ExpressionPattern.Trim(), RegexOptions.Compiled);
 
         #endregion // Properties
 
@@ -101,7 +101,7 @@ namespace SharpExpressions
                 // Parse out the group values and and the pattern itself. Then build a new regex model object
                 string FullGroupsString = RegexGroups.Groups[1].Value;
                 int[] GroupValues = FullGroupsString.Split(',').Select(int.Parse).ToArray();
-                string RegexPattern = $"{RegexValue.Replace(RegexGroups.Value, string.Empty)}";
+                string RegexPattern = $"{RegexValue.Replace(RegexGroups.Value, string.Empty)}".Trim();
                 string ExpressionTypeString = RegexName.Replace("Regex", string.Empty).Replace(" ", string.Empty);
 
                 // Now build the expression type string value to pull in an enum type for the regex and store it on our dictionary

@@ -7,7 +7,6 @@ using SharpLogger.LoggerObjects;
 using SharpLogger.LoggerSupport;
 using SharpWrapper;
 using SharpWrapper.PassThruTypes;
-using SharpWrapper.SupportingLogic;
 
 namespace SharpAutoId
 {

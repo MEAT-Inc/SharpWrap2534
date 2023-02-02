@@ -33,10 +33,8 @@ namespace SharpExpressions
         #region Properties
 
         // Expressions file output information
-        public string PassThruLogFile { get; private set; }
+        public string PassThruLogFile { get; private set; }                     // The input log file being used to convert
         public string ExpressionsFile { get; private set; }                     // Path to the newly built expressions file
-        public string[] LogFileContentsSplit { get; private set; }              // Split input log file content based on commands
-        public string[] ExpressionContentSplit { get; private set; }            // The Expressions file content split out based on commands
         public PassThruExpression[] ExpressionsBuilt { get; private set; }      // The actual expressions objects built for the input log file
 
         #endregion // Properties
@@ -258,7 +256,6 @@ namespace SharpExpressions
             });
 
             // Prune all null values off the array of expressions
-            OutputFileContent = OutputFileContent.Where(ExpressionLines => !string.IsNullOrWhiteSpace(ExpressionLines)).ToArray();
             OutputExpressions = OutputExpressions.Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionType.NONE).ToArray();
 
             // Log done building log command line sets and expressions
@@ -268,8 +265,6 @@ namespace SharpExpressions
 
             // Return the built set of commands.
             this.ExpressionsBuilt = OutputExpressions.ToArray();
-            this.LogFileContentsSplit = OutputCommands.ToArray();
-            this.ExpressionContentSplit = OutputFileContent.ToArray();
             return this.ExpressionsBuilt;
         }
         /// <summary>
@@ -281,7 +276,6 @@ namespace SharpExpressions
         public string SaveExpressionsFile(string BaseFileName = "", string OutputLogFileFolder = null)
         {
             // First build our output location for our file.
-            // string OutputFolder = ValueLoaders.GetConfigValue<string>("FulcrumInjectorConstants.InjectorLogging.DefaultExpressionsPath");
             OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumExpressions";
             string FinalOutputPath = Path.Combine(OutputLogFileFolder, Path.GetFileNameWithoutExtension(BaseFileName)) + ".ptExp";
 
@@ -301,17 +295,20 @@ namespace SharpExpressions
             {
                 // Now Build output string content from each expression object.
                 ExpressionLogger.WriteLog("COMBINING EXPRESSION OBJECTS INTO AN OUTPUT FILE NOW...", LogType.WarnLog);
-                if (this.ExpressionContentSplit == null)
-                {
-                    // If we've got content to write but no string values, then build them here
-                    if (this.ExpressionsBuilt == null) throw new InvalidOperationException("ERROR! CAN NOT SAVE AN EXPRESSIONS FILE THAT HAS NOT BEEN GENERATED!");
-                     this.ExpressionContentSplit = this.ExpressionsBuilt.Select(ExpressionObj => ExpressionObj.ToString()).ToArray();
-                }
+                if (this.ExpressionsBuilt == null)
+                    throw new InvalidOperationException("ERROR! CAN NOT SAVE AN EXPRESSIONS FILE THAT HAS NOT BEEN GENERATED!");
 
-                // Log information and write output.
-                ExpressionLogger.WriteLog($"CONVERTED INPUT OBJECTS INTO A TOTAL OF {this.ExpressionContentSplit.Length} LINES OF TEXT!", LogType.WarnLog);
+                // Build the string contents for our expression objects now
+                string[] ExpressionsContentSplit = ExpressionsBuilt
+                    .Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionType.NONE)
+                    .Select(ExpressionObj => ExpressionObj.ToString())
+                    .Where(StringSet => !string.IsNullOrWhiteSpace(StringSet))
+                    .ToArray();
+
+                // Log information and write output to the desired output file now and move on
+                ExpressionLogger.WriteLog($"CONVERTED INPUT OBJECTS INTO A TOTAL OF {ExpressionsContentSplit.Length} LINES OF TEXT!", LogType.WarnLog);
                 ExpressionLogger.WriteLog("WRITING OUTPUT CONTENTS NOW...", LogType.WarnLog);
-                File.WriteAllText(FinalOutputPath, string.Join("\n", this.ExpressionContentSplit));
+                File.WriteAllText(FinalOutputPath, string.Join("\n", ExpressionsContentSplit));
                 ExpressionLogger.WriteLog("DONE WRITING OUTPUT EXPRESSIONS CONTENT!");
 
                 // Check to see if we aren't in the default location. If not, store the file in both the input spot and the injector directory

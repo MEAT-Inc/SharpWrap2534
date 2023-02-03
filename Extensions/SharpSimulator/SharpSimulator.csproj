@@ -66,13 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpExpressions">
-      <Version>0.3.1.36</Version>
+      <Version>0.3.1.38</Version>
     </PackageReference>
     <PackageReference Include="SharpLogger">
-      <Version>1.10.0.128</Version>
+      <Version>1.10.0.130</Version>
     </PackageReference>
     <PackageReference Include="SharpWrapper">
-      <Version>5.3.6.402</Version>
+      <Version>5.3.6.404</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

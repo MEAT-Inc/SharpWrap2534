@@ -2,7 +2,7 @@
 using System.Linq;
 using SharpAutoId.SharpAutoIdHelpers;
 using SharpAutoId.SharpAutoIdModels;
-using SharpLogger;
+using SharpLogging;
 using SharpWrapper;
 using SharpWrapper.PassThruTypes;
 

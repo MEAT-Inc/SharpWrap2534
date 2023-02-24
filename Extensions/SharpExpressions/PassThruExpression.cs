@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using SharpExpressions.PassThruExpressions;
-using SharpLogger;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
+using SharpLogging;
 using SharpSupport;
 
 namespace SharpExpressions
@@ -17,7 +15,7 @@ namespace SharpExpressions
     public class PassThruExpression
     {
         // Logger instance for the expression in use. This should only ever log failures
-        protected internal readonly SubServiceLogger ExpressionLogger;
+        protected internal readonly SharpLogger ExpressionLogger;
 
         // String Values for Command content
         public readonly string CommandLines;

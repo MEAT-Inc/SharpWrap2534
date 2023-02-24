@@ -65,17 +65,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SharpExpressions">
-      <Version>0.3.1.38</Version>
-    </PackageReference>
-    <PackageReference Include="SharpLogger">
-      <Version>1.10.0.130</Version>
-    </PackageReference>
-    <PackageReference Include="SharpWrapper">
-      <Version>5.3.6.404</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\DefaultSimConfigurations.json" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +72,17 @@
       <Project>{c23c0e3c-7b15-47af-b358-77592baceeaf}</Project>
       <Name>SharpSupport</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpExpressions">
+      <Version>0.3.1.40</Version>
+    </PackageReference>
+    <PackageReference Include="SharpLogger">
+      <Version>2.5.5.279</Version>
+    </PackageReference>
+    <PackageReference Include="SharpWrapper">
+      <Version>5.3.7.407</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

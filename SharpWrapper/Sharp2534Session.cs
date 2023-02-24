@@ -1,10 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using SharpLogger;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
+using SharpLogging;
 using SharpSupport;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruImport;
@@ -101,21 +98,22 @@ namespace SharpWrapper
             }
             
             // Make Sure logging is configured
-            if (LogBroker.BaseOutputPath == null)
+            if (SharpLogBroker.LogFileFolder == null)
             {
-                // Configure output locations
-                LogBroker.ConfigureLoggingSession(
-                    Assembly.GetExecutingAssembly().FullName,
-                    Path.Combine(Directory.GetCurrentDirectory(), "SharpLogging"));
-
-                // Populate Broker Pool
-                LogBroker.BrokerInstance.FillBrokerPool();
+                // Configure a new logging session but keep logging disabled since nothing else requested we create it
+                SharpLogBroker.InitializeLogging(new SharpLogBroker.BrokerConfiguration()
+                {
+                    LogBrokerName = "SharpWrap2534",
+                    LogFilePath = Path.Combine(Directory.GetCurrentDirectory(), "SharpLogging"),
+                    MinLogLevel = LogType.NoLogging,
+                    MaxLogLevel = LogType.NoLogging
+                });
             }
 
             // Build logging support
             this.SessionGuid = Guid.NewGuid();
-            this._sessionLogger = new SubServiceLogger($"SharpWrapSession_{this.SessionGuid.ToString().ToUpper().Substring(0,5)}_SessionLogger");
             this._logSupport = new LoggingSupport(this.DeviceName, this._sessionLogger);
+            this._sessionLogger = new SharpLogger(LoggerActions.UniversalLogger, $"SharpSession_{this.SessionGuid.ToString("D".ToUpper())}");
             this._sessionLogger.WriteLog(this._logSupport.SplitLineString(), LogType.TraceLog);
             this._sessionLogger.WriteLog("SHARPWRAP J2534 SESSION BUILT CORRECTLY! SESSION STATE IS BEING PRINTED OUT BELOW", LogType.InfoLog);
             this._sessionLogger.WriteLog($"\n{this.ToDetailedString()}");
@@ -126,7 +124,7 @@ namespace SharpWrapper
 
         // Logger object for a session instance and helper methods
         private readonly LoggingSupport _logSupport;
-        private readonly SubServiceLogger _sessionLogger;
+        private readonly SharpLogger _sessionLogger;
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 

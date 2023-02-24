@@ -3,8 +3,6 @@ using System.Linq;
 using SharpAutoId.SharpAutoIdHelpers;
 using SharpAutoId.SharpAutoIdModels;
 using SharpLogger;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
 using SharpWrapper;
 using SharpWrapper.PassThruTypes;
 
@@ -17,7 +15,7 @@ namespace SharpAutoId
     public abstract class SharpAutoIdHelper
     {
         // Logger object for monitoring logger outputs
-        protected internal readonly SubServiceLogger AutoIdLogger;
+        protected internal readonly SharpLogger AutoIdLogger;
 
         // Class Values for configuring commands.
         public readonly string DLL;

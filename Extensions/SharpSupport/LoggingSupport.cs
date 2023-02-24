@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Runtime.CompilerServices;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
+using SharpLogging;
 
 namespace SharpSupport
 {
@@ -12,14 +11,14 @@ namespace SharpSupport
     {
         // Logging Helper Object
         private readonly string DeviceName;
-        private readonly SubServiceLogger SessionLogger;
+        private readonly SharpLogger SessionLogger;
 
         /// <summary>
         /// Logger support constructor object
         /// </summary>
         /// <param name="DeviceName">Name of device in use</param>
         /// <param name="Logger">Logger object to consume.</param>
-        public LoggingSupport(string DeviceName, SubServiceLogger Logger)
+        public LoggingSupport(string DeviceName, SharpLogger Logger)
         {
             // Logging object and device name storage
             this.DeviceName = DeviceName;

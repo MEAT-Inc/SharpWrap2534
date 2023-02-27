@@ -1,26 +1,48 @@
-﻿using SharpLogger.LoggerSupport;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using SharpExpressions;
 using SharpExpressions.PassThruExpressions;
+using SharpLogging;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
-using SharpLogger.LoggerObjects;
-using SharpLogger;
 
-namespace SharpSimulator.SupportingLogic
+namespace SharpSimulator.PassThruSimulationSupport
 {
     /// <summary>
     /// Collection of extension methods for building simulation channels and populating their values
     /// </summary>
     public static class PassThruSimChannelExtensions
     {
+        #region Custom Events
+        #endregion //Custom Events
+
+        #region Fields
+
         // Logger Object for the expressions extension methods. This should again only be run for exceptions
-        private static SubServiceLogger _simExtLogger => (SubServiceLogger)LoggerQueue.SpawnLogger($"SimulationsExtLogger", LoggerActions.SubServiceLogger);
+        private static readonly SharpLogger _simExtLogger;
+
+        #endregion //Fields
+
+        #region Properties
+        #endregion //Properties
+
+        #region Structs and Classes
+        #endregion //Structs and Classes
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// CTOR for this static class which is used to help configured our logging instance
+        /// </summary>
+        static PassThruSimChannelExtensions()
+        {
+            // Spawn in our logger instance now
+            _simExtLogger = new SharpLogger(LoggerActions.UniversalLogger);
+            _simExtLogger.WriteLog("SIMULATION CHANNEL EXTENSION LOGGER HAS BEEN SPAWNED!", LogType.InfoLog);
+        }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -34,19 +56,19 @@ namespace SharpSimulator.SupportingLogic
         {
             // Find all the PTFilter commands first and invert them.
             var PTConnectCommands = GroupedExpression
-                .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionType.PTConnect)
+                .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTConnect)
                 .Cast<PassThruConnectExpression>()
                 .ToArray();
             var PTFilterCommands = GroupedExpression
-                .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionType.PTStartMsgFilter)
+                .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTStartMsgFilter)
                 .Cast<PassThruStartMessageFilterExpression>()
                 .ToArray();
             var PTReadCommands = GroupedExpression
-                .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionType.PTReadMsgs)
+                .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTReadMsgs)
                 .Cast<PassThruReadMessagesExpression>()
                 .ToArray();
             var PTWriteCommands = GroupedExpression
-                .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionType.PTWriteMsgs)
+                .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTWriteMsgs)
                 .Cast<PassThruWriteMessagesExpression>()
                 .ToArray();
 
@@ -170,7 +192,7 @@ namespace SharpSimulator.SupportingLogic
             foreach (var ExpressionObject in GroupedExpression)
             {
                 // Find if the expression is a PTWrite command then find all the next ones that are 
-                if (ExpressionObject.TypeOfExpression != PassThruExpressionType.PTWriteMsgs) { continue; }
+                if (ExpressionObject.TypeOfExpression != PassThruExpressionTypes.PTWriteMsgs) { continue; }
 
                 // Store the next expression
                 var IndexOfExpression = GroupedExpression.ToList().IndexOf(ExpressionObject);
@@ -180,10 +202,10 @@ namespace SharpSimulator.SupportingLogic
                 IndexOfExpression += 1;
                 var ReadExpressions = new List<PassThruReadMessagesExpression>();
                 var NextExpression = GroupedExpression[IndexOfExpression];
-                while (NextExpression.TypeOfExpression != PassThruExpressionType.PTWriteMsgs)
+                while (NextExpression.TypeOfExpression != PassThruExpressionTypes.PTWriteMsgs)
                 {
                     // Check if it's a PTRead Messages
-                    if (NextExpression.TypeOfExpression != PassThruExpressionType.PTReadMsgs)
+                    if (NextExpression.TypeOfExpression != PassThruExpressionTypes.PTReadMsgs)
                     {
                         IndexOfExpression += 1;
                         if ((IndexOfExpression + 1) > GroupedExpression.Length) break;
@@ -298,7 +320,7 @@ namespace SharpSimulator.SupportingLogic
                 // TODO: FIND OUT WHY THIS ROUTINE CAN FAIL SOMETIMES!
                 _simExtLogger.WriteLog("FAILED TO CONVERT THIS EXPRESSION INTO A USABLE FILTER! EXCEPTION IS BEING SHOWN BELOW", LogType.WarnLog);
                 _simExtLogger.WriteLog($"FILTER EXPRESSION: {FilterExpression.CommandLines}", LogType.TraceLog);
-                _simExtLogger.WriteLog("EXCEPTION THROWN", ConversionEx);
+                _simExtLogger.WriteException("EXCEPTION THROWN", ConversionEx);
                 return null;
             }
         }
@@ -408,7 +430,7 @@ namespace SharpSimulator.SupportingLogic
                     // TODO: FIND OUT WHY THIS ROUTINE CAN FAIL SOMETIMES!
                     _simExtLogger.WriteLog("FAILED TO CONVERT THIS EXPRESSION INTO A USABLE MESSAGE! EXCEPTION IS BEING SHOWN BELOW", LogType.WarnLog);
                     _simExtLogger.WriteLog($"MESSAGE EXPRESSION: {MessageExpression.CommandLines}", LogType.TraceLog);
-                    _simExtLogger.WriteLog("EXCEPTION THROWN", ConversionEx);
+                    _simExtLogger.WriteException("EXCEPTION THROWN", ConversionEx);
                     return default;
                 }
             }
@@ -471,7 +493,7 @@ namespace SharpSimulator.SupportingLogic
                     // TODO: FIND OUT WHY THIS ROUTINE CAN FAIL SOMETIMES!
                     _simExtLogger.WriteLog("FAILED TO CONVERT THIS EXPRESSION INTO A USABLE MESSAGE! EXCEPTION IS BEING SHOWN BELOW", LogType.WarnLog);
                     _simExtLogger.WriteLog($"MESSAGE EXPRESSION: {MessageExpression.CommandLines}", LogType.TraceLog);
-                    _simExtLogger.WriteLog("EXCEPTION THROWN", ConversionEx);
+                    _simExtLogger.WriteException("EXCEPTION THROWN", ConversionEx);
                     return default;
                 }
             }

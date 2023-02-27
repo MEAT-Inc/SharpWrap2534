@@ -40,13 +40,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpLogger.1.10.0.127\lib\net472\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\SharpLogger.2.5.6.281\lib\net472\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpLogger.1.10.0.127\lib\net472\NLog.dll</HintPath>
+      <HintPath>..\packages\SharpLogger.2.5.6.281\lib\net472\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="SharpLogger, Version=1.10.0.127, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpLogger.1.10.0.127\lib\net472\SharpLogger.dll</HintPath>
+    <Reference Include="SharpLogging, Version=2.5.6.281, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpLogger.2.5.6.281\lib\net472\SharpLogging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="J2534Api\J2534ApiMarshaller.cs" />
+    <Compile Include="PassThruSupport\PtTextTableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -98,12 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Extensions\SharpSupport\SharpSupport.csproj">
-      <Project>{C23C0E3C-7B15-47AF-B358-77592BACEEAF}</Project>
-      <Name>SharpSupport</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

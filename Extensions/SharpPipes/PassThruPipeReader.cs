@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using SharpLogger.LoggerSupport;
+using SharpLogging;
 
 namespace SharpPipes
 {
@@ -66,11 +66,7 @@ namespace SharpPipes
                 PipeDirection.In,                // Pipe directional configuration
                 PipeOptions.None                 // Async operations supported
             );
-
-            // Store our new settings values for the pipe object and apply them
-            // DefaultBufferValue = FulcrumSettingsShare.InjectorPipeConfigSettings.GetSettingValue("Reader Pipe Buffer Size", DefaultBufferValue);
-            // DefaultReadingTimeout = FulcrumSettingsShare.InjectorPipeConfigSettings.GetSettingValue("Reader Pipe Processing Timeout", DefaultReadingTimeout);
-            // DefaultConnectionTimeout = FulcrumSettingsShare.InjectorPipeConfigSettings.GetSettingValue("Reader Pipe Connection Timeout", DefaultConnectionTimeout);
+            
             this.PipeLogger.WriteLog($"STORED NEW DEFAULT BUFFER SIZE VALUE OK! VALUE STORED IS: {DefaultBufferValue}", LogType.WarnLog);
             this.PipeLogger.WriteLog($"STORED NEW CONNECTION TIMEOUT VALUE OK! VALUE STORED IS: {DefaultConnectionTimeout}", LogType.WarnLog);
             this.PipeLogger.WriteLog($"STORED NEW READ OPERATION TIMEOUT VALUE OK! VALUE STORED IS: {DefaultReadingTimeout}", LogType.WarnLog);
@@ -152,7 +148,7 @@ namespace SharpPipes
                             this.PipeState = PassThruPipeStates.Faulted;
                             this.PipeLogger.WriteLog($"FAILED TO CONNECT TO OUR PIPE INSTANCE FOR PIPE ID {this.PipeTypes}!", LogType.ErrorLog);
                             this.PipeLogger.WriteLog("EXCEPTION THROWN DURING CONNECTION OR STREAM OPERATIONS FOR THIS PIPE CONFIGURATION!", LogType.ErrorLog);
-                            this.PipeLogger.WriteLog("EXCEPTION THROWN IS BEING LOGGED BELOW", PipeConnectionEx);
+                            this.PipeLogger.WriteException("EXCEPTION THROWN IS BEING LOGGED BELOW", PipeConnectionEx);
                         }
 
                         // Set the state to disconnected if it's not currently disconnected and log out this state value if needed
@@ -319,7 +315,7 @@ namespace SharpPipes
                 // Log our failures and return failed output
                 this.PipeLogger.WriteLog("FAILED TO READ NEW PIPE INPUT DATA!", LogType.ErrorLog);
                 this.PipeLogger.WriteLog("EXCEPTION THROWN DURING READING OPERATIONS OF OUR INPUT PIPE DATA PROCESSING!", LogType.ErrorLog);
-                this.PipeLogger.WriteLog("EXCEPTION THROWN IS LOGGED BELOW", ReadEx);
+                this.PipeLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", ReadEx);
 
                 // Return failed
                 ReadDataContents = $"FAILED_PIPE_READ__{ReadEx.GetType().Name.ToUpper()}";

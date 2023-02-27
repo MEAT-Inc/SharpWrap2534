@@ -4,12 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using SharpExpressions.PassThruExpressions;
-using SharpLogger;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
-using SharpSupport;
-using SharpWrapper.J2534Objects;
-using SharpWrapper.PassThruTypes;
+using SharpLogging;
 
 namespace SharpExpressions
 {
@@ -18,8 +13,33 @@ namespace SharpExpressions
     /// </summary>
     public static class PassThruExpressionExtensions
     {
+        #region Custom Events
+        #endregion //Custom Events
+
+        #region Fields
+
         // Logger Object for the expressions extension methods. This should again only be run for exceptions
-        private static SubServiceLogger _expExtLogger => (SubServiceLogger)LoggerQueue.SpawnLogger($"ExpressionsExtLogger", LoggerActions.SubServiceLogger);
+        private static readonly SharpLogger _expExtLogger;
+
+        #endregion //Fields
+
+        #region Properties
+        #endregion //Properties
+
+        #region Structs and Classes
+        #endregion //Structs and Classes
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// CTOR for this static class which is used to help configured our logging instance
+        /// </summary>
+        static PassThruExpressionExtensions()
+        {
+            // Spawn in our logger instance now
+            _expExtLogger = new SharpLogger(LoggerActions.UniversalLogger);
+            _expExtLogger.WriteLog("SIMULATION CHANNEL EXTENSION LOGGER HAS BEEN SPAWNED!", LogType.InfoLog);
+        }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -31,15 +51,15 @@ namespace SharpExpressions
             // Check if not read or write types. 
             if (ExpressionObject.GetType() != typeof(PassThruReadMessagesExpression) && ExpressionObject.GetType() != typeof(PassThruWriteMessagesExpression))
             {
-                ExpressionObject.ExpressionLogger.WriteLog("CAN NOT USE THIS METHOD ON A NON READ OR WRITE COMMAND TYPE!", LogType.ErrorLog);
+                _expExtLogger.WriteLog("CAN NOT USE THIS METHOD ON A NON READ OR WRITE COMMAND TYPE!", LogType.ErrorLog);
                 MessageProperties = new List<string[]>();
                 return string.Empty;
             }
 
             // Pull the object, find our matches based on our type object value.
             var MessageContentRegex = ExpressionObject.GetType() == typeof(PassThruReadMessagesExpression)
-                ? PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.MessageReadInfo]
-                : PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.MessageSentInfo];
+                ? PassThruExpressionRegex.LoadedExpressions[PassThruExpressionTypes.MessageReadInfo]
+                : PassThruExpressionRegex.LoadedExpressions[PassThruExpressionTypes.MessageSentInfo];
 
             // Make our value lookup table here and output tuples
             bool IsReadExpression = ExpressionObject.GetType() == typeof(PassThruReadMessagesExpression);
@@ -141,7 +161,7 @@ namespace SharpExpressions
             // Check if we can use this method or not.
             if (ExpressionObject.GetType() != typeof(PassThruStartMessageFilterExpression))
             {
-                ExpressionObject.ExpressionLogger.WriteLog("CAN NOT USE THIS METHOD ON A NON PTSTART FILTER COMMAND TYPE!", LogType.ErrorLog);
+                _expExtLogger.WriteLog("CAN NOT USE THIS METHOD ON A NON PTSTART FILTER COMMAND TYPE!", LogType.ErrorLog);
                 FilterProperties = new List<string[]>();
                 return string.Empty;
             }
@@ -183,7 +203,7 @@ namespace SharpExpressions
             // Setup Loop constants for parsing operations
             FilterProperties = new List<string[]>();
             List<string> OutputMessages = new List<string>();
-            var MessageContentRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.MessageFilterInfo];
+            var MessageContentRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionTypes.MessageFilterInfo];
 
             // Now parse out our content matches. Add a trailing newline to force matches.
             SplitMessageLines = CombinedOutputs.Select(LineSet => LineSet + "\n").ToArray();
@@ -256,13 +276,13 @@ namespace SharpExpressions
             // Check if we can run this type for the given object.
             if (ExpressionObject.GetType() != typeof(PassThruIoctlExpression))
             {
-                ExpressionObject.ExpressionLogger.WriteLog("CAN NOT USE THIS METHOD ON A NON IOCTL COMMAND TYPE!", LogType.ErrorLog);
+                _expExtLogger.WriteLog("CAN NOT USE THIS METHOD ON A NON IOCTL COMMAND TYPE!", LogType.ErrorLog);
                 ParameterProperties = Array.Empty<Tuple<string, string, string>>();
                 return string.Empty;
             }
 
             // Try and parse out the IOCTL Command objects from the input strings here.
-            var IoctlRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.IoctlParameterInfo];
+            var IoctlRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionTypes.IoctlParameterInfo];
             bool IoctlResults = IoctlRegex.Evaluate(ExpressionObject.CommandLines, out var IoctlResultStrings);
             if (!IoctlResults)
             {
@@ -306,21 +326,21 @@ namespace SharpExpressions
         /// <summary>
         /// Converts an input Regex command type enum into a type output
         /// </summary>
-        /// <param name="InputType">Enum Regex Typ</param>
+        /// <param name="InputTypes">Enum Regex Typ</param>
         /// <returns>Type of regex for the class output</returns>
-        public static PassThruExpression ToPassThruExpression(this PassThruExpressionType InputType, string InputLogLines)
+        public static PassThruExpression ToPassThruExpression(this PassThruExpressionTypes InputTypes, string InputLogLines)
         {
             try
             {
                 // Pull the description string and get type of regex class.
-                string InputTypeName = InputType.ToDescriptionString();
+                string InputTypeName = InputTypes.ToDescriptionString();
                 string ClassNamespace = typeof(PassThruExpression).Namespace;
                 string ClassType = $"{ClassNamespace}.{InputTypeName}";
 
                 // Build a new PassThru Expression object here based on the type found for our expression
                 Type RegexClassType = Type.GetType(ClassType);
                 PassThruExpression BuiltExpression = RegexClassType == null
-                    ? new PassThruExpression(InputLogLines, InputType)
+                    ? new PassThruExpression(InputLogLines, InputTypes)
                     : (PassThruExpression)Activator.CreateInstance(RegexClassType, InputLogLines);
 
                 // Return the new Expression object here and move on
@@ -330,7 +350,7 @@ namespace SharpExpressions
             {
                 // Catch this exception for debugging use later on
                 _expExtLogger.WriteLog($"AN INPUT LOG LINE SET COULD NOT BE PARSED OUT TO AN EXPRESSION TYPE!", LogType.TraceLog);
-                _expExtLogger.WriteLog("EXCEPTION THROWN DURING CONVERSION ROUTINE IS LOGGED BELOW", InvokeTypeEx, new[] { LogType.TraceLog, LogType.TraceLog });
+                _expExtLogger.WriteException("EXCEPTION THROWN DURING CONVERSION ROUTINE IS LOGGED BELOW", InvokeTypeEx, new[] { LogType.TraceLog, LogType.TraceLog });
 
                 // Return null at this point since the log line objects could not be parsed for some reason
                 return null;
@@ -339,13 +359,45 @@ namespace SharpExpressions
         /// <summary>
         /// Converts an input Regex command type enum into a type output
         /// </summary>
-        /// <param name="InputType">Enum Regex Typ</param>
+        /// <param name="InputTypes">Enum Regex Typ</param>
         /// <returns>Type of regex for the class output</returns>
-        public static PassThruExpression ToPassThruExpression(this PassThruExpressionType InputType, string[] InputLogLines)
+        public static PassThruExpression ToPassThruExpression(this PassThruExpressionTypes InputTypes, string[] InputLogLines)
         {
             // Join the log lines on newline characters and get the type value here
             string JoinedLogLines = string.Join(string.Empty, InputLogLines.Select(LogLine => LogLine.Trim()));
-            return ToPassThruExpression(InputType, JoinedLogLines);
+            return ToPassThruExpression(InputTypes, JoinedLogLines);
+        }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Finds a PTCommand type from the given input line set
+        /// </summary>
+        /// <param name="InputLines">Lines to find the PTCommand Type for.</param>
+        /// <returns>The type of PTCommand regex to search with.</returns>
+        public static PassThruExpressionTypes ToPassThruCommandType(this string[] InputLines)
+        {
+            // Return the result from our joined line output.
+            return ToPassThruCommandType(string.Join("\n", InputLines.Select(Input => Input.TrimEnd())));
+        }
+        /// <summary>
+        /// Finds a PTCommand type from the given input line set
+        /// </summary>
+        /// <param name="InputLines">Lines to find the PTCommand Type for.</param>
+        /// <returns>The type of PTCommand regex to search with.</returns>
+        public static PassThruExpressionTypes ToPassThruCommandType(this string InputLines)
+        {
+            // Find the type of command by converting all enums to string array and searching for the type.
+            var EnumTypesArray = Enum.GetValues(typeof(PassThruExpressionTypes))
+                .Cast<PassThruExpressionTypes>()
+                .Select(PtEnumValue => PtEnumValue.ToString())
+                .ToArray();
+
+            // Find the return type here based on the first instance of a PTCommand type object on the array.
+            var EnumStringSelected = EnumTypesArray.FirstOrDefault(InputLines.Contains);
+            return (PassThruExpressionTypes)(string.IsNullOrWhiteSpace(EnumStringSelected)
+                ? PassThruExpressionTypes.NONE
+                : Enum.Parse(typeof(PassThruExpressionTypes), EnumStringSelected));
         }
     }
 }

@@ -45,8 +45,8 @@ namespace SharpWrapper.PassThruImport
             // Store located key values.
             LocatedJ2534DLLs = new[]
             {
-                GetDLLsForKeyList(PassThruSupportKey_0404, DllKeyValues_0404),
-                GetDLLsForKeyList(PassThruSupportKey_0500, DllKeyValues_0500),
+                _getDLLsForKeyList(PassThruSupportKey_0404, DllKeyValues_0404),
+                _getDLLsForKeyList(PassThruSupportKey_0500, DllKeyValues_0500),
             }.SelectMany(DllSet => DllSet).ToArray();
         }
         /// <summary>
@@ -55,7 +55,7 @@ namespace SharpWrapper.PassThruImport
         /// <param name="PassThruKey">DLL Parent Key</param>
         /// <param name="DllKeys">DLL name</param>
         /// <returns></returns>
-        private J2534Dll[] GetDLLsForKeyList(RegistryKey PassThruKey, string[] DllKeys)
+        private J2534Dll[] _getDLLsForKeyList(RegistryKey PassThruKey, string[] DllKeys)
         {
             // Build array set here.
             var BuiltDLLs = DllKeys.Select(DllValue =>
@@ -68,12 +68,22 @@ namespace SharpWrapper.PassThruImport
                 string ShortName = (string)DeviceKey.GetValue("Name", "");
                 string FunctionLibrary = (string)DeviceKey.GetValue("FunctionLibrary", "");
 
-                // Build protocol List
-                List<ProtocolId> SupportedProtocols = Enum.GetValues(typeof(ProtocolId)).Cast<ProtocolId>()
-                    .Where(ProcId => (int)DeviceKey.GetValue(ProcId.ToString(), 0) == 1)
-                    .ToList();
+                // Build a temporary list to hold our DLL protocols
+                List<ProtocolId> SupportedProtocols = new List<ProtocolId>();
 
-                // Build and return.
+                // Look at all the supported protocols for this DLL
+                List<string> DeviceProtocols = DeviceKey.GetSubKeyNames().ToList();
+                foreach (var ProtocolKey in DeviceProtocols)
+                {
+                    // Check to see if we support this protocol or not
+                    if ((int)DeviceKey.GetValue(ProtocolKey, 0)  == 0) continue;
+                    if (!Enum.TryParse(ProtocolKey, out ProtocolId SupportedProtocol)) continue;
+                    
+                    // If we found this protocol, then add it to our list of output protocols
+                    SupportedProtocols.Add(SupportedProtocol);
+                }
+
+                // Build and return the new DLL instance for this entry and exit out
                 return new J2534Dll(DllValue, VendorValue, ShortName, FunctionLibrary, SupportedProtocols);
             }).ToArray();
 

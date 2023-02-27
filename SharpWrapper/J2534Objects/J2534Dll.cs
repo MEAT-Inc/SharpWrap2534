@@ -1,14 +1,9 @@
-// For comparing name values
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharpSupport;
 using SharpWrapper.J2534Api;
 using SharpWrapper.PassThruImport;
-using SharpWrapper.PassThruSupport;
 using SharpWrapper.PassThruTypes;
-using static System.String;
 
 namespace SharpWrapper.J2534Objects
 {
@@ -144,7 +139,7 @@ namespace SharpWrapper.J2534Objects
             if (PossibleDevices.Count == 0) { JDllStatus = SharpSessionStatus.NULL; }
 
             // Return device list and free device instance.
-            return PossibleDevices.Where(DeviceObj => !IsNullOrWhiteSpace(DeviceObj.DeviceName))
+            return PossibleDevices.Where(DeviceObj => !string.IsNullOrWhiteSpace(DeviceObj.DeviceName))
                 .Select(DeviceObj => DeviceObj)
                 .ToList();
         }
@@ -184,7 +179,7 @@ namespace SharpWrapper.J2534Objects
             };
 
             // Combine into string and return.
-            return Join("\n", OutputStrings);
+            return string.Join("\n", OutputStrings);
         }
         /// <summary>
         /// Useful for comparing DLL Types in a combobox/array
@@ -192,7 +187,7 @@ namespace SharpWrapper.J2534Objects
         public int CompareTo(object DLLAsObject)
         {
             J2534Dll DllObj = (J2534Dll)DLLAsObject;
-            return CompareOrdinal(Name, DllObj.Name);
+            return string.CompareOrdinal(Name, DllObj.Name);
         }
     }
 }

@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using SharpExpressions.PassThruExpressions;
-using SharpLogger;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
-using SharpSupport;
+using SharpLogging;
 
 namespace SharpExpressions
 {
@@ -17,16 +14,16 @@ namespace SharpExpressions
     public class PassThruExpression
     {
         // Logger instance for the expression in use. This should only ever log failures
-        protected internal readonly SubServiceLogger ExpressionLogger;
+        protected readonly SharpLogger _expressionLogger;
 
         // String Values for Command content
         public readonly string CommandLines;
         public readonly string[] SplitCommandLines;
 
         // Time values for the Regex on the command.
-        public readonly PassThruExpressionType TypeOfExpression;
-        public readonly PassThruExpressionRegex TimeRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.CommandTime];
-        public readonly PassThruExpressionRegex StatusCodeRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.CommandStatus];
+        public readonly PassThruExpressionTypes TypeOfExpression;
+        public readonly PassThruExpressionRegex TimeRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionTypes.CommandTime];
+        public readonly PassThruExpressionRegex StatusCodeRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionTypes.CommandStatus];
 
         // Input command time and result values for regex searching.
         [PassThruProperty("Time Issued", "", new[] { "Timestamp Valid", "Invalid Timestamp" })]
@@ -109,7 +106,7 @@ namespace SharpExpressions
                     .ToArray());
 
                 // Log added new content
-                // this.ExpressionLogger.WriteLog("PULLED IN NEW MESSAGES CONTENTS CORRECTLY!", LogType.InfoLog);
+                // this._expressionLogger.WriteLog("PULLED IN NEW MESSAGES CONTENTS CORRECTLY!", LogType.InfoLog);
             }
             if (this.GetType() == typeof(PassThruStartMessageFilterExpression))
             {
@@ -122,7 +119,7 @@ namespace SharpExpressions
                     .ToArray());
 
                 // Log added new content
-                // this.ExpressionLogger.WriteLog("PULLED IN NEW MESSAGES FOR FILTER CONTENTS CORRECTLY!", LogType.InfoLog);
+                // this._expressionLogger.WriteLog("PULLED IN NEW MESSAGES FOR FILTER CONTENTS CORRECTLY!", LogType.InfoLog);
             }
             if (this.GetType() == typeof(PassThruIoctlExpression))
             {
@@ -135,7 +132,7 @@ namespace SharpExpressions
                     .ToArray());
 
                 // Log added new content
-                // this.ExpressionLogger.WriteLog("PULLED IN NEW IOCTL VALUES FOR COMMAND CONTENTS CORRECTLY!", LogType.InfoLog);
+                // this._expressionLogger.WriteLog("PULLED IN NEW IOCTL VALUES FOR COMMAND CONTENTS CORRECTLY!", LogType.InfoLog);
             }
 
             // Remove double newlines. Command lines are split with \r so this doesn't apply.
@@ -174,26 +171,30 @@ namespace SharpExpressions
         public PassThruExpression()
         {
             // Store the none type for our expression and exit out
-            this.TypeOfExpression = PassThruExpressionType.NONE;
+            this.TypeOfExpression = PassThruExpressionTypes.NONE;
+            this._expressionLogger = new SharpLogger(LoggerActions.UniversalLogger, "PassThruExpressionLogger");
         }
         /// <summary>
         /// Builds a new set of PassThruCommand Regex Operations
         /// </summary>
         /// <param name="CommandInput">Input command string</param>
-        public PassThruExpression(string CommandInput, PassThruExpressionType ExpressionType)
+        public PassThruExpression(string CommandInput, PassThruExpressionTypes ExpressionType)
         {
             // Store input lines
             this.CommandLines = CommandInput;
             this.TypeOfExpression = ExpressionType;
             this.SplitCommandLines = CommandInput.Split('\r');
             
+            // Build a new Expression logger for this command type
+            this._expressionLogger = new SharpLogger(LoggerActions.UniversalLogger, $"{this.TypeOfExpression.ToDescriptionString()}Logger");
+
             // Find command issue request values. (Pull using Base Class)
             this.TimeRegex.Evaluate(CommandInput, out var TimeStrings);
             var FieldsToSet = this.GetExpressionProperties(true);
             if (!this.StatusCodeRegex.Evaluate(CommandInput, out var StatusCodeStrings))
             {
                 // Try and find the end of the command in a different way
-                // this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+                // this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
                 StatusCodeStrings = new[]
                 {
                     $"{TimeStrings[2]} 0:STATUS_NOERROR",
@@ -210,7 +211,6 @@ namespace SharpExpressions
             // Now apply values using base method and exit out of this routine
             bool StorePassed = this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray());
             if (!StorePassed) throw new InvalidOperationException("FAILED TO SET BASE CLASS VALUES FOR EXPRESSION OBJECT!");
-            this.ExpressionLogger = (SubServiceLogger)LoggerQueue.SpawnLogger($"{this.GetType().Name}Logger", LoggerActions.SubServiceLogger);
         }
 
         // --------------------------------------------------------------------------------------------------------------
@@ -244,7 +244,7 @@ namespace SharpExpressions
         {
             // Make sure the count of properties matches the count of lines.
             if (FieldValueStrings.Length != FieldObjects.Length) {
-                this.ExpressionLogger.WriteLog("EXPRESSIONS FOR FIELDS AND VALUES ARE NOT EQUAL SIZES! THIS IS FATAL!", LogType.FatalLog);
+                this._expressionLogger.WriteLog("EXPRESSIONS FOR FIELDS AND VALUES ARE NOT EQUAL SIZES! THIS IS FATAL!", LogType.FatalLog);
                 return false;
             }
 
@@ -257,14 +257,14 @@ namespace SharpExpressions
                 catch (Exception SetEx)
                 {
                     // Throw an exception output for this error type.
-                    this.ExpressionLogger.WriteLog($"EXCEPTION THROWN DURING EXPRESSION VALUE STORE FOR COMMAND TYPE {this.GetType().Name}!", LogType.ErrorLog);
-                    this.ExpressionLogger.WriteLog("EXCEPTION IS BEING LOGGED BELOW", SetEx);
+                    this._expressionLogger.WriteLog($"EXCEPTION THROWN DURING EXPRESSION VALUE STORE FOR COMMAND TYPE {this.GetType().Name}!", LogType.ErrorLog);
+                    this._expressionLogger.WriteException("EXCEPTION IS BEING LOGGED BELOW", SetEx);
                     return false;
                 }
             }
 
             // Log passed, return output.
-            // this.ExpressionLogger.WriteLog($"UPDATED EXPRESSION VALUES FOR A TYPE OF {this.GetType().Name} OK!");
+            // this._expressionLogger.WriteLog($"UPDATED EXPRESSION VALUES FOR A TYPE OF {this.GetType().Name} OK!");
             return true;
         }
     }

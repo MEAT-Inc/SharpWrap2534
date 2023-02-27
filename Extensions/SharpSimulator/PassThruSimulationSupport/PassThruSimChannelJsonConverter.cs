@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
 
-namespace SharpSimulator.SupportingLogic
+namespace SharpSimulator.PassThruSimulationSupport
 {
     /// <summary>
     /// Class used to convert Simulation channels into readable format in JSON

@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
-using SharpSimulator.SupportingLogic;
+using SharpSimulator.PassThruSimulationSupport;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
 

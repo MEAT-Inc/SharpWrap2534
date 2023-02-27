@@ -2,8 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
+using SharpLogging;
 
 namespace SharpPipes
 {
@@ -23,7 +22,7 @@ namespace SharpPipes
 
         // Pipe configuration information which is used to help us configure our pipe instances 
         public readonly string PipeLocation;                // Path of the pipe instance
-        internal readonly SubServiceLogger PipeLogger;      // The logger object used to pull in our Pipe values
+        internal readonly SharpLogger PipeLogger;           // The logger object used to pull in our Pipe values
 
         // Backing fields for pipe configurations and states
         protected PassThruPipeStates _pipeState;                                        // The state of this pipe instance (backing field)
@@ -81,7 +80,7 @@ namespace SharpPipes
 
                     // If it's not a file missing issue, then return false and log the exception
                     PipeLogger.WriteLog("EXCEPTION THROWN DURING DLL IN USE CHECK!", LogType.ErrorLog);
-                    PipeLogger.WriteLog($"DLL FILE PROVIDED AT LOCATION {this.FulcrumShimDLL} COULD NOT BE FOUND!", LoadDLLEx);
+                    PipeLogger.WriteException($"DLL FILE PROVIDED AT LOCATION {this.FulcrumShimDLL} COULD NOT BE FOUND!", LoadDLLEx);
                     return false; 
                 }
             }
@@ -90,6 +89,26 @@ namespace SharpPipes
         #endregion // Properties
 
         #region Structs and Classes
+
+        /// <summary>
+        /// Enums for pipe types
+        /// </summary>
+        public enum PassThruPipeTypes
+        {
+            ReaderPipe,      // Pipe number 1 (Input)
+            WriterPipe,      // Pipe number 2 (Output)
+        }
+        /// <summary>
+        /// Possible states for our pipe objects.
+        /// </summary>
+        public enum PassThruPipeStates
+        {
+            Faulted,            // Failed to build
+            Open,               // Open and not connected
+            Connected,          // Connected
+            Disconnected,       // Disconnected
+            Closed,             // Open but closed manually
+        }
 
         /// <summary>
         /// Args for when the state of a pipe is modified
@@ -144,7 +163,7 @@ namespace SharpPipes
         {
             // Configure logger object.
             this.PipeState = PassThruPipeStates.Faulted;
-            this.PipeLogger = new SubServiceLogger($"{PipeType}", UseAsync: true);
+            this.PipeLogger = new SharpLogger(LoggerActions.UniversalLogger);
             this.PipeLogger.WriteLog($"BUILT NEW PIPE LOGGER FOR PIPE TYPE {PipeType} OK!", LogType.InfoLog);
 
             // Store information about the pipe being configured

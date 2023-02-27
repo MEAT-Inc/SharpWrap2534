@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace SharpSupport
+namespace SharpWrapper.PassThruSupport
 {
     /// <summary>
     /// Class used to convert a set of tuples of values into an ASCII printed text table.
     /// </summary>
-    public static class TextTableGenerator
+    internal static class PtTextTableGenerator
     {
         /// <summary>
         /// Converts table object into our string output.
@@ -39,9 +40,9 @@ namespace SharpSupport
 
             // Fill table rows in looping the contents over time.
             for (int RowIndex = 1; RowIndex < ArrayValues.GetLength(0); RowIndex++)
-                for (int ColIndex = 0; ColIndex < ArrayValues.GetLength(1); ColIndex++)
-                    ArrayValues[RowIndex, ColIndex] = ValueSelectors[ColIndex]
-                      .Invoke(TableValues[RowIndex - 1]).ToString();
+            for (int ColIndex = 0; ColIndex < ArrayValues.GetLength(1); ColIndex++)
+                ArrayValues[RowIndex, ColIndex] = ValueSelectors[ColIndex]
+                    .Invoke(TableValues[RowIndex - 1]).ToString();
 
             // Return built table output as a string here.
             return ToStringTable(ArrayValues);
@@ -87,7 +88,6 @@ namespace SharpSupport
             string FinalTableString = $"{PaddingLineString}\n{TableString}{PaddingLineString}".Replace("\r\n", "\n");
             return string.Join("\n", FinalTableString.Split('\n').Select(LineObj => LineObj.TrimStart()));
         }
-
         /// <summary>
         /// Gets the max size of a column width based on the input values given
         /// </summary>
@@ -98,13 +98,16 @@ namespace SharpSupport
             // Find the new max size and store them into an equal size output array
             var MaxWidth = new int[InputArrayValues.GetLength(1)];
             for (int ColIndex = 0; ColIndex < InputArrayValues.GetLength(1); ColIndex++)
-                for (int rowIndex = 0; rowIndex < InputArrayValues.GetLength(0); rowIndex++)
+            for (int rowIndex = 0; rowIndex < InputArrayValues.GetLength(0); rowIndex++)
+            {
+                // Store new and old size values. Compare and see if we need to update
+                int NewLength = InputArrayValues[rowIndex, ColIndex].Length;
+                int OldLength = MaxWidth[ColIndex];
+                if (NewLength > OldLength)
                 {
-                    // Store new and old size values. Compare and see if we need to update
-                    int NewLength = InputArrayValues[rowIndex, ColIndex].Length;
-                    int OldLength = MaxWidth[ColIndex];
-                    if (NewLength > OldLength) { MaxWidth[ColIndex] = NewLength; }
+                    MaxWidth[ColIndex] = NewLength;
                 }
+            }
 
             // Return the output size array object
             return MaxWidth;

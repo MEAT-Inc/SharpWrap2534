@@ -13,7 +13,7 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruCloseExpression : PassThruExpression
     {
         // Regex for the connect close device command (PTClose)
-        public readonly PassThruRegex PtCloseRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTClose];
+        public readonly PassThruRegex PtCloseRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.PTClose];
 
         // -----------------------------------------------------------------------------------------
 
@@ -28,12 +28,12 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new instance of a PTClose Regex type output.
         /// </summary>
         /// <param name="CommandInput">InputLines for the command object strings.</param>
-        public PassThruCloseExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTClose)
+        public PassThruCloseExpression(string CommandInput) : base(CommandInput, PassThruExpressionTypes.PTClose)
         {
             // Find the PTClose Command Results.
             var FieldsToSet = this.GetExpressionProperties();
             bool PtCloseResult = this.PtCloseRegex.Evaluate(CommandInput, out var PassThruCloseStrings);
-            if (!PtCloseResult) this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+            if (!PtCloseResult) this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruCloseStrings[0] };

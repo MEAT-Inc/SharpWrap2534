@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
-using SharpLogger.LoggerSupport;
+using SharpLogging;
 
 namespace SharpPipes
 {
@@ -144,7 +144,7 @@ namespace SharpPipes
                     this.PipeState = PassThruPipeStates.Faulted;
                     this.PipeLogger.WriteLog($"FAILED TO CONNECT TO OUR PIPE INSTANCE FOR PIPE ID {this.PipeTypes}!", LogType.ErrorLog);
                     this.PipeLogger.WriteLog("EXCEPTION THROWN DURING CONNECTION OR STREAM OPERATIONS FOR THIS PIPE CONFIGURATION!", LogType.ErrorLog);
-                    this.PipeLogger.WriteLog("EXCEPTION THROWN IS BEING LOGGED BELOW", PipeConnectionEx);
+                    this.PipeLogger.WriteException("EXCEPTION THROWN IS BEING LOGGED BELOW", PipeConnectionEx);
 
                     // Return out failed from this routine
                     return false;

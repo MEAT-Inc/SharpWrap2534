@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using SharpSupport;
 using SharpWrapper.PassThruSupport;
-using static SharpWrapper.PassThruImport.PassThruDelegates;
 
 namespace SharpWrapper.PassThruImport
 {
@@ -17,7 +15,25 @@ namespace SharpWrapper.PassThruImport
         public string JDllPath;
         public IntPtr ModulePointer;
 
-        // ---------------------------------CONSTRUCTOR LOGIC FOR CLASS -------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+        
+        // Loads a DLL into the memory.
+        [DllImport("kernel32.dll", EntryPoint = "LoadLibrary", SetLastError = true)]
+        public static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpLibFileName);
+
+        // Gets function address in the memory.
+        [DllImport("kernel32.dll", EntryPoint = "GetProcAddress")]
+        public static extern IntPtr GetProcAddress(IntPtr hModule, [MarshalAs(UnmanagedType.LPStr)] string lpProcName);
+
+        // Unloads the lib object.
+        [DllImport("kernel32.dll", EntryPoint = "FreeLibrary")]
+        public static extern bool FreeLibrary(IntPtr hModule);
+
+        // Get the error from the import call
+        [DllImport("kernel32.dll")]
+        public static extern uint GetLastError();
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Imports a new JDLL into the project and stores all of its outputs.
@@ -27,20 +43,19 @@ namespace SharpWrapper.PassThruImport
         {
             // Store the DLL path ehre and import the path as an assy.
             JDllPath = DllPath;
-            ModulePointer = Win32Invokers.LoadLibrary(JDllPath);
+            ModulePointer = LoadLibrary(JDllPath);
 
             // Check pointer value.
             if (ModulePointer == IntPtr.Zero)
                 throw new COMException($"Failed to load new Win32 DLL! Exception: {Marshal.GetLastWin32Error()}");
         }
-
         /// <summary>
         /// DCTOR For this instance object.
         /// Removes the loaded lib objects
         /// </summary>
-        ~PassThruApiImporter() { Win32Invokers.FreeLibrary(ModulePointer); }
+        ~PassThruApiImporter() { FreeLibrary(ModulePointer); }
 
-        // --------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Runs the setup logic for this class 
@@ -57,166 +72,166 @@ namespace SharpWrapper.PassThruImport
                 // ---------------------------------- DELEGATES FOR IMPORTING DEVICES ----------------------------------------------
 
                 // USED FOR INIT NEXT DEVICE SETUP!
-                IntPtr pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruGetNextCarDAQ");
+                IntPtr pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruGetNextCarDAQ");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTInitNextPassThruDevice = (DelegateInitGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegateInitGetNextCarDAQ));
+                    DelegateSet.PTInitNextPassThruDevice = (PassThruDelegates.DelegateInitGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegateInitGetNextCarDAQ));
 
                 // USED FOR INIT NEXT DEVICE SETUP!
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruGetNextCarDAQ");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruGetNextCarDAQ");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTGetNextPassThruDevice = (DelegateGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegateGetNextCarDAQ));
+                    DelegateSet.PTGetNextPassThruDevice = (PassThruDelegates.DelegateGetNextCarDAQ)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegateGetNextCarDAQ));
 
                 // USED FOR SCAN NEXT DEVICES (V0500 ONLY!)
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruScanForDevices");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruScanForDevices");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTScanForDevices = (DelegatePassThruScanForDevices)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruScanForDevices));
+                    DelegateSet.PTScanForDevices = (PassThruDelegates.DelegatePassThruScanForDevices)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruScanForDevices));
 
                 // USED FOR GET NEXT DEVICES (V0500 ONLY!)
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruGetNextDevice");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruGetNextDevice");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTGetNextDevice = (DelegatePassThruGetNextDevice)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruGetNextDevice));
+                    DelegateSet.PTGetNextDevice = (PassThruDelegates.DelegatePassThruGetNextDevice)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruGetNextDevice));
 
                 // -----------------------------------------------------------------------------------------------------------------
 
                 // PASSTHRU OPEN
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruOpen");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruOpen");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTOpen = (DelegatePassThruOpen)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruOpen));
+                    DelegateSet.PTOpen = (PassThruDelegates.DelegatePassThruOpen)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruOpen));
 
                 // PASSTHRU CLOSE
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruClose");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruClose");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTClose = (DelegatePassThruClose)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruClose));
+                    DelegateSet.PTClose = (PassThruDelegates.DelegatePassThruClose)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruClose));
 
                 // PASSTHRU CONNECT
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruConnect");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruConnect");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTConnect = (DelegatePassThruConnect)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruConnect));
+                    DelegateSet.PTConnect = (PassThruDelegates.DelegatePassThruConnect)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruConnect));
 
                 // PASSTHRU DISCONNECT
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruDisconnect");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruDisconnect");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTDisconnect = (DelegatePassThruDisconnect)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruDisconnect));
+                    DelegateSet.PTDisconnect = (PassThruDelegates.DelegatePassThruDisconnect)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruDisconnect));
 
                 // PASSTHRU READ MSGS
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruReadMsgs");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruReadMsgs");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTReadMsgs = (DelegatePassThruReadMsgs)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruReadMsgs));
+                    DelegateSet.PTReadMsgs = (PassThruDelegates.DelegatePassThruReadMsgs)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruReadMsgs));
 
                 // PASSTHRU WRITE MSGS
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruWriteMsgs");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruWriteMsgs");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTWriteMsgs = (DelegatePassThruWriteMsgs)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruWriteMsgs));
+                    DelegateSet.PTWriteMsgs = (PassThruDelegates.DelegatePassThruWriteMsgs)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruWriteMsgs));
 
                 // PASSTHRU START PERIODIC
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruStartPeriodicMsg");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruStartPeriodicMsg");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTStartPeriodicMsg = (DelegatePassThruStartPeriodicMsg)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruStartPeriodicMsg));
+                    DelegateSet.PTStartPeriodicMsg = (PassThruDelegates.DelegatePassThruStartPeriodicMsg)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruStartPeriodicMsg));
 
                 // PASSTHRU STOP PERIODIC
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruStopPeriodicMsg");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruStopPeriodicMsg");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTStopPeriodicMsg = (DelegatePassThruStopPeriodicMsg)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruStopPeriodicMsg));
+                    DelegateSet.PTStopPeriodicMsg = (PassThruDelegates.DelegatePassThruStopPeriodicMsg)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruStopPeriodicMsg));
 
                 // PASSTHRU START FILTER
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruStartMsgFilter");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruStartMsgFilter");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTStartMsgFilter = (DelegatePassThruStartMsgFilter)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruStartMsgFilter));
+                    DelegateSet.PTStartMsgFilter = (PassThruDelegates.DelegatePassThruStartMsgFilter)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruStartMsgFilter));
 
                 // PASSTHRU START FILTER
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruStartMsgFilter");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruStartMsgFilter");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTStartMsgFilterFlowPtr = (DelegatePassThruStartMsgFilterFlowPtr)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruStartMsgFilterFlowPtr));
+                    DelegateSet.PTStartMsgFilterFlowPtr = (PassThruDelegates.DelegatePassThruStartMsgFilterFlowPtr)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruStartMsgFilterFlowPtr));
 
                 // PASSTHRU STOP FILTER
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruStopMsgFilter");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruStopMsgFilter");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTStopMsgFilter = (DelegatePassThruStopMsgFilter)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruStopMsgFilter));
+                    DelegateSet.PTStopMsgFilter = (PassThruDelegates.DelegatePassThruStopMsgFilter)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruStopMsgFilter));
 
                 // PASSTHRU SET VOLTAGE
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruSetProgrammingVoltage");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruSetProgrammingVoltage");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTSetProgrammingVoltage = (DelegatePassThruSetProgrammingVoltage)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruSetProgrammingVoltage));
+                    DelegateSet.PTSetProgrammingVoltage = (PassThruDelegates.DelegatePassThruSetProgrammingVoltage)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruSetProgrammingVoltage));
 
                 // PASSTHRU READ VERSION
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruReadVersion");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruReadVersion");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTReadVersion = (DelegatePassThruReadVersion)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruReadVersion));
+                    DelegateSet.PTReadVersion = (PassThruDelegates.DelegatePassThruReadVersion)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruReadVersion));
 
                 // PASSTHRU GET ERROR
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruGetLastError");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruGetLastError");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTGetLastError = (DelegatePassThruGetLastError)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruGetLastError));
+                    DelegateSet.PTGetLastError = (PassThruDelegates.DelegatePassThruGetLastError)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruGetLastError));
 
                 // PASSTHRU IOCTL
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruIoctl");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruIoctl");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTIoctl = (DelegatePassThruIoctl)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruIoctl));
+                    DelegateSet.PTIoctl = (PassThruDelegates.DelegatePassThruIoctl)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruIoctl));
 
                 // ------------------------------------------ METHODS FOR THE V0500 DLLS ONLY! ------------------------------------------
 
                 // PASSTHRU LOGICAL CONNECT
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruLogicalConnect");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruLogicalConnect");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTLogicalConnect = (DelegatePassThruLogicalConnect)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruLogicalConnect));
+                    DelegateSet.PTLogicalConnect = (PassThruDelegates.DelegatePassThruLogicalConnect)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruLogicalConnect));
 
                 // PASSTHRU LOGICAL DISCONNECT
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruLogicalDisconnect");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruLogicalDisconnect");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTLogicalDisconnect = (DelegatePassThruLogicalDisconnect)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruLogicalDisconnect));
+                    DelegateSet.PTLogicalDisconnect = (PassThruDelegates.DelegatePassThruLogicalDisconnect)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruLogicalDisconnect));
 
                 // PASSTHRU SELECT
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruSelect");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruSelect");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTSelect = (DelegatePassThruSelect)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruSelect));
+                    DelegateSet.PTSelect = (PassThruDelegates.DelegatePassThruSelect)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruSelect));
                 
                 // PASSTHRU QUEUE MESSAGES
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruQueueMsgs");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruQueueMsgs");
                 if (pAddressOfFunctionToCall != IntPtr.Zero) 
-                    DelegateSet.PTQueueMsgs = (DelegatePassThruQueueMsgs)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePassThruQueueMsgs));
+                    DelegateSet.PTQueueMsgs = (PassThruDelegates.DelegatePassThruQueueMsgs)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePassThruQueueMsgs));
 
                 // -------------------------------------- METHODS FOR THE FULCRUM SHIM DLL ONLY! --------------------------------------
 
                 // PASSTHRU WRITE TO LOG A
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruWriteToLogA");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruWriteToLogA");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTWriteLogA = (DelegatePTWriteLogA)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePTWriteLogA));
+                    DelegateSet.PTWriteLogA = (PassThruDelegates.DelegatePTWriteLogA)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePTWriteLogA));
 
                 // PASSTHRU WRITE TO LOG W
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruWriteToLogW");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruWriteToLogW");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTWriteLogW = (DelegatePTWriteLogW)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePTWriteLogW));
+                    DelegateSet.PTWriteLogW = (PassThruDelegates.DelegatePTWriteLogW)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePTWriteLogW));
 
                 // PASSTHRU SAVE LOG FILE
-                pAddressOfFunctionToCall = Win32Invokers.GetProcAddress(ModulePointer, "PassThruSaveLog");
+                pAddressOfFunctionToCall = GetProcAddress(ModulePointer, "PassThruSaveLog");
                 if (pAddressOfFunctionToCall != IntPtr.Zero)
-                    DelegateSet.PTSaveLog = (DelegatePTSaveLog)Marshal.GetDelegateForFunctionPointer(
-                        pAddressOfFunctionToCall, typeof(DelegatePTSaveLog));
+                    DelegateSet.PTSaveLog = (PassThruDelegates.DelegatePTSaveLog)Marshal.GetDelegateForFunctionPointer(
+                        pAddressOfFunctionToCall, typeof(PassThruDelegates.DelegatePTSaveLog));
 
                 // Return true if we've passed loading all these methods now
                 return true;

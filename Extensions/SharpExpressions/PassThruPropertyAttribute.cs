@@ -9,6 +9,14 @@ namespace SharpExpressions
     [AttributeUsage(AttributeTargets.Field)]
     sealed class PassThruPropertyAttribute : Attribute
     {
+        #region Custom Events
+        #endregion //Custom Events
+
+        #region Fields
+        #endregion //Fields
+
+        #region Properties
+
         // Public readonly fields for the information about our expression object
         public readonly int LineNumber;
         public readonly bool FailOnMatch;
@@ -17,16 +25,20 @@ namespace SharpExpressions
 
         // Private values for setting true/false here.
         private readonly string _failedState;
-        private readonly string _passedState;
+        private readonly string _passedState; 
 
-        // ------------------------------------------------------------------------------
+        #endregion //Properties
+
+        #region Structs and Classes
+        #endregion //Structs and Classes
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// This makes a result tag for the name given and sets to passed when the value matches the given result.
         /// Set OnFail to true to make the value fail when it matches the input
         /// </summary>
         /// <param name="Name">Name of result</param>
-        /// <param name="DesiredResult">Value to equal.</param>
         public PassThruPropertyAttribute(string Name, string ResultValue = "", string[] ResultStates = null, bool OnFail = false, [CallerLineNumber]int LineNumber = 0)
         {
             // Store values for attribute
@@ -41,7 +53,7 @@ namespace SharpExpressions
             this._failedState = ResultStates[1];
         }
         
-        // ------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Returns true if the value matches the passed value or doesn't match the false value.

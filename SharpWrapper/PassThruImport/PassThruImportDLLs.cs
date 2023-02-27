@@ -12,16 +12,20 @@ namespace SharpWrapper.PassThruImport
     /// </summary>
     public class PassThruImportDLLs
     {
-        // PT Support key value.
-        public readonly RegistryKey PassThruSupportKey_0404; 
-        public readonly RegistryKey PassThruSupportKey_0500; 
+        // PT Support key values. Holds both 0404 locations and 0500 locations
+        public readonly RegistryKey PassThruSupportKey_0404;
+        public readonly RegistryKey PassThruSupportKey_0500;
+        public readonly RegistryKey PassThruSupportKey_0404_6432;
+        public readonly RegistryKey PassThruSupportKey_0500_6432; 
 
-        // Key information and DLL Values.
+        // Key information and DLL Values for each of the different key locations found
         public readonly string[] DllKeyValues_0404;
         public readonly string[] DllKeyValues_0500;
+        public readonly string[] DllKeyValues_0404_6432;
+        public readonly string[] DllKeyValues_0500_6432;
 
-        // List of all located DLL Values
-        public readonly J2534Dll[] LocatedJ2534DLLs;
+        // List of all located DLL Values for both versions and store locations
+        public readonly List<J2534Dll> LocatedJ2534DLLs;
 
         // --------------------------------------------------------------------------------
 
@@ -30,31 +34,31 @@ namespace SharpWrapper.PassThruImport
         /// </summary>
         public PassThruImportDLLs()
         {
-            // Build fresh list object and init the registry values. (0404)
-            PassThruSupportKey_0404 = Registry.LocalMachine.OpenSubKey(PassThruConstants.V0404_PASSTHRU_REGISTRY_PATH, false) ??
-                                      Registry.LocalMachine.OpenSubKey(PassThruConstants.V0404_PASSTHRU_REGISTRY_PATH_6432, false);
+            // Build fresh list object and init the registry values for both 0404 and 0500, as well as both possible locations
+            PassThruSupportKey_0404 = Registry.LocalMachine.OpenSubKey(PassThruConstants.V0404_PASSTHRU_REGISTRY_PATH, false);
+            PassThruSupportKey_0500 = Registry.LocalMachine.OpenSubKey(PassThruConstants.V0500_PASSTHRU_REGISTRY_PATH, false);
+            PassThruSupportKey_0404_6432 = Registry.LocalMachine.OpenSubKey(PassThruConstants.V0404_PASSTHRU_REGISTRY_PATH_6432, false);
+            PassThruSupportKey_0500_6432 = Registry.LocalMachine.OpenSubKey(PassThruConstants.V0500_PASSTHRU_REGISTRY_PATH_6432, false);
 
-            // Build fresh list object and init the registry values. (0500)
-            PassThruSupportKey_0500 = Registry.LocalMachine.OpenSubKey(PassThruConstants.V0500_PASSTHRU_REGISTRY_PATH, false) ??
-                                      Registry.LocalMachine.OpenSubKey(PassThruConstants.V0500_PASSTHRU_REGISTRY_PATH_6432, false);
+            // Pull in all of our V0404 and V0500 Keys and values from the needed registry locations
+            DllKeyValues_0404 = (string[])(PassThruSupportKey_0404?.GetSubKeyNames().Select(KeyValue => KeyValue) ?? Array.Empty<string>());
+            DllKeyValues_0500 = (string[])(PassThruSupportKey_0500?.GetSubKeyNames().Select(KeyValue => KeyValue) ?? Array.Empty<string>());
+            DllKeyValues_0404_6432 = (string[])(PassThruSupportKey_0404_6432?.GetSubKeyNames().Select(KeyValue => KeyValue) ?? Array.Empty<string>());
+            DllKeyValues_0500_6432 = (string[])(PassThruSupportKey_0500_6432?.GetSubKeyNames().Select(KeyValue => KeyValue) ?? Array.Empty<string>());
 
-            // Get our DLL Key values here.
-            DllKeyValues_0404 = PassThruSupportKey_0404?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray();
-            DllKeyValues_0500 = PassThruSupportKey_0500?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray();
-
-            // Store located key values.
-            LocatedJ2534DLLs = new[]
-            {
-                _getDLLsForKeyList(PassThruSupportKey_0404, DllKeyValues_0404),
-                _getDLLsForKeyList(PassThruSupportKey_0500, DllKeyValues_0500),
-            }.SelectMany(DllSet => DllSet).ToArray();
+            // Store located key values and exit out of this instance
+            LocatedJ2534DLLs = new List<J2534Dll>();
+            LocatedJ2534DLLs.AddRange(this._getDLLsForKeyList(PassThruSupportKey_0404, DllKeyValues_0404));
+            LocatedJ2534DLLs.AddRange(this._getDLLsForKeyList(PassThruSupportKey_0500, DllKeyValues_0500));
+            LocatedJ2534DLLs.AddRange(this._getDLLsForKeyList(PassThruSupportKey_0404_6432, DllKeyValues_0404_6432));
+            LocatedJ2534DLLs.AddRange(this._getDLLsForKeyList(PassThruSupportKey_0500_6432, DllKeyValues_0500_6432));
         }
         /// <summary>
         /// Builds an array of new J2534 DLLs
         /// </summary>
         /// <param name="PassThruKey">DLL Parent Key</param>
         /// <param name="DllKeys">DLL name</param>
-        /// <returns></returns>
+        /// <returns>A collection of built J2534 DLL instances for the given registry key and lookup locations</returns>
         private J2534Dll[] _getDLLsForKeyList(RegistryKey PassThruKey, string[] DllKeys)
         {
             // Build array set here.
@@ -62,6 +66,7 @@ namespace SharpWrapper.PassThruImport
             {
                 // Build new DLL and get infos. Check our DLL Version first.
                 RegistryKey DeviceKey = PassThruKey.OpenSubKey(DllValue);
+                if (DeviceKey == null) return null;
 
                 // Find values here.
                 string VendorValue = (string)DeviceKey.GetValue("Vendor", "");
@@ -76,7 +81,7 @@ namespace SharpWrapper.PassThruImport
                 foreach (var ProtocolKey in DeviceProtocols)
                 {
                     // Check to see if we support this protocol or not
-                    if ((int)DeviceKey.GetValue(ProtocolKey, 0)  == 0) continue;
+                    if ((int)DeviceKey.GetValue(ProtocolKey, 0) == 0) continue;
                     if (!Enum.TryParse(ProtocolKey, out ProtocolId SupportedProtocol)) continue;
                     
                     // If we found this protocol, then add it to our list of output protocols
@@ -85,7 +90,7 @@ namespace SharpWrapper.PassThruImport
 
                 // Build and return the new DLL instance for this entry and exit out
                 return new J2534Dll(DllValue, VendorValue, ShortName, FunctionLibrary, SupportedProtocols);
-            }).ToArray();
+            }).Where(JDll => JDll != null).ToArray();
 
             // Return built Values
             return BuiltDLLs;
@@ -107,7 +112,7 @@ namespace SharpWrapper.PassThruImport
             return DllFound != null;
         }
         /// <summary>
-        /// Finds a DLL for the given nmame and version.
+        /// Finds a DLL for the given name and version.
         /// </summary>
         /// <param name="DllName">Name to find</param>
         /// <param name="Version">DLL Version</param>

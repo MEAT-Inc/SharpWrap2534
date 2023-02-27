@@ -49,10 +49,10 @@
       <DependentUpon>AssemblyInfo.tt</DependentUpon>
     </Compile>
     <Compile Include="PassThruSimulationGenerator.cs" />
-    <Compile Include="SupportingLogic\PassThruSimChannelExtensions.cs" />
+    <Compile Include="PassThruSimulationSupport\PassThruSimChannelExtensions.cs" />
     <Compile Include="PassThruSimulationConfiguration.cs" />
     <Compile Include="PassThruSimulationChannel.cs" />
-    <Compile Include="SupportingLogic\PassThruSimChannelJsonConverter.cs" />
+    <Compile Include="PassThruSimulationSupport\PassThruSimChannelJsonConverter.cs" />
     <Compile Include="PassThruSimulationPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,20 +68,14 @@
     <EmbeddedResource Include="Properties\DefaultSimConfigurations.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpSupport\SharpSupport.csproj">
-      <Project>{c23c0e3c-7b15-47af-b358-77592baceeaf}</Project>
-      <Name>SharpSupport</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="SharpExpressions">
-      <Version>0.3.1.40</Version>
+      <Version>0.4.5.51</Version>
     </PackageReference>
     <PackageReference Include="SharpLogger">
-      <Version>2.5.5.279</Version>
+      <Version>2.5.6.281</Version>
     </PackageReference>
     <PackageReference Include="SharpWrapper">
-      <Version>5.3.8.410</Version>
+      <Version>6.1.3.416</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

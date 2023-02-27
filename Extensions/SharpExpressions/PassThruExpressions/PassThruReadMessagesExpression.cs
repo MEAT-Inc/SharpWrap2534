@@ -13,8 +13,8 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruReadMessagesExpression : PassThruExpression
     {
         // Regex for the read messages command (PTReadMsgs) and the number of messages processed 
-        public readonly PassThruRegex PtReadMessagesRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTReadMsgs];
-        public readonly PassThruRegex MessagesReadRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.MessageCount];
+        public readonly PassThruRegex PtReadMessagesRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.PTReadMsgs];
+        public readonly PassThruRegex MessagesReadRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.MessageCount];
         
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;
@@ -43,7 +43,7 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new Regex helper to search for our PTRead Messages Command
         /// </summary>
         /// <param name="CommandInput">Input text for the command to find.</param>
-        public PassThruReadMessagesExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTReadMsgs)
+        public PassThruReadMessagesExpression(string CommandInput) : base(CommandInput, PassThruExpressionTypes.PTReadMsgs)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();
@@ -51,7 +51,7 @@ namespace SharpExpressions.PassThruExpressions
             bool MessagesReadResult = this.MessagesReadRegex.Evaluate(CommandInput, out var MessagesReadStrings);
 
             // If we failed to pull our read count just send out ? and ?. If it's a complete read count, then we know we're passed so just do 0/0
-            if (!PtReadMsgsResult) this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+            if (!PtReadMsgsResult) this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
             if (!MessagesReadResult) MessagesReadStrings = CommandInput.Contains("PTReadMsgs() complete") || CommandInput.Contains("Zero messages received")
                 ? new[] { "Read 0/0", "0", "0" }
                 : new[] { "Read ? of ? messages", "?", "?" };

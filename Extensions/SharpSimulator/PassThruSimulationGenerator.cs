@@ -7,10 +7,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SharpExpressions;
-using SharpLogger;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
-using SharpSimulator.SupportingLogic;
+using SharpLogging;
+using SharpSimulator.PassThruSimulationSupport;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
 
@@ -31,7 +29,7 @@ namespace SharpSimulator
         #region Fields
 
         // Logger object used to help provided debug information about a simulation being built
-        private readonly SubServiceLogger _simulationLogger;
+        private readonly SharpLogger _simulationLogger;
 
         #endregion // Fields
 
@@ -111,7 +109,7 @@ namespace SharpSimulator
             // Finally build our logger object and exit out of this constructor
             string SimGeneratorName = Path.GetFileNameWithoutExtension(this.PassThruLogFile);
             string LoggerName = $"SimGeneratorLogger_{Path.GetFileNameWithoutExtension(SimGeneratorName)}";
-            this._simulationLogger = (SubServiceLogger)LoggerQueue.SpawnLogger(LoggerName, LoggerActions.SubServiceLogger);
+            this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
         }
 
@@ -134,7 +132,7 @@ namespace SharpSimulator
             // Finally build our logger object and exit out of this constructor
             string SimGeneratorName = Path.GetFileNameWithoutExtension(this.PassThruLogFile);
             string LoggerName = $"SimGeneratorLogger_{Path.GetFileNameWithoutExtension(SimGeneratorName)}";
-            this._simulationLogger = (SubServiceLogger)LoggerQueue.SpawnLogger(LoggerName, LoggerActions.SubServiceLogger);
+            this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
         }
         /// <summary>
@@ -203,7 +201,7 @@ namespace SharpSimulator
                 {
                     // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
                     this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
-                    this._simulationLogger.WriteLog("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, new[] { LogType.WarnLog, LogType.TraceLog });
+                    this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, new[] { LogType.WarnLog, LogType.TraceLog });
                 }
 
                 // Invoke a progress update here if needed
@@ -231,7 +229,7 @@ namespace SharpSimulator
 
             // Get a logger object for saving expression sets.
             string LoggerName = $"{Path.GetFileNameWithoutExtension(BaseFileName)}_SimulationsLogger";
-            var ExpressionLogger = (SubServiceLogger)LoggerQueue.SpawnLogger(LoggerName, LoggerActions.SubServiceLogger);
+            var ExpressionLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
 
             // Find output path and then build final path value.             
             Directory.CreateDirectory(OutputLogFileFolder);
@@ -277,7 +275,7 @@ namespace SharpSimulator
             {
                 // Log failures. Return an empty string.
                 ExpressionLogger.WriteLog("FAILED TO SAVE OUR OUTPUT EXPRESSION SETS! THIS IS FATAL!", LogType.FatalLog);
-                ExpressionLogger.WriteLog("EXCEPTION FOR THIS INSTANCE IS BEING LOGGED BELOW", WriteEx);
+                ExpressionLogger.WriteException("EXCEPTION FOR THIS INSTANCE IS BEING LOGGED BELOW", WriteEx);
 
                 // Return nothing.
                 return string.Empty;
@@ -298,7 +296,7 @@ namespace SharpSimulator
 
             // Store all the expressions where we don't have a type defined
             var ExpressionsToParse = this.ExpressionsLoaded
-                .Where(ExpObj => ExpObj.TypeOfExpression != PassThruExpressionType.NONE)
+                .Where(ExpObj => ExpObj.TypeOfExpression != PassThruExpressionTypes.NONE)
                 .ToArray();
 
             // Group off all the commands by channel ID and then convert them to paired objects

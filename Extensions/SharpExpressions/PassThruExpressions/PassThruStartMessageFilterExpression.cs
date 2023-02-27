@@ -13,8 +13,8 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruStartMessageFilterExpression : PassThruExpression
     {
         // Regex for the stop message filter command (PTStartMsgFilter) and the filter ID started 
-        public readonly PassThruRegex FilterIdReturnedRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.FilterID];
-        public readonly PassThruRegex PtStartMsgFilterRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTStartMsgFilter];
+        public readonly PassThruRegex FilterIdReturnedRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.FilterID];
+        public readonly PassThruRegex PtStartMsgFilterRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.PTStartMsgFilter];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;
@@ -35,13 +35,13 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new instance of a PTStartMsgFilter expression 
         /// </summary>
         /// <param name="CommandInput"></param>
-        public PassThruStartMessageFilterExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTStartMsgFilter)
+        public PassThruStartMessageFilterExpression(string CommandInput) : base(CommandInput, PassThruExpressionTypes.PTStartMsgFilter)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();
             bool PtStartFilterResult = this.PtStartMsgFilterRegex.Evaluate(CommandInput, out var PassThruFilterStrings);
             bool FilterIdResult = this.FilterIdReturnedRegex.Evaluate(CommandInput, out var FilterIdResultStrings);
-            if (!PtStartFilterResult || !FilterIdResult) this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+            if (!PtStartFilterResult || !FilterIdResult) this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruFilterStrings[0] };

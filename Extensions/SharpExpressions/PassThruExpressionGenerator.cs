@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SharpExpressions.PassThruExpressions;
-using SharpLogger;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
+using SharpLogging;
 
 namespace SharpExpressions
 {
@@ -25,8 +23,8 @@ namespace SharpExpressions
         #region Fields
 
         // Logger object and private log contents read in to this generator
-        private readonly SubServiceLogger _expressionsLogger;                  // Logger object used to help debug this generator
-        private readonly string _logFileContents;                              // The input content of our log file when loaded
+        private readonly string _logFileContents;                         // The input content of our log file when loaded
+        private readonly SharpLogger _expressionsLogger;                  // Logger object used to help debug this generator
 
         #endregion // Fields
 
@@ -81,7 +79,7 @@ namespace SharpExpressions
             this.PassThruLogFile = LogFileName;
             this._logFileContents = File.ReadAllText(LogFileName);
             string LoggerName = $"ExpGeneratorLogger_{Path.GetFileNameWithoutExtension(this.PassThruLogFile)}";
-            this._expressionsLogger = (SubServiceLogger)LoggerQueue.SpawnLogger(LoggerName, LoggerActions.SubServiceLogger);
+            this._expressionsLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
             this._expressionsLogger.WriteLog("BUILT NEW SETUP FOR AN EXPRESSIONS GENERATOR OK! READY TO BUILD OUR EXPRESSIONS FILE!", LogType.InfoLog);
         }
 
@@ -106,8 +104,8 @@ namespace SharpExpressions
         public static PassThruExpressionsGenerator LoadExpressionsFile(string ExpressionsFile)
         {
             // Convert the input expressions file into a log file and build a generator from it
-            string SplitPattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.ImportExpressionsSplit].ExpressionPattern;
-            string ReplacePattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.ImportExpressionsReplace].ExpressionPattern;
+            string SplitPattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionTypes.ImportExpressionsSplit].ExpressionPattern;
+            string ReplacePattern = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionTypes.ImportExpressionsReplace].ExpressionPattern;
 
             // Read the contents of the file and store them. Split them out based on the expression splitting line entries
             string InputExpressionContent = File.ReadAllText(ExpressionsFile);
@@ -192,7 +190,7 @@ namespace SharpExpressions
             this._expressionsLogger.WriteLog($"CONVERTING INPUT LOG FILE {this.PassThruLogFile} INTO AN EXPRESSION SET NOW...", LogType.InfoLog);
 
             // Store our regex matches and regex object for the time string values located here
-            var TimeRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionType.CommandTime].ExpressionRegex;
+            var TimeRegex = PassThruExpressionRegex.LoadedExpressions[PassThruExpressionTypes.CommandTime].ExpressionRegex;
             var TimeMatches = TimeRegex.Matches(this._logFileContents).Cast<Match>().ToArray();
 
             // Build an output list of lines for content, find our matches from a built expressions Regex, and generate output lines
@@ -234,9 +232,9 @@ namespace SharpExpressions
                     bool HasComplete = FileSubString.Contains("PTReadMsgs() complete");
                     if (!IsEmpty && !HasBuffEmpty && !HasComplete)
                     {
-                        // Take the split content values, get our ExpressionType, and store the built expression object here
-                        PassThruExpressionType ExpressionType = FileSubString.ToPassThruCommandType();
-                        PassThruExpression NextClassObject = ExpressionType.ToPassThruExpression(FileSubString);
+                        // Take the split content values, get our ExpressionTypes, and store the built expression object here
+                        PassThruExpressionTypes ExpressionTypes = FileSubString.ToPassThruCommandType();
+                        PassThruExpression NextClassObject = ExpressionTypes.ToPassThruExpression(FileSubString);
                         OutputExpressions[MatchIndex] = NextClassObject;
 
                         // Now store the expression object as a string for our output file content values
@@ -248,7 +246,7 @@ namespace SharpExpressions
                 {
                     // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
                     this._expressionsLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
-                    this._expressionsLogger.WriteLog("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, new[] { LogType.WarnLog, LogType.TraceLog });
+                    this._expressionsLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, new[] { LogType.WarnLog, LogType.TraceLog });
                 }
 
                 // Update progress values if needed now using the event for the progress checker
@@ -256,7 +254,7 @@ namespace SharpExpressions
             });
 
             // Prune all null values off the array of expressions
-            OutputExpressions = OutputExpressions.Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionType.NONE).ToArray();
+            OutputExpressions = OutputExpressions.Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionTypes.NONE).ToArray();
 
             // Log done building log command line sets and expressions
             this._expressionsLogger.WriteLog($"DONE BUILDING EXPRESSION SETS FROM INPUT FILE {this.PassThruLogFile}!", LogType.InfoLog);
@@ -281,7 +279,7 @@ namespace SharpExpressions
 
             // Get a logger object for saving expression sets.
             string LoggerName = $"{Path.GetFileNameWithoutExtension(BaseFileName)}_ExpressionsLogger";
-            var ExpressionLogger = (SubServiceLogger)LoggerQueue.SpawnLogger(LoggerName, LoggerActions.SubServiceLogger);
+            var ExpressionLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
 
             // Find output path and then build final path value.             
             if (!Directory.Exists(Path.GetDirectoryName(FinalOutputPath))) { Directory.CreateDirectory(Path.GetDirectoryName(FinalOutputPath)); }
@@ -300,7 +298,7 @@ namespace SharpExpressions
 
                 // Build the string contents for our expression objects now
                 string[] ExpressionsContentSplit = ExpressionsBuilt
-                    .Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionType.NONE)
+                    .Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionTypes.NONE)
                     .Select(ExpressionObj => ExpressionObj.ToString())
                     .Where(StringSet => !string.IsNullOrWhiteSpace(StringSet))
                     .ToArray();
@@ -331,7 +329,7 @@ namespace SharpExpressions
             {
                 // Log failures. Return an empty string.
                 ExpressionLogger.WriteLog("FAILED TO SAVE OUR OUTPUT EXPRESSION SETS! THIS IS FATAL!", LogType.FatalLog);
-                ExpressionLogger.WriteLog("EXCEPTION FOR THIS INSTANCE IS BEING LOGGED BELOW", WriteEx);
+                ExpressionLogger.WriteException("EXCEPTION FOR THIS INSTANCE IS BEING LOGGED BELOW", WriteEx);
 
                 // Return nothing.
                 return string.Empty;

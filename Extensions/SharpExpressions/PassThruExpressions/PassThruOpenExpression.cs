@@ -11,8 +11,8 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruOpenExpression : PassThruExpression
     {
         // Regex for the open device command (PTOpen) and the properties of the device processed
-        public readonly PassThruRegex PtOpenRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTOpen];
-        public readonly PassThruRegex DeviceIdRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.DeviceID];
+        public readonly PassThruRegex PtOpenRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.PTOpen];
+        public readonly PassThruRegex DeviceIdRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.DeviceID];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;
@@ -27,13 +27,13 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new PTOpen Regex command type.
         /// </summary>
         /// <param name="CommandInput">Input expression lines to store.</param>
-        public PassThruOpenExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTOpen)
+        public PassThruOpenExpression(string CommandInput) : base(CommandInput, PassThruExpressionTypes.PTOpen)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();
             bool PtOpenResult = this.PtOpenRegex.Evaluate(CommandInput, out var PassThruOpenStrings);
             bool DeviceIdResult = this.DeviceIdRegex.Evaluate(CommandInput, out var DeviceIdStrings);
-            if (!PtOpenResult || !DeviceIdResult) this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+            if (!PtOpenResult || !DeviceIdResult) this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruOpenStrings[0] };

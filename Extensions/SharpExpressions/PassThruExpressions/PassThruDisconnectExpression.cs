@@ -13,7 +13,7 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruDisconnectExpression : PassThruExpression
     {
         // Regex for the disconnect channel command (PTDisconnect)
-        public readonly PassThruRegex PTDisconnectRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTDisconnect];
+        public readonly PassThruRegex PTDisconnectRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.PTDisconnect];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;
@@ -26,12 +26,12 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new instance of a PTDisconnect Regex Helper 
         /// </summary>
         /// <param name="CommandInput">Lines to filter out of.</param>
-        public PassThruDisconnectExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTDisconnect)
+        public PassThruDisconnectExpression(string CommandInput) : base(CommandInput, PassThruExpressionTypes.PTDisconnect)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();
             bool PtDisconnectResult = this.PTDisconnectRegex.Evaluate(CommandInput, out var PassThruDisconnectStrings);
-            if (!PtDisconnectResult) this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+            if (!PtDisconnectResult) this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruDisconnectStrings[0] };

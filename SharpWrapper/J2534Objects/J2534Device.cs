@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using SharpSupport;
 using SharpWrapper.J2534Api;
 using SharpWrapper.PassThruSupport;
 using SharpWrapper.PassThruTypes;

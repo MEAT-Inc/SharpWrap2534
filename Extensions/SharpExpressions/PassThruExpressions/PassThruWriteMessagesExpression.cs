@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharpLogger.LoggerSupport;
+using SharpLogging;
 
 // Static using for Regex lookups and type values
 using PassThruRegex = SharpExpressions.PassThruExpressionRegex;
@@ -14,8 +14,8 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruWriteMessagesExpression : PassThruExpression
     {
         // Regex for the write messages command (PTWriteMsgs) and the number of messages written by the command
-        public readonly PassThruRegex PtWriteMessagesRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTWriteMsgs];
-        public readonly PassThruRegex MessagesWrittenRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.MessageCount];
+        public readonly PassThruRegex PtWriteMessagesRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.PTWriteMsgs];
+        public readonly PassThruRegex MessagesWrittenRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.MessageCount];
         
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;
@@ -44,14 +44,14 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new PTWrite Messages Command instance.
         /// </summary>
         /// <param name="CommandInput">Input Command Lines</param>
-        public PassThruWriteMessagesExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTWriteMsgs)
+        public PassThruWriteMessagesExpression(string CommandInput) : base(CommandInput, PassThruExpressionTypes.PTWriteMsgs)
         { 
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();
             bool PtWriteMsgsResult = this.PtWriteMessagesRegex.Evaluate(CommandInput, out var PassThruWriteMsgsStrings);
             bool MessagesWrittenResult = this.MessagesWrittenRegex.Evaluate(CommandInput, out var MessagesSentStrings);
             if (!PtWriteMsgsResult || !MessagesWrittenResult) 
-                this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+                this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruWriteMsgsStrings[0] };
@@ -65,7 +65,7 @@ namespace SharpExpressions.PassThruExpressions
             // Find our message content values here.
             string MessageTable = this.FindMessageContents(out this.MessageProperties);
             if (MessageTable is "" or "No Messages Found!") 
-                this.ExpressionLogger.WriteLog($"WARNING! NO MESSAGES FOUND FOR EXPRESSION TYPE {this.GetType().Name}!", LogType.WarnLog);
+                this._expressionLogger.WriteLog($"WARNING! NO MESSAGES FOUND FOR EXPRESSION TYPE {this.GetType().Name}!", LogType.WarnLog);
 
             // Now apply values using base method and exit out of this routine
             if (!this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray()))

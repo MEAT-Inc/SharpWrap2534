@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using SharpLogger.LoggerObjects;
-using SharpLogger.LoggerSupport;
+using SharpLogging;
 using SharpWrapper;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
@@ -48,9 +47,9 @@ namespace SharpSimulator
         #region Fields
 
         // Basic information about this simulation player
-        private readonly Guid _playerGuid;                      
+        private readonly Guid _playerGuid;             
+        private readonly SharpLogger _simPlayingLogger;
         public readonly Sharp2534Session SimulationSession;     
-        private readonly SubServiceLogger _simPlayingLogger;
         private List<PassThruSimulationChannel> _simulationChannels;
 
         // TokenSource and token used to cancel a simulation while running in an Async thread
@@ -178,7 +177,8 @@ namespace SharpSimulator
 
             // Log Built new Session
             this._playerGuid = Guid.NewGuid();
-            this._simPlayingLogger = new SubServiceLogger($"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}");
+            string LoggerName = $"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}";
+            this._simPlayingLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
             this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION PLAYBACK LOGGER OK!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog("READY TO PLAY BACK THE LOADED CONTENTS OF THE PROVIDED SIMULATION LOADER!");
 
@@ -202,7 +202,8 @@ namespace SharpSimulator
 
             // Log Built new Session
             this._playerGuid = Guid.NewGuid();
-            this._simPlayingLogger = new SubServiceLogger($"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}");
+            string LoggerName = $"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}";
+            this._simPlayingLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
             this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION PLAYBACK LOGGER OK!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog("READY TO PLAY BACK THE LOADED CONTENTS OF THE PROVIDED SIMULATION LOADER!");
 
@@ -231,7 +232,8 @@ namespace SharpSimulator
 
             // Log Built new Session
             this._playerGuid = Guid.NewGuid();
-            this._simPlayingLogger = new SubServiceLogger($"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}");
+            string LoggerName = $"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}";
+            this._simPlayingLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
             this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION PLAYBACK LOGGER OK!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog("READY TO PLAY BACK THE LOADED CONTENTS OF THE PROVIDED SIMULATION LOADER!");
 
@@ -262,7 +264,8 @@ namespace SharpSimulator
 
             // Log Built new Session
             this._playerGuid = Guid.NewGuid();
-            this._simPlayingLogger = new SubServiceLogger($"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}");
+            string LoggerName = $"SimPlaybackLogger_{this._playerGuid.ToString().ToUpper().Substring(0, 5)}";
+            this._simPlayingLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
             this._simPlayingLogger.WriteLog("BUILT NEW SIMULATION PLAYBACK LOGGER OK!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog("READY TO PLAY BACK THE LOADED CONTENTS OF THE PROVIDED SIMULATION LOADER!");
 
@@ -398,7 +401,7 @@ namespace SharpSimulator
                 {
                     // Log failure, return false
                     this._simPlayingLogger.WriteLog($"FAILED TO SET NEW CONFIGURATION VALUE FOR ID {TupleObject.SConfigParamId}!", LogType.ErrorLog);
-                    this._simPlayingLogger.WriteLog("EXCEPTION IS BEING LOGGED BELOW", SetConfigEx);
+                    this._simPlayingLogger.WriteException("EXCEPTION IS BEING LOGGED BELOW", SetConfigEx);
                     return false;
                 }
             }
@@ -436,7 +439,7 @@ namespace SharpSimulator
                 {
                     // Log failure, return false
                     this._simPlayingLogger.WriteLog($"FAILED TO SET NEW FILTER INSTANCE DUE TO AN EXCEPTION FROM THE J2534 API!", LogType.ErrorLog);
-                    this._simPlayingLogger.WriteLog("EXCEPTION IS BEING LOGGED BELOW", SetFilterEx);
+                    this._simPlayingLogger.WriteException("EXCEPTION IS BEING LOGGED BELOW", SetFilterEx);
                     return false;
                 }
             }
@@ -709,7 +712,7 @@ namespace SharpSimulator
                 
                 // Log failed to send output, set sending failed.
                 this._simPlayingLogger.WriteLog($"ATTEMPT TO SEND MESSAGE RESPONSE FAILED!", LogType.ErrorLog);
-                this._simPlayingLogger.WriteLog("EXCEPTION IS BEING LOGGED BELOW", SendResponseException);
+                this._simPlayingLogger.WriteException("EXCEPTION IS BEING LOGGED BELOW", SendResponseException);
                 this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
 
                 // Return failed sending output

@@ -13,7 +13,7 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruIoctlExpression : PassThruExpression
     {
         // Regex for the IO Control command (PTIoctl)
-        public readonly PassThruRegex PtIoctlRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTIoctl];
+        public readonly PassThruRegex PtIoctlRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.PTIoctl];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;
@@ -32,12 +32,12 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new instance of a PTIoctl expression for parsing a PTIoctl command.
         /// </summary>
         /// <param name="CommandInput">Input command lines.</param>
-        public PassThruIoctlExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTIoctl)
+        public PassThruIoctlExpression(string CommandInput) : base(CommandInput, PassThruExpressionTypes.PTIoctl)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();
             bool PtIoctlResult = this.PtIoctlRegex.Evaluate(CommandInput, out var PassThruIoctlStrings);
-            if (!PtIoctlResult) this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+            if (!PtIoctlResult) this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruIoctlStrings[0] };

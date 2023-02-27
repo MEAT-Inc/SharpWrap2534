@@ -13,8 +13,8 @@ namespace SharpExpressions.PassThruExpressions
     public class PassThruConnectExpression : PassThruExpression
     {
         // Regex for the connect channel command (PTConnect) and the channel ID returned
-        public readonly PassThruRegex PtConnectRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.PTConnect];
-        public readonly PassThruRegex ChannelIdRegex = PassThruRegex.LoadedExpressions[PassThruExpressionType.ChannelID];
+        public readonly PassThruRegex PtConnectRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.PTConnect];
+        public readonly PassThruRegex ChannelIdRegex = PassThruRegex.LoadedExpressions[PassThruExpressionTypes.ChannelID];
 
         // Strings of the command and results from the command output.
         [PassThruProperty("Command Line")] public readonly string PtCommand;
@@ -32,13 +32,13 @@ namespace SharpExpressions.PassThruExpressions
         /// Builds a new Regex helper to search for our PTConnect Command
         /// </summary>
         /// <param name="CommandInput">Input text for the command to find.</param>
-        public PassThruConnectExpression(string CommandInput) : base(CommandInput, PassThruExpressionType.PTConnect)
+        public PassThruConnectExpression(string CommandInput) : base(CommandInput, PassThruExpressionTypes.PTConnect)
         {
             // Find command issue request values
             var FieldsToSet = this.GetExpressionProperties();
             bool PtConnectResult = this.PtConnectRegex.Evaluate(CommandInput, out var PassThruConnectStrings);
             bool ChannelIdResult = this.ChannelIdRegex.Evaluate(CommandInput, out var ChannelIdStrings);
-            if (!PtConnectResult || !ChannelIdResult) this.ExpressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+            if (!PtConnectResult || !ChannelIdResult) this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruConnectStrings[0] };

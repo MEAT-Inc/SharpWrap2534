@@ -54,10 +54,10 @@ namespace SharpWrapper.PassThruImport
             PassThruSupportKey_0500_6432 = Registry.LocalMachine.OpenSubKey(PassThruConstants.V0500_PASSTHRU_REGISTRY_PATH_6432, false);
 
             // Pull in all of our V0404 and V0500 Keys and values from the needed registry locations
-            DllKeyValues_0404 = (string[])(PassThruSupportKey_0404?.GetSubKeyNames().Select(KeyValue => KeyValue) ?? Array.Empty<string>());
-            DllKeyValues_0500 = (string[])(PassThruSupportKey_0500?.GetSubKeyNames().Select(KeyValue => KeyValue) ?? Array.Empty<string>());
-            DllKeyValues_0404_6432 = (string[])(PassThruSupportKey_0404_6432?.GetSubKeyNames().Select(KeyValue => KeyValue) ?? Array.Empty<string>());
-            DllKeyValues_0500_6432 = (string[])(PassThruSupportKey_0500_6432?.GetSubKeyNames().Select(KeyValue => KeyValue) ?? Array.Empty<string>());
+            DllKeyValues_0404 = PassThruSupportKey_0404?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray() ?? Array.Empty<string>();
+            DllKeyValues_0500 = PassThruSupportKey_0500?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray() ?? Array.Empty<string>();
+            DllKeyValues_0404_6432 = PassThruSupportKey_0404_6432?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray() ?? Array.Empty<string>();
+            DllKeyValues_0500_6432 = PassThruSupportKey_0500_6432?.GetSubKeyNames().Select(KeyValue => KeyValue).ToArray() ?? Array.Empty<string>();
 
             // Store located key values and exit out of this instance
             LocatedJ2534DLLs = new List<J2534Dll>();

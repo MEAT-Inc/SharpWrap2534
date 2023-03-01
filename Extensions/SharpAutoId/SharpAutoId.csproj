@@ -62,10 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpLogger">
-      <Version>2.5.8.284</Version>
+      <Version>2.5.10.287</Version>
     </PackageReference>
     <PackageReference Include="SharpWrapper">
-      <Version>6.1.5.422</Version>
+      <Version>6.1.5.436</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

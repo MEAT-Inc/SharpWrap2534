@@ -393,3 +393,4 @@ FalconMainAPI/SwaggerDocGenerator/_secrets.js
 
 SharpWrap2534Nuget/
 **/*Nuget/
+OnBuildNuGet.py

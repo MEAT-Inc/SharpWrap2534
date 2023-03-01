@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using NLog.Targets;
 using SharpExpressions;
 using SharpLogging;
 using SharpSimulator.PassThruSimulationSupport;
@@ -107,9 +108,7 @@ namespace SharpSimulator
             this.ExpressionsLoaded = GeneratedExpressions.ToArray();
 
             // Finally build our logger object and exit out of this constructor
-            string SimGeneratorName = Path.GetFileNameWithoutExtension(this.PassThruLogFile);
-            string LoggerName = $"SimGeneratorLogger_{Path.GetFileNameWithoutExtension(SimGeneratorName)}";
-            this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
+            this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
         }
 
@@ -174,6 +173,9 @@ namespace SharpSimulator
             var SimChannelsBuilt = new Dictionary<uint, PassThruSimulationChannel>();
             this._simulationLogger.WriteLog("BUILDING CHANNEL OBJECTS FROM CHANNEL ID VALUES NOW...", LogType.WarnLog);
 
+            // Build a new logger to write status information for this generator
+            SharpLogger SimulationLogger = this._spawnSimulationLogger();
+
             // Loop all the expression sets built in parallel and generate a simulation channel for them
             int LoopsCompleted = 0; int TotalLoops = GroupedExpressions.Count;
             Parallel.ForEach(GroupedExpressions, ExpressionSet =>
@@ -191,22 +193,46 @@ namespace SharpSimulator
                         // Lock the output collection to avoid thread issues and store the new channel
                         lock (SimChannelsBuilt)
                         {
+                            // If the ID exists already, throw this exception out
+                            if (SimChannelsBuilt.ContainsKey(SimChannelId))
+                                throw new InvalidDataException(
+                                    $"ERROR! CAN NOT APPEND A SIM CHANNEL WITH ID {SimChannelId} SINCE IT EXISTS ALREADY!");
+
                             // Now insert this expression object based on what keys are in the output collection of expressions
-                            if (!SimChannelsBuilt.ContainsKey(SimChannelId)) SimChannelsBuilt.Add(SimChannelId, BuiltChannel);
-                            else throw new InvalidDataException($"ERROR! CAN NOT APPEND A SIM CHANNEL WITH ID {SimChannelId} SINCE IT EXISTS ALREADY!");
+                            SimChannelsBuilt.Add(SimChannelId, BuiltChannel);
+
+                            // Setup our scope diagnostic properties for the generator logger
+                            SimulationLogger.AddScopeProperties(
+                                new KeyValuePair<string, object>("sim-channel-id", BuiltChannel.ChannelId),
+                                new KeyValuePair<string, object>("sim-message-pairs", BuiltChannel.MessagePairs),
+                                new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
+                                new KeyValuePair<string, object>("generation-progress", (LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
+
+                            // Once we've set our scope properties, write out the content generated
+                            SimulationLogger.WriteLog(
+                                $"BUILT NEW {BuiltChannel.ChannelProtocol} CHANNEL WITH A SPECIFIED BAUD RATE OF {BuiltChannel.ChannelBaudRate}", 
+                                LogType.InfoLog);
                         }
                     }
                 }
                 catch (Exception BuildChannelCommandEx)
                 {
                     // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
+                    SimulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
+                    SimulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);
+
+                    // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
                     this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
-                    this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, new[] { LogType.WarnLog, LogType.TraceLog });
+                    this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);
                 }
 
                 // Invoke a progress update here if needed
                 this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted++, TotalLoops));
             });
+
+            // Dispose of the generation logger object built
+            SimulationLogger.WriteLog("DISPOSING GENERATION LOGGER SINCE SIMULATION FILE CONTENTS HAVE BEEN BUILT!", LogType.WarnLog);
+            SimulationLogger.Dispose();
 
             // Log information about the simulation generation routine and exit out
             this._simulationLogger.WriteLog($"BUILT CHANNEL SIMULATION OBJECTS OK!", LogType.InfoLog);
@@ -343,6 +369,48 @@ namespace SharpSimulator
             // Log done grouping, return the built ID values here as a dictionary with the Expressions and ID values
             this._simulationLogger.WriteLog("BUILT GROUPED SIMULATION COMMANDS OK!", LogType.InfoLog);
             return GroupedExpressions;
+        }
+        /// <summary>
+        /// Configures the logger for this generator to output to a custom file path
+        /// </summary>
+        /// <returns>The configured sharp logger instance</returns>
+        private SharpLogger _spawnSimulationLogger()
+        {
+            // Make sure our output location exists first
+            string OutputFolder = Path.Combine(SharpLogBroker.LogFileFolder, "SimulationLogs");
+            if (!Directory.Exists(OutputFolder)) Directory.CreateDirectory(OutputFolder);
+
+            // Configure our new logger name and the output log file path for this logger instance 
+            string[] LoggerNameSplit = this._simulationLogger.LoggerName.Split('_');
+            string GeneratorLoggerName = string.Join("_", LoggerNameSplit.Take(LoggerNameSplit.Length - 1));
+            string OutputFileName = Path.Combine(OutputFolder, $"{GeneratorLoggerName}.log");
+            if (File.Exists(OutputFileName)) File.Delete(OutputFileName);
+
+            // Configure our new string value for the output target format
+            string BaseFormatString = SharpLogBroker.DefaultFileFormat.LoggerFormatString;
+            string SimProgressCount = "${scope-property:generation-count:whenEmpty=N/A}";
+            string SimProgressFormat = "${scope-property:generation-progress:whenEmpty=N/A}";
+            string ChannelIdFormat = "${scope-property:sim-channel-id:whenEmpty=NO_CHANNEL}";
+            string MessagePairFormat = "${scope-property:sim-message-pairs:whenEmpty=NO_CHANNEL}";
+            string SimpFormatString = $"[ID: {ChannelIdFormat}][{MessagePairFormat}][{SimProgressCount}][{SimProgressFormat}%]";
+            string FormatString = BaseFormatString.Insert(BaseFormatString.IndexOf(':') - 1, SimpFormatString);
+
+            // Spawn the new generation logger and attach in a new file target for it
+            SharpLogger GenerationLogger = new SharpLogger(LoggerActions.FileLogger, GeneratorLoggerName);
+            FileTarget ExpressionsTarget = new FileTarget()
+            {
+                KeepFileOpen = false,           // Allows multiple programs to access this file
+                Layout = FormatString,          // The output log line layout for the logger
+                ConcurrentWrites = true,        // Allows multiple writes at one time or not
+                FileName = OutputFileName,      // The name/full log file being written out
+            };
+
+            // Register this new target and setup our output file
+            GenerationLogger.RegisterTarget(ExpressionsTarget);
+            GenerationLogger.WriteLog($"SPAWNED NEW GENERATION LOGGER WITH A CUSTOM FILE TARGET POINTING AT {OutputFileName}!", LogType.InfoLog);
+
+            // Return the output logger object built
+            return GenerationLogger;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace SharpSimulator
         #region Fields
 
         // Logger object used to help provided debug information about a simulation being built
-        private readonly SharpLogger _simulationLogger;
+        private readonly SharpLogger _simulationLogger;          // The base logger object used for this simulation builder
 
         #endregion // Fields
 
@@ -173,8 +173,11 @@ namespace SharpSimulator
             var SimChannelsBuilt = new Dictionary<uint, PassThruSimulationChannel>();
             this._simulationLogger.WriteLog("BUILDING CHANNEL OBJECTS FROM CHANNEL ID VALUES NOW...", LogType.WarnLog);
 
-            // Build a new logger to write status information for this generator
-            SharpLogger SimulationLogger = this._spawnSimulationLogger();
+            // Register our debug target output now
+            var GeneratorTarget = this._spawnGeneratorTarget();
+            this._simulationLogger.RegisterTarget(GeneratorTarget);
+            this._simulationLogger.WriteLog($"SPAWNED NEW GENERATION LOGGER CORRECTLY!", LogType.InfoLog);
+            this._simulationLogger.WriteLog($"POINTING THIS NEW LOGGER AT FILE: {GeneratorTarget.FileName}!", LogType.InfoLog);
 
             // Loop all the expression sets built in parallel and generate a simulation channel for them
             int LoopsCompleted = 0; int TotalLoops = GroupedExpressions.Count;
@@ -202,14 +205,14 @@ namespace SharpSimulator
                             SimChannelsBuilt.Add(SimChannelId, BuiltChannel);
 
                             // Setup our scope diagnostic properties for the generator logger
-                            SimulationLogger.AddScopeProperties(
+                            this._simulationLogger.AddScopeProperties(
                                 new KeyValuePair<string, object>("sim-channel-id", BuiltChannel.ChannelId),
                                 new KeyValuePair<string, object>("sim-message-pairs", BuiltChannel.MessagePairs),
                                 new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
                                 new KeyValuePair<string, object>("generation-progress", (LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
 
                             // Once we've set our scope properties, write out the content generated
-                            SimulationLogger.WriteLog(
+                            this._simulationLogger.WriteLog(
                                 $"BUILT NEW {BuiltChannel.ChannelProtocol} CHANNEL WITH A SPECIFIED BAUD RATE OF {BuiltChannel.ChannelBaudRate}", 
                                 LogType.InfoLog);
                         }
@@ -218,10 +221,6 @@ namespace SharpSimulator
                 catch (Exception BuildChannelCommandEx)
                 {
                     // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
-                    SimulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
-                    SimulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);
-
-                    // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
                     this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
                     this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);
                 }
@@ -229,15 +228,14 @@ namespace SharpSimulator
                 // Invoke a progress update here if needed
                 this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted++, TotalLoops));
             });
-
-            // Dispose of the generation logger object built
-            SimulationLogger.WriteLog("DISPOSING GENERATION LOGGER SINCE SIMULATION FILE CONTENTS HAVE BEEN BUILT!", LogType.WarnLog);
-            SimulationLogger.Dispose();
-
+            
             // Log information about the simulation generation routine and exit out
             this._simulationLogger.WriteLog($"BUILT CHANNEL SIMULATION OBJECTS OK!", LogType.InfoLog);
             this._simulationLogger.WriteLog($"A TOTAL OF {SimChannelsBuilt.Count} CHANNELS HAVE BEEN BUILT!", LogType.InfoLog);
             this.SimulationChannels = SimChannelsBuilt.Values.ToArray();
+
+            // Dispose the target built for this file and exit out
+            this._simulationLogger.RemoveTarget(GeneratorTarget);
             return this.SimulationChannels;
         }
         /// <summary>
@@ -374,7 +372,7 @@ namespace SharpSimulator
         /// Configures the logger for this generator to output to a custom file path
         /// </summary>
         /// <returns>The configured sharp logger instance</returns>
-        private SharpLogger _spawnSimulationLogger()
+        private FileTarget _spawnGeneratorTarget()
         {
             // Make sure our output location exists first
             string OutputFolder = Path.Combine(SharpLogBroker.LogFileFolder, "SimulationLogs");
@@ -388,30 +386,26 @@ namespace SharpSimulator
             if (File.Exists(OutputFileName)) File.Delete(OutputFileName);
 
             // Configure our new string value for the output target format
-            string BaseFormatString = SharpLogBroker.DefaultFileFormat.LoggerFormatString;
+            string LoggerMessage = "${message}";
+            string SimGeneratorDate = "${date:format=hh\\:mm\\:ss}";
             string SimProgressCount = "${scope-property:generation-count:whenEmpty=N/A}";
             string SimProgressFormat = "${scope-property:generation-progress:whenEmpty=N/A}";
             string ChannelIdFormat = "${scope-property:sim-channel-id:whenEmpty=NO_CHANNEL}";
             string MessagePairFormat = "${scope-property:sim-message-pairs:whenEmpty=NO_CHANNEL}";
-            string SimpFormatString = $"[ID: {ChannelIdFormat}][{MessagePairFormat}][{SimProgressCount}][{SimProgressFormat}%]";
-            string FormatString = BaseFormatString.Insert(BaseFormatString.IndexOf(':') - 1, SimpFormatString);
+            string SimFormatString = $"[{SimGeneratorDate}][ID: {ChannelIdFormat}][{MessagePairFormat}][{SimProgressCount}][{SimProgressFormat}%] ::: {LoggerMessage}";
 
             // Spawn the new generation logger and attach in a new file target for it
-            SharpLogger GenerationLogger = new SharpLogger(LoggerActions.FileLogger, GeneratorLoggerName);
             FileTarget ExpressionsTarget = new FileTarget(GeneratorLoggerName)
             {
                 KeepFileOpen = false,           // Allows multiple programs to access this file
-                Layout = FormatString,          // The output log line layout for the logger
                 ConcurrentWrites = true,        // Allows multiple writes at one time or not
+                Layout = SimFormatString,       // The output log line layout for the logger
                 FileName = OutputFileName,      // The name/full log file being written out
+                Name = GeneratorLoggerName      // The name of the logger target being registered
             };
 
-            // Register this new target and setup our output file
-            GenerationLogger.RegisterTarget(ExpressionsTarget);
-            GenerationLogger.WriteLog($"SPAWNED NEW GENERATION LOGGER WITH A CUSTOM FILE TARGET POINTING AT {OutputFileName}!", LogType.InfoLog);
-
             // Return the output logger object built
-            return GenerationLogger;
+            return ExpressionsTarget;
         }
     }
 }

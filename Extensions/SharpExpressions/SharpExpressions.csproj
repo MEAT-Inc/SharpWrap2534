@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -75,10 +75,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpLogger">
-      <Version>2.5.13.290</Version>
+      <Version>2.5.14.291</Version>
     </PackageReference>
     <PackageReference Include="SharpWrapper">
-      <Version>6.1.5.440</Version>
+      <Version>6.1.5.441</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

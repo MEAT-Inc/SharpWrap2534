@@ -173,6 +173,12 @@ namespace SharpSimulator
             var SimChannelsBuilt = new Dictionary<uint, PassThruSimulationChannel>();
             this._simulationLogger.WriteLog("BUILDING CHANNEL OBJECTS FROM CHANNEL ID VALUES NOW...", LogType.WarnLog);
 
+            // TODO: FIND A BETTER WAY TO SPLIT UP THIS STUFF
+            // Find the master target and remove it for the generation routine
+            // var MasterTargets = SharpLogBroker.MasterLogger.LoggerTargets;
+            // var MasterFileTarget = MasterTargets.FirstOrDefault(TargetObj => TargetObj.FileName = SharpLogBroker.LogFileName);
+            // this._simulationLogger.RemoveTarget(MasterFileTarget);
+
             // Register our debug target output now
             var GeneratorTarget = this._spawnGeneratorTarget();
             this._simulationLogger.RegisterTarget(GeneratorTarget);
@@ -221,10 +227,6 @@ namespace SharpSimulator
                 catch (Exception BuildChannelCommandEx)
                 {
                     // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
-                    SimulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
-                    SimulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);
-
-                    // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
                     this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
                     this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);
                 }
@@ -239,7 +241,10 @@ namespace SharpSimulator
             this.SimulationChannels = SimChannelsBuilt.Values.ToArray();
 
             // Dispose the target built for this file and exit out
-            this._simulationLogger.RemoveTarget(GeneratorTarget);
+            this._simulationLogger.RemoveTarget(GeneratorTarget); 
+            // this._simulationLogger.RegisterTarget(MasterFileTarget);
+
+            // Return the built simulation channel objects now
             return this.SimulationChannels;
         }
         /// <summary>

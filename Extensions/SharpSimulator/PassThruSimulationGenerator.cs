@@ -397,7 +397,7 @@ namespace SharpSimulator
 
             // Spawn the new generation logger and attach in a new file target for it
             SharpLogger GenerationLogger = new SharpLogger(LoggerActions.FileLogger, GeneratorLoggerName);
-            FileTarget ExpressionsTarget = new FileTarget()
+            FileTarget ExpressionsTarget = new FileTarget(GeneratorLoggerName)
             {
                 KeepFileOpen = false,           // Allows multiple programs to access this file
                 Layout = FormatString,          // The output log line layout for the logger

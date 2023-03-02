@@ -1,4 +1,4 @@
-﻿// Using calls for Assembly Info updating
+// Using calls for Assembly Info updating
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -19,7 +19,7 @@ using System.Resources;
 [assembly: Guid("183F7A6A-E107-4209-8A11-044A08DEAEE4")]
 
 // Version information
-[assembly: AssemblyVersion("0.10.6.193")]
-[assembly: AssemblyFileVersion("0.10.6.193")]
+[assembly: AssemblyVersion("0.10.10.200")]
+[assembly: AssemblyFileVersion("0.10.10.200")]
 [assembly: NeutralResourcesLanguageAttribute( "en-US" )]
 

@@ -172,7 +172,9 @@ namespace SharpExpressions
         {
             // Store the none type for our expression and exit out
             this.TypeOfExpression = PassThruExpressionTypes.NONE;
-            this._expressionLogger = new SharpLogger(LoggerActions.UniversalLogger, "PassThruExpressionLogger");
+            this._expressionLogger = 
+                SharpLogBroker.FindLoggers("PassThruExpressionLogger").FirstOrDefault() 
+                ?? new SharpLogger(LoggerActions.UniversalLogger, "PassThruExpressionLogger");
         }
         /// <summary>
         /// Builds a new set of PassThruCommand Regex Operations
@@ -184,9 +186,16 @@ namespace SharpExpressions
             this.CommandLines = CommandInput;
             this.TypeOfExpression = ExpressionType;
             this.SplitCommandLines = CommandInput.Split('\r');
-            
+
+            // TODO: Determine if we should actually do one logger per command type
+            // this._expressionLogger =
+            //     SharpLogBroker.FindLoggers($"{this.TypeOfExpression.ToDescriptionString()}Logger").FirstOrDefault()
+            //     ?? new SharpLogger(LoggerActions.UniversalLogger, $"{this.TypeOfExpression.ToDescriptionString()}Logger");
+
             // Build a new Expression logger for this command type
-            this._expressionLogger = new SharpLogger(LoggerActions.UniversalLogger, $"{this.TypeOfExpression.ToDescriptionString()}Logger");
+            this._expressionLogger = 
+                SharpLogBroker.FindLoggers("PassThruExpressionLogger").FirstOrDefault()
+                ?? new SharpLogger(LoggerActions.UniversalLogger, "PassThruExpressionLogger");
 
             // Find command issue request values. (Pull using Base Class)
             this.TimeRegex.Evaluate(CommandInput, out var TimeStrings);

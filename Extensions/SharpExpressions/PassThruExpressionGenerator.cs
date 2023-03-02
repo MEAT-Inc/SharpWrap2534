@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,8 +26,8 @@ namespace SharpExpressions
         #region Fields
 
         // Logger object and private log contents read in to this generator
-        private readonly SharpLogger _expressionsLogger;                  // Logger object used to help debug this generator
         private readonly string _logFileContents;                // The input content of our log file when loaded
+        private readonly SharpLogger _expressionsLogger;         // Logger object used to help debug this generator
 
         #endregion // Fields
 
@@ -210,8 +210,11 @@ namespace SharpExpressions
             var OutputFileContent = Enumerable.Repeat(string.Empty, TimeMatches.Length).ToArray();
             var OutputExpressions = Enumerable.Repeat(new PassThruExpression(), TimeMatches.Length).ToArray();
 
-            // Build a new logger to write status information for this generator
-            SharpLogger GenerationLogger = this._spawnGenerationLogger();
+            // Register our debug target output now
+            var GeneratorTarget = this._spawnGeneratorTarget();
+            this._expressionsLogger.RegisterTarget(GeneratorTarget);
+            this._expressionsLogger.WriteLog($"SPAWNED NEW GENERATION LOGGER CORRECTLY!", LogType.InfoLog);
+            this._expressionsLogger.WriteLog($"POINTING THIS NEW LOGGER AT FILE: {GeneratorTarget.FileName}!", LogType.InfoLog);
 
             // Store an int value to track our loop count based on the number of iterations built now
             int LoopsCompleted = 0;
@@ -257,21 +260,17 @@ namespace SharpExpressions
                         OutputFileContent[MatchIndex] = ExpressionString;
 
                         // Setup our scope diagnostic properties for the generator logger
-                        GenerationLogger.AddScopeProperties(
-                            new KeyValuePair<string, object>("expression-method", ExpressionTypes),
+                        this._expressionsLogger.AddScopeProperties(
+                            new KeyValuePair<string, object>("expression-method", ExpressionTypes.ToString().ToUpper()),
                             new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TimeMatches.Length}"),
                             new KeyValuePair<string, object>("generation-progress", (LoopsCompleted / (double)TimeMatches.Length * 100.00).ToString("F2")));
 
                         // Once we've set our scope properties, write out the content generated
-                        GenerationLogger.WriteLog($"PROCESSED A NEW {ExpressionTypes} EXPRESSION: {NextClassObject.SplitCommandLines.First()}");
+                        this._expressionsLogger.WriteLog($"PROCESSED A NEW {ExpressionTypes} EXPRESSION: {NextClassObject.SplitCommandLines.First()}");
                     }
                 }
                 catch (Exception GenerateExpressionEx)
                 {
-                    // Write the failures thrown into the generations logger object
-                    GenerationLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
-                    GenerationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, LogType.WarnLog, LogType.TraceLog);
-
                     // Also write these failures into the expressions base logger object
                     this._expressionsLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
                     this._expressionsLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, LogType.WarnLog, LogType.TraceLog);
@@ -292,8 +291,9 @@ namespace SharpExpressions
             this._expressionsLogger.WriteLog($"DONE BUILDING EXPRESSION SETS FROM INPUT FILE {this.PassThruLogFile}!", LogType.InfoLog);
             this._expressionsLogger.WriteLog($"BUILT A TOTAL OF {OutputExpressions.Length} LOG LINE SETS OK!", LogType.InfoLog);
             this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(100, 100));
-
-            // Return the built set of commands.
+            
+            // Remove the dedicated target for logging the generation routine and return the expressions built
+            this._expressionsLogger.RemoveTarget(GeneratorTarget);
             this.ExpressionsBuilt = OutputExpressions.ToArray();
             return this.ExpressionsBuilt;
         }
@@ -374,7 +374,7 @@ namespace SharpExpressions
         /// Configures the logger for this generator to output to a custom file path
         /// </summary>
         /// <returns>The configured sharp logger instance</returns>
-        private SharpLogger _spawnGenerationLogger()
+        private FileTarget _spawnGeneratorTarget()
         {
             // Make sure our output location exists first
             string OutputFolder = Path.Combine(SharpLogBroker.LogFileFolder, "ExpressionsLogs");
@@ -383,33 +383,30 @@ namespace SharpExpressions
             // Configure our new logger name and the output log file path for this logger instance 
             string[] LoggerNameSplit = this._expressionsLogger.LoggerName.Split('_');
             string GeneratorLoggerName = string.Join("_", LoggerNameSplit.Take(LoggerNameSplit.Length - 1));
+            GeneratorLoggerName += $"_{Path.GetFileNameWithoutExtension(this.PassThruLogFile)}";
             string OutputFileName = Path.Combine(OutputFolder, $"{GeneratorLoggerName}.log");
             if (File.Exists(OutputFileName)) File.Delete(OutputFileName);
 
             // Configure our new string value for the output target format
-            string BaseFormatString = SharpLogBroker.DefaultFileFormat.LoggerFormatString;
+            string LoggerMessage = "${message}";
+            string ExpGeneratorDate = "${date:format=hh\\:mm\\:ss}";
             string ExpProgressCount = "${scope-property:generation-count:whenEmpty=N/A}";
             string ExpProgressFormat = "${scope-property:generation-progress:whenEmpty=N/A}";
             string ExpTypeFormat = "${scope-property:expression-method:whenEmpty=NO_EXP_TYPE}";
-            string ExpFormatString = $"[{ExpTypeFormat}][{ExpProgressCount}][{ExpProgressFormat}%]";
-            string FormatString = BaseFormatString.Insert(BaseFormatString.IndexOf(':') - 1, ExpFormatString);
+            string ExpFormatString = $"[{ExpGeneratorDate}][{ExpTypeFormat}][{ExpProgressCount}][{ExpProgressFormat}%] ::: {LoggerMessage}";
 
             // Spawn the new generation logger and attach in a new file target for it
-            SharpLogger GenerationLogger = new SharpLogger(LoggerActions.FileLogger, GeneratorLoggerName);
-            FileTarget ExpressionsTarget = new FileTarget()
+            FileTarget ExpressionsTarget = new FileTarget(GeneratorLoggerName)
             {
                 KeepFileOpen = false,           // Allows multiple programs to access this file
-                Layout = FormatString,          // The output log line layout for the logger
                 ConcurrentWrites = true,        // Allows multiple writes at one time or not
+                Layout = ExpFormatString,       // The output log line layout for the logger
                 FileName = OutputFileName,      // The name/full log file being written out
+                Name = GeneratorLoggerName      // The name of the logger target being registered
             };
 
-            // Register this new target and setup our output file
-            GenerationLogger.RegisterTarget(ExpressionsTarget);
-            GenerationLogger.WriteLog($"SPAWNED NEW GENERATION LOGGER WITH A CUSTOM FILE TARGET POINTING AT {OutputFileName}!", LogType.InfoLog);
-
             // Return the output logger object built
-            return GenerationLogger;
+            return ExpressionsTarget;
         }
     }
 }

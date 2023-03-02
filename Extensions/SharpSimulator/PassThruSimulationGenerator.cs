@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -220,6 +220,10 @@ namespace SharpSimulator
                 }
                 catch (Exception BuildChannelCommandEx)
                 {
+                    // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
+                    SimulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
+                    SimulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);
+
                     // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
                     this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
                     this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);

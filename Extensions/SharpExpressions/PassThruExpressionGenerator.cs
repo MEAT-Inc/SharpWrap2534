@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -279,6 +279,10 @@ namespace SharpExpressions
                 // Update progress values if needed now using the event for the progress checker
                 this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted++, TimeMatches.Length));
             });
+            
+            // Dispose of the generation logger object built
+            GenerationLogger.WriteLog("DISPOSING GENERATION LOGGER SINCE EXPRESSIONS HAVE BEEN BUILT!", LogType.WarnLog);
+            GenerationLogger.Dispose();
 
             // Prune all null values off the array of expressions
             OutputExpressions = OutputExpressions.Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionTypes.NONE).ToArray();

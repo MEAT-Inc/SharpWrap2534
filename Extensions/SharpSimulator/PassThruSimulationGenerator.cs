@@ -111,9 +111,6 @@ namespace SharpSimulator
             this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
         }
-
-        // ------------------------------------------------------------------------------------------------------------------------------------------
-
         /// <summary>
         /// Builds a new Simulation generator based on an expressions generator
         /// This is used only by the static CTORs to allow easier configuration of simulations based on log files
@@ -134,6 +131,9 @@ namespace SharpSimulator
             this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
         }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
         /// <summary>
         /// Spawns a new SimulationGenerator from a PassThru log file.
         /// </summary>
@@ -383,6 +383,7 @@ namespace SharpSimulator
             // Configure our new logger name and the output log file path for this logger instance 
             string[] LoggerNameSplit = this._simulationLogger.LoggerName.Split('_');
             string GeneratorLoggerName = string.Join("_", LoggerNameSplit.Take(LoggerNameSplit.Length - 1));
+            GeneratorLoggerName += $"_{Path.GetFileNameWithoutExtension(this.PassThruLogFile)}";
             string OutputFileName = Path.Combine(OutputFolder, $"{GeneratorLoggerName}.log");
             if (File.Exists(OutputFileName)) File.Delete(OutputFileName);
 

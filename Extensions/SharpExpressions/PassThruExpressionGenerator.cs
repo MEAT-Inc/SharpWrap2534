@@ -28,7 +28,7 @@ namespace SharpExpressions
         // Logger object and private log contents read in to this generator
         private readonly SharpLogger _expressionsLogger;         // Logger object used to help debug this generator
         private readonly string _logFileContents;                // The input content of our log file when loaded
-
+        
         #endregion // Fields
 
         #region Properties
@@ -383,6 +383,7 @@ namespace SharpExpressions
             // Configure our new logger name and the output log file path for this logger instance 
             string[] LoggerNameSplit = this._expressionsLogger.LoggerName.Split('_');
             string GeneratorLoggerName = string.Join("_", LoggerNameSplit.Take(LoggerNameSplit.Length - 1));
+            GeneratorLoggerName += $"_{Path.GetFileNameWithoutExtension(this.PassThruLogFile)}";
             string OutputFileName = Path.Combine(OutputFolder, $"{GeneratorLoggerName}.log");
             if (File.Exists(OutputFileName)) File.Delete(OutputFileName);
 

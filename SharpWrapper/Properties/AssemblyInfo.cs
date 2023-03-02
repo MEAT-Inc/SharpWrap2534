@@ -1,4 +1,4 @@
-// Using calls for Assembly Info updating
+﻿// Using calls for Assembly Info updating
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -20,7 +20,7 @@ using System.Resources;
 [assembly: InternalsVisibleTo("SharpWrap2534Tests")]
 
 // Version information
-[assembly: AssemblyVersion("6.1.5.441")]
-[assembly: AssemblyFileVersion("6.1.5.441")]
+[assembly: AssemblyVersion("6.1.5.442")]
+[assembly: AssemblyFileVersion("6.1.5.442")]
 [assembly: NeutralResourcesLanguageAttribute( "en-US" )]
 

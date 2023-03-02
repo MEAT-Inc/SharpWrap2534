@@ -210,6 +210,12 @@ namespace SharpExpressions
             var OutputFileContent = Enumerable.Repeat(string.Empty, TimeMatches.Length).ToArray();
             var OutputExpressions = Enumerable.Repeat(new PassThruExpression(), TimeMatches.Length).ToArray();
 
+            // TODO: FIND A BETTER WAY TO SPLIT UP THIS STUFF
+            // Find the master target and remove it for the generation routine
+            // var MasterTargets = SharpLogBroker.MasterLogger.LoggerTargets;
+            // var MasterFileTarget = MasterTargets.FirstOrDefault(TargetObj => TargetObj.FileName = SharpLogBroker.LogFileName);
+            // this._expressionsLogger.RemoveTarget(MasterFileTarget);
+            
             // Register our debug target output now
             var GeneratorTarget = this._spawnGeneratorTarget();
             this._expressionsLogger.RegisterTarget(GeneratorTarget);
@@ -280,10 +286,6 @@ namespace SharpExpressions
                 this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted++, TimeMatches.Length));
             });
             
-            // Dispose of the generation logger object built
-            GenerationLogger.WriteLog("DISPOSING GENERATION LOGGER SINCE EXPRESSIONS HAVE BEEN BUILT!", LogType.WarnLog);
-            GenerationLogger.Dispose();
-
             // Prune all null values off the array of expressions
             OutputExpressions = OutputExpressions.Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionTypes.NONE).ToArray();
 
@@ -294,6 +296,9 @@ namespace SharpExpressions
             
             // Remove the dedicated target for logging the generation routine and return the expressions built
             this._expressionsLogger.RemoveTarget(GeneratorTarget);
+            // this._expressionsLogger.RegisterTarget(MasterFileTarget);
+
+            // Return our built expressions objects
             this.ExpressionsBuilt = OutputExpressions.ToArray();
             return this.ExpressionsBuilt;
         }

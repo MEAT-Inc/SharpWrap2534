@@ -70,15 +70,12 @@ namespace SharpWrapperTests.SharpExpressions
                 // Build an expression generator and build our output log files
                 var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(TestLogFile); 
                 PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
-                
-                // Make sure that our expressions are actually built and passed here
-                Assert.IsTrue(OutputExpressions.All(ExpObj => !ExpObj.ExpressionPassed()),
-                    "Error! All expression parse routines failed!");
+                Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {TestLogFile}!");
 
                 // Save the output file and make sure it's real
                 string BaseFileName = Path.GetFileNameWithoutExtension(TestLogFile);
                 string BaseFolder = Path.Combine(TestInitializers.BaseOutputPath, "OutputExpressions");
-                string BuiltExpressionFile = BuiltGenerator.SaveExpressionsFile($"TestGenerator_{BaseFileName}", BaseFolder);
+                string BuiltExpressionFile = BuiltGenerator.SaveExpressionsFile(BaseFileName, BaseFolder);
                 Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built expression file {BuiltExpressionFile} does not exist!");
             }
 

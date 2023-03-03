@@ -122,6 +122,10 @@
       <Project>{d7f2fba3-281e-432d-96d8-7e6fbf1147f7}</Project>
       <Name>SharpExpressions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SharpSimulator\SharpSimulator.csproj">
+      <Project>{0A39E208-7927-41BC-A509-39E60B287969}</Project>
+      <Name>SharpSimulator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SharpWrapper\SharpWrapper.csproj">
       <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
       <Name>SharpWrapper</Name>

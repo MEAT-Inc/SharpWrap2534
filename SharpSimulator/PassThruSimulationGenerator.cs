@@ -121,7 +121,7 @@ namespace SharpSimulator
             // Store the expressions file name/path and convert it into a collection of expressions
             this.PassThruLogFile = GeneratorToSimulate.PassThruLogFile;
             this.ExpressionsFile = GeneratorToSimulate.ExpressionsFile;
-            this.ExpressionsLoaded = GeneratorToSimulate.ExpressionsBuilt.Length == 0
+            this.ExpressionsLoaded = GeneratorToSimulate.ExpressionsBuilt?.Length == 0
                 ? GeneratorToSimulate.GenerateLogExpressions()
                 : GeneratorToSimulate.ExpressionsBuilt;
 
@@ -129,7 +129,7 @@ namespace SharpSimulator
             string SimGeneratorName = Path.GetFileNameWithoutExtension(this.PassThruLogFile);
             string LoggerName = $"SimGeneratorLogger_{Path.GetFileNameWithoutExtension(SimGeneratorName)}";
             this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
-            this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
+            this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded?.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
@@ -211,16 +211,16 @@ namespace SharpSimulator
                             SimChannelsBuilt.Add(SimChannelId, BuiltChannel);
 
                             // Setup our scope diagnostic properties for the generator logger
+                            LoopsCompleted++;
                             this._simulationLogger.AddScopeProperties(
                                 new KeyValuePair<string, object>("sim-channel-id", BuiltChannel.ChannelId),
                                 new KeyValuePair<string, object>("sim-message-pairs", BuiltChannel.MessagePairs),
                                 new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
-                                new KeyValuePair<string, object>("generation-progress", (LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
+                                new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
 
-                            // Once we've set our scope properties, write out the content generated
-                            this._simulationLogger.WriteLog(
-                                $"BUILT NEW {BuiltChannel.ChannelProtocol} CHANNEL WITH A SPECIFIED BAUD RATE OF {BuiltChannel.ChannelBaudRate}", 
-                                LogType.InfoLog);
+                            // Once we've set our scope properties, write out the content generated and invoke a new progress event
+                            this._simulationLogger.WriteLog($"BUILT NEW {BuiltChannel.ChannelProtocol} CHANNEL WITH A SPECIFIED BAUD RATE OF {BuiltChannel.ChannelBaudRate}");
+                            this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted, TotalLoops));
                         }
                     }
                 }
@@ -229,10 +229,10 @@ namespace SharpSimulator
                     // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
                     this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
                     this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);
+                    
+                    // Invoke a new progress event here and move on
+                    this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted++, TotalLoops));
                 }
-
-                // Invoke a progress update here if needed
-                this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted++, TotalLoops));
             });
             
             // Log information about the simulation generation routine and exit out

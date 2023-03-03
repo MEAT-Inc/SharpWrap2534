@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -98,6 +99,27 @@ namespace SharpWrapperTests
             // Using the built configuration object, we can now initialize our log broker.
             if (!SharpLogBroker.InitializeLogging(BrokerConfiguration))
                 throw new InvalidOperationException("Error! Failed to configure a new SharpLogging session!");
+
+            // Now define a new log archiver configuration and setup the log archiver
+            string OutputArchiveFolder = Path.Combine(OutputLogFolder, "SharpWrapperLogArchives");
+            SharpLogArchiver.ArchiveConfiguration ArchiverConfiguration = new SharpLogArchiver.ArchiveConfiguration()
+            {
+                ArchiveFileSetSize = 15,                             // The number of files to store in each archive
+                ArchiveOnFileCount = 10,                             // The number of files to trigger an archive event
+                SearchPath = OutputLogFolder,                        // The path to search for files to archive
+                ArchiveCleanupFileCount = 20,                        // The max number of archives to store in the ArchivePath
+                ArchivePath = OutputArchiveFolder,                   // The path to store the archived files into
+                ArchiveFileFilter = "SharpWrapperTests*",            // The filter to use when searching for archives
+                CompressionLevel = CompressionLevel.Optimal,         // The compression type for the archive generation
+                CompressionStyle = CompressionType.ZipCompression    // The type of archive to make (Zip or GZip)
+            };
+
+            // Using the built configuration object, we can now initialize our log archiver.
+            if (!SharpLogArchiver.InitializeArchiving(ArchiverConfiguration))
+                throw new InvalidOperationException("Error! Failed to configure the SharpArchiver for our logging session!");
+
+            // Archive the log files found now
+            SharpLogArchiver.ArchiveLogFiles();
 
             // Spawn in our new logger instance and pass it out
             _testInvokersLogger = new SharpLogger(LoggerActions.UniversalLogger);

@@ -258,21 +258,26 @@ namespace SharpExpressions
                     {
                         // Take the split content values, get our ExpressionTypes, and store the built expression object here
                         PassThruExpressionTypes ExpressionTypes = FileSubString.ToPassThruCommandType();
-                        PassThruExpression NextClassObject = ExpressionTypes.ToPassThruExpression(FileSubString);
-                        OutputExpressions[MatchIndex] = NextClassObject;
-
-                        // Now store the expression object as a string for our output file content values
-                        string ExpressionString = NextClassObject.ToString();
-                        OutputFileContent[MatchIndex] = ExpressionString;
+                        PassThruExpression NextPassThruExpression = ExpressionTypes.ToPassThruExpression(FileSubString);
+                        
+                        // Store our new string content and expression object on their collections
+                        OutputExpressions[MatchIndex] = NextPassThruExpression;
+                        OutputFileContent[MatchIndex] = NextPassThruExpression.ToString();
 
                         // Setup our scope diagnostic properties for the generator logger
+                        LoopsCompleted++;
                         this._expressionsLogger.AddScopeProperties(
                             new KeyValuePair<string, object>("expression-method", ExpressionTypes.ToString().ToUpper()),
                             new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TimeMatches.Length}"),
-                            new KeyValuePair<string, object>("generation-progress", (LoopsCompleted / (double)TimeMatches.Length * 100.00).ToString("F2")));
+                            new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TimeMatches.Length * 100.00).ToString("F2")));
 
                         // Once we've set our scope properties, write out the content generated
-                        this._expressionsLogger.WriteLog($"PROCESSED A NEW {ExpressionTypes} EXPRESSION: {NextClassObject.SplitCommandLines.First()}");
+                        this._expressionsLogger.WriteLog(NextPassThruExpression.ExpressionPassed
+                            ? $"PROCESSED A NEW {ExpressionTypes.ToString().ToUpper()} EXPRESSION! STARTING CONTENT: {NextPassThruExpression.SplitCommandLines.First()}"
+                            : $"ERROR! FAILED TO PROCESS A {ExpressionTypes.ToString().ToUpper()} EXPRESSION! FAILED CONTENT IS SHOWN BELOW\n{NextPassThruExpression.CommandLines}");
+
+                        // Invoke a new progress event here and move on
+                        this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted, TimeMatches.Length));
                     }
                 }
                 catch (Exception GenerateExpressionEx)
@@ -280,10 +285,10 @@ namespace SharpExpressions
                     // Also write these failures into the expressions base logger object
                     this._expressionsLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
                     this._expressionsLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, LogType.WarnLog, LogType.TraceLog);
-                }
 
-                // Update progress values if needed now using the event for the progress checker
-                this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted++, TimeMatches.Length));
+                    // Update progress values if needed now using the event for the progress checker
+                    this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted++, TimeMatches.Length));
+                }
             });
             
             // Prune all null values off the array of expressions

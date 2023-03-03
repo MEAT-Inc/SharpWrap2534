@@ -335,11 +335,13 @@ namespace SharpExpressions
             {
                 // Start by finding our type value for the given input expression object
                 string InputTypeName = InputTypes.ToDescriptionString();
-                Type RegexClassType = typeof(PassThruExpression).Assembly.GetTypes()
-                    .FirstOrDefault(TypeObj => TypeObj.Name.Contains(InputTypeName)) ?? typeof(PassThruExpression);
+                Type RegexClassType = InputTypes == PassThruExpressionTypes.NONE
+                    ? typeof(PassThruExpression)
+                    : typeof(PassThruExpression).Assembly.GetTypes()
+                        .FirstOrDefault(TypeObj => TypeObj.Name.Contains(InputTypeName));
 
                 // Now build the expression object based on this type value loaded. If types are invalid, then we return an empty expression
-                PassThruExpression BuiltExpression = RegexClassType.Name == nameof(PassThruExpression) 
+                PassThruExpression BuiltExpression = InputTypes == PassThruExpressionTypes.NONE 
                     ? new PassThruExpression(InputLogLines, InputTypes)
                     : (PassThruExpression)Activator.CreateInstance(RegexClassType, InputLogLines);
 

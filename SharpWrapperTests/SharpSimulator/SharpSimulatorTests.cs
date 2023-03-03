@@ -81,7 +81,7 @@ namespace SharpWrapperTests.SharpSimulator
                 // Now once we've validated expressions were built, generate our simulations
                 var BuiltSimGenerator = new PassThruSimulationGenerator(TestLogFile, OutputExpressions);
                 PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation();
-                Assert.IsTrue(SimulationChannels.Length != 0, "Error! No simulation channels were built!");
+                Assert.IsTrue(SimulationChannels.Length != 0, $"Error! No simulation channels were built for file {TestLogFile}!");
 
                 // Save the output file and make sure it's real
                 string BaseSimFileName = Path.GetFileNameWithoutExtension(TestLogFile);
@@ -108,7 +108,7 @@ namespace SharpWrapperTests.SharpSimulator
                 // Now once we've validated expressions were built, generate our simulations
                 var BuiltSimGenerator = PassThruSimulationGenerator.LoadPassThruLogFile(TestLogFile);
                 PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation();
-                Assert.IsTrue(SimulationChannels.Length != 0, "Error! No simulation channels were built!");
+                Assert.IsTrue(SimulationChannels.Length != 0, $"Error! No simulation channels were built for file {TestLogFile}!");
 
                 // Save the output file and make sure it's real
                 string BaseSimFileName = Path.GetFileNameWithoutExtension(TestLogFile);
@@ -146,7 +146,7 @@ namespace SharpWrapperTests.SharpSimulator
                 // Now once we've validated expressions were built, generate our simulations
                 var BuiltSimGenerator = PassThruSimulationGenerator.LoadExpressionsFile(BuiltExpressionFile);
                 PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation();
-                Assert.IsTrue(SimulationChannels.Length != 0, "Error! No simulation channels were built!");
+                Assert.IsTrue(SimulationChannels.Length != 0, $"Error! No simulation channels were built for file {TestLogFile}!");
 
                 // Save the output file and make sure it's real
                 string BaseSimFileName = Path.GetFileNameWithoutExtension(TestLogFile);

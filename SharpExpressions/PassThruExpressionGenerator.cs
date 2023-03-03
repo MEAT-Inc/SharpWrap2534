@@ -276,7 +276,7 @@ namespace SharpExpressions
                         {
                             // If the expression generated correctly, then we write that information out here
                             string ExpType = ExpressionTypes.ToString().ToUpper();
-                            string FirstCommand = NextPassThruExpression.SplitCommandLines.First();
+                            string FirstCommand = NextPassThruExpression.CommandLines.Split('\n').First();
                             this._expressionsLogger.WriteLog($"PROCESSED A {ExpType} EXPRESSION CORRECTLY! EXPRESSION CONTENT: {FirstCommand}");
                         }
                         else

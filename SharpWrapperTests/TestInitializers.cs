@@ -87,6 +87,9 @@ namespace SharpWrapperTests
             // Spawn a new test invokers class logger instance and configure our logging
             SeparateConsole();
 
+            // Delete any old test session results here 
+            // if (Directory.Exists(BaseOutputPath)) Directory.Delete(BaseOutputPath);
+
             // Define a new log broker configuration, clean up old output, and setup the log broker
             string OutputLogFolder = Path.Combine(BaseOutputPath, "SharpWrapperLogging");
             SharpLogBroker.BrokerConfiguration BrokerConfiguration = new SharpLogBroker.BrokerConfiguration()

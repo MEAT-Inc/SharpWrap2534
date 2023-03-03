@@ -127,9 +127,8 @@ namespace SharpSimulator
                 : GeneratorToSimulate.ExpressionsBuilt;
 
             // Finally build our logger object and exit out of this constructor
-            string SimGeneratorName = Path.GetFileNameWithoutExtension(this.PassThruLogFile);
-            string LoggerName = $"SimGeneratorLogger_{Path.GetFileNameWithoutExtension(SimGeneratorName)}";
-            this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
+            string SimGeneratorName = Path.GetFileNameWithoutExtension(this.PassThruLogFile); 
+            this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded?.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
         }
         /// <summary>

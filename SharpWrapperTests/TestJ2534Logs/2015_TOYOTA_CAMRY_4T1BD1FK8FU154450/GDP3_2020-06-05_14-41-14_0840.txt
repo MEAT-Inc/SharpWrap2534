@@ -1,0 +1,2391 @@
+   Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 0.000s PTOpen(00000000, 0F1AEDD4)
+   pName: <NULL>
+   Library Version: GDP3 J2534 Library v1.0.30.0
+   Exactly one PassThruDevice, picking it automatically
+     GDP3 #036676
+     USB\VID_18E1&PID_1004&MI_00\7&2A97B1D9&0&0000
+   returning DeviceID 1
+** 0.000s PTReadVersion(1, 0F1AED84, 0F1AED34, 0F1AECE4)
+   DLL: GDP3 J2534 Library v1.0.30.0
+   API: 04.04
+   FW:  GDP3 FW:0.1.20.0 BL:0.1.4.0 SN: CRUEU0000036676E
+++ 0.000s PTConnect(1, 6:ISO15765, 0, 500000, 04C25B78)
+   Flags: {no ConnectFlags}
+   returning ChannelID 2
+** 0.016s PTIoctl(2, 2:SET_CONFIG, 0F1ABC24, 00000000)
+   4 parameter(s) at 0D1978A8:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 0.016s PTIoctl(2, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 0.016s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 0F1AACE4, 0F1A8C6C, 0F1A9CA8, 0F1A8C10)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  08 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  00 
+   returning FilterID 3
+** 0.016s PTIoctl(2, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 0.016s PTWriteMsgs(2, 04C25BC4, 0F1ABD54, 1000)
+   Transaction 0016 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  00  3e  00 
+   Queued everything
+   Sent 1/1
+<< 0.016s PTReadMsgs(2, 0F1AAD40, 1, 1000)
+   Msg[0] 3146.398828s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][00]
+<< 0.016s PTReadMsgs() complete (channel 2)
+<< 0.016s PTReadMsgs(2, 0F1AAD40, 1, 1000)   1.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 1.031s PTIoctl(2, 2:SET_CONFIG, 0F1ABB78, 00000000)
+   4 parameter(s) at 0D197640:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 1.031s PTIoctl(2, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 1.031s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 0F1AAC38, 0F1A8BC0, 0F1A9BFC, 0F1A8B64)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  08 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  00 
+   returning FilterID 4
+-- 1.031s PTDisconnect(2)
+** 1.031s PTReadVersion(1, 0F1AED98, 0F1AED48, 0F1AECF8)
+   DLL: GDP3 J2534 Library v1.0.30.0
+   API: 04.04
+   FW:  GDP3 FW:0.1.20.0 BL:0.1.4.0 SN: CRUEU0000036676E
+++ 1.047s PTConnect(1, 6:ISO15765, 0, 500000, 04C25B78)
+   Flags: {no ConnectFlags}
+   returning ChannelID 5
+** 1.047s PTIoctl(5, 2:SET_CONFIG, 0F1ABC20, 00000000)
+   4 parameter(s) at 0D197598:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 1.047s PTIoctl(5, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 1.047s PTStartMsgFilter(5, 3:FLOW_CONTROL_FILTER, 0F1AACDC, 0F1A8C64, 0F1A9CA0, 0F1A8C08)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2 
+   returning FilterID 6
+** 1.047s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.047s PTWriteMsgs(5, 04C25BC4, 0F1ABD10, 1000)
+   Transaction 002e for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  3e 
+   Queued everything
+   Sent 1/1
+<< 1.047s PTReadMsgs(5, 0F1AACFC, 1, 1000)
+   Msg[0] 3147.428441s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.047s PTReadMsgs() complete (channel 5)
+<< 1.047s PTReadMsgs(5, 0F1AACFC, 1, 1000)
+   Msg[0] 3147.431457s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  ea  7e 
+<< 1.063s PTReadMsgs() complete (channel 5)
+** 1.063s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.063s PTWriteMsgs(5, 04C25BC4, 0F1ADA20, 1000)
+   Transaction 0030 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  09  00 
+   Queued everything
+   Sent 1/1
+<< 1.063s PTReadMsgs(5, 0F1ACA58, 1, 1020)
+   Msg[0] 3147.436305s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.063s PTReadMsgs() complete (channel 5)
+<< 1.063s PTReadMsgs(5, 0F1ACA58, 1, 1020)
+   Msg[0] 3147.439764s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  ea  49  00  14  40  00  00 
+<< 1.063s PTReadMsgs() complete (channel 5)
+** 1.063s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.063s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0032 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.063s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.442455s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.063s PTReadMsgs() complete (channel 5)
+<< 1.063s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.447808s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.078s PTReadMsgs() complete (channel 5)
+** 1.078s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.078s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0034 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.078s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.450461s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.078s PTReadMsgs() complete (channel 5)
+<< 1.078s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.456229s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.078s PTReadMsgs() complete (channel 5)
+** 1.078s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.078s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0036 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.078s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.45935s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.078s PTReadMsgs() complete (channel 5)
+<< 1.078s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.464545s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.094s PTReadMsgs() complete (channel 5)
+** 1.094s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.094s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0038 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.094s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.467115s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.094s PTReadMsgs() complete (channel 5)
+<< 1.094s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.472425s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.094s PTReadMsgs() complete (channel 5)
+** 1.094s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.094s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 003a for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.109s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.477835s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.109s PTReadMsgs() complete (channel 5)
+<< 1.109s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.480579s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.109s PTReadMsgs() complete (channel 5)
+** 1.109s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.109s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 003c for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.109s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.483746s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.109s PTReadMsgs() complete (channel 5)
+<< 1.109s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.488808s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.109s PTReadMsgs() complete (channel 5)
+** 1.109s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.109s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 003e for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.125s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.494737s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.125s PTReadMsgs() complete (channel 5)
+<< 1.125s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.501099s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.125s PTReadMsgs() complete (channel 5)
+** 1.125s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.125s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0040 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.125s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.504896s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.125s PTReadMsgs() complete (channel 5)
+<< 1.125s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.509241s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.141s PTReadMsgs() complete (channel 5)
+** 1.141s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.141s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0042 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.141s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.512879s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.141s PTReadMsgs() complete (channel 5)
+<< 1.141s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.517467s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.141s PTReadMsgs() complete (channel 5)
+** 1.141s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.141s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0044 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.141s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.520572s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.141s PTReadMsgs() complete (channel 5)
+<< 1.141s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.525624s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.156s PTReadMsgs() complete (channel 5)
+** 1.156s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.156s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0046 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.156s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.528428s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.156s PTReadMsgs() complete (channel 5)
+<< 1.156s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.533834s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.156s PTReadMsgs() complete (channel 5)
+** 1.156s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.156s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0048 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.156s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.536666s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.156s PTReadMsgs() complete (channel 5)
+<< 1.156s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.542399s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.172s PTReadMsgs() complete (channel 5)
+** 1.172s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.172s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 004a for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.172s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.546251s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.172s PTReadMsgs() complete (channel 5)
+<< 1.172s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.550218s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.172s PTReadMsgs() complete (channel 5)
+** 1.172s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.172s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 004c for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.172s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.552538s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.172s PTReadMsgs() complete (channel 5)
+<< 1.172s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.558391s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.188s PTReadMsgs() complete (channel 5)
+** 1.188s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.188s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 004e for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.188s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.560995s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.188s PTReadMsgs() complete (channel 5)
+<< 1.188s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.567236s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.188s PTReadMsgs() complete (channel 5)
+** 1.188s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.188s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0050 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.188s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.569519s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.188s PTReadMsgs() complete (channel 5)
+<< 1.188s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.574777s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.203s PTReadMsgs() complete (channel 5)
+** 1.203s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.203s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0052 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.203s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.577428s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.203s PTReadMsgs() complete (channel 5)
+<< 1.203s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.582986s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.203s PTReadMsgs() complete (channel 5)
+** 1.203s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.203s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0054 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.203s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.586739s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.203s PTReadMsgs() complete (channel 5)
+<< 1.203s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.59186s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.219s PTReadMsgs() complete (channel 5)
+** 1.219s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.219s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0056 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.219s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.594663s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.219s PTReadMsgs() complete (channel 5)
+<< 1.219s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.599377s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.219s PTReadMsgs() complete (channel 5)
+** 1.219s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.219s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0058 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.219s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.601653s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.219s PTReadMsgs() complete (channel 5)
+<< 1.219s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.607543s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.250s PTReadMsgs() complete (channel 5)
+** 1.250s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.250s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 005a for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.250s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.62892s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.250s PTReadMsgs() complete (channel 5)
+<< 1.250s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.632775s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.250s PTReadMsgs() complete (channel 5)
+** 1.250s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.266s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 005c for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.266s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.635255s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.266s PTReadMsgs() complete (channel 5)
+<< 1.266s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.640311s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.266s PTReadMsgs() complete (channel 5)
+** 1.266s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.266s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 005e for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.266s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.643064s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.266s PTReadMsgs() complete (channel 5)
+<< 1.266s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.648541s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.266s PTReadMsgs() complete (channel 5)
+** 1.266s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.281s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0060 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.281s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.651351s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.281s PTReadMsgs() complete (channel 5)
+<< 1.281s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.656921s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.281s PTReadMsgs() complete (channel 5)
+** 1.281s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.281s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0062 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.281s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.659675s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.281s PTReadMsgs() complete (channel 5)
+<< 1.281s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.664923s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.281s PTReadMsgs() complete (channel 5)
+** 1.297s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.297s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0064 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.297s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.667627s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.297s PTReadMsgs() complete (channel 5)
+<< 1.297s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.673078s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.297s PTReadMsgs() complete (channel 5)
+** 1.297s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.297s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0066 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.297s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.675931s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.297s PTReadMsgs() complete (channel 5)
+<< 1.297s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.681516s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.313s PTReadMsgs() complete (channel 5)
+** 1.313s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.313s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0068 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.313s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.683735s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.313s PTReadMsgs() complete (channel 5)
+<< 1.313s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.689548s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.313s PTReadMsgs() complete (channel 5)
+** 1.313s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.313s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 006a for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.313s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.692073s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.313s PTReadMsgs() complete (channel 5)
+<< 1.313s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.697674s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.328s PTReadMsgs() complete (channel 5)
+** 1.328s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.328s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 006c for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.328s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.700246s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.328s PTReadMsgs() complete (channel 5)
+<< 1.328s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.706105s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.328s PTReadMsgs() complete (channel 5)
+** 1.328s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.328s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 006e for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.328s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.708995s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.328s PTReadMsgs() complete (channel 5)
+<< 1.328s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.714067s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.344s PTReadMsgs() complete (channel 5)
+** 1.344s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.344s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0070 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.344s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.717197s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.344s PTReadMsgs() complete (channel 5)
+<< 1.344s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.72271s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.344s PTReadMsgs() complete (channel 5)
+** 1.344s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.344s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0072 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.344s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.72553s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.344s PTReadMsgs() complete (channel 5)
+<< 1.344s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.730469s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.359s PTReadMsgs() complete (channel 5)
+** 1.359s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.359s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0074 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.359s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.733512s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.359s PTReadMsgs() complete (channel 5)
+<< 1.359s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.738615s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.359s PTReadMsgs() complete (channel 5)
+** 1.359s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.359s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0076 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.359s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.741553s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.359s PTReadMsgs() complete (channel 5)
+<< 1.359s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.746826s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.375s PTReadMsgs() complete (channel 5)
+** 1.375s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.375s PTWriteMsgs(5, 04C25BC4, 0F1ADC68, 1000)
+   Transaction 0078 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.375s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.749091s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e2]
+<< 1.375s PTReadMsgs() complete (channel 5)
+<< 1.375s PTReadMsgs(5, 0F1ACCA0, 1, 1020)
+   Msg[0] 3147.755005s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  ea  7f  21  12 
+<< 1.375s PTReadMsgs() complete (channel 5)
+** 1.375s PTIoctl(5, 2:SET_CONFIG, 0F1ABC20, 00000000)
+   4 parameter(s) at 0D197678:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 1.391s PTIoctl(5, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 1.391s PTStartMsgFilter(5, 3:FLOW_CONTROL_FILTER, 0F1AACDC, 0F1A8C64, 0F1A9CA0, 0F1A8C08)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 7
+** 1.391s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.391s PTWriteMsgs(5, 04C25BC4, 0F1ABD10, 1000)
+   Transaction 0082 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  3e 
+   Queued everything
+   Sent 1/1
+<< 1.391s PTReadMsgs(5, 0F1AACFC, 1, 1000)
+   Msg[0] 3147.763786s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 1.391s PTReadMsgs() complete (channel 5)
+<< 1.391s PTReadMsgs(5, 0F1AACFC, 1, 1000)
+   Msg[0] 3147.76871s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  e8  7e 
+<< 1.391s PTReadMsgs() complete (channel 5)
+** 1.391s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.391s PTWriteMsgs(5, 04C25BC4, 0F1ADA20, 1000)
+   Transaction 0084 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  09  00 
+   Queued everything
+   Sent 1/1
+<< 1.391s PTReadMsgs(5, 0F1ACA58, 1, 1020)
+   Msg[0] 3147.771332s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 1.391s PTReadMsgs() complete (channel 5)
+<< 1.391s PTReadMsgs(5, 0F1ACA58, 1, 1020)
+   Msg[0] 3147.772789s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  49  00  55  40  00  00 
+<< 1.391s PTReadMsgs() complete (channel 5)
+** 1.391s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.391s PTWriteMsgs(5, 04C25BC4, 0F1ADA84, 1000)
+   Transaction 0086 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  09  02 
+   Queued everything
+   Sent 1/1
+<< 1.406s PTReadMsgs(5, 0F1ACABC, 1, 1020)
+   Msg[0] 3147.775259s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 1.406s PTReadMsgs() complete (channel 5)
+<< 1.406s PTReadMsgs(5, 0F1ACABC, 1, 1020)
+   Msg[0] 3147.776884s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 1.406s PTReadMsgs() complete (channel 5)
+<< 1.406s PTReadMsgs(5, 0F1ACABC, 1, 10000)
+   Msg[0] 3147.786099s. 6:ISO15765. Actual data 24 of 24 bytes. RxS=00000000
+   \__  00  00  07  e8  49  02  01  34  54  31  42  44  31  46  4b  38 
+        46  55  31  35  34  34  35  30 
+<< 1.406s PTReadMsgs() complete (channel 5)
+** 1.406s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.406s PTWriteMsgs(5, 04C25BC4, 0F1ADB88, 1000)
+   Transaction 0088 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  21  c1 
+   Queued everything
+   Sent 1/1
+<< 1.406s PTReadMsgs(5, 0F1ACBC0, 1, 1020)
+   Msg[0] 3147.788773s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 1.406s PTReadMsgs() complete (channel 5)
+<< 1.406s PTReadMsgs(5, 0F1ACBC0, 1, 1020)
+   Msg[0] 3147.793268s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 1.422s PTReadMsgs() complete (channel 5)
+<< 1.422s PTReadMsgs(5, 0F1ACBC0, 1, 10000)
+   Msg[0] 3147.807764s. 6:ISO15765. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  07  e8  61  c1  41  56  56  35  30  23  20  32  41  52 
+        46  58  45  04  00  41  73  21  00 
+<< 1.438s PTReadMsgs() complete (channel 5)
+** 15.297s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 15.297s PTWriteMsgs(5, 04C25BC4, 0019412C, 1000)
+   Transaction 008a for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  3e 
+   Queued everything
+   Sent 1/1
+<< 15.297s PTReadMsgs(5, 00193118, 1, 1000)
+   Msg[0] 3161.668437s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 15.297s PTReadMsgs() complete (channel 5)
+<< 15.297s PTReadMsgs(5, 00193118, 1, 1000)
+   Msg[0] 3161.670718s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  e8  7e 
+<< 15.297s PTReadMsgs() complete (channel 5)
+** 15.297s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 15.297s PTWriteMsgs(5, 04C25BC4, 00196230, 1000)
+   Transaction 008c for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  aa  00 
+   Queued everything
+   Sent 1/1
+** 16.156s PTIoctl(5, 2:SET_CONFIG, 1092C4E8, 00000000)
+   4 parameter(s) at 0D1977C8:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 16.156s PTIoctl(5, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 16.156s PTStartMsgFilter(5, 3:FLOW_CONTROL_FILTER, 1092B5A4, 1092952C, 1092A568, 109294D0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  aa 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  a2 
+   returning FilterID 8
+** 16.172s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 16.172s PTWriteMsgs(5, 04C25BC4, 1092C5D8, 1000)
+   Transaction 0096 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  a2  3e 
+   Queued everything
+   Sent 1/1
+<< 16.172s PTReadMsgs(5, 1092B5C4, 1, 1000)
+   Msg[0] 3162.542099s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][a2]
+<< 16.172s PTReadMsgs() complete (channel 5)
+<< 16.172s PTReadMsgs(5, 1092B5C4, 1, 1000)   17.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 17.172s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 17.172s PTWriteMsgs(5, 04C25BC4, 1092C5D8, 1000)
+   Transaction 0098 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  a2  3e 
+   Queued everything
+   Sent 1/1
+<< 17.172s PTReadMsgs(5, 1092B5C4, 1, 1000)
+   Msg[0] 3163.549804s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][a2]
+<< 17.172s PTReadMsgs() complete (channel 5)
+<< 17.172s PTReadMsgs(5, 1092B5C4, 1, 1000)   18.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 18.188s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 18.188s PTWriteMsgs(5, 04C25BC4, 1092C794, 1000)
+   Transaction 009a for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  a2  3e 
+   Queued everything
+   Sent 1/1
+<< 18.188s PTReadMsgs(5, 1092B780, 1, 1000)
+   Msg[0] 3164.558061s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][a2]
+<< 18.188s PTReadMsgs() complete (channel 5)
+<< 18.188s PTReadMsgs(5, 1092B780, 1, 1000)   19.188s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 19.406s PTDisconnect(5)
+** 19.406s PTReadVersion(1, 1092F720, 1092F6D0, 1092F680)
+   DLL: GDP3 J2534 Library v1.0.30.0
+   API: 04.04
+   FW:  GDP3 FW:0.1.20.0 BL:0.1.4.0 SN: CRUEU0000036676E
+++ 19.406s PTConnect(1, 6:ISO15765, 0, 500000, 04C25B78)
+   Flags: {no ConnectFlags}
+   returning ChannelID 9
+** 19.406s PTIoctl(9, 2:SET_CONFIG, 1092C5A8, 00000000)
+   4 parameter(s) at 0D1978E0:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'   [3/4] 30:ISO15765_BS = 00000001 '1'   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [3/4] 30:ISO15765_BS = 00000001 '1'
+   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 19.406s PTIoctl(9, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 19.406s PTStartMsgFilter(9, 3:FLOW_CONTROL_FILTER, 1092E7B8, 1092D780, 1092C748, 1092C684)
+   Mask[0] 6:ISO15765. 5 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  ff  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 5 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  58  67 
+   FlowControl[0] 6:ISO15765. 5 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  50  67 
+   returning FilterID 10
+** 19.406s PTIoctl(9, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 19.406s PTWriteMsgs(9, 04C25BC4, 1092C698, 1000)
+   Transaction 00aa for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  50  67  3e 
+   Queued everything
+   Sent 1/1
+<< 19.422s PTReadMsgs(9, 1092B684, 1, 1000)
+   Msg[0] 3165.791809s. 6:ISO15765. Actual data 0 of 5 bytes. RxS=00000089
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :ISO15765_ADDR_TYPE}
+   \__ [00][00][07][50][67]
+<< 19.422s PTReadMsgs() complete (channel 9)
+<< 19.422s PTReadMsgs(9, 1092B684, 1, 1000)   20.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 20.422s PTIoctl(9, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 20.422s PTWriteMsgs(9, 04C25BC4, 1092C698, 1000)
+   Transaction 00ac for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  50  67  3e 
+   Queued everything
+   Sent 1/1
+<< 20.422s PTReadMsgs(9, 1092B684, 1, 1000)
+   Msg[0] 3166.798171s. 6:ISO15765. Actual data 0 of 5 bytes. RxS=00000089
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :ISO15765_ADDR_TYPE}
+   \__ [00][00][07][50][67]
+<< 20.422s PTReadMsgs() complete (channel 9)
+<< 20.422s PTReadMsgs(9, 1092B684, 1, 1000)   21.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 21.422s PTIoctl(9, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 21.438s PTWriteMsgs(9, 04C25BC4, 1092C854, 1000)
+   Transaction 00ae for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  50  67  3e 
+   Queued everything
+   Sent 1/1
+<< 21.438s PTReadMsgs(9, 1092B840, 1, 1000)
+   Msg[0] 3167.808803s. 6:ISO15765. Actual data 0 of 5 bytes. RxS=00000089
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :ISO15765_ADDR_TYPE}
+   \__ [00][00][07][50][67]
+<< 21.438s PTReadMsgs() complete (channel 9)
+<< 21.438s PTReadMsgs(9, 1092B840, 1, 1000)   22.438s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 22.484s PTDisconnect(9)
+** 22.484s PTReadVersion(1, 1092F720, 1092F6D0, 1092F680)
+   DLL: GDP3 J2534 Library v1.0.30.0
+   API: 04.04
+   FW:  GDP3 FW:0.1.20.0 BL:0.1.4.0 SN: CRUEU0000036676E
+++ 22.500s PTConnect(1, 6:ISO15765, 0, 500000, 04C25B78)
+   Flags: {no ConnectFlags}
+   returning ChannelID 11
+** 22.500s PTIoctl(11, 2:SET_CONFIG, 1092C5A8, 00000000)
+   4 parameter(s) at 0D197758:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 22.500s PTIoctl(11, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 22.500s PTStartMsgFilter(11, 3:FLOW_CONTROL_FILTER, 1092B664, 109295EC, 1092A628, 10929590)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  a9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  a1 
+   returning FilterID 12
+** 22.500s PTIoctl(11, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 22.500s PTWriteMsgs(11, 04C25BC4, 1092C698, 1000)
+   Transaction 00be for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  a1  3e 
+   Queued everything
+   Sent 1/1
+<< 22.500s PTReadMsgs(11, 1092B684, 1, 1000)
+   Msg[0] 3168.880547s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][a1]
+<< 22.500s PTReadMsgs() complete (channel 11)
+<< 22.500s PTReadMsgs(11, 1092B684, 1, 1000)
+   Msg[0] 3168.881812s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  a9  7e 
+<< 22.500s PTReadMsgs() complete (channel 11)
+** 22.500s PTIoctl(11, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 22.500s PTWriteMsgs(11, 04C25BC4, 1092E79C, 1000)
+   Transaction 00c0 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  a1  13  81 
+   Queued everything
+   Sent 1/1
+<< 22.516s PTReadMsgs(11, 1092D7D4, 1, 1020)
+   Msg[0] 3168.88417s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][a1]
+<< 22.516s PTReadMsgs() complete (channel 11)
+<< 22.516s PTReadMsgs(11, 1092D7D4, 1, 1020)
+   Msg[0] 3168.884963s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000000
+   \__  00  00  07  a9  53  00 
+<< 22.516s PTReadMsgs() complete (channel 11)
+-- 22.516s PTDisconnect(11)
+** 22.516s PTReadVersion(1, 1092F720, 1092F6D0, 1092F680)
+   DLL: GDP3 J2534 Library v1.0.30.0
+   API: 04.04
+   FW:  GDP3 FW:0.1.20.0 BL:0.1.4.0 SN: CRUEU0000036676E
+++ 22.516s PTConnect(1, 6:ISO15765, 0, 500000, 04C25B78)
+   Flags: {no ConnectFlags}
+   returning ChannelID 13
+** 22.516s PTIoctl(13, 2:SET_CONFIG, 1092C5A8, 00000000)
+   4 parameter(s) at 0D1978E0:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000064 '100 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000064 '100 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 22.516s PTIoctl(13, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 22.516s PTStartMsgFilter(13, 3:FLOW_CONTROL_FILTER, 1092E7B8, 1092D780, 1092C748, 1092C684)
+   Mask[0] 6:ISO15765. 5 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  ff  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 5 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  58  40 
+   FlowControl[0] 6:ISO15765. 5 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  50  40 
+   returning FilterID 14
+** 22.516s PTIoctl(13, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 22.516s PTWriteMsgs(13, 04C25BC4, 1092C698, 1000)
+   Transaction 00d0 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  50  40  3e 
+   Queued everything
+   Sent 1/1
+<< 22.516s PTReadMsgs(13, 1092B684, 1, 1000)
+   Msg[0] 3168.89498s. 6:ISO15765. Actual data 0 of 5 bytes. RxS=00000089
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :ISO15765_ADDR_TYPE}
+   \__ [00][00][07][50][40]
+<< 22.516s PTReadMsgs() complete (channel 13)
+<< 22.516s PTReadMsgs(13, 1092B684, 1, 1000)
+   Msg[0] 3168.899731s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000080
+   RxStatus: {:ISO15765_ADDR_TYPE}
+   \__  00  00  07  58  40  7e 
+<< 22.531s PTReadMsgs() complete (channel 13)
+** 22.531s PTIoctl(13, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 22.531s PTWriteMsgs(13, 04C25BC4, 1092E79C, 1000)
+   Transaction 00d2 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  50  40  3e 
+   Queued everything
+   Sent 1/1
+<< 22.531s PTReadMsgs(13, 1092D7D4, 1, 1020)
+   Msg[0] 3168.902522s. 6:ISO15765. Actual data 0 of 5 bytes. RxS=00000089
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :ISO15765_ADDR_TYPE}
+   \__ [00][00][07][50][40]
+<< 22.531s PTReadMsgs() complete (channel 13)
+<< 22.531s PTReadMsgs(13, 1092D7D4, 1, 1020)
+   Msg[0] 3168.904609s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000080
+   RxStatus: {:ISO15765_ADDR_TYPE}
+   \__  00  00  07  58  40  7e 
+<< 22.531s PTReadMsgs() complete (channel 13)
+<< 22.531s PTReadMsgs(13, 1092D890, 1, 1020)   23.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 23.547s PTIoctl(13, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 23.547s PTWriteMsgs(13, 04C25BC4, 1092E590, 1000)
+   Transaction 00d4 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=000000c0
+   TxFlags: {6:ISO15765_FRAME_PAD, 7:ISO15765_ADDR_TYPE}
+   \__  00  00  07  50  40  a8  03 
+   Queued everything
+   Sent 1/1
+<< 23.563s PTReadMsgs(13, 1092D5C8, 1, 1020)
+   Msg[0] 3169.931801s. 6:ISO15765. Actual data 0 of 5 bytes. RxS=00000089
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :ISO15765_ADDR_TYPE}
+   \__ [00][00][07][50][40]
+<< 23.563s PTReadMsgs() complete (channel 13)
+<< 23.563s PTReadMsgs(13, 1092D5C8, 1, 1020)
+   Msg[0] 3169.964074s. 6:ISO15765. Actual data 0 of 5 bytes. RxS=00000082
+   RxStatus: {:START_OF_MESSAGE, :ISO15765_ADDR_TYPE}
+   \__ [00][00][07][58][40]
+<< 23.594s PTReadMsgs() complete (channel 13)
+<< 23.594s PTReadMsgs(13, 1092D5C8, 1, 10000)
+   Msg[0] 3171.093517s. 6:ISO15765. Actual data 63 of 63 bytes. RxS=00000080
+   RxStatus: {:ISO15765_ADDR_TYPE}
+   \__  00  00  07  58  40  e8  03  00  04  ff  ff  ff  ff  09  06  ff 
+        ff  ff  ff  ff  ff  0a  06  ff  ff  ff  ff  ff  ff  0b  06  ff 
+        ff  ff  ff  ff  ff  0d  06  ff  ff  ff  ff  ff  ff  11  04  c0 
+        0f  00  00  12  04  f8  00  00  00  13  04  d0  40  00  00 
+<< 24.719s PTReadMsgs() complete (channel 13)
+<< 24.719s PTReadMsgs(13, 1092D5C8, 1, 1020)
+   Msg[0] 3171.128491s. 6:ISO15765. Actual data 0 of 5 bytes. RxS=00000082
+   RxStatus: {:START_OF_MESSAGE, :ISO15765_ADDR_TYPE}
+   \__ [00][00][07][58][40]
+<< 24.750s PTReadMsgs() complete (channel 13)
+<< 24.750s PTReadMsgs(13, 1092D5C8, 1, 10000)
+   Msg[0] 3172.25826s. 6:ISO15765. Actual data 64 of 64 bytes. RxS=00000080
+   RxStatus: {:ISO15765_ADDR_TYPE}
+   \__  00  00  07  58  40  e8  03  14  04  9b  67  07  f0  15  04  70 
+        fc  80  c0  17  04  00  00  00  80  1b  04  80  00  00  00  20 
+        04  ff  ff  ff  ff  21  04  80  00  00  00  31  01  ff  40  04 
+        ff  ff  ff  ff  46  04  ff  ff  ff  ff  47  04  ff  ff  ff  ff 
+<< 25.891s PTReadMsgs() complete (channel 13)
+<< 25.891s PTReadMsgs(13, 1092D5C8, 1, 1020)
+   Msg[0] 3172.292948s. 6:ISO15765. Actual data 0 of 5 bytes. RxS=00000082
+   RxStatus: {:START_OF_MESSAGE, :ISO15765_ADDR_TYPE}
+   \__ [00][00][07][58][40]
+<< 25.922s PTReadMsgs() complete (channel 13)
+<< 25.922s PTReadMsgs(13, 1092D5C8, 1, 10000)
+   Msg[0] 3173.42238s. 6:ISO15765. Actual data 64 of 64 bytes. RxS=00000080
+   RxStatus: {:ISO15765_ADDR_TYPE}
+   \__  00  00  07  58  40  e8  03  56  04  ff  ff  ff  ff  57  04  ff 
+        ff  ff  ff  60  04  ff  ff  ff  ff  61  01  80  62  01  00  63 
+        01  00  80  04  ff  ff  ff  ff  81  01  80  a0  04  ff  ff  ff 
+        ff  c0  04  ff  ff  ff  ff  e0  04  ff  ff  ff  fe  fd  01  80 
+<< 27.047s PTReadMsgs() complete (channel 13)
+<< 27.047s PTReadMsgs(13, 1092D5C8, 1, 1020)   28.063s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 28.109s PTDisconnect(13)
+** 28.109s PTReadVersion(1, 1092F720, 1092F6D0, 1092F680)
+   DLL: GDP3 J2534 Library v1.0.30.0
+   API: 04.04
+   FW:  GDP3 FW:0.1.20.0 BL:0.1.4.0 SN: CRUEU0000036676E
+++ 28.109s PTConnect(1, 6:ISO15765, 0, 500000, 04C25B78)
+   Flags: {no ConnectFlags}
+   returning ChannelID 15
+** 28.109s PTIoctl(15, 2:SET_CONFIG, 1092C5A8, 00000000)
+   4 parameter(s) at 0D1975D0:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 28.125s PTIoctl(15, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 28.125s PTStartMsgFilter(15, 3:FLOW_CONTROL_FILTER, 1092B664, 109295EC, 1092A628, 10929590)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  d8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  d0 
+   returning FilterID 16
+** 28.125s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 28.125s PTWriteMsgs(15, 04C25BC4, 1092C698, 1000)
+   Transaction 00e4 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  d0  3e 
+   Queued everything
+   Sent 1/1
+<< 28.125s PTReadMsgs(15, 1092B684, 1, 1000)
+   Msg[0] 3174.499753s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][d0]
+<< 28.125s PTReadMsgs() complete (channel 15)
+<< 28.125s PTReadMsgs(15, 1092B684, 1, 1000)
+   Msg[0] 3174.541509s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  d8  7e 
+<< 28.172s PTReadMsgs() complete (channel 15)
+** 28.172s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 28.172s PTWriteMsgs(15, 04C25BC4, 1092E79C, 1000)
+   Transaction 00e6 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  d0  3e 
+   Queued everything
+   Sent 1/1
+<< 28.172s PTReadMsgs(15, 1092D7D4, 1, 1020)
+   Msg[0] 3174.54464s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][d0]
+<< 28.172s PTReadMsgs() complete (channel 15)
+<< 28.172s PTReadMsgs(15, 1092D7D4, 1, 1020)
+   Msg[0] 3174.591508s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  d8  7e 
+<< 28.219s PTReadMsgs() complete (channel 15)
+<< 28.219s PTReadMsgs(15, 1092D890, 1, 1020)   29.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 29.234s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 29.234s PTWriteMsgs(15, 04C25BC4, 1092E590, 1000)
+   Transaction 00e8 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  d0  a8  01 
+   Queued everything
+   Sent 1/1
+<< 29.250s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3175.618594s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][d0]
+<< 29.250s PTReadMsgs() complete (channel 15)
+<< 29.250s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3175.677483s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][d8]
+<< 29.297s PTReadMsgs() complete (channel 15)
+<< 29.297s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3176.06164s. 6:ISO15765. Actual data 57 of 57 bytes. RxS=00000000
+   \__  00  00  07  d8  e8  01  00  04  ff  ff  ff  ff  02  02  ff  ff 
+        20  04  ff  ff  ff  ff  21  09  01  f6  2c  7e  72  0e  0e  a4 
+        57  27  01  ff  40  04  ff  ff  ff  ff  42  01  ff  54  04  03 
+        0f  ff  07  60  04  ff  ff  ff  ff 
+<< 29.688s PTReadMsgs() complete (channel 15)
+<< 29.688s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3176.137483s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][d8]
+<< 29.766s PTReadMsgs() complete (channel 15)
+<< 29.766s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3176.586542s. 6:ISO15765. Actual data 64 of 64 bytes. RxS=00000000
+   \__  00  00  07  d8  e8  01  61  38  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 30.219s PTReadMsgs() complete (channel 15)
+<< 30.219s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3176.666482s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][d8]
+<< 30.297s PTReadMsgs() complete (channel 15)
+<< 30.297s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3177.168971s. 6:ISO15765. Actual data 67 of 67 bytes. RxS=00000000
+   \__  00  00  07  d8  e8  01  62  02  1f  ff  63  37  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff 
+<< 30.797s PTReadMsgs() complete (channel 15)
+<< 30.797s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3177.246458s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][d8]
+<< 30.875s PTReadMsgs() complete (channel 15)
+<< 30.875s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3177.486464s. 6:ISO15765. Actual data 38 of 38 bytes. RxS=00000000
+   \__  00  00  07  d8  e8  01  64  1e  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff 
+<< 31.109s PTReadMsgs() complete (channel 15)
+<< 31.109s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3177.561446s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][d8]
+<< 31.188s PTReadMsgs() complete (channel 15)
+<< 31.188s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3177.901456s. 6:ISO15765. Actual data 52 of 52 bytes. RxS=00000000
+   \__  00  00  07  d8  e8  01  65  2c  f0  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  f0  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff 
+<< 31.531s PTReadMsgs() complete (channel 15)
+<< 31.531s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3177.977546s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][d8]
+<< 31.609s PTReadMsgs() complete (channel 15)
+<< 31.609s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3178.316499s. 6:ISO15765. Actual data 47 of 47 bytes. RxS=00000000
+   \__  00  00  07  d8  e8  01  80  04  ff  ff  ff  ff  a0  04  ff  ff 
+        ff  ff  c0  04  ff  ff  ff  ff  e0  04  ff  ff  ff  fe  e1  08 
+        ff  00  ff  ff  ff  ff  ff  ff  e2  05  ff  ff  ff  f7  f0 
+<< 31.938s PTReadMsgs() complete (channel 15)
+<< 31.938s PTReadMsgs(15, 1092D5C8, 1, 1020)   32.969s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 32.969s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 32.969s PTWriteMsgs(15, 04C25BC4, 1092E798, 1000)
+   Transaction 00ea for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  d0  21  40 
+   Queued everything
+   Sent 1/1
+<< 32.969s PTReadMsgs(15, 1092D7D0, 1, 1020)
+   Msg[0] 3179.350973s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][d0]
+<< 32.969s PTReadMsgs() complete (channel 15)
+<< 32.969s PTReadMsgs(15, 1092D7D0, 1, 1020)
+   Msg[0] 3179.391454s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  d8  61  40  40  00  10  01 
+<< 33.016s PTReadMsgs() complete (channel 15)
+** 33.063s PTIoctl(15, 2:SET_CONFIG, 1092C39C, 00000000)
+   4 parameter(s) at 0D1976B0:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 33.063s PTIoctl(15, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 33.063s PTStartMsgFilter(15, 3:FLOW_CONTROL_FILTER, 1092B458, 109293E0, 1092A41C, 10929384)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 17
+** 33.063s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 33.063s PTWriteMsgs(15, 04C25BC4, 1092C48C, 1000)
+   Transaction 00f4 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  3e 
+   Queued everything
+   Sent 1/1
+<< 33.063s PTReadMsgs(15, 1092B478, 1, 1000)
+   Msg[0] 3179.437948s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 33.063s PTReadMsgs() complete (channel 15)
+<< 33.063s PTReadMsgs(15, 1092B478, 1, 1000)
+   Msg[0] 3179.439387s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  e8  7e 
+<< 33.063s PTReadMsgs() complete (channel 15)
+** 33.063s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 33.063s PTWriteMsgs(15, 04C25BC4, 1092E590, 1000)
+   Transaction 00f6 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  a8  01 
+   Queued everything
+   Sent 1/1
+<< 33.063s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.442187s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 33.063s PTReadMsgs() complete (channel 15)
+<< 33.063s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.447571s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.078s PTReadMsgs() complete (channel 15)
+<< 33.078s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.487521s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  00  04  ff  ff  ff  ff  01  34  ff  ff 
+        ff  ff  ff  ff  ff  00  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        00  00  ff  ff  ff  ff  ff  ff  ff  ff  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        00  00 
+<< 33.109s PTReadMsgs() complete (channel 15)
+<< 33.109s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.492623s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.109s PTReadMsgs() complete (channel 15)
+<< 33.125s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.527471s. 6:ISO15765. Actual data 56 of 56 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  02  02  ff  ff  03  2c  ff  ff  ff  ff 
+        00  00  ff  00  ff  ff  00  00  ff  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00 
+<< 33.156s PTReadMsgs() complete (channel 15)
+<< 33.156s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.52949s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.156s PTReadMsgs() complete (channel 15)
+<< 33.156s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.559181s. 6:ISO15765. Actual data 48 of 48 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  04  28  ff  ff  ff  ff  ff  ff  00  00 
+        00  00  ff  ff  ff  ff  00  00  00  00  00  00  ff  ff  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+<< 33.188s PTReadMsgs() complete (channel 15)
+<< 33.188s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.562286s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.188s PTReadMsgs() complete (channel 15)
+<< 33.188s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.597397s. 6:ISO15765. Actual data 56 of 56 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  05  30  00  00  ff  ff  00  00  ff  ff 
+        00  00  ff  ff  00  00  00  00  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00 
+<< 33.219s PTReadMsgs() complete (channel 15)
+<< 33.219s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.599117s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.219s PTReadMsgs() complete (channel 15)
+<< 33.219s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.634958s. 6:ISO15765. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  06  12  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  00  00  00  00  20  04  ff  ff  ff  ff 
+        23  02  ff  ff  24  01  28  25  0d  00  00  00  00  00  00  00 
+        00  00  00  00  04  00 
+<< 33.266s PTReadMsgs() complete (channel 15)
+<< 33.266s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.640077s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.266s PTReadMsgs() complete (channel 15)
+<< 33.266s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.659533s. 6:ISO15765. Actual data 38 of 38 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  26  0d  00  00  00  00  00  00  00  00 
+        00  00  00  04  00  28  03  ff  ff  ff  30  0a  ff  ff  00  00 
+        00  00  00  00  ff  ff 
+<< 33.281s PTReadMsgs() complete (channel 15)
+<< 33.281s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.664656s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.281s PTReadMsgs() complete (channel 15)
+<< 33.297s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.689753s. 6:ISO15765. Actual data 42 of 42 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  33  22  ff  00  ff  ff  00  00  00  00 
+        00  00  00  00  00  00  ff  ff  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00 
+<< 33.313s PTReadMsgs() complete (channel 15)
+<< 33.313s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.6938s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.313s PTReadMsgs() complete (channel 15)
+<< 33.313s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.717921s. 6:ISO15765. Actual data 44 of 44 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  37  18  ff  ff  00  00  00  00  00  00 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  00  47  00  00 
+        39  0a  00  12  02  02  e0  00  00  00  00  00 
+<< 33.344s PTReadMsgs() complete (channel 15)
+<< 33.344s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.721996s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.344s PTReadMsgs() complete (channel 15)
+<< 33.344s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.761945s. 6:ISO15765. Actual data 65 of 65 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  3a  22  00  00  00  00  00  00  00  00 
+        00  00  00  ff  ff  ff  ff  00  00  ff  ff  00  00  00  00  00 
+        00  ff  ff  00  00  08  00  00  00  00  3c  15  ff  ff  00  00 
+        ff  ff  ff  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        00 
+<< 33.391s PTReadMsgs() complete (channel 15)
+<< 33.391s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.76707s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.391s PTReadMsgs() complete (channel 15)
+<< 33.391s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.807473s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  40  04  ff  ff  ff  ff  41  15  ff  ff 
+        00  00  ff  00  00  ff  ff  00  00  ff  ff  ff  ff  ff  ff  ff 
+        00  00  a4  44  1d  ff  ff  ff  ff  ff  ff  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        00  00 
+<< 33.438s PTReadMsgs() complete (channel 15)
+<< 33.438s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.812111s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.438s PTReadMsgs() complete (channel 15)
+<< 33.438s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.852044s. 6:ISO15765. Actual data 62 of 62 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  45  1a  ff  ff  ff  00  00  ff  ff  ff 
+        ff  00  00  00  00  00  00  00  00  ff  ff  ff  00  00  ff  00 
+        00  00  46  1a  ff  ff  ff  ff  ff  00  00  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  00  00  00  00  00  00  00  00  e0 
+<< 33.484s PTReadMsgs() complete (channel 15)
+<< 33.484s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.857177s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.484s PTReadMsgs() complete (channel 15)
+<< 33.484s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.87664s. 6:ISO15765. Actual data 35 of 35 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  47  0d  ff  00  00  00  00  00  00  00 
+        00  00  00  00  00  49  0c  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  fe 
+<< 33.500s PTReadMsgs() complete (channel 15)
+<< 33.500s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.881749s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.500s PTReadMsgs() complete (channel 15)
+<< 33.500s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.921677s. 6:ISO15765. Actual data 65 of 65 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  51  25  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  00  ff  ff  00  00  00  00  00  3c  00  52  12  ff 
+        ff  ff  ff  00  00  00  00  00  00  00  00  ff  ff  00  00  ff 
+        ff 
+<< 33.547s PTReadMsgs() complete (channel 15)
+<< 33.547s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.926799s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.547s PTReadMsgs() complete (channel 15)
+<< 33.547s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.961653s. 6:ISO15765. Actual data 58 of 58 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  54  1a  ff  ff  ff  ff  ff  ff  ff  ff 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        ff  ff  55  16  ff  ff  ff  ff  00  ff  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00 
+<< 33.594s PTReadMsgs() complete (channel 15)
+<< 33.594s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.963669s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.594s PTReadMsgs() complete (channel 15)
+<< 33.594s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3179.993367s. 6:ISO15765. Actual data 50 of 50 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  57  18  ff  ff  00  00  ff  ff  ff  ff 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        60  04  ff  ff  ff  ff  80  04  ff  ff  ff  ff  a0  04  ff  ff 
+        ff  ff 
+<< 33.625s PTReadMsgs() complete (channel 15)
+<< 33.625s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3179.99644s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.625s PTReadMsgs() complete (channel 15)
+<< 33.625s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.037921s. 6:ISO15765. Actual data 64 of 64 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  a1  38  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        ff  ff  ff  ff  00  00  00  00  ff  00  ff  00  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  00  00  00  00  00  00  00  00  00  00 
+<< 33.656s PTReadMsgs() complete (channel 15)
+<< 33.656s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.041494s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.672s PTReadMsgs() complete (channel 15)
+<< 33.672s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.05584s. 6:ISO15765. Actual data 28 of 28 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  a2  14  00  00  00  00  00  00  00  00 
+        ff  ff  00  00  00  00  ff  ff  00  00  00  00 
+<< 33.688s PTReadMsgs() complete (channel 15)
+<< 33.688s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.057871s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.688s PTReadMsgs() complete (channel 15)
+<< 33.688s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.097832s. 6:ISO15765. Actual data 62 of 62 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  a4  36  ff  ff  ff  ff  00  00  00  00 
+        ff  ff  00  00  ff  00  ff  00  00  00  00  00  ff  ff  00  00 
+        00  00  00  00  00  00  00  00  ff  ff  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  ff  00  ff  00  ff  00 
+<< 33.719s PTReadMsgs() complete (channel 15)
+<< 33.719s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.104459s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.734s PTReadMsgs() complete (channel 15)
+<< 33.734s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.134037s. 6:ISO15765. Actual data 47 of 47 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  a5  27  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  ff  00  ff 
+        00  ff  ff  00  00  ff  ff  00  00  ff  00  ff  00  ff  00 
+<< 33.766s PTReadMsgs() complete (channel 15)
+<< 33.766s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.135739s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.766s PTReadMsgs() complete (channel 15)
+<< 33.766s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.155165s. 6:ISO15765. Actual data 34 of 34 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  a7  1a  ff  ff  ff  ff  ff  ff  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        00  00 
+<< 33.781s PTReadMsgs() complete (channel 15)
+<< 33.781s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.160519s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.781s PTReadMsgs() complete (channel 15)
+<< 33.781s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.200244s. 6:ISO15765. Actual data 64 of 64 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  a8  22  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  00  00  00  00  00  00  00  00  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  00  a9  14  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 33.828s PTReadMsgs() complete (channel 15)
+<< 33.828s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.205329s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.828s PTReadMsgs() complete (channel 15)
+<< 33.828s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.235029s. 6:ISO15765. Actual data 50 of 50 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  aa  2a  ff  ff  ff  ff  ff  ff  ff  ff 
+        00  00  00  00  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  00  00  00  00  00 
+        00  00 
+<< 33.859s PTReadMsgs() complete (channel 15)
+<< 33.859s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.2381s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.859s PTReadMsgs() complete (channel 15)
+<< 33.859s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.26269s. 6:ISO15765. Actual data 42 of 42 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  ab  1a  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ac  06  00  00  00  00  ff  ff 
+<< 33.891s PTReadMsgs() complete (channel 15)
+<< 33.891s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.266994s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.891s PTReadMsgs() complete (channel 15)
+<< 33.891s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.306708s. 6:ISO15765. Actual data 65 of 65 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  ad  26  ff  00  00  00  00  00  00  ff 
+        ff  ff  ff  ff  ff  00  00  00  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  af  0a 
+        00  00  00  00  00  00  ff  ff  ff  ff  b0  05  ff  ff  ff  ff 
+        ff 
+<< 33.938s PTReadMsgs() complete (channel 15)
+<< 33.938s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.311827s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.938s PTReadMsgs() complete (channel 15)
+<< 33.938s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.346711s. 6:ISO15765. Actual data 59 of 59 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  b1  08  ff  ff  ff  ff  ff  ff  ff  1f 
+        b2  0b  ff  00  00  00  00  00  00  00  00  00  00  b6  01  ff 
+        c0  04  ff  ff  ff  ff  c1  13  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  3f  80 
+<< 33.969s PTReadMsgs() complete (channel 15)
+<< 33.969s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.348938s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 33.969s PTReadMsgs() complete (channel 15)
+<< 33.969s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.393763s. 6:ISO15765. Actual data 67 of 67 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  c2  0d  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  c3  1b  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        00  00  c4  0f  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff 
+<< 34.016s PTReadMsgs() complete (channel 15)
+<< 34.016s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.397881s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 34.016s PTReadMsgs() complete (channel 15)
+<< 34.016s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.427542s. 6:ISO15765. Actual data 49 of 49 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  c5  17  ff  ff  ff  ff  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  ff  00  00  c6 
+        10  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff 
+<< 34.047s PTReadMsgs() complete (channel 15)
+<< 34.047s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.430619s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 34.047s PTReadMsgs() complete (channel 15)
+<< 34.063s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.472089s. 6:ISO15765. Actual data 62 of 62 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  c7  1c  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  00  00  00  00  00  00  00  00  00  00 
+        00  00  00  00  c9  08  ff  ff  0f  07  6e  00  00  00  e0  04 
+        ff  ff  ff  ff  e1  08  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 34.094s PTReadMsgs() complete (channel 15)
+<< 34.094s PTReadMsgs(15, 1092D5C8, 1, 1020)
+   Msg[0] 3180.475673s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 34.094s PTReadMsgs() complete (channel 15)
+<< 34.094s PTReadMsgs(15, 1092D5C8, 1, 10000)
+   Msg[0] 3180.484905s. 6:ISO15765. Actual data 18 of 18 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  01  e2  05  ff  ff  ff  ff  e0  e3  03  85 
+        01  00 
+<< 34.109s PTReadMsgs() complete (channel 15)
+<< 34.109s PTReadMsgs(15, 1092D5C8, 1, 1020)   35.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 35.141s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 35.141s PTWriteMsgs(15, 04C25BC4, 1092E798, 1000)
+   Transaction 00f8 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  21  c2 
+   Queued everything
+   Sent 1/1
+<< 35.141s PTReadMsgs(15, 1092D7D0, 1, 1020)
+   Msg[0] 3181.515303s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 35.141s PTReadMsgs() complete (channel 15)
+<< 35.141s PTReadMsgs(15, 1092D7D0, 1, 1020)
+   Msg[0] 3181.520294s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 35.141s PTReadMsgs() complete (channel 15)
+<< 35.141s PTReadMsgs(15, 1092D7D0, 1, 10000)
+   Msg[0] 3181.529383s. 6:ISO15765. Actual data 19 of 19 bytes. RxS=00000000
+   \__  00  00  07  e8  61  c2  30  36  54  39  30  00  21  03  04  00 
+        00  04  01 
+<< 35.156s PTReadMsgs() complete (channel 15)
+** 35.625s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 35.625s PTWriteMsgs(15, 04C25BC4, 1092C0E0, 1000)
+   Transaction 00fa for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  3e 
+   Queued everything
+   Sent 1/1
+<< 35.625s PTReadMsgs(15, 1092B0CC, 1, 1000)
+   Msg[0] 3181.999174s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 35.625s PTReadMsgs() complete (channel 15)
+<< 35.625s PTReadMsgs(15, 1092B0CC, 1, 1000)
+   Msg[0] 3182.003525s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  e8  7e 
+<< 35.625s PTReadMsgs() complete (channel 15)
+** 35.656s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 35.656s PTWriteMsgs(15, 04C25BC4, 1092E1A8, 1000)
+   Transaction 00fc for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  a8  02 
+   Queued everything
+   Sent 1/1
+<< 35.656s PTReadMsgs(15, 1092D1E0, 1, 1020)
+   Msg[0] 3182.035372s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 35.656s PTReadMsgs() complete (channel 15)
+<< 35.656s PTReadMsgs(15, 1092D1E0, 1, 1020)
+   Msg[0] 3182.040363s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 35.672s PTReadMsgs() complete (channel 15)
+<< 35.672s PTReadMsgs(15, 1092D1E0, 1, 10000)
+   Msg[0] 3182.081333s. 6:ISO15765. Actual data 65 of 65 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  02  00  04  ff  ff  ff  ff  01  01  ff  03 
+        01  ff  05  02  12  12  06  02  02  02  09  04  03  03  00  00 
+        0b  04  e0  e0  00  00  0f  02  ff  ff  17  01  ff  1c  03  0f 
+        ff  01  1d  04  ff  00  00  00  20  04  ff  ff  ff  ff  31  01 
+        ff 
+<< 35.703s PTReadMsgs() complete (channel 15)
+<< 35.703s PTReadMsgs(15, 1092D1E0, 1, 1020)
+   Msg[0] 3182.085426s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 35.703s PTReadMsgs() complete (channel 15)
+<< 35.703s PTReadMsgs(15, 1092D1E0, 1, 10000)
+   Msg[0] 3182.125371s. 6:ISO15765. Actual data 60 of 60 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  02  34  10  ff  ff  ff  ff  00  00  00  00 
+        00  00  00  00  00  00  00  00  40  04  ff  ff  ff  ff  60  04 
+        ff  ff  ff  ff  80  04  ff  ff  ff  ff  a0  04  ff  ff  ff  ff 
+        c0  04  ff  ff  ff  ff  e0  04  ff  ff  ff  ff 
+<< 35.750s PTReadMsgs() complete (channel 15)
+<< 35.750s PTReadMsgs(15, 1092D1E0, 1, 1020)
+   Msg[0] 3182.130472s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 35.750s PTReadMsgs() complete (channel 15)
+<< 35.750s PTReadMsgs(15, 1092D1E0, 1, 10000)
+   Msg[0] 3182.145849s. 6:ISO15765. Actual data 28 of 28 bytes. RxS=00000000
+   \__  00  00  07  e8  e8  02  e1  10  ff  ff  ff  ff  00  00  00  00 
+        00  00  00  00  00  00  00  00  e4  02  ff  00 
+<< 35.766s PTReadMsgs() complete (channel 15)
+<< 35.766s PTReadMsgs(15, 1092D1E0, 1, 1020)   36.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 36.797s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 36.797s PTWriteMsgs(15, 04C25BC4, 1092E3B0, 1000)
+   Transaction 00fe for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  21  c1 
+   Queued everything
+   Sent 1/1
+<< 36.797s PTReadMsgs(15, 1092D3E8, 1, 1020)
+   Msg[0] 3183.172789s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 36.797s PTReadMsgs() complete (channel 15)
+<< 36.797s PTReadMsgs(15, 1092D3E8, 1, 1020)
+   Msg[0] 3183.175209s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 36.797s PTReadMsgs() complete (channel 15)
+<< 36.797s PTReadMsgs(15, 1092D3E8, 1, 10000)
+   Msg[0] 3183.189344s. 6:ISO15765. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  07  e8  61  c1  41  56  56  35  30  23  20  32  41  52 
+        46  58  45  04  00  41  73  21  00 
+<< 36.813s PTReadMsgs() complete (channel 15)
+** 36.875s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 36.891s PTWriteMsgs(15, 04C25BC4, 1092E3B4, 1000)
+   Transaction 0001 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  01  20 
+   Queued everything
+   Sent 1/1
+<< 36.891s PTReadMsgs(15, 1092D3EC, 1, 1020)
+   Msg[0] 3183.2606s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 36.891s PTReadMsgs() complete (channel 15)
+<< 36.891s PTReadMsgs(15, 1092D3EC, 1, 1020)
+   Msg[0] 3183.265089s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  20  90  15  b0  15 
+<< 36.891s PTReadMsgs() complete (channel 15)
+<< 36.891s PTReadMsgs(15, 1092D4A8, 1, 1020)   37.906s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 38.109s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 38.109s PTWriteMsgs(15, 04C25BC4, 1092D338, 1000)
+   Transaction 0003 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  07 
+   Queued everything
+   Sent 1/1
+<< 38.109s PTReadMsgs(15, 1092C370, 1, 1020)
+   Msg[0] 3184.483945s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 38.109s PTReadMsgs() complete (channel 15)
+<< 38.109s PTReadMsgs(15, 1092C370, 1, 1020)
+   Msg[0] 3184.485721s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000000
+   \__  00  00  07  e8  47  00 
+<< 38.109s PTReadMsgs() complete (channel 15)
+<< 38.109s PTReadMsgs(15, 1092C42C, 1, 1020)   39.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 39.141s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 39.141s PTWriteMsgs(15, 04C25BC4, 1092D338, 1000)
+   Transaction 0005 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  21  e2 
+   Queued everything
+   Sent 1/1
+<< 39.141s PTReadMsgs(15, 1092C370, 1, 1020)
+   Msg[0] 3185.514211s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 39.141s PTReadMsgs() complete (channel 15)
+<< 39.141s PTReadMsgs(15, 1092C370, 1, 1020)
+   Msg[0] 3185.517915s. 6:ISO15765. Actual data 11 of 11 bytes. RxS=00000000
+   \__  00  00  07  e8  61  e2  f7  f7  d9  f3  60 
+<< 39.141s PTReadMsgs() complete (channel 15)
+<< 39.141s PTReadMsgs(15, 1092C42C, 1, 1020)   40.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 40.188s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 40.188s PTWriteMsgs(15, 04C25BC4, 1092E204, 1000)
+   Transaction 0007 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  3e 
+   Queued everything
+   Sent 1/1
+<< 40.188s PTReadMsgs(15, 1092D23C, 1, 1020)
+   Msg[0] 3186.562761s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 40.188s PTReadMsgs() complete (channel 15)
+<< 40.188s PTReadMsgs(15, 1092D23C, 1, 1020)
+   Msg[0] 3186.566758s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  e8  7e 
+<< 40.188s PTReadMsgs() complete (channel 15)
+<< 40.188s PTReadMsgs(15, 1092D2F8, 1, 1020)   41.219s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 41.219s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 41.219s PTWriteMsgs(15, 04C25BC4, 1092D338, 1000)
+   Transaction 0009 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  09  00 
+   Queued everything
+   Sent 1/1
+<< 41.219s PTReadMsgs(15, 1092C370, 1, 1020)
+   Msg[0] 3187.598752s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 41.219s PTReadMsgs() complete (channel 15)
+<< 41.219s PTReadMsgs(15, 1092C370, 1, 1020)
+   Msg[0] 3187.60305s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  49  00  55  40  00  00 
+<< 41.234s PTReadMsgs() complete (channel 15)
+<< 41.234s PTReadMsgs(15, 1092C42C, 1, 1020)   42.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 42.297s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 42.297s PTWriteMsgs(15, 04C25BC4, 1092C614, 1000)
+   Transaction 000b for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  21  20 
+   Queued everything
+   Sent 1/1
+<< 42.297s PTReadMsgs(15, 1092B64C, 1, 1020)
+   Msg[0] 3188.675899s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 42.297s PTReadMsgs() complete (channel 15)
+<< 42.297s PTReadMsgs(15, 1092B64C, 1, 1020)
+   Msg[0] 3188.680071s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  61  20  3d  00  22  d1 
+<< 42.313s PTReadMsgs() complete (channel 15)
+** 42.313s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 42.313s PTWriteMsgs(15, 04C25BC4, 1092E378, 1000)
+   Transaction 000d for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  21  28 
+   Queued everything
+   Sent 1/1
+<< 42.313s PTReadMsgs(15, 1092D3B0, 1, 1020)
+   Msg[0] 3188.683401s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 42.313s PTReadMsgs() complete (channel 15)
+<< 42.313s PTReadMsgs(15, 1092D3B0, 1, 1020)
+   Msg[0] 3188.688265s. 6:ISO15765. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  07  e8  61  28  02  34  1c 
+<< 42.313s PTReadMsgs() complete (channel 15)
+** 48.016s PTIoctl(15, 2:SET_CONFIG, 00195230, 00000000)
+   4 parameter(s) at 0D197838:
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'   [3/4] 30:ISO15765_BS = 00000000 '0'   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+   [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+   [3/4] 30:ISO15765_BS = 00000000 '0'
+   [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 48.016s PTIoctl(15, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 48.016s PTStartMsgFilter(15, 3:FLOW_CONTROL_FILTER, 001942EC, 00192274, 001932B0, 00192218)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  88 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  80 
+   returning FilterID 18
+** 48.016s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 48.016s PTWriteMsgs(15, 04C25BC4, 00195320, 1000)
+   Transaction 0017 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  80  3e 
+   Queued everything
+   Sent 1/1
+<< 48.016s PTReadMsgs(15, 0019430C, 1, 1000)
+   Msg[0] 3194.3948s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][80]
+<< 48.016s PTReadMsgs() complete (channel 15)
+<< 48.016s PTReadMsgs(15, 0019430C, 1, 1000)
+   Msg[0] 3194.416168s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  88  7e 
+<< 48.047s PTReadMsgs() complete (channel 15)
+** 48.063s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 48.063s PTWriteMsgs(15, 04C25BC4, 001975F4, 1000)
+   Transaction 0019 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  80  21  05 
+   Queued everything
+   Sent 1/1
+<< 48.063s PTReadMsgs(15, 0019662C, 1, 1020)
+   Msg[0] 3194.441444s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][80]
+<< 48.063s PTReadMsgs() complete (channel 15)
+<< 48.063s PTReadMsgs(15, 0019662C, 1, 1020)
+   Msg[0] 3194.462661s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  88  61  05  01 
+<< 48.094s PTReadMsgs() complete (channel 15)
+<< 48.094s PTReadMsgs(15, 001966E8, 1, 1020)   49.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 49.109s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 49.109s PTWriteMsgs(15, 04C25BC4, 001973E8, 1000)
+   Transaction 001b for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  80  a8  01 
+   Queued everything
+   Sent 1/1
+<< 49.109s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3195.488337s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][80]
+<< 49.109s PTReadMsgs() complete (channel 15)
+<< 49.109s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3195.509625s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.141s PTReadMsgs() complete (channel 15)
+<< 49.141s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3195.533626s. 6:ISO15765. Actual data 19 of 19 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  00  04  ff  ff  ff  ff  01  01  ff  02 
+        02  ff  ff 
+<< 49.156s PTReadMsgs() complete (channel 15)
+<< 49.156s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3195.554646s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.172s PTReadMsgs() complete (channel 15)
+<< 49.188s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3195.639222s. 6:ISO15765. Actual data 63 of 63 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  03  37  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  00  00  00  00  00 
+        00  00  00  00  00  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 49.266s PTReadMsgs() complete (channel 15)
+<< 49.266s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3195.659619s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.281s PTReadMsgs() complete (channel 15)
+<< 49.281s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3195.723641s. 6:ISO15765. Actual data 51 of 51 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  04  06  00  ff  00  ff  ff  00  05  01 
+        ff  06  01  ff  0a  01  ff  0b  01  ff  0e  01  ff  20  04  ff 
+        ff  ff  ff  21  02  ff  ff  40  04  ff  ff  ff  ff  60  04  ff 
+        ff  ff  ff 
+<< 49.344s PTReadMsgs() complete (channel 15)
+<< 49.344s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3195.744615s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.375s PTReadMsgs() complete (channel 15)
+<< 49.375s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3195.808619s. 6:ISO15765. Actual data 52 of 52 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  61  20  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  62  0a  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff 
+<< 49.438s PTReadMsgs() complete (channel 15)
+<< 49.438s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3195.829611s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.453s PTReadMsgs() complete (channel 15)
+<< 49.453s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3195.913628s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  63  3a  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff 
+<< 49.547s PTReadMsgs() complete (channel 15)
+<< 49.547s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3195.935351s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.563s PTReadMsgs() complete (channel 15)
+<< 49.563s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.019293s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  64  3a  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff 
+<< 49.641s PTReadMsgs() complete (channel 15)
+<< 49.641s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.039601s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.656s PTReadMsgs() complete (channel 15)
+<< 49.672s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.093614s. 6:ISO15765. Actual data 44 of 44 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  65  11  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  66  11  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 49.719s PTReadMsgs() complete (channel 15)
+<< 49.719s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.11461s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.734s PTReadMsgs() complete (channel 15)
+<< 49.734s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.188677s. 6:ISO15765. Actual data 56 of 56 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  67  17  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  68 
+        17  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff 
+<< 49.813s PTReadMsgs() complete (channel 15)
+<< 49.813s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.2096s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.828s PTReadMsgs() complete (channel 15)
+<< 49.828s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.303604s. 6:ISO15765. Actual data 67 of 67 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  69  3b  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff 
+<< 49.922s PTReadMsgs() complete (channel 15)
+<< 49.922s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.324597s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 49.953s PTReadMsgs() complete (channel 15)
+<< 49.953s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.418605s. 6:ISO15765. Actual data 67 of 67 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  6a  3b  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff 
+<< 50.047s PTReadMsgs() complete (channel 15)
+<< 50.047s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.439592s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.063s PTReadMsgs() complete (channel 15)
+<< 50.063s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.533595s. 6:ISO15765. Actual data 67 of 67 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  6b  3b  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff 
+<< 50.156s PTReadMsgs() complete (channel 15)
+<< 50.156s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.554991s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.172s PTReadMsgs() complete (channel 15)
+<< 50.188s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.648591s. 6:ISO15765. Actual data 67 of 67 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  6c  3b  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff 
+<< 50.281s PTReadMsgs() complete (channel 15)
+<< 50.281s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.670326s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.297s PTReadMsgs() complete (channel 15)
+<< 50.297s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.753866s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  6d  3a  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff 
+<< 50.375s PTReadMsgs() complete (channel 15)
+<< 50.375s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.774587s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.406s PTReadMsgs() complete (channel 15)
+<< 50.406s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.8596s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  6e  3a  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff 
+<< 50.484s PTReadMsgs() complete (channel 15)
+<< 50.484s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.881149s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.500s PTReadMsgs() complete (channel 15)
+<< 50.500s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3196.964915s. 6:ISO15765. Actual data 61 of 61 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  6f  35  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 50.594s PTReadMsgs() complete (channel 15)
+<< 50.594s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3196.985576s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.609s PTReadMsgs() complete (channel 15)
+<< 50.609s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.069578s. 6:ISO15765. Actual data 61 of 61 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  70  35  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 50.688s PTReadMsgs() complete (channel 15)
+<< 50.703s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.090575s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.719s PTReadMsgs() complete (channel 15)
+<< 50.719s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.15458s. 6:ISO15765. Actual data 48 of 48 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  71  28  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 50.781s PTReadMsgs() complete (channel 15)
+<< 50.781s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.176174s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.797s PTReadMsgs() complete (channel 15)
+<< 50.797s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.239572s. 6:ISO15765. Actual data 48 of 48 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  72  28  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 50.859s PTReadMsgs() complete (channel 15)
+<< 50.859s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.261069s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.891s PTReadMsgs() complete (channel 15)
+<< 50.891s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.344996s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  73  3a  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff 
+<< 50.969s PTReadMsgs() complete (channel 15)
+<< 50.969s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.365563s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 50.984s PTReadMsgs() complete (channel 15)
+<< 50.984s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.449566s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  74  3a  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff 
+<< 51.078s PTReadMsgs() complete (channel 15)
+<< 51.078s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.470581s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 51.094s PTReadMsgs() complete (channel 15)
+<< 51.094s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.494567s. 6:ISO15765. Actual data 18 of 18 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  80  04  ff  ff  ff  ff  a0  04  ff  ff 
+        ff  ff 
+<< 51.125s PTReadMsgs() complete (channel 15)
+<< 51.125s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.515631s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 51.141s PTReadMsgs() complete (channel 15)
+<< 51.141s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.599562s. 6:ISO15765. Actual data 63 of 63 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  a5  37  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 51.219s PTReadMsgs() complete (channel 15)
+<< 51.219s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.620556s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 51.250s PTReadMsgs() complete (channel 15)
+<< 51.250s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.704558s. 6:ISO15765. Actual data 63 of 63 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  a6  37  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 51.344s PTReadMsgs() complete (channel 15)
+<< 51.344s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.725551s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 51.344s PTReadMsgs() complete (channel 15)
+<< 51.344s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.819552s. 6:ISO15765. Actual data 67 of 67 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  b1  27  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  b2 
+        12  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff 
+<< 51.438s PTReadMsgs() complete (channel 15)
+<< 51.453s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.840547s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 51.469s PTReadMsgs() complete (channel 15)
+<< 51.469s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3197.924561s. 6:ISO15765. Actual data 62 of 62 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  b4  1a  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  b5  1a  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+<< 51.547s PTReadMsgs() complete (channel 15)
+<< 51.547s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3197.945541s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 51.563s PTReadMsgs() complete (channel 15)
+<< 51.578s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3198.029547s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  b6  1c  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  b7  1c  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff 
+<< 51.656s PTReadMsgs() complete (channel 15)
+<< 51.656s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3198.050566s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 51.672s PTReadMsgs() complete (channel 15)
+<< 51.672s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3198.134731s. 6:ISO15765. Actual data 66 of 66 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  b8  16  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  b9  16 
+        ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff 
+        ff  ff  ff  ff  ff  ff  c0  04  ff  ff  ff  ff  e0  04  ff  ff 
+        ff  ff 
+<< 51.766s PTReadMsgs() complete (channel 15)
+<< 51.766s PTReadMsgs(15, 00196420, 1, 1020)
+   Msg[0] 3198.155637s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][88]
+<< 51.781s PTReadMsgs() complete (channel 15)
+<< 51.781s PTReadMsgs(15, 00196420, 1, 10000)
+   Msg[0] 3198.189592s. 6:ISO15765. Actual data 29 of 29 bytes. RxS=00000000
+   \__  00  00  07  88  e8  01  e1  08  ff  ff  ff  ff  ff  ff  ff  ff 
+        e2  05  ff  ff  ff  ff  ff  e3  01  ff  ec  01  ff 
+<< 51.813s PTReadMsgs() complete (channel 15)
+<< 51.813s PTReadMsgs(15, 00196420, 1, 1020)   52.844s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 52.984s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 52.984s PTWriteMsgs(15, 04C25BC4, 0019776C, 1000)
+   Transaction 001d for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  80  21  a0 
+   Queued everything
+   Sent 1/1
+<< 52.984s PTReadMsgs(15, 001967A4, 1, 1020)
+   Msg[0] 3199.366639s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][80]
+<< 52.984s PTReadMsgs() complete (channel 15)
+<< 52.984s PTReadMsgs(15, 001967A4, 1, 1020)
+   Msg[0] 3199.387494s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  88  61  a0  0c  00  df  81 
+<< 53.016s PTReadMsgs() complete (channel 15)
+-- 54.844s PTDisconnect(15)
+-- 54.844s PTClose(1)

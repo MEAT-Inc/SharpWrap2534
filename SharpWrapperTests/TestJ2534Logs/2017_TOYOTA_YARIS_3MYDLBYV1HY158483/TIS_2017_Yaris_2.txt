@@ -1,0 +1,739 @@
+  Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 0.000s PTOpen(00000000, 0B33EDA8)
+  pName: <NULL>
+  Library Version: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+  Exactly one PassThruDevice, picking it automatically
+   CarDAQ-Plus 4 #000013
+   USB\VID_18E1&PID_1006&MI_00\6&6387603&0&0000
+  returning DeviceID 1
+** 0.015s PTReadVersion(1, 0B33ED70, 0B33ED20, 0B33ECD0)
+  DLL: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+  API: 04.04
+  FW: CarDAQ-Plus 4 FW:0.1.1.0 BL:0.1.1.0 SN: EAUG10000000013B
+++ 0.015s PTConnect(1, 6:ISO15765, 0, 500000, 04CE5AD0)
+  Flags: {no ConnectFlags}
+  returning ChannelID 2
+** 0.031s PTIoctl(2, 2:SET_CONFIG, 0B33BC14, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 0.031s PTIoctl(2, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 0.031s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 0B33ACD4, 0B338C5C, 0B339C98, 0B338C00)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 08 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 00 
+  returning FilterID 3
+** 0.031s PTIoctl(2, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 0.031s PTWriteMsgs(2, 04CE5B1C, 0B33BD44, 1000)
+  Transaction 0016 for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 00 3e 00 
+  Queued everything
+  Sent 1/1
+<< 0.031s PTReadMsgs(2, 0B33AD30, 1, 1000)
+  Msg[0] 344.276939s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 00000700
+<< 0.031s PTReadMsgs() complete (channel 2)
+<< 0.031s PTReadMsgs(2, 0B33AD30, 1, 1000)  1.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 1.031s PTIoctl(2, 2:SET_CONFIG, 0B33BB64, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 1.031s PTIoctl(2, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 1.047s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 0B33AC24, 0B338BAC, 0B339BE8, 0B338B50)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 08 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 00 
+  returning FilterID 4
+-- 1.047s PTDisconnect(2)
+** 1.047s PTReadVersion(1, 0B33ED84, 0B33ED34, 0B33ECE4)
+  DLL: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+  API: 04.04
+  FW: CarDAQ-Plus 4 FW:0.1.1.0 BL:0.1.1.0 SN: EAUG10000000013B
+++ 1.047s PTConnect(1, 6:ISO15765, 0, 500000, 04CE5AD0)
+  Flags: {no ConnectFlags}
+  returning ChannelID 5
+** 1.047s PTIoctl(5, 2:SET_CONFIG, 0B33BC10, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 1.047s PTIoctl(5, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 1.047s PTStartMsgFilter(5, 3:FLOW_CONTROL_FILTER, 0B33ACCC, 0B338C54, 0B339C90, 0B338BF8)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 ea 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e2 
+  returning FilterID 6
+** 1.047s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 1.047s PTWriteMsgs(5, 04CE5B1C, 0B33BD00, 1000)
+  Transaction 002e for 1 messages
+  Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e2 3e 
+  Queued everything
+  Sent 1/1
+<< 1.062s PTReadMsgs(5, 0B33ACEC, 1, 1000)
+  Msg[0] 345.298807s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007e2
+<< 1.062s PTReadMsgs() complete (channel 5)
+<< 1.062s PTReadMsgs(5, 0B33ACEC, 1, 1000)  2.062s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 2.062s PTIoctl(5, 2:SET_CONFIG, 0B33BC10, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 2.062s PTIoctl(5, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 2.062s PTStartMsgFilter(5, 3:FLOW_CONTROL_FILTER, 0B33ACCC, 0B338C54, 0B339C90, 0B338BF8)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e8 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 
+  returning FilterID 7
+** 2.062s PTIoctl(5, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 2.062s PTWriteMsgs(5, 04CE5B1C, 0B33BD00, 1000)
+  Transaction 0038 for 1 messages
+  Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 3e 
+  Queued everything
+  Sent 1/1
+<< 2.062s PTReadMsgs(5, 0B33ACEC, 1, 1000)
+  Msg[0] 346.307818s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007e0
+<< 2.062s PTReadMsgs() complete (channel 5)
+<< 2.062s PTReadMsgs(5, 0B33ACEC, 1, 1000)
+  Msg[0] 346.309019s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+  \__ 00 00 07 e8 7f 3e 13 
+<< 2.062s PTReadMsgs() complete (channel 5)
+-- 2.062s PTDisconnect(5)
+** 2.062s PTReadVersion(1, 0B33ED84, 0B33ED34, 0B33ECE4)
+  DLL: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+  API: 04.04
+  FW: CarDAQ-Plus 4 FW:0.1.1.0 BL:0.1.1.0 SN: EAUG10000000013B
+++ 2.062s PTConnect(1, 4:ISO14230, 0x1000, 10400, 04CE5AD0)
+  Flags: {12:ISO9141_K_LINE_ONLY}
+  returning ChannelID 8
+++ 2.062s PTStartMsgFilter(8, 1:PASS_FILTER, 0B33CD54, 0B33DD8C, 00000000, 0B33CD3C)
+  Mask[0] 4:ISO14230. 1 bytes. TxF=00000000
+  \__ c0 
+  Pattern[0] 4:ISO14230. 1 bytes. TxF=00000000
+  \__ c0 
+  FlowControl is NULL
+  returning FilterID 9
+++ 2.078s PTStartMsgFilter(8, 1:PASS_FILTER, 0B33CD54, 0B33DD8C, 00000000, 0B33CD3C)
+  Mask[0] 4:ISO14230. 1 bytes. TxF=00000000
+  \__ c0 
+  Pattern[0] 4:ISO14230. 1 bytes. TxF=00000000
+  \__ 80 
+  FlowControl is NULL
+  returning FilterID 10
+++ 2.078s PTStartMsgFilter(8, 1:PASS_FILTER, 0B33CD54, 0B33DD8C, 00000000, 0B33CD3C)
+  Mask[0] 4:ISO14230. 1 bytes. TxF=00000000
+  \__ c0 
+  Pattern[0] 4:ISO14230. 1 bytes. TxF=00000000
+  \__ 40 
+  FlowControl is NULL
+  returning FilterID 11
+** 2.078s PTIoctl(8, 2:SET_CONFIG, 0B33ECC8, 00000000)
+  12 parameter(s) at 0FD30640:
+  [1/12] 1:DATA_RATE = 000028a0 '10400 baud'  [2/12] 7:P1_MAX = 00000028 '20 ms'  [3/12] 10:P3_MIN = 00000064 '50 ms'  [4/12] 12:P4_MIN = 0000000a '5 ms'  [5/12] 19:TIDLE = 0000012c '300 ms'  [6/12] 20:TINIL = 00000019 '25 ms'  [7/12] 21:TWUP = 00000032 '50 ms'  [8/12] 14:W1_MAX = 00000069 '105 ms'  [9/12] 15:W2_MAX = 00000014 '20 ms'  [10/12] 16:W3_MAX = 00000014 '20 ms'  [11/12] 17:W4_MIN = 00000032 '50 ms'  [12/12] 18:W5_MIN = 0000014a '330 ms'
+  [1/12] 1:DATA_RATE = 000028a0 '10400 baud'
+  [2/12] 7:P1_MAX = 00000028 '20 ms'
+  [3/12] 10:P3_MIN = 00000064 '50 ms'
+  [4/12] 12:P4_MIN = 0000000a '5 ms'
+  [5/12] 19:TIDLE = 0000012c '300 ms'
+  [6/12] 20:TINIL = 00000019 '25 ms'
+  [7/12] 21:TWUP = 00000032 '50 ms'
+  [8/12] 14:W1_MAX = 00000069 '105 ms'
+  [9/12] 15:W2_MAX = 00000014 '20 ms'
+  [10/12] 16:W3_MAX = 00000014 '20 ms'
+  [11/12] 17:W4_MIN = 00000032 '50 ms'
+  [12/12] 18:W5_MIN = 0000014a '330 ms'
+** 2.078s PTIoctl(8, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 2.078s PTIoctl(8, 5:FAST_INIT, 04CE7CA0, 04CE8CE8)
+  pInput[0] 4:ISO14230. 4 bytes. TxF=00000000
+  \__ 68 6a f0 81 
+  Returning 7:ERR_FAILED 'Firmware error 520:eInitTimeout 'Fast Init: Timeout on response''
+** 2.500s PTGetLastError(0B33DAE8)
+  Error String: Firmware error 520:eInitTimeout 'Fast Init: Timeout on response'
+** 2.500s PTIoctl(8, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 2.500s PTIoctl(8, 4:FIVE_BAUD_INIT, 0B33DD88, 0B33DD90)
+  pInput: 1 bytes at 0B33DD85
+  \__ 33 
+  pOutput NumOfBytes 2
+  Returning 7:ERR_FAILED 'Firmware error 521:eFiveBaudInitFailed '''
+** 4.937s PTGetLastError(0B33DAE8)
+  Error String: Firmware error 521:eFiveBaudInitFailed ''
+** 9.937s PTIoctl(8, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 9.937s PTIoctl(8, 4:FIVE_BAUD_INIT, 0B33DD88, 0B33DD90)
+  pInput: 1 bytes at 0B33DD85
+  \__ 33 
+  pOutput NumOfBytes 2
+  Returning 7:ERR_FAILED 'Firmware error 521:eFiveBaudInitFailed '''
+** 12.375s PTGetLastError(0B33DAE8)
+  Error String: Firmware error 521:eFiveBaudInitFailed ''
+<< 12.390s PTReadMsgs(8, 0B33DE34, 1, 50)  12.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 12.437s PTIoctl(8, 2:SET_CONFIG, 0B33ECC8, 00000000)
+  12 parameter(s) at 0FD30640:
+  [1/12] 1:DATA_RATE = 000028a0 '10400 baud'  [2/12] 7:P1_MAX = 00000028 '20 ms'  [3/12] 10:P3_MIN = 00000064 '50 ms'  [4/12] 12:P4_MIN = 0000000a '5 ms'  [5/12] 19:TIDLE = 0000012c '300 ms'  [6/12] 20:TINIL = 00000019 '25 ms'  [7/12] 21:TWUP = 00000032 '50 ms'  [8/12] 14:W1_MAX = 00000069 '105 ms'  [9/12] 15:W2_MAX = 00000014 '20 ms'  [10/12] 16:W3_MAX = 00000014 '20 ms'  [11/12] 17:W4_MIN = 00000032 '50 ms'  [12/12] 18:W5_MIN = 0000012c '300 ms'
+  [1/12] 1:DATA_RATE = 000028a0 '10400 baud'
+  [2/12] 7:P1_MAX = 00000028 '20 ms'
+  [3/12] 10:P3_MIN = 00000064 '50 ms'
+  [4/12] 12:P4_MIN = 0000000a '5 ms'
+  [5/12] 19:TIDLE = 0000012c '300 ms'
+  [6/12] 20:TINIL = 00000019 '25 ms'
+  [7/12] 21:TWUP = 00000032 '50 ms'
+  [8/12] 14:W1_MAX = 00000069 '105 ms'
+  [9/12] 15:W2_MAX = 00000014 '20 ms'
+  [10/12] 16:W3_MAX = 00000014 '20 ms'
+  [11/12] 17:W4_MIN = 00000032 '50 ms'
+  [12/12] 18:W5_MIN = 0000012c '300 ms'
+** 12.437s PTIoctl(8, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 12.437s PTIoctl(8, 5:FAST_INIT, 04CE7CA0, 04CE8CE8)
+  pInput[0] 4:ISO14230. 4 bytes. TxF=00000000
+  \__ 81 13 f0 81 
+  Returning 7:ERR_FAILED 'Firmware error 520:eInitTimeout 'Fast Init: Timeout on response''
+** 12.875s PTGetLastError(0B33DAE8)
+  Error String: Firmware error 520:eInitTimeout 'Fast Init: Timeout on response'
+** 12.875s PTIoctl(8, 2:SET_CONFIG, 0B33ECC8, 00000000)
+  12 parameter(s) at 0FD30640:
+  [1/12] 1:DATA_RATE = 000028a0 '10400 baud'  [2/12] 7:P1_MAX = 00000028 '20 ms'  [3/12] 10:P3_MIN = 00000064 '50 ms'  [4/12] 12:P4_MIN = 0000000a '5 ms'  [5/12] 19:TIDLE = 0000012c '300 ms'  [6/12] 20:TINIL = 00000019 '25 ms'  [7/12] 21:TWUP = 00000032 '50 ms'  [8/12] 14:W1_MAX = 00000069 '105 ms'  [9/12] 15:W2_MAX = 00000014 '20 ms'  [10/12] 16:W3_MAX = 00000014 '20 ms'  [11/12] 17:W4_MIN = 00000032 '50 ms'  [12/12] 18:W5_MIN = 0000012c '300 ms'
+  [1/12] 1:DATA_RATE = 000028a0 '10400 baud'
+  [2/12] 7:P1_MAX = 00000028 '20 ms'
+  [3/12] 10:P3_MIN = 00000064 '50 ms'
+  [4/12] 12:P4_MIN = 0000000a '5 ms'
+  [5/12] 19:TIDLE = 0000012c '300 ms'
+  [6/12] 20:TINIL = 00000019 '25 ms'
+  [7/12] 21:TWUP = 00000032 '50 ms'
+  [8/12] 14:W1_MAX = 00000069 '105 ms'
+  [9/12] 15:W2_MAX = 00000014 '20 ms'
+  [10/12] 16:W3_MAX = 00000014 '20 ms'
+  [11/12] 17:W4_MIN = 00000032 '50 ms'
+  [12/12] 18:W5_MIN = 0000012c '300 ms'
+** 12.875s PTIoctl(8, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 12.875s PTIoctl(8, 5:FAST_INIT, 04CE7CA0, 04CE8CE8)
+  pInput[0] 4:ISO14230. 4 bytes. TxF=00000000
+  \__ 81 10 f0 81 
+  Returning 7:ERR_FAILED 'Firmware error 520:eInitTimeout 'Fast Init: Timeout on response''
+** 13.297s PTGetLastError(0B33DAE8)
+  Error String: Firmware error 520:eInitTimeout 'Fast Init: Timeout on response'
+** 13.297s PTIoctl(8, 2:SET_CONFIG, 0B33ECC8, 00000000)
+  12 parameter(s) at 0FD30640:
+  [1/12] 1:DATA_RATE = 00002580 '9600 baud'  [2/12] 7:P1_MAX = 00000028 '20 ms'  [3/12] 10:P3_MIN = 000000c8 '100 ms'  [4/12] 12:P4_MIN = 0000000a '5 ms'  [5/12] 19:TIDLE = 0000012c '300 ms'  [6/12] 20:TINIL = 00000023 '35 ms'  [7/12] 21:TWUP = 00000032 '50 ms'  [8/12] 14:W1_MAX = 00000069 '105 ms'  [9/12] 15:W2_MAX = 00000014 '20 ms'  [10/12] 16:W3_MAX = 00000014 '20 ms'  [11/12] 17:W4_MIN = 00000032 '50 ms'  [12/12] 18:W5_MIN = 0000014a '330 ms'
+  [1/12] 1:DATA_RATE = 00002580 '9600 baud'
+  [2/12] 7:P1_MAX = 00000028 '20 ms'
+  [3/12] 10:P3_MIN = 000000c8 '100 ms'
+  [4/12] 12:P4_MIN = 0000000a '5 ms'
+  [5/12] 19:TIDLE = 0000012c '300 ms'
+  [6/12] 20:TINIL = 00000023 '35 ms'
+  [7/12] 21:TWUP = 00000032 '50 ms'
+  [8/12] 14:W1_MAX = 00000069 '105 ms'
+  [9/12] 15:W2_MAX = 00000014 '20 ms'
+  [10/12] 16:W3_MAX = 00000014 '20 ms'
+  [11/12] 17:W4_MIN = 00000032 '50 ms'
+  [12/12] 18:W5_MIN = 0000014a '330 ms'
+** 13.312s PTIoctl(8, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 13.312s PTIoctl(8, 5:FAST_INIT, 04CE7CA0, 04CE8CE8)
+  pInput[0] 4:ISO14230. 4 bytes. TxF=00000000
+  \__ 81 13 f0 81 
+  Returning 7:ERR_FAILED 'Firmware error 520:eInitTimeout 'Fast Init: Timeout on response''
+** 13.781s PTGetLastError(0B33DAE8)
+  Error String: Firmware error 520:eInitTimeout 'Fast Init: Timeout on response'
+-- 13.781s PTDisconnect(8)
+** 13.781s PTReadVersion(1, 0B33ED70, 0B33ED20, 0B33ECD0)
+  DLL: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+  API: 04.04
+  FW: CarDAQ-Plus 4 FW:0.1.1.0 BL:0.1.1.0 SN: EAUG10000000013B
+++ 13.797s PTConnect(1, 1:J1850VPW, 0, 10400, 04CE5AD0)
+  Flags: {no ConnectFlags}
+  returning ChannelID 12
+++ 13.797s PTStartMsgFilter(12, 1:PASS_FILTER, 0B33CD54, 0B33DD8C, 00000000, 0B33CD3C)
+  Mask[0] 1:J1850VPW. 1 bytes. TxF=00000000
+  \__ c0 
+  Pattern[0] 1:J1850VPW. 1 bytes. TxF=00000000
+  \__ c0 
+  FlowControl is NULL
+  returning FilterID 13
+++ 13.797s PTStartMsgFilter(12, 1:PASS_FILTER, 0B33CD54, 0B33DD8C, 00000000, 0B33CD3C)
+  Mask[0] 1:J1850VPW. 1 bytes. TxF=00000000
+  \__ c0 
+  Pattern[0] 1:J1850VPW. 1 bytes. TxF=00000000
+  \__ 80 
+  FlowControl is NULL
+  returning FilterID 14
+++ 13.797s PTStartMsgFilter(12, 1:PASS_FILTER, 0B33CD54, 0B33DD8C, 00000000, 0B33CD3C)
+  Mask[0] 1:J1850VPW. 1 bytes. TxF=00000000
+  \__ c0 
+  Pattern[0] 1:J1850VPW. 1 bytes. TxF=00000000
+  \__ 40 
+  FlowControl is NULL
+  returning FilterID 15
+** 13.797s PTIoctl(12, 2:SET_CONFIG, 0B33ECBC, 00000000)
+  1 parameter(s) at 0FD37868:
+  [1/1] 1:DATA_RATE = 000028a0 '10400 baud'
+  [1/1] 1:DATA_RATE = 000028a0 '10400 baud'
+** 13.797s PTIoctl(12, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 13.797s PTWriteMsgs(12, 04CE5B1C, 0B33BD48, 1000)
+  Transaction 008a for 1 messages
+  Msg[0] 1:J1850VPW. 5 bytes. TxF=00000000
+  \__ 68 6a f0 01 00 
+  Queued everything
+  Sent 1/1
+<< 13.812s PTReadMsgs(12, 0B33AD30, 1, 1000)  14.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 14.812s PTReadMsgs(12, 0B33DE34, 1, 50)  14.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 14.859s PTDisconnect(12)
+** 14.859s PTReadVersion(1, 0B33ED70, 0B33ED20, 0B33ECD0)
+  DLL: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+  API: 04.04
+  FW: CarDAQ-Plus 4 FW:0.1.1.0 BL:0.1.1.0 SN: EAUG10000000013B
+++ 14.859s PTConnect(1, 6:ISO15765, 0, 500000, 04CE5AD0)
+  Flags: {no ConnectFlags}
+  returning ChannelID 16
+** 14.875s PTIoctl(16, 2:SET_CONFIG, 0B33BC14, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 14.875s PTIoctl(16, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 14.875s PTStartMsgFilter(16, 3:FLOW_CONTROL_FILTER, 0B33ACD4, 0B338C5C, 0B339C98, 0B338C00)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 da 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 d2 
+  returning FilterID 17
+** 14.875s PTIoctl(16, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 14.875s PTWriteMsgs(16, 04CE5B1C, 0B33BD44, 1000)
+  Transaction 009a for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 d2 3e 00 
+  Queued everything
+  Sent 1/1
+<< 14.875s PTReadMsgs(16, 0B33AD30, 1, 1000)
+  Msg[0] 359.11728s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007d2
+<< 14.875s PTReadMsgs() complete (channel 16)
+<< 14.875s PTReadMsgs(16, 0B33AD30, 1, 1000)  15.875s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 15.875s PTIoctl(16, 2:SET_CONFIG, 0B33BB64, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 15.875s PTIoctl(16, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 15.875s PTStartMsgFilter(16, 3:FLOW_CONTROL_FILTER, 0B33AC24, 0B338BAC, 0B339BE8, 0B338B50)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 da 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 d2 
+  returning FilterID 18
+-- 15.875s PTDisconnect(16)
+** 15.875s PTReadVersion(1, 0B33ED84, 0B33ED34, 0B33ECE4)
+  DLL: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+  API: 04.04
+  FW: CarDAQ-Plus 4 FW:0.1.1.0 BL:0.1.1.0 SN: EAUG10000000013B
+++ 15.890s PTConnect(1, 6:ISO15765, 0, 500000, 04CE5AD0)
+  Flags: {no ConnectFlags}
+  returning ChannelID 19
+** 15.890s PTIoctl(19, 2:SET_CONFIG, 0B33BC10, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 15.890s PTIoctl(19, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 15.890s PTStartMsgFilter(19, 3:FLOW_CONTROL_FILTER, 0B33ACCC, 0B338C54, 0B339C90, 0B338BF8)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 da 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 d2 
+  returning FilterID 20
+** 15.890s PTIoctl(19, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 15.890s PTWriteMsgs(19, 04CE5B1C, 0B33BD00, 1000)
+  Transaction 00b2 for 1 messages
+  Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 d2 3e 
+  Queued everything
+  Sent 1/1
+<< 15.890s PTReadMsgs(19, 0B33ACEC, 1, 1000)
+  Msg[0] 360.134163s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007d2
+<< 15.890s PTReadMsgs() complete (channel 19)
+<< 15.890s PTReadMsgs(19, 0B33ACEC, 1, 1000)  16.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 16.890s PTDisconnect(19)
+** 16.890s PTReadVersion(1, 0B33ED70, 0B33ED20, 0B33ECD0)
+  DLL: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+  API: 04.04
+  FW: CarDAQ-Plus 4 FW:0.1.1.0 BL:0.1.1.0 SN: EAUG10000000013B
+++ 16.890s PTConnect(1, 6:ISO15765, 0, 500000, 04CE5AD0)
+  Flags: {no ConnectFlags}
+  returning ChannelID 21
+** 16.890s PTIoctl(21, 2:SET_CONFIG, 0B33BC14, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 16.906s PTIoctl(21, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 16.906s PTStartMsgFilter(21, 3:FLOW_CONTROL_FILTER, 0B33ACD4, 0B338C5C, 0B339C98, 0B338C00)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e8 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 
+  returning FilterID 22
+** 16.906s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 16.906s PTWriteMsgs(21, 04CE5B1C, 0B33BD44, 1000)
+  Transaction 00c2 for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 3e 00 
+  Queued everything
+  Sent 1/1
+<< 16.906s PTReadMsgs(21, 0B33AD30, 1, 1000)
+  Msg[0] 361.147534s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007e0
+<< 16.906s PTReadMsgs() complete (channel 21)
+<< 16.906s PTReadMsgs(21, 0B33AD30, 1, 1000)
+  Msg[0] 361.14969s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000000
+  \__ 00 00 07 e8 7e 00 
+<< 16.906s PTReadMsgs() complete (channel 21)
+** 16.906s PTIoctl(21, 2:SET_CONFIG, 0B33B820, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 16.906s PTIoctl(21, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 16.906s PTStartMsgFilter(21, 3:FLOW_CONTROL_FILTER, 0B33A8E0, 0B338868, 0B3398A4, 0B33880C)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e8 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 
+  returning FilterID 23
+** 16.906s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 16.906s PTWriteMsgs(21, 04CE5B1C, 0B33B834, 1000)
+  Transaction 00cc for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 3e 00 
+  Queued everything
+  Sent 1/1
+<< 16.906s PTReadMsgs(21, 0B33A820, 1, 1000)
+  Msg[0] 361.15751s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007e0
+<< 16.922s PTReadMsgs() complete (channel 21)
+<< 16.922s PTReadMsgs(21, 0B33A820, 1, 1000)
+  Msg[0] 361.160026s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000000
+  \__ 00 00 07 e8 7e 00 
+<< 16.922s PTReadMsgs() complete (channel 21)
+** 16.922s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 16.922s PTWriteMsgs(21, 04CE5B1C, 0B33D8F4, 1000)
+  Transaction 00ce for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 10 01 
+  Queued everything
+  Sent 1/1
+<< 16.922s PTReadMsgs(21, 0B33C8E0, 1, 1020)
+  Msg[0] 361.162598s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007e0
+<< 16.922s PTReadMsgs() complete (channel 21)
+<< 16.922s PTReadMsgs(21, 0B33C8E0, 1, 1020)
+  Msg[0] 361.166058s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+  \__ 00 00 07 e8 50 01 00 32 01 f4 
+<< 16.922s PTReadMsgs() complete (channel 21)
+** 16.922s PTIoctl(21, 2:SET_CONFIG, 0B33B820, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 16.922s PTIoctl(21, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 16.922s PTStartMsgFilter(21, 3:FLOW_CONTROL_FILTER, 0B33A8E0, 0B338868, 0B3398A4, 0B33880C)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e8 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 
+  returning FilterID 24
+** 16.922s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 16.922s PTWriteMsgs(21, 04CE5B1C, 0B33DA10, 1000)
+  Transaction 00d8 for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 df 09 00 
+  Queued everything
+  Sent 1/1
+<< 16.922s PTReadMsgs(21, 0B33CA48, 1, 1020)
+  Msg[0] 361.171432s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007df
+<< 16.922s PTReadMsgs() complete (channel 21)
+<< 16.922s PTReadMsgs(21, 0B33CA48, 1, 1020)
+  Msg[0] 361.175376s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+  \__ 00 00 07 e8 49 00 55 40 00 00 
+<< 16.937s PTReadMsgs() complete (channel 21)
+** 16.937s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 16.937s PTWriteMsgs(21, 04CE5B1C, 0B33DA74, 1000)
+  Transaction 00da for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 df 09 02 
+  Queued everything
+  Sent 1/1
+<< 16.937s PTReadMsgs(21, 0B33CAAC, 1, 1020)
+  Msg[0] 361.178181s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007df
+<< 16.937s PTReadMsgs() complete (channel 21)
+<< 16.937s PTReadMsgs(21, 0B33CAAC, 1, 1020)
+  Msg[0] 361.179863s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+  RxStatus: {:START_OF_MESSAGE}
+  \__ 000007e8
+<< 16.937s PTReadMsgs() complete (channel 21)
+<< 16.937s PTReadMsgs(21, 0B33CAAC, 1, 10000)
+  Msg[0] 361.189779s. 6:ISO15765. Actual data 24 of 24 bytes. RxS=00000000
+  \__ 00 00 07 e8 49 02 01 33 4d 59 44 4c 42 59 56 31 
+    48 59 31 35 38 34 38 33 
+<< 16.953s PTReadMsgs() complete (channel 21)
+** 55.218s PTIoctl(21, 2:SET_CONFIG, 00193000, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 55.218s PTIoctl(21, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 55.218s PTStartMsgFilter(21, 3:FLOW_CONTROL_FILTER, 001920C0, 00190048, 00191084, 0018FFEC)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e8 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 
+  returning FilterID 25
+** 55.218s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 55.218s PTWriteMsgs(21, 04CE5B1C, 00193130, 1000)
+  Transaction 00e4 for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 3e 00 
+  Queued everything
+  Sent 1/1
+<< 55.234s PTReadMsgs(21, 0019211C, 1, 1000)
+  Msg[0] 399.470496s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007e0
+<< 55.234s PTReadMsgs() complete (channel 21)
+<< 55.234s PTReadMsgs(21, 0019211C, 1, 1000)
+  Msg[0] 399.471773s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000000
+  \__ 00 00 07 e8 7e 00 
+<< 55.234s PTReadMsgs() complete (channel 21)
+** 57.000s PTIoctl(21, 2:SET_CONFIG, 001935F0, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 57.015s PTIoctl(21, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 57.015s PTStartMsgFilter(21, 3:FLOW_CONTROL_FILTER, 001926B0, 00190638, 00191674, 001905DC)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e8 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 
+  returning FilterID 26
+** 57.015s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 57.015s PTWriteMsgs(21, 04CE5B1C, 00193720, 1000)
+  Transaction 00ee for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 3e 00 
+  Queued everything
+  Sent 1/1
+<< 57.015s PTReadMsgs(21, 0019270C, 1, 1000)
+  Msg[0] 401.255393s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007e0
+<< 57.015s PTReadMsgs() complete (channel 21)
+<< 57.015s PTReadMsgs(21, 0019270C, 1, 1000)
+  Msg[0] 401.259335s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000000
+  \__ 00 00 07 e8 7e 00 
+<< 57.015s PTReadMsgs() complete (channel 21)
+** 61.093s PTIoctl(21, 2:SET_CONFIG, 00193F5C, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000000 '0 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000000 '0 ms'
+** 61.093s PTIoctl(21, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 61.109s PTStartMsgFilter(21, 3:FLOW_CONTROL_FILTER, 0019301C, 00190FA4, 00191FE0, 00190F48)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e8 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 
+  returning FilterID 27
+** 61.109s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 61.109s PTWriteMsgs(21, 04CE5B1C, 00196014, 1000)
+  Transaction 00f8 for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 10 01 
+  Queued everything
+  Sent 1/1
+<< 61.109s PTReadMsgs(21, 00195000, 1, 1020)
+  Msg[0] 405.347885s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007e0
+<< 61.109s PTReadMsgs() complete (channel 21)
+<< 61.109s PTReadMsgs(21, 00195000, 1, 1020)
+  Msg[0] 405.351667s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+  \__ 00 00 07 e8 50 01 00 32 01 f4 
+<< 61.109s PTReadMsgs() complete (channel 21)
+-- 61.109s PTDisconnect(21)
+** 61.109s PTReadVersion(1, 0019717C, 0019712C, 001970DC)
+  DLL: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+  API: 04.04
+  FW: CarDAQ-Plus 4 FW:0.1.1.0 BL:0.1.1.0 SN: EAUG10000000013B
+++ 61.109s PTConnect(1, 6:ISO15765, 0, 500000, 04CE5AD0)
+  Flags: {no ConnectFlags}
+  returning ChannelID 28
+** 61.109s PTIoctl(28, 2:SET_CONFIG, 00194008, 00000000)
+  4 parameter(s) at 0FD30560:
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'  [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'  [3/4] 30:ISO15765_BS = 00000000 '0'  [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+  [1/4] 1:DATA_RATE = 0007a120 '500000 baud'
+  [2/4] 31:ISO15765_STMIN = 00000004 '4 ms'
+  [3/4] 30:ISO15765_BS = 00000000 '0'
+  [4/4] 42:N_BR_MIN = 00000003 '3 ms'
+** 61.109s PTIoctl(28, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+++ 61.109s PTStartMsgFilter(28, 3:FLOW_CONTROL_FILTER, 001930C4, 0019104C, 00192088, 00190FF0)
+  Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ ff ff ff ff 
+  Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e8 
+  FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 
+  returning FilterID 29
+** 61.109s PTIoctl(28, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 61.109s PTWriteMsgs(28, 04CE5B1C, 001940F8, 1000)
+  Transaction 0009 for 1 messages
+  Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 3e 
+  Queued everything
+  Sent 1/1
+<< 61.125s PTReadMsgs(28, 001930E4, 1, 1000)
+  Msg[0] 405.361478s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+  RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+  \__ 000007e0
+<< 61.125s PTReadMsgs() complete (channel 28)
+<< 61.125s PTReadMsgs(28, 001930E4, 1, 1000)
+  Msg[0] 405.366868s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+  \__ 00 00 07 e8 7f 3e 13 
+<< 61.125s PTReadMsgs() complete (channel 28)
+** 61.125s PTIoctl(28, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 61.125s PTWriteMsgs(28, 04CE5B1C, 001961FC, 1000)
+  Transaction 000b for 1 messages
+  Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+  TxFlags: {6:ISO15765_FRAME_PAD}
+  \__ 00 00 07 e0 aa 00 
+  Queued everything
+  Sent 1/1
+-- 68.562s PTDisconnect(28)
+-- 68.578s PTClose(1)

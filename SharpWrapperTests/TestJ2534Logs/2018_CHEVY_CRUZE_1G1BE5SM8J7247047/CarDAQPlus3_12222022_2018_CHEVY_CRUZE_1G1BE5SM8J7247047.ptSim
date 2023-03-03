@@ -1,0 +1,5123 @@
+{
+  "135": {
+  "ChannelId": 135,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x5C",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x5C"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x5C",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5C 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5C"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5C 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5C"
+}
+  ]
+},
+  "69": {
+  "ChannelId": 69,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE2",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEA"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE0",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xE8"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEA",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x07 0xE0",
+  "FilterPattern": "0x00 0x00 0x0F 0xF0",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xE8",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF 0x03 0x02 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x06 0x41 0x00 0x80 0x00 0x00 0x01 0xAA"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x06 0x41 0x00 0xBE 0x7F 0xB8 0x13 0xAA"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF 0x01 0x03 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x43 0x00"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x43 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF 0x03 0x02 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF 0x01 0x03 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x06 0x41 0x00 0x80 0x00 0x00 0x01 0xAA"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x06 0x41 0x00 0xBE 0x7F 0xB8 0x13 0xAA"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x43 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x43 0x00"
+}
+  ]
+},
+  "60": {
+  "ChannelId": 60,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x4D",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x4D"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x4D",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x02 0x1A 0xB2 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x5A 0xB2 0xA7 0x00 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x02 0x1A 0xB2 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x7E"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x5A 0xB2 0xA7 0x00 0x00 0x00 0x00"
+}
+  ]
+},
+  "63": {
+  "ChannelId": 63,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x4B",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x4B",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x4B"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": []
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4B 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4B"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4B 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4B"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4B 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4B 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4B"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4B"
+}
+  ]
+},
+  "19": {
+  "ChannelId": 19,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "CAN_ID_BOTH",
+  "MessageFilters": [
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x45 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x45"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x14 0xDA 0x45 0xF1",
+  "FilterFlowCtl": "0x14 0xDA 0xF1 0x45"
+},
+    {
+  "FilterFlags": "CAN_29BIT_ID",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x14 0xDC 0xF1 0x45",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": null,
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x14 0xDA 0x45 0xF1 0x10 0x03"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "265",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x14 0xDA 0x45 0xF1"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": null,
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x14 0xDA 0x45 0xF1 0x10 0x03"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "265",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x14 0xDA 0x45 0xF1"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": null,
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x14 0xDA 0x45 0xF1 0x10 0x03"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": null,
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x14 0xDA 0x45 0xF1 0x10 0x03"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "265",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x14 0xDA 0x45 0xF1"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "265",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x14 0xDA 0x45 0xF1"
+}
+  ]
+},
+  "111": {
+  "ChannelId": 111,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x44",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x44"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x44",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44"
+},
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x44 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44"
+},
+        {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x44 0x81 0x00 0x00 0x00 0x13 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x44 0x7E"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44"
+},
+    {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x44 0x81 0x00 0x00 0x00 0x13 0x00 0x00 0x00"
+}
+  ]
+},
+  "90": {
+  "ChannelId": 90,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x5F",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x5F"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x5F",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5F 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x5F 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5F 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5F"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x5F 0x81 0x00 0x00 0x00 0x7F 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5F 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5F 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x5F 0x7E"
+},
+    {
+  "ProtocolId": "0",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "0 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "No Data!"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x5F 0x81 0x00 0x00 0x00 0x7F 0x00 0x00 0x00"
+}
+  ]
+},
+  "87": {
+  "ChannelId": 87,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x41",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x41"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x41",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x41 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x41"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x41 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x41 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x41"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xB1 0x25 0x01 0x19 0x00 0x00 0x00"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xB1 0x30 0x01 0x19 0x00 0x00 0x00"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xB1 0x35 0x01 0x19 0x00 0x00 0x00"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xB8 0x81 0x04 0x39 0x00 0x00 0x00"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xD5 0x38 0x00 0x19 0x00 0x00 0x00"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xD5 0x48 0x00 0x19 0x00 0x00 0x00"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x41 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x41 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x41 0x7E"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x41"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xB1 0x25 0x01 0x19 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xB1 0x30 0x01 0x19 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xB1 0x35 0x01 0x19 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xB8 0x81 0x04 0x39 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xD5 0x38 0x00 0x19 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0xD5 0x48 0x00 0x19 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x41 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x41"
+}
+  ]
+},
+  "40": {
+  "ChannelId": 40,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE2",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEA"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE1",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xE9"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE0",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xE8"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEA",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xE9",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEE",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE6",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEE"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE5",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xED"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xED",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xE8",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE4",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEC"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEB",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEC",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE7",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEF"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEF",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE3",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEB"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF 0x02 0x01 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x41 0x00 0xBE 0x7F 0xB8 0x13"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x41 0x00 0x80 0x00 0x00 0x01"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2 0x02 0x12 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": []
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0 0x02 0x12 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x52 0x01 0x00"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x52 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2 0x03 0xA9 0x81 0x1A 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": []
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0 0x03 0xA9 0x81 0x1A 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0xE8 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0xEA 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF 0x02 0x01 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2 0x02 0x12 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0 0x02 0x12 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2 0x03 0xA9 0x81 0x1A 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0 0x03 0xA9 0x81 0x1A 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x41 0x00 0xBE 0x7F 0xB8 0x13"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x41 0x00 0x80 0x00 0x00 0x01"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x52 0x01 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x52 0x01 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0xE8 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0xEA 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+  ]
+},
+  "117": {
+  "ChannelId": 117,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x4D",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x4D"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x4D",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x4D 0x81 0x00 0x00 0x00 0x17 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x7E"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x4D 0x81 0x00 0x00 0x00 0x17 0x00 0x00 0x00"
+}
+  ]
+},
+  "99": {
+  "ChannelId": 99,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x4C",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x4C"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x4C",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4C 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4C"
+},
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4C 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4C 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4C"
+},
+        {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x4C 0x81 0x00 0x00 0x00 0x7F 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4C 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4C 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4C"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4C 0x7E"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4C"
+},
+    {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x4C 0x81 0x00 0x00 0x00 0x7F 0x00 0x00 0x00"
+}
+  ]
+},
+  "129": {
+  "ChannelId": 129,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x5A",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x5A"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x5A",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5A 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5A"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5A 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x5A"
+}
+  ]
+},
+  "57": {
+  "ChannelId": 57,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x4D",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x4D"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x4D",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x02 0x1A 0xB2 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x7F 0x1A 0x31"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D 0x02 0x1A 0xB2 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x7E"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4D"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x4D 0x7F 0x1A 0x31"
+}
+  ]
+},
+  "114": {
+  "ChannelId": 114,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x54",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x54"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x54",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x54 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x54"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x54 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x54"
+}
+  ]
+},
+  "93": {
+  "ChannelId": 93,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x47",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x47",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x47"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x47 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x47"
+},
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x47 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x47 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x47"
+},
+        {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x47 0x81 0x80 0x85 0x05 0x11 0x00 0x00 0x00"
+},
+        {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x47 0x81 0x00 0x00 0x00 0xB3 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x47 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x47 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x47"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x47 0x7E"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x47"
+},
+    {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x47 0x81 0x80 0x85 0x05 0x11 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x47 0x81 0x00 0x00 0x00 0xB3 0x00 0x00 0x00"
+}
+  ]
+},
+  "105": {
+  "ChannelId": 105,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x48",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x48"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x48",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x48 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x48"
+},
+        {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x48 0x81 0x00 0x00 0x00 0x13 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x48 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x48"
+},
+    {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x48 0x81 0x00 0x00 0x00 0x13 0x00 0x00 0x00"
+}
+  ]
+},
+  "23": {
+  "ChannelId": 23,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xED",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE0",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xE8"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xE8",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEF",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEE",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE7",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEF"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEA",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xE9",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE1",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xE9"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE2",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEA"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEB",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEC",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE3",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEB"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE4",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEC"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE6",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEE"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE5",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xED"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF 0x02 0x09 0x02 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": []
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF 0x02 0x09 0x02 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xDF"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "START_OF_MESSAGE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x49 0x02 0x01 0x31 0x47 0x31 0x42 0x45 0x35 0x53 0x4D 0x38"
+}
+  ]
+},
+  "102": {
+  "ChannelId": 102,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x46",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x46"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x46",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x46 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x46"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x46 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x46"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x46 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x46 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x46"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x46"
+}
+  ]
+},
+  "126": {
+  "ChannelId": 126,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x42",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x42"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x42",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42"
+}
+  ]
+},
+  "75": {
+  "ChannelId": 75,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE0",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xE8"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xE8",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0 0x03 0xA9 0x81 0x1A 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0xE8 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0 0x03 0xA9 0x81 0x1A 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE0"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0xE8 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE8 0x7E"
+}
+  ]
+},
+  "78": {
+  "ChannelId": 78,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xE2",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xEA"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0xEA",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2 0x03 0xA9 0x81 0x1A 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0xEA 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2 0x03 0xA9 0x81 0x1A 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xEA 0x7E"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xE2"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0xEA 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+  ]
+},
+  "81": {
+  "ChannelId": 81,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x43",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x43"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x43",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x43 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x43"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_PADDING_ERROR",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x43 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x43 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x43"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x43 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x43 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x43 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x43"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_PADDING_ERROR",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x43 0x7E"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x43"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x43 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+  ]
+},
+  "120": {
+  "ChannelId": 120,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x51",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x51"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x51",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x51 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x51"
+},
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x51 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x51 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x51"
+},
+        {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x51 0x81 0x00 0x00 0x00 0x13 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x51 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x51 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x51"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x51 0x7E"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x51"
+},
+    {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x51 0x81 0x00 0x00 0x00 0x13 0x00 0x00 0x00"
+}
+  ]
+},
+  "2": {
+  "ChannelId": 2,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "CAN_ID_BOTH",
+  "MessageFilters": [
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x11 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x11"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x12 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x12"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x15 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x15"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x16 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x16"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x13 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x13"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x17 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x17"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x14 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x14"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x18 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x18"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x1D 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x1D"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x28 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x28"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0xCB 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0xCB"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDB 0x33 0xF1",
+  "FilterFlowCtl": "0x18 0xDB 0xF1 0x33"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0xCD 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0xCD"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x1E 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x1E"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x40 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x40"
+},
+    {
+  "FilterFlags": null,
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x18 0xDA 0x45 0xF1",
+  "FilterFlowCtl": "0x18 0xDA 0xF1 0x45"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": null,
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x18 0xDB 0x33 0xF1 0x09 0x02"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "265",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x18 0xDB 0x33 0xF1"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": null,
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x18 0xDB 0x33 0xF1 0x09 0x02"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "265",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x18 0xDB 0x33 0xF1"
+}
+  ]
+},
+  "123": {
+  "ChannelId": 123,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x4F",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x4F",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x4F"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4F 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4F"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4F 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x4F"
+}
+  ]
+},
+  "84": {
+  "ChannelId": 84,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x42",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x42",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x42"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": []
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42"
+},
+        {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x42 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x42 0x7E"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x42"
+},
+    {
+  "ProtocolId": "CAN",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x42 0x81 0x00 0x00 0x00 0xFF 0x00 0x00 0x00"
+}
+  ]
+},
+  "132": {
+  "ChannelId": 132,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x57",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x57"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x57",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x57 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x57"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x57 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x57"
+}
+  ]
+},
+  "138": {
+  "ChannelId": 138,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x44",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x44"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "CAN",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x44",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": []
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x44"
+}
+  ]
+},
+  "108": {
+  "ChannelId": 108,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x56",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x56",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x56"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x56 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x56"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x56 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x56"
+}
+  ]
+},
+  "66": {
+  "ChannelId": 66,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x55",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x55"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x55",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": []
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x55 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x55"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x55 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x55"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x55 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x55 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x55"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x55"
+}
+  ]
+},
+  "96": {
+  "ChannelId": 96,
+  "ChannelBaudRate": 33333,
+  "ChannelProtocol": "SW_ISO15765_PS",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "SW_ISO15765_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x02 0x45",
+  "FilterFlowCtl": "0x00 0x00 0x06 0x45"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "PASS_FILTER",
+  "FilterProtocol": "SW_CAN_PS",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0x00 0x00 0x05 0x45",
+  "FilterPattern": "0xFF 0xFF 0xFF 0xFF",
+  "FilterFlowCtl": "No Flow Control"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x45 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x45"
+},
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x45 0x7E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x45 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x45"
+},
+        {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x45 0x81 0x00 0x00 0x00 0xB3 0x00 0x00 0x00"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "SW_CAN_HV_TX",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x45 0x01 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x45 0x03 0xA9 0x81 0x12 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x01 0x00"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x45"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x06 0x45 0x7E"
+},
+    {
+  "ProtocolId": "SW_ISO15765_PS",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x02 0x45"
+},
+    {
+  "ProtocolId": "SW_CAN_PS",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x05 0x45 0x81 0x00 0x00 0x00 0xB3 0x00 0x00 0x00"
+}
+  ]
+}
+}

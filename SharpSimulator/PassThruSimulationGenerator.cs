@@ -203,7 +203,22 @@ namespace SharpSimulator
                     PassThruSimulationChannel BuiltChannel = ChannelExpressions.BuildChannelsFromExpressions(SimChannelId);
 
                     // If our channel object is not null, then store it on our output collection now
-                    if (BuiltChannel != null)
+                    if (BuiltChannel == null)
+                    {
+                        // Tick the loop counter and setup our channel properties
+                        LoopsCompleted++;
+                        this._simulationLogger.AddScopeProperties(
+                            new KeyValuePair<string, object>("sim-channel-id", SimChannelId),
+                            new KeyValuePair<string, object>("sim-message-pairs", ChannelExpressions.Length),
+                            new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
+                            new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
+
+                        // Log out our exception and invoke a new progress event with the properties we configured above
+                        this._simulationLogger.WriteLog($"FAILED TO GENERATE NEW SIMULATION CHANNEL!", LogType.ErrorLog);
+                        this._simulationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS");
+                        this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted, TotalLoops));
+                    }
+                    else
                     {
                         // Lock the output collection to avoid thread issues and store the new channel
                         lock (SimChannelsBuilt)

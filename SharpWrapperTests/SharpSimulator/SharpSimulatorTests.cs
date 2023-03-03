@@ -70,9 +70,9 @@ namespace SharpWrapperTests.SharpSimulator
                 // Build an expression generator and build our output log files
                 var BuiltExpGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(TestLogFile);
                 PassThruExpression[] OutputExpressions = BuiltExpGenerator.GenerateLogExpressions();
-                string BaseExpFileName = Path.GetFileNameWithoutExtension(TestLogFile);
-                string BaseExpFolder = Path.Combine(TestInitializers.BaseOutputPath, "OutputExpressions");
-                string BuiltExpressionFile = BuiltExpGenerator.SaveExpressionsFile(BaseExpFileName, BaseExpFolder);
+                string BuiltExpressionFile = BuiltExpGenerator.SaveExpressionsFile(
+                    Path.GetFileNameWithoutExtension(TestLogFile),
+                    TestInitializers.ExpressionsOutputPath);
 
                 // Make sure we've got expressions built and the file is real
                 Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {TestLogFile}!");
@@ -85,15 +85,13 @@ namespace SharpWrapperTests.SharpSimulator
 
                 // Save the output file and make sure it's real
                 string BaseSimFileName = Path.GetFileNameWithoutExtension(TestLogFile);
-                string BaseSimFolder = Path.Combine(TestInitializers.BaseOutputPath, "OutputSimulations");
-                string BuiltSimulationsFile = BuiltSimGenerator.SaveSimulationFile(BaseSimFileName, BaseSimFolder);
+                string BuiltSimulationsFile = BuiltSimGenerator.SaveSimulationFile(BaseSimFileName, TestInitializers.SimulationsOutputPath);
                 Assert.IsTrue(File.Exists(BuiltSimulationsFile), $"Error! Built simulation file {BuiltSimulationsFile} does not exist!");
             }
 
             // Log our test method is complete here
             TestInitializers.LogTestMethodCompleted();
         }
-
         /// <summary>
         /// Test method which will pick a random log file from our collection of choices and attempt to build expressions from it
         /// </summary>
@@ -113,10 +111,9 @@ namespace SharpWrapperTests.SharpSimulator
                 Assert.IsTrue(SimulationChannels.Length != 0, "Error! No simulation channels were built!");
 
                 // Save the output file and make sure it's real
-                string BaseFileName = Path.GetFileNameWithoutExtension(TestLogFile);
-                string BaseFolder = Path.Combine(TestInitializers.BaseOutputPath, "OutputSimulations");
-                string BuiltExpressionFile = BuiltSimGenerator.SaveSimulationFile(BaseFileName, BaseFolder);
-                Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built simulation file {BuiltExpressionFile} does not exist!");
+                string BaseSimFileName = Path.GetFileNameWithoutExtension(TestLogFile);
+                string BuiltSimulationsFile = BuiltSimGenerator.SaveSimulationFile(BaseSimFileName, TestInitializers.SimulationsOutputPath);
+                Assert.IsTrue(File.Exists(BuiltSimulationsFile), $"Error! Built simulation file {BuiltSimulationsFile} does not exist!");
             }
 
             // Log our test method is complete here
@@ -138,9 +135,9 @@ namespace SharpWrapperTests.SharpSimulator
                 // Build an expression generator and build our output log files
                 var BuiltExpGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(TestLogFile);
                 PassThruExpression[] OutputExpressions = BuiltExpGenerator.GenerateLogExpressions();
-                string BaseExpFileName = Path.GetFileNameWithoutExtension(TestLogFile);
-                string BaseExpFolder = Path.Combine(TestInitializers.BaseOutputPath, "OutputExpressions");
-                string BuiltExpressionFile = BuiltExpGenerator.SaveExpressionsFile(BaseExpFileName, BaseExpFolder);
+                string BuiltExpressionFile = BuiltExpGenerator.SaveExpressionsFile(
+                    Path.GetFileNameWithoutExtension(TestLogFile),
+                    TestInitializers.ExpressionsOutputPath);
 
                 // Make sure we've got expressions built and the file is real
                 Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {TestLogFile}!");
@@ -153,8 +150,7 @@ namespace SharpWrapperTests.SharpSimulator
 
                 // Save the output file and make sure it's real
                 string BaseSimFileName = Path.GetFileNameWithoutExtension(TestLogFile);
-                string BaseSimFolder = Path.Combine(TestInitializers.BaseOutputPath, "OutputSimulations");
-                string BuiltSimulationsFile = BuiltSimGenerator.SaveSimulationFile(BaseSimFileName, BaseSimFolder);
+                string BuiltSimulationsFile = BuiltSimGenerator.SaveSimulationFile(BaseSimFileName, TestInitializers.SimulationsOutputPath);
                 Assert.IsTrue(File.Exists(BuiltSimulationsFile), $"Error! Built simulation file {BuiltSimulationsFile} does not exist!");
             }
 

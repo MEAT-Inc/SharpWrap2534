@@ -73,9 +73,8 @@ namespace SharpWrapperTests.SharpExpressions
                 Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {TestLogFile}!");
 
                 // Save the output file and make sure it's real
-                string BaseFileName = Path.GetFileNameWithoutExtension(TestLogFile);
-                string BaseFolder = Path.Combine(TestInitializers.BaseOutputPath, "OutputExpressions");
-                string BuiltExpressionFile = BuiltGenerator.SaveExpressionsFile(BaseFileName, BaseFolder);
+                string BaseExpFileName = Path.GetFileNameWithoutExtension(TestLogFile);
+                string BuiltExpressionFile = BuiltGenerator.SaveExpressionsFile(BaseExpFileName, TestInitializers.ExpressionsOutputPath);
                 Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built expression file {BuiltExpressionFile} does not exist!");
             }
 

@@ -270,13 +270,23 @@ namespace SharpExpressions
                             new KeyValuePair<string, object>("expression-method", ExpressionTypes.ToString().ToUpper()),
                             new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TimeMatches.Length}"),
                             new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TimeMatches.Length * 100.00).ToString("F2")));
+                        
+                        // If our expression passed, then we write out the failures now
+                        if (NextPassThruExpression.ExpressionPassed)
+                        {
+                            // If the expression generated correctly, then we write that information out here
+                            string ExpType = ExpressionTypes.ToString().ToUpper();
+                            string FirstCommand = NextPassThruExpression.SplitCommandLines.First();
+                            this._expressionsLogger.WriteLog($"PROCESSED A {ExpType} EXPRESSION CORRECTLY! EXPRESSION CONTENT: {FirstCommand}");
+                        }
+                        else
+                        {
+                            // If we're at this point, something went wrong and needs to be logged out.
+                            this._expressionsLogger.WriteLog($"ERROR! FAILED TO PROCESS A {ExpressionTypes.ToString().ToUpper()} EXPRESSION!", LogType.ErrorLog);
+                            this._expressionsLogger.WriteLog($"FAILED CONTENT IS SHOWN BELOW\n{NextPassThruExpression.CommandLines}", LogType.ErrorLog);
+                        }
 
-                        // Once we've set our scope properties, write out the content generated
-                        this._expressionsLogger.WriteLog(NextPassThruExpression.ExpressionPassed
-                            ? $"PROCESSED A NEW {ExpressionTypes.ToString().ToUpper()} EXPRESSION! STARTING CONTENT: {NextPassThruExpression.SplitCommandLines.First()}"
-                            : $"ERROR! FAILED TO PROCESS A {ExpressionTypes.ToString().ToUpper()} EXPRESSION! FAILED CONTENT IS SHOWN BELOW\n{NextPassThruExpression.CommandLines}");
-
-                        // Invoke a new progress event here and move on
+                        // Invoke a new progress event here and move on to our next expression object
                         this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted, TimeMatches.Length));
                     }
                 }
@@ -292,7 +302,10 @@ namespace SharpExpressions
             });
             
             // Prune all null values off the array of expressions
-            OutputExpressions = OutputExpressions.Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionTypes.NONE).ToArray();
+            OutputExpressions = OutputExpressions
+                .Where(ExpressionObj => ExpressionObj != null)
+                .Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionTypes.NONE)
+                .ToArray();
 
             // Log done building log command line sets and expressions
             this._expressionsLogger.WriteLog($"DONE BUILDING EXPRESSION SETS FROM INPUT FILE {this.PassThruLogFile}!", LogType.InfoLog);

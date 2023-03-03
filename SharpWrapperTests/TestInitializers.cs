@@ -28,9 +28,11 @@ namespace SharpWrapperTests
         private static readonly int _splittingLineSize = 120;          // Size of the splitting lines to write in console output
         private static readonly string _splittingLineChar = "=";       // Character to use in the splitting line output
 
-        // Static field holding information about our test log files 
+        // Static field holding information about our test log files and output path values
         public static readonly string BaseOutputPath = Path.Combine(Directory.GetCurrentDirectory(), "TestOutput");
         public static readonly string TestJ2534LogsPath = Path.Combine(Directory.GetCurrentDirectory(), "TestJ2534Logs");
+        public static readonly string ExpressionsOutputPath = Path.Combine(BaseOutputPath, "OutputExpressions");
+        public static readonly string SimulationsOutputPath = Path.Combine(BaseOutputPath, "OutputSimulations");
 
         #endregion //Fields
 
@@ -87,15 +89,6 @@ namespace SharpWrapperTests
 
             // Define a new log broker configuration, clean up old output, and setup the log broker
             string OutputLogFolder = Path.Combine(BaseOutputPath, "SharpWrapperLogging");
-            string[] LocatedLogFiles = Directory.GetFiles(OutputLogFolder);
-            if (LocatedLogFiles.Length > 15)
-            {
-                // Remove the 10 oldest log files
-                for (int FileIndex = 0; FileIndex < 10; FileIndex++)
-                    File.Delete(LocatedLogFiles[FileIndex]);
-            }
-
-            // Configure the log broker with a new configuration object here for test output logging
             SharpLogBroker.BrokerConfiguration BrokerConfiguration = new SharpLogBroker.BrokerConfiguration()
             {
                 LogFilePath = OutputLogFolder,                                  // Path to the log file to write

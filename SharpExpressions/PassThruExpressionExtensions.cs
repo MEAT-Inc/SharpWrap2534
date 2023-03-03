@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using SharpExpressions.PassThruExpressions;
 using SharpLogging;
@@ -332,18 +333,17 @@ namespace SharpExpressions
         {
             try
             {
-                // Pull the description string and get type of regex class.
+                // Start by finding our type value for the given input expression object
                 string InputTypeName = InputTypes.ToDescriptionString();
-                string ClassNamespace = typeof(PassThruExpression).Namespace;
-                string ClassType = $"{ClassNamespace}.{InputTypeName}";
+                Type RegexClassType = typeof(PassThruExpression).Assembly.GetTypes()
+                    .FirstOrDefault(TypeObj => TypeObj.Name.Contains(InputTypeName)) ?? typeof(PassThruExpression);
 
-                // Build a new PassThru Expression object here based on the type found for our expression
-                Type RegexClassType = Type.GetType(ClassType);
-                PassThruExpression BuiltExpression = RegexClassType == null
+                // Now build the expression object based on this type value loaded. If types are invalid, then we return an empty expression
+                PassThruExpression BuiltExpression = RegexClassType.Name == nameof(PassThruExpression) 
                     ? new PassThruExpression(InputLogLines, InputTypes)
                     : (PassThruExpression)Activator.CreateInstance(RegexClassType, InputLogLines);
 
-                // Return the new Expression object here and move on
+                // Return the built expression object here
                 return BuiltExpression;
             }
             catch (Exception InvokeTypeEx)

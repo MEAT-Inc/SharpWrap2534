@@ -1,0 +1,1428 @@
+   Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 0.000s PTOpen(00000000, 0C1F12F8)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.0.29.0
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #010172
+     USB\VID_18E1&PID_1002\CMSJB0000010172C
+   returning DeviceID 3
+++ 0.172s PTGetNextCarDAQ(00000000, 00AFE9AC, 00000000)
+** 0.250s PTReadVersion(3, 032EDB2C, 032EDB88, 032EDBE4)
+   DLL: CarDAQ-Plus 3 J2534 Library v1.0.29.0
+   API: 04.04
+   FW:  CarDAQ-Plus 3 FW:0.1.0.21 BL:0.1.0.7 SN: CMSJB0000010172C
+** 0.250s PTIoctl(3, 3:READ_VBATT, 00000000, 13F22EF0)
+   Battery Voltage 13.000000 V
+++ 2.406s PTConnect(3, 1:J1850VPW, 0, 10400, 196BF204)
+   Flags: {no ConnectFlags}
+   returning ChannelID 4
+++ 2.422s PTStartMsgFilter(4, 1:PASS_FILTER, 196BE130, 196BD0D8, 00000000, 033D8368)
+   Mask[0] 1:J1850VPW. 3 bytes. TxF=00000000
+   \__  00  fe  00 
+   Pattern[0] 1:J1850VPW. 3 bytes. TxF=00000000
+   \__  00  6a  00 
+   FlowControl is NULL
+   returning FilterID 5
+++ 2.422s PTStartMsgFilter(4, 1:PASS_FILTER, 196BE130, 196BD0D8, 00000000, 033D836C)
+   Mask[0] 1:J1850VPW. 3 bytes. TxF=00000000
+   \__  00  ff  00 
+   Pattern[0] 1:J1850VPW. 3 bytes. TxF=00000000
+   \__  00  f1  00 
+   FlowControl is NULL
+   returning FilterID 6
+** 2.422s PTIoctl(4, 7:CLEAR_TX_BUFFER, 00000000, 00000000)
+** 2.422s PTIoctl(4, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 2.422s PTIoctl(4, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 2.422s PTWriteMsgs(4, 0C0CD540, 196BF1A4, 250)
+   Transaction 0013 for 1 messages
+   Msg[0] 1:J1850VPW. 5 bytes. TxF=00000000
+   \__  68  6a  f1  01  00 
+   Queued everything
+   Sent 1/1
+<< 2.437s PTReadMsgs(4, 0C0CD540, 8, 512)   2.953s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 2.969s PTDisconnect(4)
+++ 3.969s PTConnect(3, 2:J1850PWM, 0, 41666, 198CEBDC)
+   Flags: {no ConnectFlags}
+   returning ChannelID 7
+** 3.984s PTIoctl(7, 2:SET_CONFIG, 16E62FA8, 00000000)
+   1 parameter(s) at 16E62EB8:
+   [1/1] 4:NODE_ADDRESS = 000000f1 'f1'
+   [1/1] 4:NODE_ADDRESS = 000000f1 'f1'
+++ 3.984s PTStartMsgFilter(7, 1:PASS_FILTER, 198CDAF4, 198CCA9C, 00000000, 033D8368)
+   Mask[0] 2:J1850PWM. 3 bytes. TxF=00000000
+   \__  00  fe  00 
+   Pattern[0] 2:J1850PWM. 3 bytes. TxF=00000000
+   \__  00  6a  00 
+   FlowControl is NULL
+   returning FilterID 8
+++ 3.984s PTStartMsgFilter(7, 1:PASS_FILTER, 198CDAF4, 198CCA9C, 00000000, 033D836C)
+   Mask[0] 2:J1850PWM. 3 bytes. TxF=00000000
+   \__  00  ff  00 
+   Pattern[0] 2:J1850PWM. 3 bytes. TxF=00000000
+   \__  00  f1  00 
+   FlowControl is NULL
+   returning FilterID 9
+** 3.984s PTIoctl(7, 12:ADD_TO_FUNCT_MSG_LOOKUP_TABLE, 16E62F98, 00000000)
+   Addr: 1 bytes at 03521858
+   \__  6b 
+** 3.984s PTIoctl(7, 7:CLEAR_TX_BUFFER, 00000000, 00000000)
+** 3.984s PTIoctl(7, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 3.984s PTIoctl(7, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 3.984s PTWriteMsgs(7, 0C0CD540, 198CEB68, 250)
+   Transaction 001e for 1 messages
+   Msg[0] 2:J1850PWM. 5 bytes. TxF=00000000
+   \__  61  6a  f1  01  00 
+   Queued everything
+Tx MsgDiscardedBusFault tid=30:1
+   Sent 0/1
+   3.984s Returning 9:ERR_TIMEOUT 'Only sent 0 of 1 messages'
+<< 3.984s PTReadMsgs(7, 0C0CD540, 8, 512)   4.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 4.500s PTDisconnect(7)
+++ 5.531s PTConnect(3, 3:ISO9141, 0, 10400, 196BF178)
+   Flags: {no ConnectFlags}
+   returning ChannelID 10
+** 5.531s PTIoctl(10, 4:FIVE_BAUD_INIT, 13F506B8, 13F50618)
+   pInput: 1 bytes at 030B86F0
+   \__  33 
+   pOutput NumOfBytes 2
+   Returning 7:ERR_FAILED 'Firmware error 521:eFiveBaudInitFailed '''
+-- 8.125s PTDisconnect(10)
+++ 20.312s PTConnect(3, 4:ISO14230, 0, 10400, 198CEBEC)
+   Flags: {no ConnectFlags}
+   returning ChannelID 11
+++ 20.312s PTStartMsgFilter(11, 1:PASS_FILTER, 198CDB00, 198CCAA8, 00000000, 03061C90)
+   Mask[0] 4:ISO14230. 1 bytes. TxF=00000000
+   \__  80 
+   Pattern[0] 4:ISO14230. 1 bytes. TxF=00000000
+   \__  80 
+   FlowControl is NULL
+   returning FilterID 12
+** 20.469s PTIoctl(11, 5:FAST_INIT, 0A4DEA88, 0A4E50B8)
+   pInput[0] 4:ISO14230. 4 bytes. TxF=00000000
+   \__  c1  33  f1  81 
+   Returning 7:ERR_FAILED 'Firmware error 520:eInitTimeout 'Fast Init: Timeout on response''
+-- 20.906s PTDisconnect(11)
+++ 21.922s PTConnect(3, 6:ISO15765, 0, 500000, 196BF1F0)
+   Flags: {no ConnectFlags}
+   returning ChannelID 13
+++ 21.922s PTStartMsgFilter(13, 3:FLOW_CONTROL_FILTER, 196BE0D4, 196BD07C, 196BC028, 03063E14)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 14
+++ 21.922s PTStartMsgFilter(13, 3:FLOW_CONTROL_FILTER, 196BE0D4, 196BD07C, 196BC028, 03063E18)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e1 
+   returning FilterID 15
+++ 21.922s PTStartMsgFilter(13, 3:FLOW_CONTROL_FILTER, 196BE0D4, 196BD07C, 196BC028, 03063E1C)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2 
+   returning FilterID 16
+++ 21.922s PTStartMsgFilter(13, 3:FLOW_CONTROL_FILTER, 196BE0D4, 196BD07C, 196BC028, 03063E20)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  eb 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e3 
+   returning FilterID 17
+++ 21.922s PTStartMsgFilter(13, 3:FLOW_CONTROL_FILTER, 196BE0D4, 196BD07C, 196BC028, 03063E24)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ec 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e4 
+   returning FilterID 18
+++ 21.922s PTStartMsgFilter(13, 3:FLOW_CONTROL_FILTER, 196BE0D4, 196BD07C, 196BC028, 03063E28)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ed 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e5 
+   returning FilterID 19
+++ 21.922s PTStartMsgFilter(13, 3:FLOW_CONTROL_FILTER, 196BE0D4, 196BD07C, 196BC028, 03063E2C)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ee 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e6 
+   returning FilterID 20
+++ 21.922s PTStartMsgFilter(13, 3:FLOW_CONTROL_FILTER, 196BE0D4, 196BD07C, 196BC028, 03063E30)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ef 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e7 
+   returning FilterID 21
+** 21.922s PTIoctl(13, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 21.922s PTWriteMsgs(13, 0C0CD540, 196BF148, 250)
+   Transaction 0036 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  00 
+   Queued everything
+   Sent 1/1
+<< 21.922s PTReadMsgs(13, 0C0CD540, 8, 512)
+   Msg[0] 21.909862s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   Msg[1] 21.919722s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  00  be  3e  a8  13 
+   Msg[2] 21.926333s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  00  98  18  80  01 
+   22.437s Returning 9:ERR_TIMEOUT 'Only read 3 of 8 messages'
+** 22.437s PTIoctl(13, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 22.437s PTWriteMsgs(13, 0C0CD540, 196BF170, 250)
+   Transaction 0038 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  09  02 
+   Queued everything
+   Sent 1/1
+<< 22.437s PTReadMsgs(13, 0C0CD540, 1, 100)
+   Msg[0] 22.432352s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 22.437s PTReadMsgs() complete (channel 13)
+<< 22.437s PTReadMsgs(13, 0C0CD540, 1, 100)
+   Msg[0] 22.439774s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 22.453s PTReadMsgs() complete (channel 13)
+<< 22.453s PTReadMsgs(13, 0C0CD540, 1, 100)
+   Msg[0] 22.445026s. 6:ISO15765. Actual data 24 of 24 bytes. RxS=00000000
+   \__  00  00  07  e8  49  02  01  33  56  57  43  42  37  42  55  32 
+        4c  4d  30  32  36  34  38  34 
+<< 22.453s PTReadMsgs() complete (channel 13)
+-- 22.453s PTDisconnect(13)
+-- 27.484s PTClose(3)
+++ 38.062s PTOpen(00000000, 0C1F12F8)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.0.29.0
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #010172
+     USB\VID_18E1&PID_1002\CMSJB0000010172C
+   returning DeviceID 22
+++ 38.062s PTGetNextCarDAQ(00000000, 196BED2C, 00000000)
+++ 38.125s PTConnect(22, 6:ISO15765, 0, 500000, 196BED20)
+   Flags: {no ConnectFlags}
+   returning ChannelID 23
+++ 38.125s PTStartMsgFilter(23, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 03063E14)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 24
+++ 38.125s PTStartMsgFilter(23, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 03063E18)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e1 
+   returning FilterID 25
+++ 38.125s PTStartMsgFilter(23, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 03063E1C)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2 
+   returning FilterID 26
+++ 38.125s PTStartMsgFilter(23, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 03063E20)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  eb 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e3 
+   returning FilterID 27
+++ 38.125s PTStartMsgFilter(23, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 03063E24)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ec 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e4 
+   returning FilterID 28
+++ 38.125s PTStartMsgFilter(23, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 03063E28)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ed 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e5 
+   returning FilterID 29
+++ 38.125s PTStartMsgFilter(23, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 03063E2C)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ee 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e6 
+   returning FilterID 30
+++ 38.125s PTStartMsgFilter(23, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 03063E30)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ef 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e7 
+   returning FilterID 31
+** 38.125s PTIoctl(23, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 38.125s PTWriteMsgs(23, 16824C40, 196BED44, 250)
+   Transaction 0012 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  3e  01  01 
+   Queued everything
+   Sent 1/1
+<< 38.141s PTReadMsgs(23, 16824C40, 8, 512)
+   Msg[0] 38.122112s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   38.641s Returning 9:ERR_TIMEOUT 'Only read 1 of 8 messages'
+** 38.641s PTIoctl(23, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 38.656s PTWriteMsgs(23, 16824C40, 196BED40, 250)
+   Transaction 0014 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  00 
+   Queued everything
+   Sent 1/1
+<< 38.656s PTReadMsgs(23, 16824C40, 8, 512)
+   Msg[0] 38.639175s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   Msg[1] 38.649749s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  00  be  3e  a8  13 
+   Msg[2] 38.656565s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  00  98  18  80  01 
+   39.156s Returning 9:ERR_TIMEOUT 'Only read 3 of 8 messages'
+** 39.281s PTIoctl(23, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 39.281s PTWriteMsgs(23, 16824C40, 00AFE958, 250)
+   Transaction 0016 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  01 
+   Queued everything
+   Sent 1/1
+<< 39.281s PTReadMsgs(23, 16824C40, 1, 100)
+   Msg[0] 39.266497s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 39.281s PTReadMsgs() complete (channel 23)
+<< 39.281s PTReadMsgs(23, 16824C40, 1, 100)
+   Msg[0] 39.269685s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  01  00  07  e5  04 
+<< 39.281s PTReadMsgs() complete (channel 23)
+<< 39.281s PTReadMsgs(23, 16824C40, 1, 100)
+   Msg[0] 39.287728s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  01  00  04  00  00 
+<< 39.297s PTReadMsgs() complete (channel 23)
+<< 39.297s PTReadMsgs(23, 16824C40, 1, 100)   39.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 39.406s PTIoctl(23, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 39.406s PTWriteMsgs(23, 16824C40, 00AFE974, 150)
+   Transaction 0018 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  07 
+   Queued everything
+   Sent 1/1
+<< 39.406s PTReadMsgs(23, 16824C40, 1, 150)
+   Msg[0] 39.394114s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 39.406s PTReadMsgs() complete (channel 23)
+<< 39.406s PTReadMsgs(23, 16824C40, 1, 150)
+   Msg[0] 39.399698s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000000
+   \__  00  00  07  e8  47  00 
+<< 39.406s PTReadMsgs() complete (channel 23)
+<< 39.406s PTReadMsgs(23, 16824C40, 1, 150)
+   Msg[0] 39.411933s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000000
+   \__  00  00  07  e9  47  00 
+<< 39.422s PTReadMsgs() complete (channel 23)
+<< 39.422s PTReadMsgs(23, 16F3F2C0, 1, 150)   39.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 39.578s PTIoctl(23, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 39.578s PTWriteMsgs(23, 16F3F2C0, 00AFE974, 150)
+   Transaction 001a for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  0a 
+   Queued everything
+   Sent 1/1
+<< 39.578s PTReadMsgs(23, 16F3F2C0, 1, 150)
+   Msg[0] 39.564599s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 39.578s PTReadMsgs() complete (channel 23)
+<< 39.578s PTReadMsgs(23, 16F3F2C0, 1, 150)
+   Msg[0] 39.569691s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000000
+   \__  00  00  07  e8  4a  00 
+<< 39.578s PTReadMsgs() complete (channel 23)
+** 39.594s PTIoctl(23, 9:CLEAR_PERIODIC_MSGS, 00000000, 00000000)
+** 39.594s PTIoctl(23, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+-- 39.594s PTDisconnect(23)
+-- 39.594s PTClose(22)
+++ 44.031s PTOpen(00000000, 0C1F12F8)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.0.29.0
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #010172
+     USB\VID_18E1&PID_1002\CMSJB0000010172C
+   returning DeviceID 32
+++ 44.031s PTGetNextCarDAQ(00000000, 198CE71C, 00000000)
+++ 44.062s PTConnect(32, 6:ISO15765, 0, 500000, 198CE710)
+   Flags: {no ConnectFlags}
+   returning ChannelID 33
+++ 44.078s PTStartMsgFilter(33, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6B8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 34
+++ 44.078s PTStartMsgFilter(33, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6BC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e1 
+   returning FilterID 35
+++ 44.078s PTStartMsgFilter(33, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6C0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2 
+   returning FilterID 36
+++ 44.078s PTStartMsgFilter(33, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6C4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  eb 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e3 
+   returning FilterID 37
+++ 44.078s PTStartMsgFilter(33, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6C8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ec 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e4 
+   returning FilterID 38
+++ 44.078s PTStartMsgFilter(33, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6CC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ed 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e5 
+   returning FilterID 39
+++ 44.078s PTStartMsgFilter(33, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6D0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ee 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e6 
+   returning FilterID 40
+++ 44.078s PTStartMsgFilter(33, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6D4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ef 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e7 
+   returning FilterID 41
+** 44.078s PTIoctl(33, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 44.078s PTWriteMsgs(33, 16824C40, 198CE734, 250)
+   Transaction 0012 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  3e  01  01 
+   Queued everything
+   Sent 1/1
+<< 44.078s PTReadMsgs(33, 16824C40, 8, 512)
+   Msg[0] 44.065315s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   44.594s Returning 9:ERR_TIMEOUT 'Only read 1 of 8 messages'
+** 44.594s PTIoctl(33, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 44.594s PTWriteMsgs(33, 16824C40, 198CE730, 250)
+   Transaction 0014 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  00 
+   Queued everything
+   Sent 1/1
+<< 44.594s PTReadMsgs(33, 16824C40, 8, 512)
+   Msg[0] 44.582154s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   Msg[1] 44.589494s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  00  be  3e  a8  13 
+   Msg[2] 44.602909s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  00  98  18  80  01 
+   45.109s Returning 9:ERR_TIMEOUT 'Only read 3 of 8 messages'
+** 45.250s PTIoctl(33, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 45.250s PTWriteMsgs(33, 16824C40, 00AFEA04, 150)
+   Transaction 0016 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  04 
+   Queued everything
+   Sent 1/1
+<< 45.250s PTReadMsgs(33, 16824C40, 1, 512)
+   Msg[0] 45.241946s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 45.250s PTReadMsgs() complete (channel 33)
+<< 45.250s PTReadMsgs(33, 16824C40, 1, 512)
+   Msg[0] 45.259797s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  e8  7f  04  78 
+<< 45.266s PTReadMsgs() complete (channel 33)
+<< 45.266s PTReadMsgs(33, 16824C40, 1, 512)
+   Msg[0] 45.282187s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000000
+   \__  00  00  07  e9  7f  04  78 
+<< 45.297s PTReadMsgs() complete (channel 33)
+<< 45.297s PTReadMsgs(33, 16824C40, 1, 512)
+   Msg[0] 45.330241s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  e8  44 
+<< 45.344s PTReadMsgs() complete (channel 33)
+** 45.344s PTIoctl(33, 9:CLEAR_PERIODIC_MSGS, 00000000, 00000000)
+** 45.344s PTIoctl(33, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+-- 45.344s PTDisconnect(33)
+-- 45.344s PTClose(32)
+++ 52.703s PTOpen(00000000, 0C1F12F8)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.0.29.0
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #010172
+     USB\VID_18E1&PID_1002\CMSJB0000010172C
+   returning DeviceID 42
+++ 52.719s PTGetNextCarDAQ(00000000, 198CE71C, 00000000)
+++ 52.734s PTConnect(42, 6:ISO15765, 0, 500000, 198CE710)
+   Flags: {no ConnectFlags}
+   returning ChannelID 43
+++ 52.734s PTStartMsgFilter(43, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6B8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 44
+++ 52.734s PTStartMsgFilter(43, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6BC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e1 
+   returning FilterID 45
+++ 52.750s PTStartMsgFilter(43, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6C0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2 
+   returning FilterID 46
+++ 52.750s PTStartMsgFilter(43, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6C4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  eb 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e3 
+   returning FilterID 47
+++ 52.750s PTStartMsgFilter(43, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6C8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ec 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e4 
+   returning FilterID 48
+++ 52.750s PTStartMsgFilter(43, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6CC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ed 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e5 
+   returning FilterID 49
+++ 52.750s PTStartMsgFilter(43, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6D0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ee 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e6 
+   returning FilterID 50
+++ 52.750s PTStartMsgFilter(43, 3:FLOW_CONTROL_FILTER, 198CD638, 198CC5E0, 198CB58C, 0303F6D4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ef 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e7 
+   returning FilterID 51
+** 52.750s PTIoctl(43, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 52.750s PTWriteMsgs(43, 1682B2E8, 198CE734, 250)
+   Transaction 0012 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  3e  01  01 
+   Queued everything
+   Sent 1/1
+<< 52.750s PTReadMsgs(43, 1682B2E8, 8, 512)
+   Msg[0] 52.734022s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   53.266s Returning 9:ERR_TIMEOUT 'Only read 1 of 8 messages'
+** 53.266s PTIoctl(43, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 53.266s PTWriteMsgs(43, 1682B2E8, 198CE730, 250)
+   Transaction 0014 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  00 
+   Queued everything
+   Sent 1/1
+<< 53.266s PTReadMsgs(43, 1682B2E8, 8, 512)
+   Msg[0] 53.252441s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   Msg[1] 53.259932s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  00  be  3e  a8  13 
+   Msg[2] 53.272129s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  00  98  18  80  01 
+   53.781s Returning 9:ERR_TIMEOUT 'Only read 3 of 8 messages'
+** 53.953s PTIoctl(43, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 53.953s PTWriteMsgs(43, 1682B2E8, 196BED30, 250)
+   Transaction 0016 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  09  00 
+   Queued everything
+   Sent 1/1
+<< 53.953s PTReadMsgs(43, 140760D0, 1, 250)
+   Msg[0] 53.941106s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 53.953s PTReadMsgs() complete (channel 43)
+<< 53.953s PTReadMsgs(43, 14072DB8, 1, 250)
+   Msg[0] 53.94942s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  49  00  55  40  37  89 
+<< 53.969s PTReadMsgs() complete (channel 43)
+<< 53.969s PTReadMsgs(43, 14073EC0, 1, 250)
+   Msg[0] 53.962883s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  49  00  14  40  00  00 
+<< 53.969s PTReadMsgs() complete (channel 43)
+<< 53.969s PTReadMsgs(43, 14074FC8, 1, 250)   54.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 54.297s PTIoctl(43, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 54.297s PTWriteMsgs(43, 1682B2E8, 196BED30, 250)
+   Transaction 0018 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  09  20 
+   Queued everything
+   Sent 1/1
+<< 54.297s PTReadMsgs(43, 14068368, 1, 250)
+   Msg[0] 54.291687s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 54.297s PTReadMsgs() complete (channel 43)
+<< 54.297s PTReadMsgs(43, 1406A578, 1, 250)
+   Msg[0] 54.299429s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  49  20  40  00  00  00 
+<< 54.312s PTReadMsgs() complete (channel 43)
+<< 54.312s PTReadMsgs(43, 14067260, 1, 250)   54.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 54.609s PTIoctl(43, 9:CLEAR_PERIODIC_MSGS, 00000000, 00000000)
+** 54.609s PTIoctl(43, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+-- 54.609s PTDisconnect(43)
+-- 54.609s PTClose(42)
+++ 60.734s PTOpen(00000000, 0C1F12F8)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.0.29.0
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #010172
+     USB\VID_18E1&PID_1002\CMSJB0000010172C
+   returning DeviceID 52
+++ 60.734s PTGetNextCarDAQ(00000000, 196BED2C, 00000000)
+++ 60.781s PTConnect(52, 6:ISO15765, 0, 500000, 196BED20)
+   Flags: {no ConnectFlags}
+   returning ChannelID 53
+++ 60.781s PTStartMsgFilter(53, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 0303F6B8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 54
+++ 60.781s PTStartMsgFilter(53, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 0303F6BC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e1 
+   returning FilterID 55
+++ 60.781s PTStartMsgFilter(53, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 0303F6C0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2 
+   returning FilterID 56
+++ 60.781s PTStartMsgFilter(53, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 0303F6C4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  eb 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e3 
+   returning FilterID 57
+++ 60.781s PTStartMsgFilter(53, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 0303F6C8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ec 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e4 
+   returning FilterID 58
+++ 60.781s PTStartMsgFilter(53, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 0303F6CC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ed 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e5 
+   returning FilterID 59
+++ 60.781s PTStartMsgFilter(53, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 0303F6D0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ee 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e6 
+   returning FilterID 60
+++ 60.781s PTStartMsgFilter(53, 3:FLOW_CONTROL_FILTER, 196BDC48, 196BCBF0, 196BBB9C, 0303F6D4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ef 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e7 
+   returning FilterID 61
+** 60.781s PTIoctl(53, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 60.781s PTWriteMsgs(53, 1682B2E8, 196BED44, 250)
+   Transaction 0012 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  3e  01  01 
+   Queued everything
+   Sent 1/1
+<< 60.781s PTReadMsgs(53, 1682B2E8, 8, 512)
+   Msg[0] 60.778291s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   61.297s Returning 9:ERR_TIMEOUT 'Only read 1 of 8 messages'
+** 61.297s PTIoctl(53, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 61.297s PTWriteMsgs(53, 1682B2E8, 196BED40, 250)
+   Transaction 0014 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  00 
+   Queued everything
+   Sent 1/1
+<< 61.297s PTReadMsgs(53, 1682B2E8, 8, 512)
+   Msg[0] 61.29343s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   Msg[1] 61.299548s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  00  be  3e  a8  13 
+   Msg[2] 61.315443s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  00  98  18  80  01 
+   61.812s Returning 9:ERR_TIMEOUT 'Only read 3 of 8 messages'
+** 61.953s PTIoctl(53, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 61.953s PTWriteMsgs(53, 1682B2E8, 00AFEA20, 250)
+   Transaction 0016 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  09  04 
+   Queued everything
+   Sent 1/1
+<< 61.953s PTReadMsgs(53, 14068368, 1, 512)
+   Msg[0] 61.947556s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 61.953s PTReadMsgs() complete (channel 53)
+<< 61.953s PTReadMsgs(53, 14068368, 1, 512)
+   Msg[0] 61.949396s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 61.953s PTReadMsgs() complete (channel 53)
+<< 61.953s PTReadMsgs(53, 14068368, 1, 512)
+   Msg[0] 61.953022s. 6:ISO15765. Actual data 23 of 23 bytes. RxS=00000000
+   \__  00  00  07  e8  49  04  01  30  34  45  30  32  34  41  54  39 
+        39  31  33  44  58  41  41 
+<< 61.969s PTReadMsgs() complete (channel 53)
+<< 61.969s PTReadMsgs(53, 14068368, 1, 512)
+   Msg[0] 61.967409s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e9]
+<< 61.984s PTReadMsgs() complete (channel 53)
+<< 61.984s PTReadMsgs(53, 14068368, 1, 512)
+   Msg[0] 61.977009s. 6:ISO15765. Actual data 23 of 23 bytes. RxS=00000000
+   \__  00  00  07  e9  49  04  01  30  39  53  39  32  37  31  35  38 
+        42  53  20  33  36  34  32 
+<< 61.984s PTReadMsgs() complete (channel 53)
+<< 61.984s PTReadMsgs(53, 14068368, 1, 512)   62.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 62.547s PTIoctl(53, 9:CLEAR_PERIODIC_MSGS, 00000000, 00000000)
+** 62.547s PTIoctl(53, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+-- 62.547s PTDisconnect(53)
+-- 62.547s PTClose(52)
+++ 69.656s PTOpen(00000000, 0C1F12F8)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.0.29.0
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #010172
+     USB\VID_18E1&PID_1002\CMSJB0000010172C
+   returning DeviceID 62
+++ 69.656s PTGetNextCarDAQ(00000000, 1A56E91C, 00000000)
+++ 69.687s PTConnect(62, 6:ISO15765, 0, 500000, 1A56E910)
+   Flags: {no ConnectFlags}
+   returning ChannelID 63
+++ 69.687s PTStartMsgFilter(63, 3:FLOW_CONTROL_FILTER, 1A56D838, 1A56C7E0, 1A56B78C, 0303F6B8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 64
+++ 69.687s PTStartMsgFilter(63, 3:FLOW_CONTROL_FILTER, 1A56D838, 1A56C7E0, 1A56B78C, 0303F6BC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e1 
+   returning FilterID 65
+++ 69.687s PTStartMsgFilter(63, 3:FLOW_CONTROL_FILTER, 1A56D838, 1A56C7E0, 1A56B78C, 0303F6C0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2 
+   returning FilterID 66
+++ 69.687s PTStartMsgFilter(63, 3:FLOW_CONTROL_FILTER, 1A56D838, 1A56C7E0, 1A56B78C, 0303F6C4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  eb 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e3 
+   returning FilterID 67
+++ 69.687s PTStartMsgFilter(63, 3:FLOW_CONTROL_FILTER, 1A56D838, 1A56C7E0, 1A56B78C, 0303F6C8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ec 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e4 
+   returning FilterID 68
+++ 69.687s PTStartMsgFilter(63, 3:FLOW_CONTROL_FILTER, 1A56D838, 1A56C7E0, 1A56B78C, 0303F6CC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ed 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e5 
+   returning FilterID 69
+++ 69.687s PTStartMsgFilter(63, 3:FLOW_CONTROL_FILTER, 1A56D838, 1A56C7E0, 1A56B78C, 0303F6D0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ee 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e6 
+   returning FilterID 70
+++ 69.687s PTStartMsgFilter(63, 3:FLOW_CONTROL_FILTER, 1A56D838, 1A56C7E0, 1A56B78C, 0303F6D4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ef 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e7 
+   returning FilterID 71
+** 69.687s PTIoctl(63, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 69.687s PTWriteMsgs(63, 1682B2E8, 1A56E934, 250)
+   Transaction 0012 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  3e  01  01 
+   Queued everything
+   Sent 1/1
+<< 69.687s PTReadMsgs(63, 1682B2E8, 8, 512)
+   Msg[0] 69.682507s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   70.203s Returning 9:ERR_TIMEOUT 'Only read 1 of 8 messages'
+** 70.203s PTIoctl(63, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 70.203s PTWriteMsgs(63, 1682B2E8, 1A56E930, 250)
+   Transaction 0014 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  00 
+   Queued everything
+   Sent 1/1
+<< 70.203s PTReadMsgs(63, 1682B2E8, 8, 512)
+   Msg[0] 70.198253s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   Msg[1] 70.199593s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  00  be  3e  a8  13 
+   Msg[2] 70.21711s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  00  98  18  80  01 
+   70.719s Returning 9:ERR_TIMEOUT 'Only read 3 of 8 messages'
+** 70.875s PTIoctl(63, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 70.875s PTWriteMsgs(63, 1682B2E8, 00AFEA20, 250)
+   Transaction 0016 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  09  06 
+   Queued everything
+   Sent 1/1
+<< 70.891s PTReadMsgs(63, 1406B680, 1, 512)
+   Msg[0] 70.874069s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 70.891s PTReadMsgs() complete (channel 63)
+<< 70.891s PTReadMsgs(63, 1406B680, 1, 512)
+   Msg[0] 70.879401s. 6:ISO15765. Actual data 11 of 11 bytes. RxS=00000000
+   \__  00  00  07  e8  49  06  01  18  1f  48  b3 
+<< 70.891s PTReadMsgs() complete (channel 63)
+<< 70.891s PTReadMsgs(63, 1406B680, 1, 512)
+   Msg[0] 70.89461s. 6:ISO15765. Actual data 11 of 11 bytes. RxS=00000000
+   \__  00  00  07  e9  49  06  01  6b  14  d8  cd 
+<< 70.906s PTReadMsgs() complete (channel 63)
+<< 70.906s PTReadMsgs(63, 14065050, 1, 512)   71.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 71.422s PTIoctl(63, 9:CLEAR_PERIODIC_MSGS, 00000000, 00000000)
+** 71.437s PTIoctl(63, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+-- 71.437s PTDisconnect(63)
+-- 71.437s PTClose(62)
+++ 75.734s PTOpen(00000000, 0C1F12F8)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.0.29.0
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #010172
+     USB\VID_18E1&PID_1002\CMSJB0000010172C
+   returning DeviceID 72
+++ 75.734s PTGetNextCarDAQ(00000000, 12E7E8CC, 00000000)
+++ 75.766s PTConnect(72, 6:ISO15765, 0, 500000, 12E7E8C0)
+   Flags: {no ConnectFlags}
+   returning ChannelID 73
+++ 75.766s PTStartMsgFilter(73, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6B8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 74
+++ 75.766s PTStartMsgFilter(73, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6BC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e1 
+   returning FilterID 75
+++ 75.766s PTStartMsgFilter(73, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6C0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2 
+   returning FilterID 76
+++ 75.766s PTStartMsgFilter(73, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6C4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  eb 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e3 
+   returning FilterID 77
+++ 75.766s PTStartMsgFilter(73, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6C8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ec 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e4 
+   returning FilterID 78
+++ 75.766s PTStartMsgFilter(73, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6CC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ed 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e5 
+   returning FilterID 79
+++ 75.766s PTStartMsgFilter(73, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6D0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ee 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e6 
+   returning FilterID 80
+++ 75.766s PTStartMsgFilter(73, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6D4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ef 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e7 
+   returning FilterID 81
+** 75.766s PTIoctl(73, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 75.781s PTWriteMsgs(73, 1682B2E8, 12E7E8E4, 250)
+   Transaction 0012 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  3e  01  01 
+   Queued everything
+   Sent 1/1
+<< 75.781s PTReadMsgs(73, 1682B2E8, 8, 512)
+   Msg[0] 75.762981s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   76.297s Returning 9:ERR_TIMEOUT 'Only read 1 of 8 messages'
+** 76.297s PTIoctl(73, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 76.297s PTWriteMsgs(73, 1682B2E8, 12E7E8E0, 250)
+   Transaction 0014 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  00 
+   Queued everything
+   Sent 1/1
+<< 76.297s PTReadMsgs(73, 1682B2E8, 8, 512)
+   Msg[0] 76.279562s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   Msg[1] 76.28959s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  00  be  3e  a8  13 
+   Msg[2] 76.29741s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  00  98  18  80  01 
+   76.797s Returning 9:ERR_TIMEOUT 'Only read 3 of 8 messages'
+** 76.953s PTIoctl(73, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 76.953s PTWriteMsgs(73, 1682B2E8, 00AFEA20, 250)
+   Transaction 0016 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  09  0a 
+   Queued everything
+   Sent 1/1
+<< 76.953s PTReadMsgs(73, 1406D890, 1, 512)
+   Msg[0] 76.949895s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 76.953s PTReadMsgs() complete (channel 73)
+<< 76.953s PTReadMsgs(73, 1406D890, 1, 512)
+   Msg[0] 76.959553s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e8]
+<< 76.969s PTReadMsgs() complete (channel 73)
+<< 76.969s PTReadMsgs(73, 1406A578, 1, 512)
+   Msg[0] 76.965095s. 6:ISO15765. Actual data 27 of 27 bytes. RxS=00000000
+   \__  00  00  07  e8  49  0a  01  45  43  4d  00  2d  45  6e  67  69 
+        6e  65  43  6f  6e  74  72  6f  6c  00  00 
+<< 76.984s PTReadMsgs() complete (channel 73)
+<< 76.984s PTReadMsgs(73, 1406D890, 1, 512)
+   Msg[0] 76.967615s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000002
+   RxStatus: {:START_OF_MESSAGE}
+   \__ [00][00][07][e9]
+<< 76.984s PTReadMsgs() complete (channel 73)
+<< 76.984s PTReadMsgs(73, 1406E998, 1, 512)
+   Msg[0] 76.984912s. 6:ISO15765. Actual data 27 of 27 bytes. RxS=00000000
+   \__  00  00  07  e9  49  0a  01  54  43  4d  00  2d  54  72  61  6e 
+        73  6d  69  73  43  74  72  6c  00  00  00 
+<< 77.000s PTReadMsgs() complete (channel 73)
+<< 77.000s PTReadMsgs(73, 1406D890, 1, 512)   77.516s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 77.516s PTIoctl(73, 9:CLEAR_PERIODIC_MSGS, 00000000, 00000000)
+** 77.516s PTIoctl(73, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+-- 77.516s PTDisconnect(73)
+-- 77.516s PTClose(72)
+++ 83.750s PTOpen(00000000, 0C1F12F8)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.0.29.0
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #010172
+     USB\VID_18E1&PID_1002\CMSJB0000010172C
+   returning DeviceID 82
+++ 83.750s PTGetNextCarDAQ(00000000, 12E7E8CC, 00000000)
+++ 83.797s PTConnect(82, 6:ISO15765, 0, 500000, 12E7E8C0)
+   Flags: {no ConnectFlags}
+   returning ChannelID 83
+++ 83.797s PTStartMsgFilter(83, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6B8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 84
+++ 83.797s PTStartMsgFilter(83, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6BC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e1 
+   returning FilterID 85
+++ 83.797s PTStartMsgFilter(83, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6C0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e2 
+   returning FilterID 86
+++ 83.797s PTStartMsgFilter(83, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6C4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  eb 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e3 
+   returning FilterID 87
+++ 83.797s PTStartMsgFilter(83, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6C8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ec 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e4 
+   returning FilterID 88
+++ 83.797s PTStartMsgFilter(83, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6CC)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ed 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e5 
+   returning FilterID 89
+++ 83.797s PTStartMsgFilter(83, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6D0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ee 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e6 
+   returning FilterID 90
+++ 83.797s PTStartMsgFilter(83, 3:FLOW_CONTROL_FILTER, 12E7D7E8, 12E7C790, 12E7B73C, 0303F6D4)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  ef 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e7 
+   returning FilterID 91
+** 83.797s PTIoctl(83, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 83.797s PTWriteMsgs(83, 1682B2E8, 12E7E8E4, 250)
+   Transaction 0012 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  3e  01  01 
+   Queued everything
+   Sent 1/1
+<< 83.797s PTReadMsgs(83, 1682B2E8, 8, 512)
+   Msg[0] 83.787317s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   84.312s Returning 9:ERR_TIMEOUT 'Only read 1 of 8 messages'
+** 84.312s PTIoctl(83, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 84.312s PTWriteMsgs(83, 1682B2E8, 12E7E8E0, 250)
+   Transaction 0014 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  00 
+   Queued everything
+   Sent 1/1
+<< 84.312s PTReadMsgs(83, 1682B2E8, 8, 512)
+   Msg[0] 84.301195s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+   Msg[1] 84.309329s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  00  be  3e  a8  13 
+   Msg[2] 84.317415s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  00  98  18  80  01 
+   84.828s Returning 9:ERR_TIMEOUT 'Only read 3 of 8 messages'
+** 84.969s PTIoctl(83, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 84.969s PTWriteMsgs(83, 1682B2E8, 196BED60, 250)
+   Transaction 0016 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  00 
+   Queued everything
+   Sent 1/1
+<< 84.969s PTReadMsgs(83, 1406E998, 1, 512)
+   Msg[0] 84.963707s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 84.969s PTReadMsgs() complete (channel 83)
+<< 84.969s PTReadMsgs(83, 14072DB8, 1, 512)
+   Msg[0] 84.969323s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  00  be  3e  a8  13 
+<< 84.984s PTReadMsgs() complete (channel 83)
+<< 84.984s PTReadMsgs(83, 14071CB0, 1, 512)
+   Msg[0] 84.986216s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  00  98  18  80  01 
+<< 85.000s PTReadMsgs() complete (channel 83)
+<< 85.000s PTReadMsgs(83, 14072DB8, 1, 512)   85.516s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 85.516s PTIoctl(83, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+>> 85.516s PTWriteMsgs(83, 1682B2E8, 196BED68, 250)
+   Transaction 0018 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  df  01  01 
+   Queued everything
+   Sent 1/1
+<< 85.516s PTReadMsgs(83, 140760D0, 1, 350)
+   Msg[0] 85.509594s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][df]
+<< 85.516s PTReadMsgs() complete (channel 83)
+<< 85.516s PTReadMsgs(83, 1406FAA0, 1, 350)
+   Msg[0] 85.519282s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e8  41  01  00  27  e5  e5 
+<< 85.531s PTReadMsgs() complete (channel 83)
+<< 85.531s PTReadMsgs(83, 140760D0, 1, 350)
+   Msg[0] 85.528011s. 6:ISO15765. Actual data 10 of 10 bytes. RxS=00000000
+   \__  00  00  07  e9  41  01  00  04  00  00 
+<< 85.531s PTReadMsgs() complete (channel 83)
+<< 85.531s PTReadMsgs(83, 140760D0, 1, 350)   85.891s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 86.062s PTIoctl(83, 9:CLEAR_PERIODIC_MSGS, 00000000, 00000000)
+** 86.062s PTIoctl(83, 10:CLEAR_MSG_FILTERS, 00000000, 00000000)
+-- 86.062s PTDisconnect(83)
+-- 86.062s PTClose(82)

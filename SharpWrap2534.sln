@@ -5,22 +5,22 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrapper", "SharpWrapper\SharpWrapper.csproj", "{E4508BD6-9045-4840-A659-BE40CC205C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpAutoId", "Extensions\SharpAutoId\SharpAutoId.csproj", "{D3BCD896-7593-4CD8-94B5-7636D4061A00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpAutoId", "SharpAutoId\SharpAutoId.csproj", "{D3BCD896-7593-4CD8-94B5-7636D4061A00}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E4508BD6-9045-4840-A659-BE40CC205C78} = {E4508BD6-9045-4840-A659-BE40CC205C78}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpExpressions", "Extensions\SharpExpressions\SharpExpressions.csproj", "{D7F2FBA3-281E-432D-96D8-7E6FBF1147F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpExpressions", "SharpExpressions\SharpExpressions.csproj", "{D7F2FBA3-281E-432D-96D8-7E6FBF1147F7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E4508BD6-9045-4840-A659-BE40CC205C78} = {E4508BD6-9045-4840-A659-BE40CC205C78}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpPipes", "Extensions\SharpPipes\SharpPipes.csproj", "{E43E4328-FFC8-499C-B1F1-19160101E9D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpPipes", "SharpPipes\SharpPipes.csproj", "{E43E4328-FFC8-499C-B1F1-19160101E9D3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E4508BD6-9045-4840-A659-BE40CC205C78} = {E4508BD6-9045-4840-A659-BE40CC205C78}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSimulator", "Extensions\SharpSimulator\SharpSimulator.csproj", "{0A39E208-7927-41BC-A509-39E60B287969}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSimulator", "SharpSimulator\SharpSimulator.csproj", "{0A39E208-7927-41BC-A509-39E60B287969}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D7F2FBA3-281E-432D-96D8-7E6FBF1147F7} = {D7F2FBA3-281E-432D-96D8-7E6FBF1147F7}
 		{E4508BD6-9045-4840-A659-BE40CC205C78} = {E4508BD6-9045-4840-A659-BE40CC205C78}

@@ -57,7 +57,7 @@ namespace SharpWrapperTests.SharpExpressions
         /// <summary>
         /// Test method which will pick a random log file from our collection of choices and attempt to build expressions from it
         /// </summary>
-        [TestMethod]
+        [TestMethod("Generate Expressions From Logs")]
         public void GenerateExpressionsFromFiles()
         {
             // Configure our logging instance and start the test

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -131,9 +132,6 @@ namespace SharpSimulator
             this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded?.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
         }
-
-        // ------------------------------------------------------------------------------------------------------------------------------------------
-
         /// <summary>
         /// Spawns a new SimulationGenerator from a PassThru log file.
         /// </summary>
@@ -143,6 +141,10 @@ namespace SharpSimulator
         {
             // Build an expressions generator and then use it to build a new simulation generator
             var ExpressionGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(PassThruLogFile);
+            if (ExpressionGenerator.GenerateLogExpressions().Length == 0)
+                throw new DataException($"Error! No expressions were able to be built from log file {PassThruLogFile}!");
+
+            // Build and return a new simulation generator from our built expressions objects
             return new PassThruSimulationGenerator(ExpressionGenerator);
         }
         /// <summary>
@@ -154,6 +156,10 @@ namespace SharpSimulator
         {
             // Build an expressions generator and then use it to build a new simulation generator
             var ExpressionGenerator = PassThruExpressionsGenerator.LoadExpressionsFile(ExpressionsFile);
+            if (ExpressionGenerator.GenerateLogExpressions().Length == 0)
+                throw new DataException($"Error! No expressions were able to be built from log file {ExpressionsFile}!");
+
+            // Build and return a new simulation generator from our built expressions objects
             return new PassThruSimulationGenerator(ExpressionGenerator);
         }
 
@@ -256,8 +262,7 @@ namespace SharpSimulator
         public string SaveSimulationFile(string BaseFileName = "", string OutputLogFileFolder = null)
         {
             // First build our output location for our file.
-            // string OutputFolder = ValueLoaders.GetConfigValue<string>("FulcrumInjectorConstants.InjectorLogging.DefaultExpressionsPath");
-            OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumSimulations";
+            OutputLogFileFolder ??= Path.Combine(Directory.GetCurrentDirectory(), "FulcrumSimulations");
             string FinalOutputPath = Path.Combine(OutputLogFileFolder, Path.GetFileNameWithoutExtension(BaseFileName)) + ".ptSim";
 
             // Get a logger object for saving expression sets.

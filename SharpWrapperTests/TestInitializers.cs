@@ -85,8 +85,17 @@ namespace SharpWrapperTests
             // Spawn a new test invokers class logger instance and configure our logging
             SeparateConsole();
 
-            // Define a new log broker configuration and setup the log broker
+            // Define a new log broker configuration, clean up old output, and setup the log broker
             string OutputLogFolder = Path.Combine(BaseOutputPath, "SharpWrapperLogging");
+            string[] LocatedLogFiles = Directory.GetFiles(OutputLogFolder);
+            if (LocatedLogFiles.Length > 15)
+            {
+                // Remove the 10 oldest log files
+                for (int FileIndex = 0; FileIndex < 10; FileIndex++)
+                    File.Delete(LocatedLogFiles[FileIndex]);
+            }
+
+            // Configure the log broker with a new configuration object here for test output logging
             SharpLogBroker.BrokerConfiguration BrokerConfiguration = new SharpLogBroker.BrokerConfiguration()
             {
                 LogFilePath = OutputLogFolder,                                  // Path to the log file to write
@@ -99,27 +108,6 @@ namespace SharpWrapperTests
             // Using the built configuration object, we can now initialize our log broker.
             if (!SharpLogBroker.InitializeLogging(BrokerConfiguration))
                 throw new InvalidOperationException("Error! Failed to configure a new SharpLogging session!");
-
-            // Now define a new log archiver configuration and setup the log archiver
-            string OutputArchiveFolder = Path.Combine(OutputLogFolder, "SharpWrapperLogArchives");
-            SharpLogArchiver.ArchiveConfiguration ArchiverConfiguration = new SharpLogArchiver.ArchiveConfiguration()
-            {
-                ArchiveFileSetSize = 15,                             // The number of files to store in each archive
-                ArchiveOnFileCount = 10,                             // The number of files to trigger an archive event
-                SearchPath = OutputLogFolder,                        // The path to search for files to archive
-                ArchiveCleanupFileCount = 20,                        // The max number of archives to store in the ArchivePath
-                ArchivePath = OutputArchiveFolder,                   // The path to store the archived files into
-                ArchiveFileFilter = "SharpWrapperTests*",            // The filter to use when searching for archives
-                CompressionLevel = CompressionLevel.Optimal,         // The compression type for the archive generation
-                CompressionStyle = CompressionType.ZipCompression    // The type of archive to make (Zip or GZip)
-            };
-
-            // Using the built configuration object, we can now initialize our log archiver.
-            if (!SharpLogArchiver.InitializeArchiving(ArchiverConfiguration))
-                throw new InvalidOperationException("Error! Failed to configure the SharpArchiver for our logging session!");
-
-            // Archive the log files found now
-            SharpLogArchiver.ArchiveLogFiles();
 
             // Spawn in our new logger instance and pass it out
             _testInvokersLogger = new SharpLogger(LoggerActions.UniversalLogger);

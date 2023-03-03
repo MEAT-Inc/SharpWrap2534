@@ -153,7 +153,7 @@ namespace SharpExpressions
             File.WriteAllText(OutputFilePath, CombinedOutputLogLines);
 
             // Now check if the conversions folder exists and copy the output file into there if needed
-            string InjectorConversions = "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumConversions";
+            string InjectorConversions = Path.Combine(Directory.GetCurrentDirectory(), "FulcrumConversions");
             if (Directory.Exists(InjectorConversions))
             {
                 // Copy the output file into the injector conversions folder now
@@ -316,7 +316,7 @@ namespace SharpExpressions
         public string SaveExpressionsFile(string BaseFileName = "", string OutputLogFileFolder = null)
         {
             // First build our output location for our file.
-            OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumExpressions";
+            OutputLogFileFolder ??= Path.Combine(Directory.GetCurrentDirectory(), "FulcrumExpressions");
             string FinalOutputPath = Path.Combine(OutputLogFileFolder, Path.GetFileNameWithoutExtension(BaseFileName)) + ".ptExp";
 
             // Get a logger object for saving expression sets.

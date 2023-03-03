@@ -203,7 +203,7 @@ namespace SharpExpressions
             if (!this.StatusCodeRegex.Evaluate(CommandInput, out var StatusCodeStrings))
             {
                 // Try and find the end of the command in a different way
-                // this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+                this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
                 StatusCodeStrings = new[]
                 {
                     $"{TimeStrings[2]} 0:STATUS_NOERROR",

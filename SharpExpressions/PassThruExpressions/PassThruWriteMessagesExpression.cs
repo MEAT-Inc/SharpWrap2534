@@ -63,9 +63,9 @@ namespace SharpExpressions.PassThruExpressions
                 .Select(NextIndex => MessagesSentStrings[NextIndex]));
 
             // Find our message content values here.
-            string MessageTable = this.FindMessageContents(out this.MessageProperties);
-            if (MessageTable is "" or "No Messages Found!") 
-                this._expressionLogger.WriteLog($"WARNING! NO MESSAGES FOUND FOR EXPRESSION TYPE {this.GetType().Name}!", LogType.WarnLog);
+            // string MessageTable = this.FindMessageContents(out this.MessageProperties);
+            // if (MessageTable is "" or "No Messages Found!") 
+            //     this._expressionLogger.WriteLog($"WARNING! NO MESSAGES FOUND FOR EXPRESSION TYPE {this.GetType().Name}!", LogType.WarnLog);
 
             // Now apply values using base method and exit out of this routine
             if (!this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray()))

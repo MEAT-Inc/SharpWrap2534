@@ -4,11 +4,11 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NLog.Targets;
 using SharpExpressions;
+using SharpExpressions.PassThruExpressions;
 using SharpLogging;
 using SharpSimulator.PassThruSimulationSupport;
 using SharpWrapper.J2534Objects;
@@ -31,7 +31,8 @@ namespace SharpSimulator
         #region Fields
 
         // Logger object used to help provided debug information about a simulation being built
-        private readonly SharpLogger _simulationLogger;          // The base logger object used for this simulation builder
+        private readonly SharpLogger _generationLogger;          // The logger object used for detailed debugging during generation
+        private readonly SharpLogger _simulationLogger;          // The base logger object used for this simulation builder for basic info
 
         #endregion // Fields
 
@@ -111,6 +112,15 @@ namespace SharpSimulator
             // Finally build our logger object and exit out of this constructor
             this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
+
+            // Now build our expressions file generation logger instance
+            string SimulationLoggerName = $"SimulationGenerator_{Path.GetFileNameWithoutExtension(PassThruLogName)}";
+            this._generationLogger = new SharpLogger(LoggerActions.CustomLogger, SimulationLoggerName);
+            this._generationLogger.RegisterTarget(this._spawnGeneratorTarget());
+
+            // Log that our generation target was built correctly and exit out
+            this._simulationLogger.WriteLog("SPAWNED NEW FILE TARGET FOR GENERATION LOGGER OK!", LogType.InfoLog);
+            this._simulationLogger.WriteLog($"GENERATOR TARGETS HAVE BEEN CONFIGURED FOR INPUT FILE {this.PassThruLogFile}");
         }
         /// <summary>
         /// Builds a new Simulation generator based on an expressions generator
@@ -127,10 +137,21 @@ namespace SharpSimulator
                 : GeneratorToSimulate.ExpressionsBuilt;
 
             // Finally build our logger object and exit out of this constructor
-            string SimGeneratorName = Path.GetFileNameWithoutExtension(this.PassThruLogFile); 
             this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded?.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
         }
+        /// <summary>
+        /// Disposal routine used to clear out our logger instance
+        /// </summary>
+        ~PassThruSimulationGenerator()
+        {
+            // Dispose our logger and exit out
+            this._generationLogger.Dispose();
+            this._simulationLogger.Dispose();
+        }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
         /// <summary>
         /// Spawns a new SimulationGenerator from a PassThru log file.
         /// </summary>
@@ -177,19 +198,7 @@ namespace SharpSimulator
             // Build a dictionary for return output objects and log we're starting to update our values
             var SimChannelsBuilt = new Dictionary<uint, PassThruSimulationChannel>();
             this._simulationLogger.WriteLog("BUILDING CHANNEL OBJECTS FROM CHANNEL ID VALUES NOW...", LogType.WarnLog);
-
-            // TODO: FIND A BETTER WAY TO SPLIT UP THIS STUFF
-            // Find the master target and remove it for the generation routine
-            // var MasterTargets = SharpLogBroker.MasterLogger.LoggerTargets;
-            // var MasterFileTarget = MasterTargets.FirstOrDefault(TargetObj => TargetObj.FileName = SharpLogBroker.LogFileName);
-            // this._simulationLogger.RemoveTarget(MasterFileTarget);
-
-            // Register our debug target output now
-            var GeneratorTarget = this._spawnGeneratorTarget();
-            this._simulationLogger.RegisterTarget(GeneratorTarget);
-            this._simulationLogger.WriteLog($"SPAWNED NEW GENERATION LOGGER CORRECTLY!", LogType.InfoLog);
-            this._simulationLogger.WriteLog($"POINTING THIS NEW LOGGER AT FILE: {GeneratorTarget.FileName}!", LogType.InfoLog);
-
+ 
             // Loop all the expression sets built in parallel and generate a simulation channel for them
             int LoopsCompleted = 0; int TotalLoops = GroupedExpressions.Count;
             Parallel.ForEach(GroupedExpressions, ExpressionSet =>
@@ -199,56 +208,108 @@ namespace SharpSimulator
                     // Pull the Channel ID and the expression objects here and build a channel from it
                     uint SimChannelId = ExpressionSet.Key;
                     PassThruExpression[] ChannelExpressions = ExpressionSet.Value;
-                    PassThruSimulationChannel BuiltChannel = ChannelExpressions.BuildChannelsFromExpressions(SimChannelId);
+                    
+                    // Find all the PTFilter commands first and invert them.
+                    var PTConnectCommands = ExpressionSet.Value
+                        .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTConnect)
+                        .Cast<PassThruConnectExpression>()
+                        .ToArray();
+                    var PTFilterCommands = ExpressionSet.Value
+                        .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTStartMsgFilter)
+                        .Cast<PassThruStartMessageFilterExpression>()
+                        .ToArray();
+                    var PTReadCommands = ExpressionSet.Value
+                        .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTReadMsgs)
+                        .Cast<PassThruReadMessagesExpression>()
+                        .ToArray();
+                    var PTWriteCommands = ExpressionSet.Value
+                        .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTWriteMsgs)
+                        .Cast<PassThruWriteMessagesExpression>()
+                        .ToArray();
 
-                    // If our channel object is not null, then store it on our output collection now
-                    if (BuiltChannel == null)
+                    // Tick the loop counter and setup our channel properties
+                    LoopsCompleted++;
+                    this._generationLogger.AddScopeProperties(
+                        new KeyValuePair<string, object>("sim-channel-id", SimChannelId),
+                        new KeyValuePair<string, object>("sim-message-pairs", ChannelExpressions.Length),
+                        new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
+                        new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
+
+                    // If no commands found, then just move onto the next channel
+                    if (PTConnectCommands.Length == 0)
                     {
-                        // Tick the loop counter and setup our channel properties
-                        LoopsCompleted++;
-                        this._simulationLogger.AddScopeProperties(
-                            new KeyValuePair<string, object>("sim-channel-id", SimChannelId),
-                            new KeyValuePair<string, object>("sim-message-pairs", ChannelExpressions.Length),
-                            new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
-                            new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
-
                         // Log out our exception and invoke a new progress event with the properties we configured above
-                        this._simulationLogger.WriteLog($"FAILED TO GENERATE NEW SIMULATION CHANNEL!", LogType.ErrorLog);
-                        this._simulationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS");
-                        this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted, TotalLoops));
+                        this._simulationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
+                        this._generationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
+                        this._simulationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
+                        this._generationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
+
+                        // Return out to our next loop/channel
+                        return;
                     }
-                    else
+
+                    // Find the ProtocolID and Current Channel ID. Then build a sim channel
+                    var ConnectCommand = PTConnectCommands.FirstOrDefault();
+                    var ChannelFlags = (PassThroughConnect)Convert.ToUInt32(ConnectCommand.ConnectFlags, 16);
+                    var ProtocolInUse = (ProtocolId)Enum.Parse(typeof(ProtocolId), ConnectCommand.ProtocolId.Split(':')[1]);
+                    var ChannelBaud = (BaudRate)Enum.Parse(typeof(BaudRate), Enum.GetNames(typeof(ProtocolId))
+                        .Select(BaudValue => BaudValue
+                            .Split('_')
+                            .OrderByDescending(StringPart => StringPart.Length)
+                            .FirstOrDefault())
+                        .FirstOrDefault(ProtocolName => ProtocolInUse.ToString().Contains(ProtocolName)) + "_" + ConnectCommand.BaudRate);
+
+                    // If no read commands were found or no write commands were found, move onto the next channel instance
+                    if (PTReadCommands.Length == 0 || PTWriteCommands.Length == 0)
                     {
-                        // Lock the output collection to avoid thread issues and store the new channel
-                        lock (SimChannelsBuilt)
-                        {
-                            // If the ID exists already, throw this exception out
-                            if (SimChannelsBuilt.ContainsKey(SimChannelId))
-                                throw new InvalidDataException(
-                                    $"ERROR! CAN NOT APPEND A SIM CHANNEL WITH ID {SimChannelId} SINCE IT EXISTS ALREADY!");
+                        // Log out our exception and invoke a new progress event with the properties we configured above
+                        this._simulationLogger.WriteLog($"FAILED TO GENERATE NEW SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTREAD/PTWRITE COMMANDS WERE FOUND!", LogType.ErrorLog);
+                        this._generationLogger.WriteLog($"FAILED TO GENERATE NEW SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTREAD/PTWRITE COMMANDS WERE FOUND!", LogType.ErrorLog);
+                        this._simulationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
+                        this._generationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
 
-                            // Now insert this expression object based on what keys are in the output collection of expressions
-                            SimChannelsBuilt.Add(SimChannelId, BuiltChannel);
-
-                            // Setup our scope diagnostic properties for the generator logger
-                            LoopsCompleted++;
-                            this._simulationLogger.AddScopeProperties(
-                                new KeyValuePair<string, object>("sim-channel-id", BuiltChannel.ChannelId),
-                                new KeyValuePair<string, object>("sim-message-pairs", BuiltChannel.MessagePairs),
-                                new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
-                                new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
-
-                            // Once we've set our scope properties, write out the content generated and invoke a new progress event
-                            this._simulationLogger.WriteLog($"BUILT NEW {BuiltChannel.ChannelProtocol} CHANNEL WITH A SPECIFIED BAUD RATE OF {BuiltChannel.ChannelBaudRate}");
-                            this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted, TotalLoops));
-                        }
+                        // Return out to our next loop/channel
+                        return;
                     }
+
+                    // Build simulation channel here and return it out
+                    var SimChannelBuilt = new PassThruSimulationChannel(SimChannelId, ProtocolInUse, ChannelFlags, ChannelBaud);
+                    SimChannelBuilt.StoreMessageFilters(PTFilterCommands);
+                    SimChannelBuilt.StoreMessagesRead(PTReadCommands);
+                    SimChannelBuilt.StoreMessagesWritten(PTWriteCommands);
+                    SimChannelBuilt.StorePassThruPairs(ExpressionSet.Value);
+
+                    // Lock the output collection to avoid thread issues and store the new channel
+                    lock (SimChannelsBuilt)
+                    {
+                        // If the ID exists already, throw this exception out
+                        if (SimChannelsBuilt.ContainsKey(SimChannelId))
+                            throw new InvalidDataException($"ERROR! CAN NOT APPEND A SIM CHANNEL WITH ID {SimChannelId} SINCE IT EXISTS ALREADY!");
+
+                        // Now insert this expression object based on what keys are in the output collection of expressions
+                        SimChannelsBuilt.Add(SimChannelId, SimChannelBuilt);
+
+                        // Log information about the built out command objects.
+                        this._generationLogger.WriteLog($"BUILT NEW {SimChannelBuilt.ChannelProtocol} CHANNEL WITH A SPECIFIED BAUD RATE OF {SimChannelBuilt.ChannelBaudRate}");
+                        this._generationLogger.WriteLog(
+                            $"PULLED OUT THE FOLLOWING INFO FROM OUR COMMANDS (CHANNEL ID {SimChannelId}):" +
+                            $" {PTConnectCommands.Length} PT CONNECTS" +
+                            $" | {PTFilterCommands.Length} FILTERS" +
+                            $" | {PTReadCommands.Length} READ COMMANDS" +
+                            $" | {PTWriteCommands.Length} WRITE COMMANDS" +
+                            $" | {SimChannelBuilt.MessagePairs.Length} MESSAGE PAIRS TOTAL");
+                    }
+
+                    // Invoke a new progress event here and move onto the next channel
+                    this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted, TotalLoops));
                 }
                 catch (Exception BuildChannelCommandEx)
                 {
                     // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
-                    this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.WarnLog);
-                    this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.WarnLog, LogType.TraceLog);
+                    this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.ErrorLog);
+                    this._generationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.ErrorLog);
+                    this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.ErrorLog);
+                    this._generationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.ErrorLog);
                     
                     // Invoke a new progress event here and move on
                     this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted++, TotalLoops));
@@ -256,13 +317,11 @@ namespace SharpSimulator
             });
             
             // Log information about the simulation generation routine and exit out
-            this._simulationLogger.WriteLog($"BUILT CHANNEL SIMULATION OBJECTS OK!", LogType.InfoLog);
+            this._simulationLogger.WriteLog($"BUILT ALL REQUESTED SIMULATION CHANNEL OBJECTS OK!", LogType.InfoLog);
+            this._generationLogger.WriteLog($"BUILT ALL REQUESTED SIMULATION CHANNEL OBJECTS OK!", LogType.InfoLog);
             this._simulationLogger.WriteLog($"A TOTAL OF {SimChannelsBuilt.Count} CHANNELS HAVE BEEN BUILT!", LogType.InfoLog);
+            this._generationLogger.WriteLog($"A TOTAL OF {SimChannelsBuilt.Count} CHANNELS HAVE BEEN BUILT!", LogType.InfoLog);
             this.SimulationChannels = SimChannelsBuilt.Values.ToArray();
-
-            // Dispose the target built for this file and exit out
-            this._simulationLogger.RemoveTarget(GeneratorTarget); 
-            // this._simulationLogger.RegisterTarget(MasterFileTarget);
 
             // Return the built simulation channel objects now
             return this.SimulationChannels;
@@ -279,33 +338,29 @@ namespace SharpSimulator
             OutputLogFileFolder ??= Path.Combine(Directory.GetCurrentDirectory(), "FulcrumSimulations");
             string FinalOutputPath = Path.Combine(OutputLogFileFolder, Path.GetFileNameWithoutExtension(BaseFileName)) + ".ptSim";
 
-            // Get a logger object for saving expression sets.
-            string LoggerName = $"{Path.GetFileNameWithoutExtension(BaseFileName)}_SimulationsLogger";
-            var ExpressionLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
-
             // Find output path and then build final path value.             
             Directory.CreateDirectory(OutputLogFileFolder);
             if (!Directory.Exists(Path.GetDirectoryName(FinalOutputPath))) { Directory.CreateDirectory(Path.GetDirectoryName(FinalOutputPath)); }
-            ExpressionLogger.WriteLog($"BASE OUTPUT LOCATION FOR SIMULATIONS IS SEEN TO BE {Path.GetDirectoryName(FinalOutputPath)}", LogType.InfoLog);
+            _simulationLogger.WriteLog($"BASE OUTPUT LOCATION FOR SIMULATIONS IS SEEN TO BE {Path.GetDirectoryName(FinalOutputPath)}", LogType.InfoLog);
 
             // Log information about the expression set and output location
-            ExpressionLogger.WriteLog($"SAVING A TOTAL OF {this.SimulationChannels.Length} SIMULATION OBJECTS NOW...", LogType.InfoLog);
-            ExpressionLogger.WriteLog($"EXPRESSION SET IS BEING SAVED TO OUTPUT FILE: {FinalOutputPath}", LogType.InfoLog);
+            _simulationLogger.WriteLog($"SAVING A TOTAL OF {this.SimulationChannels.Length} SIMULATION OBJECTS NOW...", LogType.InfoLog);
+            _simulationLogger.WriteLog($"EXPRESSION SET IS BEING SAVED TO OUTPUT FILE: {FinalOutputPath}", LogType.InfoLog);
 
             try
             {
                 // Now Build output string content from each expression object.
-                ExpressionLogger.WriteLog("CONVERTING TO STRINGS NOW...", LogType.WarnLog);
+                _simulationLogger.WriteLog("CONVERTING TO STRINGS NOW...", LogType.WarnLog);
                 Tuple<uint, PassThruSimulationChannel>[] ChannelsConstructed = this.SimulationChannels
                     .Select(SimChannel => new Tuple<uint, PassThruSimulationChannel>(SimChannel.ChannelId, SimChannel))
                     .ToArray();
 
                 // Log information and write output.
                 string OutputJsonValues = JsonConvert.SerializeObject(ChannelsConstructed, Formatting.Indented);
-                ExpressionLogger.WriteLog($"CONVERTED INPUT OBJECTS INTO A JSON OUTPUT STRING OK!", LogType.WarnLog);
-                ExpressionLogger.WriteLog("WRITING OUTPUT CONTENTS NOW...", LogType.WarnLog);
+                _simulationLogger.WriteLog($"CONVERTED INPUT OBJECTS INTO A JSON OUTPUT STRING OK!", LogType.WarnLog);
+                _simulationLogger.WriteLog("WRITING OUTPUT CONTENTS NOW...", LogType.WarnLog);
                 File.WriteAllText(FinalOutputPath, OutputJsonValues);
-                ExpressionLogger.WriteLog("DONE WRITING OUTPUT SIMULATIONS CONTENT!");
+                _simulationLogger.WriteLog("DONE WRITING OUTPUT SIMULATIONS CONTENT!");
 
                 // Check to see if we aren't in the default location. If not, store the file in both the input spot and the injector directory
                 if (BaseFileName.Contains(Path.DirectorySeparatorChar) && !BaseFileName.Contains("FulcrumLogs"))
@@ -316,7 +371,7 @@ namespace SharpSimulator
                     File.Copy(FinalOutputPath, CopyLocation, true);
 
                     // Remove the Expressions Logger. Log done and return
-                    ExpressionLogger.WriteLog("COPIED OUTPUT SIMULATION FILE INTO THE BASE SIMULATION FILE LOCATION!");
+                    _simulationLogger.WriteLog("COPIED OUTPUT SIMULATION FILE INTO THE BASE SIMULATION FILE LOCATION!");
                 }
 
                 // Remove the Expressions Logger. Log done and return
@@ -326,8 +381,8 @@ namespace SharpSimulator
             catch (Exception WriteEx)
             {
                 // Log failures. Return an empty string.
-                ExpressionLogger.WriteLog("FAILED TO SAVE OUR OUTPUT EXPRESSION SETS! THIS IS FATAL!", LogType.FatalLog);
-                ExpressionLogger.WriteException("EXCEPTION FOR THIS INSTANCE IS BEING LOGGED BELOW", WriteEx);
+                _simulationLogger.WriteLog("FAILED TO SAVE OUR OUTPUT EXPRESSION SETS! THIS IS FATAL!", LogType.FatalLog);
+                _simulationLogger.WriteException("EXCEPTION FOR THIS INSTANCE IS BEING LOGGED BELOW", WriteEx);
 
                 // Return nothing.
                 return string.Empty;

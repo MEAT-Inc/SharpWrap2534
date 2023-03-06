@@ -4,9 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using NLog.Layouts;
 using NLog.Targets;
-using SharpExpressions.PassThruExpressions;
 using SharpLogging;
 
 namespace SharpExpressions
@@ -27,7 +25,8 @@ namespace SharpExpressions
 
         // Logger object and private log contents read in to this generator
         private readonly string _logFileContents;                // The input content of our log file when loaded
-        private readonly SharpLogger _expressionsLogger;         // Logger object used to help debug this generator
+        private readonly SharpLogger _generationLogger;          // The logger object which writes all output for generation
+        private readonly SharpLogger _expressionsLogger;         // Logger object used to help debug this generator in the main log file
 
         #endregion // Fields
 
@@ -85,6 +84,15 @@ namespace SharpExpressions
             // Spawn in our new logger and setup custom targets for it
             this._expressionsLogger = new SharpLogger(LoggerActions.UniversalLogger);
             this._expressionsLogger.WriteLog("BUILT NEW SETUP FOR AN EXPRESSIONS GENERATOR OK! READY TO BUILD OUR EXPRESSIONS FILE!", LogType.InfoLog);
+
+            // Now build our expressions file generation logger instance
+            string GenerationLoggerName = $"ExpressionsGenerator_{Path.GetFileNameWithoutExtension(LogFileName)}";
+            this._generationLogger = new SharpLogger(LoggerActions.CustomLogger, GenerationLoggerName);
+            this._generationLogger.RegisterTarget(this._spawnGeneratorTarget());
+
+            // Log that our generation target was built correctly and exit out
+            this._expressionsLogger.WriteLog("SPAWNED NEW FILE TARGET FOR GENERATION LOGGER OK!", LogType.InfoLog);
+            this._expressionsLogger.WriteLog($"GENERATOR TARGETS HAVE BEEN CONFIGURED FOR INPUT FILE {this.PassThruLogFile}");
         }
         /// <summary>
         /// Disposal routine used to clear out our logger instance
@@ -92,6 +100,7 @@ namespace SharpExpressions
         ~PassThruExpressionsGenerator()
         {
             // Dispose our logger and exit out
+            this._generationLogger.Dispose();
             this._expressionsLogger.Dispose();
         }
 
@@ -153,7 +162,7 @@ namespace SharpExpressions
             File.WriteAllText(OutputFilePath, CombinedOutputLogLines);
 
             // Now check if the conversions folder exists and copy the output file into there if needed
-            string InjectorConversions = "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumConversions";
+            string InjectorConversions = Path.Combine(Directory.GetCurrentDirectory(), "FulcrumConversions");
             if (Directory.Exists(InjectorConversions))
             {
                 // Copy the output file into the injector conversions folder now
@@ -209,19 +218,7 @@ namespace SharpExpressions
             var OutputCommands = Enumerable.Repeat(string.Empty, TimeMatches.Length).ToArray();
             var OutputFileContent = Enumerable.Repeat(string.Empty, TimeMatches.Length).ToArray();
             var OutputExpressions = Enumerable.Repeat(new PassThruExpression(), TimeMatches.Length).ToArray();
-
-            // TODO: FIND A BETTER WAY TO SPLIT UP THIS STUFF
-            // Find the master target and remove it for the generation routine
-            // var MasterTargets = SharpLogBroker.MasterLogger.LoggerTargets;
-            // var MasterFileTarget = MasterTargets.FirstOrDefault(TargetObj => TargetObj.FileName = SharpLogBroker.LogFileName);
-            // this._expressionsLogger.RemoveTarget(MasterFileTarget);
             
-            // Register our debug target output now
-            var GeneratorTarget = this._spawnGeneratorTarget();
-            this._expressionsLogger.RegisterTarget(GeneratorTarget);
-            this._expressionsLogger.WriteLog($"SPAWNED NEW GENERATION LOGGER CORRECTLY!", LogType.InfoLog);
-            this._expressionsLogger.WriteLog($"POINTING THIS NEW LOGGER AT FILE: {GeneratorTarget.FileName}!", LogType.InfoLog);
-
             // Store an int value to track our loop count based on the number of iterations built now
             int LoopsCompleted = 0;
 
@@ -250,54 +247,80 @@ namespace SharpExpressions
                     FileSubString = this._logFileContents.Substring(StartingIndex, FileSubstringLength);
                     OutputCommands[MatchIndex] = FileSubString;
 
-                    // If we've got the zero messages error line, then just return on
+                    // Check if the message content is empty, has no messages read, or is a complete routine
                     bool IsEmpty = string.IsNullOrWhiteSpace(FileSubString);
                     bool HasBuffEmpty = FileSubString.Contains("16:BUFFER_EMPTY");
                     bool HasComplete = FileSubString.Contains("PTReadMsgs() complete");
+
+                    // Tick our loop counter before moving onto the next command
+                    LoopsCompleted++;
+
+                    // If we've got content we need to generate/use, then build an expression here
                     if (!IsEmpty && !HasBuffEmpty && !HasComplete)
                     {
                         // Take the split content values, get our ExpressionTypes, and store the built expression object here
                         PassThruExpressionTypes ExpressionTypes = FileSubString.ToPassThruCommandType();
-                        PassThruExpression NextClassObject = ExpressionTypes.ToPassThruExpression(FileSubString);
-                        OutputExpressions[MatchIndex] = NextClassObject;
-
-                        // Now store the expression object as a string for our output file content values
-                        string ExpressionString = NextClassObject.ToString();
-                        OutputFileContent[MatchIndex] = ExpressionString;
+                        PassThruExpression NextPassThruExpression = ExpressionTypes.ToPassThruExpression(FileSubString);
+                        
+                        // Store our new string content and expression object on their collections
+                        OutputExpressions[MatchIndex] = NextPassThruExpression;
+                        OutputFileContent[MatchIndex] = NextPassThruExpression.ToString();
 
                         // Setup our scope diagnostic properties for the generator logger
-                        this._expressionsLogger.AddScopeProperties(
+                        this._generationLogger.AddScopeProperties(
                             new KeyValuePair<string, object>("expression-method", ExpressionTypes.ToString().ToUpper()),
                             new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TimeMatches.Length}"),
-                            new KeyValuePair<string, object>("generation-progress", (LoopsCompleted / (double)TimeMatches.Length * 100.00).ToString("F2")));
-
-                        // Once we've set our scope properties, write out the content generated
-                        this._expressionsLogger.WriteLog($"PROCESSED A NEW {ExpressionTypes} EXPRESSION: {NextClassObject.SplitCommandLines.First()}");
+                            new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TimeMatches.Length * 100.00).ToString("F2")));
+                        
+                        // If our expression passed, then we write out the failures now
+                        if (NextPassThruExpression.ExpressionPassed)
+                        {
+                            // If the expression generated correctly, then we write that information out here
+                            string ExpType = ExpressionTypes.ToString().ToUpper();
+                            string FirstCommand = NextPassThruExpression.CommandLines.Split('\n').First();
+                            this._generationLogger.WriteLog($"PROCESSED A {ExpType} EXPRESSION CORRECTLY! EXPRESSION CONTENT: {FirstCommand.Trim()}");
+                        }
+                        else
+                        {
+                            // If we're at this point, something went wrong and needs to be logged out.
+                            this._generationLogger.WriteLog($"ERROR! FAILED TO PROCESS A {ExpressionTypes.ToString().ToUpper()} EXPRESSION!", LogType.ErrorLog);
+                            this._generationLogger.WriteLog($"ERROR! FAILED TO PROCESS A {ExpressionTypes.ToString().ToUpper()} EXPRESSION!", LogType.ErrorLog);
+                            this._generationLogger.WriteLog($"FAILED CONTENT IS SHOWN BELOW\n{NextPassThruExpression.CommandLines}", LogType.ErrorLog);
+                            this._generationLogger.WriteLog($"FAILED CONTENT IS SHOWN BELOW\n{NextPassThruExpression.CommandLines}", LogType.ErrorLog);
+                        }
                     }
+
+                    // Invoke a new progress event here and move on to our next expression object
+                    this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted, TimeMatches.Length));
                 }
                 catch (Exception GenerateExpressionEx)
                 {
-                    // Also write these failures into the expressions base logger object
+                    // Log out and failures thrown during this operation
                     this._expressionsLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
+                    this._generationLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
                     this._expressionsLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, LogType.WarnLog, LogType.TraceLog);
-                }
+                    this._generationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, LogType.WarnLog, LogType.TraceLog);
 
-                // Update progress values if needed now using the event for the progress checker
-                this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted++, TimeMatches.Length));
+                    // Update progress values if needed now using the event for the progress checker
+                    this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted++, TimeMatches.Length));
+                }
             });
             
             // Prune all null values off the array of expressions
-            OutputExpressions = OutputExpressions.Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionTypes.NONE).ToArray();
+            OutputExpressions = OutputExpressions
+                .Where(ExpressionObj => ExpressionObj != null)
+                .Where(ExpressionObj => ExpressionObj.TypeOfExpression != PassThruExpressionTypes.NONE)
+                .ToArray();
 
             // Log done building log command line sets and expressions
             this._expressionsLogger.WriteLog($"DONE BUILDING EXPRESSION SETS FROM INPUT FILE {this.PassThruLogFile}!", LogType.InfoLog);
+            this._generationLogger.WriteLog($"DONE BUILDING EXPRESSION SETS FROM INPUT FILE {this.PassThruLogFile}!", LogType.InfoLog);
             this._expressionsLogger.WriteLog($"BUILT A TOTAL OF {OutputExpressions.Length} LOG LINE SETS OK!", LogType.InfoLog);
+            this._generationLogger.WriteLog($"BUILT A TOTAL OF {OutputExpressions.Length} LOG LINE SETS OK!", LogType.InfoLog);
+
+            // Invoke a final progress event and return out with our expressions built
             this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(100, 100));
             
-            // Remove the dedicated target for logging the generation routine and return the expressions built
-            this._expressionsLogger.RemoveTarget(GeneratorTarget);
-            // this._expressionsLogger.RegisterTarget(MasterFileTarget);
-
             // Return our built expressions objects
             this.ExpressionsBuilt = OutputExpressions.ToArray();
             return this.ExpressionsBuilt;
@@ -311,25 +334,21 @@ namespace SharpExpressions
         public string SaveExpressionsFile(string BaseFileName = "", string OutputLogFileFolder = null)
         {
             // First build our output location for our file.
-            OutputLogFileFolder ??= "C:\\Program Files (x86)\\MEAT Inc\\FulcrumShim\\FulcrumInjector\\FulcrumExpressions";
+            OutputLogFileFolder ??= Path.Combine(Directory.GetCurrentDirectory(), "FulcrumExpressions");
             string FinalOutputPath = Path.Combine(OutputLogFileFolder, Path.GetFileNameWithoutExtension(BaseFileName)) + ".ptExp";
-
-            // Get a logger object for saving expression sets.
-            string LoggerName = $"{Path.GetFileNameWithoutExtension(BaseFileName)}_ExpressionsLogger";
-            var ExpressionLogger = new SharpLogger(LoggerActions.UniversalLogger, LoggerName);
 
             // Find output path and then build final path value.             
             if (!Directory.Exists(Path.GetDirectoryName(FinalOutputPath))) { Directory.CreateDirectory(Path.GetDirectoryName(FinalOutputPath)); }
-            ExpressionLogger.WriteLog($"BASE OUTPUT LOCATION FOR EXPRESSIONS IS SEEN TO BE {Path.GetDirectoryName(FinalOutputPath)}", LogType.InfoLog);
+            this._expressionsLogger.WriteLog($"BASE OUTPUT LOCATION FOR EXPRESSIONS IS SEEN TO BE {Path.GetDirectoryName(FinalOutputPath)}", LogType.InfoLog);
 
             // Log information about the expression set and output location
-            ExpressionLogger.WriteLog($"SAVING A TOTAL OF {this.ExpressionsBuilt.Length} EXPRESSION OBJECTS NOW...", LogType.InfoLog);
-            ExpressionLogger.WriteLog($"EXPRESSION SET IS BEING SAVED TO OUTPUT FILE: {FinalOutputPath}", LogType.InfoLog);
+            this._expressionsLogger.WriteLog($"SAVING A TOTAL OF {this.ExpressionsBuilt.Length} EXPRESSION OBJECTS NOW...", LogType.InfoLog);
+            this._expressionsLogger.WriteLog($"EXPRESSION SET IS BEING SAVED TO OUTPUT FILE: {FinalOutputPath}", LogType.InfoLog);
 
             try
             {
                 // Now Build output string content from each expression object.
-                ExpressionLogger.WriteLog("COMBINING EXPRESSION OBJECTS INTO AN OUTPUT FILE NOW...", LogType.WarnLog);
+                this._expressionsLogger.WriteLog("COMBINING EXPRESSION OBJECTS INTO AN OUTPUT FILE NOW...", LogType.WarnLog);
                 if (this.ExpressionsBuilt == null)
                     throw new InvalidOperationException("ERROR! CAN NOT SAVE AN EXPRESSIONS FILE THAT HAS NOT BEEN GENERATED!");
 
@@ -341,10 +360,10 @@ namespace SharpExpressions
                     .ToArray();
 
                 // Log information and write output to the desired output file now and move on
-                ExpressionLogger.WriteLog($"CONVERTED INPUT OBJECTS INTO A TOTAL OF {ExpressionsContentSplit.Length} LINES OF TEXT!", LogType.WarnLog);
-                ExpressionLogger.WriteLog("WRITING OUTPUT CONTENTS NOW...", LogType.WarnLog);
+                this._expressionsLogger.WriteLog($"CONVERTED INPUT OBJECTS INTO A TOTAL OF {ExpressionsContentSplit.Length} LINES OF TEXT!", LogType.WarnLog);
+                this._expressionsLogger.WriteLog("WRITING OUTPUT CONTENTS NOW...", LogType.WarnLog);
                 File.WriteAllText(FinalOutputPath, string.Join("\n", ExpressionsContentSplit));
-                ExpressionLogger.WriteLog("DONE WRITING OUTPUT EXPRESSIONS CONTENT!");
+                this._expressionsLogger.WriteLog("DONE WRITING OUTPUT EXPRESSIONS CONTENT!");
 
                 // Check to see if we aren't in the default location. If not, store the file in both the input spot and the injector directory
                 if (BaseFileName.Contains(Path.DirectorySeparatorChar) && !BaseFileName.Contains("FulcrumLogs"))
@@ -355,7 +374,7 @@ namespace SharpExpressions
                     File.Copy(FinalOutputPath, CopyLocation, true);
 
                     // Remove the Expressions Logger. Log done and return
-                    ExpressionLogger.WriteLog("COPIED OUTPUT EXPRESSIONS FILE INTO THE BASE EXPRESSION FILE LOCATION!");
+                    this._expressionsLogger.WriteLog("COPIED OUTPUT EXPRESSIONS FILE INTO THE BASE EXPRESSION FILE LOCATION!");
                 }
 
                 // Store the path to our final expressions file and exit out
@@ -365,8 +384,8 @@ namespace SharpExpressions
             catch (Exception WriteEx)
             {
                 // Log failures. Return an empty string.
-                ExpressionLogger.WriteLog("FAILED TO SAVE OUR OUTPUT EXPRESSION SETS! THIS IS FATAL!", LogType.FatalLog);
-                ExpressionLogger.WriteException("EXCEPTION FOR THIS INSTANCE IS BEING LOGGED BELOW", WriteEx);
+                this._expressionsLogger.WriteLog("FAILED TO SAVE OUR OUTPUT EXPRESSION SETS! THIS IS FATAL!", LogType.FatalLog);
+                this._expressionsLogger.WriteException("EXCEPTION FOR THIS INSTANCE IS BEING LOGGED BELOW", WriteEx);
 
                 // Return nothing.
                 return string.Empty;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -27,9 +28,19 @@ namespace SharpWrapperTests
         private static readonly int _splittingLineSize = 120;          // Size of the splitting lines to write in console output
         private static readonly string _splittingLineChar = "=";       // Character to use in the splitting line output
 
-        // Static field holding information about our test log files 
-        public static readonly string BaseOutputPath = Path.Combine(Directory.GetCurrentDirectory(), "TestOutput");
-        public static readonly string TestJ2534LogsPath = Path.Combine(Directory.GetCurrentDirectory(), "TestJ2534Logs");
+        // Static field holding information about our test log files and output path values
+        public static readonly string WorkingDirectory = Directory.GetCurrentDirectory();
+        public static readonly string BaseOutputPath = Path.Combine(WorkingDirectory, "TestOutput");
+        public static readonly string TestJ2534LogsPath = Path.Combine(WorkingDirectory, "TestJ2534Logs");
+        public static readonly string BaseLoggingPath = Path.Combine(BaseOutputPath, "SharpWrapperLogging");
+        
+        // Simulation and expression output file locations for built content during these tests
+        public static readonly string SimulationsOutputPath = Path.Combine(BaseOutputPath, "OutputSimulations");
+        public static readonly string ExpressionsOutputPath = Path.Combine(BaseOutputPath, "OutputExpressions");
+
+        // Simulation and expression generator logging output file locations for built content during these tests
+        public static readonly string SimulationLoggingPath = Path.Combine(BaseLoggingPath, "SimulationLogs");
+        public static readonly string ExpressionsLoggingPath = Path.Combine(BaseLoggingPath, "ExpressionsLogs");
 
         #endregion //Fields
 
@@ -84,11 +95,10 @@ namespace SharpWrapperTests
             // Spawn a new test invokers class logger instance and configure our logging
             SeparateConsole();
 
-            // Define a new log broker configuration and setup the log broker
-            string OutputLogFolder = Path.Combine(BaseOutputPath, "SharpWrapperLogging");
+            // Define a new log broker configuration, clean up old output, and setup the log broker
             SharpLogBroker.BrokerConfiguration BrokerConfiguration = new SharpLogBroker.BrokerConfiguration()
             {
-                LogFilePath = OutputLogFolder,                                  // Path to the log file to write
+                LogFilePath = BaseLoggingPath,                                  // Path to the log file to write
                 MinLogLevel = LogType.TraceLog,                                 // The lowest level of logging
                 MaxLogLevel = LogType.FatalLog,                                 // The highest level of logging
                 LogBrokerName = "SharpWrapperTests",                            // Name of the logging session
@@ -99,8 +109,15 @@ namespace SharpWrapperTests
             if (!SharpLogBroker.InitializeLogging(BrokerConfiguration))
                 throw new InvalidOperationException("Error! Failed to configure a new SharpLogging session!");
 
-            // Spawn in our new logger instance and pass it out
+            // Delete any old test session results here so our output content is up to date
+            foreach (string SimulationsFile in Directory.GetFiles(SimulationsOutputPath)) File.Delete(SimulationsFile);
+            foreach (string ExpressionsFile in Directory.GetFiles(ExpressionsOutputPath)) File.Delete(ExpressionsFile);
+            foreach (string SimulationsLogFile in Directory.GetFiles(SimulationLoggingPath)) File.Delete(SimulationsLogFile);
+            foreach (string ExpressionsLogFile in Directory.GetFiles(ExpressionsLoggingPath)) File.Delete(ExpressionsLogFile);
+
+            // Setup a new output helper logger and log that output has been cleaned up correctly 
             _testInvokersLogger = new SharpLogger(LoggerActions.UniversalLogger);
+            _testInvokersLogger.WriteLog("--> Cleaned out old test output content from expressions and simulations log files correctly!", LogType.InfoLog);
             _testInvokersLogger.WriteLog("\t--> SharpWrapper main test invoker logger checking in! Ready to log test methods...", LogType.WarnLog);
         }
 
@@ -217,7 +234,7 @@ namespace SharpWrapperTests
         /// </summary>
         /// <param name="SetCount">The number of sets of files we wish to return back</param>
         /// <returns>The full path to a test log file</returns>
-        public static IEnumerable<string[]> GetRandomTestLogSets(int SetCount = 1)
+        public static IEnumerable<string[]> GetRandomTestLogSets(int SetCount = 5)
         {
             // Find our random file here and return it out
             Random LogSetPicker = new Random();

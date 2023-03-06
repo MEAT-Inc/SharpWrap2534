@@ -31,7 +31,35 @@ namespace SharpExpressions
         [PassThruProperty("J2534 Status", "0:STATUS_NOERROR", new[] { "Command Passed", "Command Failed" })]
         public readonly string JStatusCode;
 
-        // --------------------------------------------------------------------------------------------------------------
+        // Public facing property telling us if the expression passed or not
+        public bool ExpressionPassed
+        {
+            get
+            {
+                // Find all the fields objects we need to use for checking the results
+                var ResultFieldInfos = this.GetType()
+                    .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                    .Where(FieldObj => FieldObj.FieldType != typeof(SharpLogger))
+                    .ToArray();
+
+                // Compare the results pulled in against the desired default values for the expressions
+                foreach (var FieldObj in ResultFieldInfos)
+                {
+                    // Pull the ResultAttribute object.
+                    var CurrentValue = FieldObj.GetValue(this).ToString().Trim();
+                    var ResultAttribute = (PassThruPropertyAttribute)FieldObj.GetCustomAttributes(typeof(PassThruPropertyAttribute)).FirstOrDefault();
+
+                    // Check if our value is valid now
+                    bool ReturnState = ResultAttribute != null && ResultAttribute.ResultState(CurrentValue) == ResultAttribute.ResultValue;
+                    if (!ReturnState) return false;
+                }
+
+                // Return passed at this point since all values worked out correctly
+                return true;
+            }
+        }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// ToString override to show the strings of the command here.
@@ -47,7 +75,7 @@ namespace SharpExpressions
 
             // Build default Tuple LIst value set and apply new values into it from property attributes
             var RegexResultTuples = new List<Tuple<string, string, string>>() {
-                new("J2534 Command", this.TypeOfExpression.ToString(), this.ExpressionPassed() ? "Parse Passed" : "Parse Failed")
+                new("J2534 Command", this.TypeOfExpression.ToString(), this.ExpressionPassed ? "Parse Passed" : "Parse Failed")
             };
 
             // Now find ones with the attribute and pull value
@@ -140,29 +168,8 @@ namespace SharpExpressions
             RegexValuesOutputString = string.Join("\n", NewLines).Replace("\n\n", "\n");
             return RegexValuesOutputString;
         }
-        /// <summary>
-        /// Expression evaluation computed result based on output values.
-        /// </summary>
-        /// <returns>True or false based on expression eval results.</returns>
-        public bool ExpressionPassed()
-        {
-            // Returns true if passing matched for time
-            var ResultFieldInfos = this.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-            var ResultsPassed = ResultFieldInfos.Select(FieldObj =>
-            {
-                // Pull the ResultAttribute object.
-                var CurrentValue = FieldObj.GetValue(this).ToString().Trim();
-                var ResultAttribute = (PassThruPropertyAttribute)FieldObj.GetCustomAttributes(typeof(PassThruPropertyAttribute)).FirstOrDefault();
 
-                // Now compare value to the passed/failed setup.
-                return ResultAttribute != null && ResultAttribute.ResultState(CurrentValue) == ResultAttribute.ResultValue;
-            });
-
-            // Now see if all the values in the Results array passed.
-            return ResultsPassed.All(ValueObj => ValueObj);
-        }
-
-        // --------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// A Default constructor for the PassThruExpression object type.
@@ -202,8 +209,9 @@ namespace SharpExpressions
             var FieldsToSet = this.GetExpressionProperties(true);
             if (!this.StatusCodeRegex.Evaluate(CommandInput, out var StatusCodeStrings))
             {
+                // BUG: Defaulting to including new default status code string values when this parse fails. This is because a lot of commands don't have a 
                 // Try and find the end of the command in a different way
-                this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
+                // this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
                 StatusCodeStrings = new[]
                 {
                     $"{TimeStrings[2]} 0:STATUS_NOERROR",
@@ -214,15 +222,19 @@ namespace SharpExpressions
 
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string>();
-            StringsToApply.AddRange(from NextIndex in this.TimeRegex.ExpressionValueGroups where NextIndex <= TimeStrings.Length select TimeStrings[NextIndex]);
-            StringsToApply.AddRange(from NextIndex in this.StatusCodeRegex.ExpressionValueGroups where NextIndex <= StatusCodeStrings.Length select StatusCodeStrings[NextIndex]);
+            StringsToApply.AddRange(this.TimeRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= TimeStrings.Length)
+                .Select(NextIndex => TimeStrings[NextIndex]));
+            StringsToApply.AddRange(this.StatusCodeRegex.ExpressionValueGroups
+                .Where(NextIndex => NextIndex <= StatusCodeStrings.Length)
+                .Select(NextIndex => StatusCodeStrings[NextIndex]));
 
             // Now apply values using base method and exit out of this routine
             bool StorePassed = this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray());
             if (!StorePassed) throw new InvalidOperationException("FAILED TO SET BASE CLASS VALUES FOR EXPRESSION OBJECT!");
         }
 
-        // --------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Gets the list of properties linked to a regex group and returns them in order of decleration

@@ -1,0 +1,50 @@
+   Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 0.000s PTOpen(00000000, 0F1AF07C)
+   pName: <NULL>
+   Library Version: GDP3 J2534 Library v1.0.30.0
+   Exactly one PassThruDevice, picking it automatically
+     GDP3 #036676
+     USB\VID_18E1&PID_1004&MI_00\7&2A97B1D9&0&0000
+   returning DeviceID 1
+++ 0.016s PTConnect(1, 6:ISO15765, 0, 500000, 024EFD50)
+   Flags: {no ConnectFlags}
+   returning ChannelID 2
+** 0.016s PTIoctl(2, 2:SET_CONFIG, 0F1AEFA4, 00000000)
+   5 parameter(s) at 146B7940:
+   [1/5] 1:DATA_RATE = 0007a120 '500000 baud'   [2/5] 31:ISO15765_STMIN = 00000004 '4 ms'   [3/5] 30:ISO15765_BS = 00000000 '0'   [4/5] 30:ISO15765_BS = 00000000 '0'   [5/5] 31:ISO15765_STMIN = 00000004 '4 ms'
+   [1/5] 1:DATA_RATE = 0007a120 '500000 baud'
+   [2/5] 31:ISO15765_STMIN = 00000004 '4 ms'
+   [3/5] 30:ISO15765_BS = 00000000 '0'
+   [4/5] 30:ISO15765_BS = 00000000 '0'
+   [5/5] 31:ISO15765_STMIN = 00000004 '4 ms'
+++ 0.016s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 0F1AE140, 0F1AD0A8, 0F1AC010, 0F1ABFA8)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 3
+** 0.016s PTIoctl(2, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 0.016s PTIoctl(2, 7:CLEAR_TX_BUFFER, 00000000, 00000000)
+>> 0.016s PTWriteMsgs(2, 1388BF04, 0F1AF160, 50)
+   Transaction 0012 for 1 messages
+   Msg[0] 6:ISO15765. 5 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0  3e 
+   Queued everything
+   Sent 1/1
+<< 0.031s PTReadMsgs(2, 1388CF9C, 1, 50)
+   Msg[0] 3348.023641s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000009
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION}
+   \__ [00][00][07][e0]
+<< 0.031s PTReadMsgs() complete (channel 2)
+<< 0.031s PTReadMsgs(2, 1388CF9C, 1, 50)
+   Msg[0] 3348.025054s. 6:ISO15765. Actual data 5 of 5 bytes. RxS=00000000
+   \__  00  00  07  e8  7e 
+<< 0.031s PTReadMsgs() complete (channel 2)
+-- 0.031s PTDisconnect(2)
+-- 0.031s PTClose(1)

@@ -1,0 +1,34 @@
+   Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 0.000s PTOpen(00000000, 0019CC30)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 4 J2534 Library v0.9.4.0
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 4 #000013
+     USB\VID_18E1&PID_1006&MI_00\6&6387603&0&0000
+   returning DeviceID 1
+++ 0.078s PTConnect(1, 1:J1850VPW, 0, 10400, 0019CA8C)
+   Flags: {no ConnectFlags}
+   returning ChannelID 2
+++ 0.094s PTStartMsgFilter(2, 1:PASS_FILTER, 0019A9DC, 0019BA14, 00000000, 0019A9C4)
+   Mask[0] 1:J1850VPW. 1 bytes. TxF=00000000
+   \__  c0 
+   Pattern[0] 1:J1850VPW. 1 bytes. TxF=00000000
+   \__  c0 
+   FlowControl is NULL
+   returning FilterID 3
+++ 0.109s PTStartMsgFilter(2, 1:PASS_FILTER, 0019A9DC, 0019BA14, 00000000, 0019A9C4)
+   Mask[0] 1:J1850VPW. 1 bytes. TxF=00000000
+   \__  c0 
+   Pattern[0] 1:J1850VPW. 1 bytes. TxF=00000000
+   \__  80 
+   FlowControl is NULL
+   returning FilterID 4
+++ 0.109s PTStartMsgFilter(2, 1:PASS_FILTER, 0019A9DC, 0019BA14, 00000000, 0019A9C4)
+   Mask[0] 1:J1850VPW. 1 bytes. TxF=00000000
+   \__  c0 
+   Pattern[0] 1:J1850VPW. 1 bytes. TxF=00000000
+   \__  40 
+   FlowControl is NULL
+   returning FilterID 5
+-- 0.109s PTDisconnect(2)
+-- 15.562s PTClose(1)

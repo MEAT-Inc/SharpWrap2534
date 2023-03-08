@@ -1,0 +1,36 @@
+{
+  "SupportedProtocols": [
+    "ISO15765"
+  ],
+  "SimulationConfigurations": [
+    {
+      "ReaderTimeout": 100,
+      "ReaderMsgCount": 10,
+      "ResponseTimeout": 1000,
+      "ReaderBaudRate": 500000,
+      "ReaderChannelFlags": "NO_CONNECT_FLAGS",
+      "ReaderProtocol": "ISO15765",
+      "ReaderFilters": [
+        {
+          "FilterId": 0, 
+          "FilterFlags": "NO_TX_FLAGS",
+          "FilterMask": "00 00 07 00",
+          "FilterPattern": "00 00 07 00",
+          "FilterFlowCtl": "No Flow Control",
+          "FilterProtocol": "CAN",
+          "FilterType": "PASS_FILTER",
+          "FilterStatus": "INITIALIZED"
+        }
+      ],
+      "ReaderConfigs": {
+        "NumberOfParams": 1,
+        "ConfigList": [
+          {
+            "SConfigParamId": 32768,
+            "SConfigValue": 1
+          }
+        ]
+      }
+    }
+  ]
+}

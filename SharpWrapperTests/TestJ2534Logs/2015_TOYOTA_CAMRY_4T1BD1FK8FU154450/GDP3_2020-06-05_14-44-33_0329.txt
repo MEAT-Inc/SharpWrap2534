@@ -1,0 +1,51 @@
+   Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 0.000s PTOpen(00000000, 0F1AF07C)
+   pName: <NULL>
+   Library Version: GDP3 J2534 Library v1.0.30.0
+   Exactly one PassThruDevice, picking it automatically
+     GDP3 #036676
+     USB\VID_18E1&PID_1004&MI_00\7&2A97B1D9&0&0000
+   returning DeviceID 1
+++ 0.016s PTConnect(1, 4:ISO14230, 0x1000, 10400, 024F3098)
+   Flags: {12:ISO9141_K_LINE_ONLY}
+   returning ChannelID 2
+++ 0.016s PTStartMsgFilter(2, 1:PASS_FILTER, 0F1AD044, 0F1AE07C, 00000000, 0F1AD02C)
+   Mask[0] 4:ISO14230. 1 bytes. TxF=00000000
+   \__  c0 
+   Pattern[0] 4:ISO14230. 1 bytes. TxF=00000000
+   \__  c0 
+   FlowControl is NULL
+   returning FilterID 3
+++ 0.016s PTStartMsgFilter(2, 1:PASS_FILTER, 0F1AD044, 0F1AE07C, 00000000, 0F1AD02C)
+   Mask[0] 4:ISO14230. 1 bytes. TxF=00000000
+   \__  c0 
+   Pattern[0] 4:ISO14230. 1 bytes. TxF=00000000
+   \__  80 
+   FlowControl is NULL
+   returning FilterID 4
+++ 0.016s PTStartMsgFilter(2, 1:PASS_FILTER, 0F1AD044, 0F1AE07C, 00000000, 0F1AD02C)
+   Mask[0] 4:ISO14230. 1 bytes. TxF=00000000
+   \__  c0 
+   Pattern[0] 4:ISO14230. 1 bytes. TxF=00000000
+   \__  40 
+   FlowControl is NULL
+   returning FilterID 5
+** 0.016s PTIoctl(2, 2:SET_CONFIG, 0F1AEFF0, 00000000)
+   7 parameter(s) at 13D07940:
+   [1/7] 1:DATA_RATE = 000028a0 '10400 baud'   [2/7] 20:TINIL = 00000023 '35 ms'   [3/7] 14:W1_MAX = 0000012c '300 ms'   [4/7] 15:W2_MAX = 00000014 '20 ms'   [5/7] 16:W3_MAX = 00000014 '20 ms'   [6/7] 17:W4_MIN = 0000001e '30 ms'   [7/7] 18:W5_MIN = 0000015e '350 ms'
+   [1/7] 1:DATA_RATE = 000028a0 '10400 baud'
+   [2/7] 20:TINIL = 00000023 '35 ms'
+   [3/7] 14:W1_MAX = 0000012c '300 ms'
+   [4/7] 15:W2_MAX = 00000014 '20 ms'
+   [5/7] 16:W3_MAX = 00000014 '20 ms'
+   [6/7] 17:W4_MIN = 0000001e '30 ms'
+   [7/7] 18:W5_MIN = 0000015e '350 ms'
+** 0.016s PTIoctl(2, 4:FIVE_BAUD_INIT, 0F1AE034, 0F1AE04C)
+   pInput: 1 bytes at 0F1AE01D
+   \__  33 
+   pOutput NumOfBytes 2
+   Returning 7:ERR_FAILED 'Firmware error 521:eFiveBaudInitFailed '''
+** 2.672s PTGetLastError(0F1ADD68)
+   Error String: Firmware error 521:eFiveBaudInitFailed ''
+-- 2.672s PTDisconnect(2)
+-- 2.672s PTClose(1)

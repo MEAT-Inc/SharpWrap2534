@@ -75,7 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpLogger">
-      <Version>2.5.18.294</Version>
+      <Version>2.5.20.297</Version>
     </PackageReference>
     <PackageReference Include="SharpWrapper">
       <Version>6.1.5.443</Version>

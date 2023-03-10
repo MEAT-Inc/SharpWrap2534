@@ -50,15 +50,15 @@
       <HintPath>..\..\Ananke\packages\MSTest.TestFramework.3.0.2\lib\net462\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\Ananke\packages\SharpLogger.2.5.18.294\lib\net472\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\Ananke\packages\SharpLogger.2.5.20.297\lib\net472\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\Ananke\packages\SharpLogger.2.5.18.294\lib\net472\NLog.dll</HintPath>
+      <HintPath>..\..\Ananke\packages\SharpLogger.2.5.20.297\lib\net472\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SharpLogging, Version=2.5.18.294, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\Ananke\packages\SharpLogger.2.5.18.294\lib\net472\SharpLogging.dll</HintPath>
+    <Reference Include="SharpLogging, Version=2.5.20.297, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Ananke\packages\SharpLogger.2.5.20.297\lib\net472\SharpLogging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

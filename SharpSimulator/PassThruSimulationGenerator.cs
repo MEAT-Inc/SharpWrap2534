@@ -31,6 +31,7 @@ namespace SharpSimulator
         #region Fields
 
         // Logger object used to help provided debug information about a simulation being built
+        private readonly FileTarget _masterTarget;               // The master logger main file logging target
         private readonly SharpLogger _generationLogger;          // The logger object used for detailed debugging during generation
         private readonly SharpLogger _simulationLogger;          // The base logger object used for this simulation builder for basic info
 
@@ -112,12 +113,16 @@ namespace SharpSimulator
             // Finally build our logger object and exit out of this constructor
             this._simulationLogger = new SharpLogger(LoggerActions.UniversalLogger);
             this._simulationLogger.WriteLog($"READY TO BUILD NEW SIMULATION FROM {this.ExpressionsLoaded.Length} INPUT EXPRESSIONS...", LogType.WarnLog);
+            this._masterTarget = (FileTarget)SharpLogBroker.MasterLogger.LoggerTargets.FirstOrDefault(TargetObj => TargetObj is FileTarget);
 
             // Now build our expressions file generation logger instance
             string SimulationLoggerName = $"SimulationGenerator_{Path.GetFileNameWithoutExtension(PassThruLogName)}";
             this._generationLogger = new SharpLogger(LoggerActions.CustomLogger, SimulationLoggerName);
-            this._generationLogger.RegisterTarget(this._spawnGeneratorTarget());
 
+            // Spawn in the new target to log generation output to and remove the master target from it here
+            this._generationLogger.RemoveTarget(this._masterTarget);
+            this._generationLogger.RegisterTarget(this._spawnGeneratorTarget());
+            
             // Log that our generation target was built correctly and exit out
             this._simulationLogger.WriteLog("SPAWNED NEW FILE TARGET FOR GENERATION LOGGER OK!", LogType.InfoLog);
             this._simulationLogger.WriteLog($"GENERATOR TARGETS HAVE BEEN CONFIGURED FOR INPUT FILE {this.PassThruLogFile}");

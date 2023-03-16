@@ -25,6 +25,7 @@ namespace SharpExpressions
 
         // Logger object and private log contents read in to this generator
         private readonly string _logFileContents;                // The input content of our log file when loaded
+        private readonly FileTarget _masterTarget;               // The master logger main file logging target
         private readonly SharpLogger _generationLogger;          // The logger object which writes all output for generation
         private readonly SharpLogger _expressionsLogger;         // Logger object used to help debug this generator in the main log file
 
@@ -84,10 +85,14 @@ namespace SharpExpressions
             // Spawn in our new logger and setup custom targets for it
             this._expressionsLogger = new SharpLogger(LoggerActions.UniversalLogger);
             this._expressionsLogger.WriteLog("BUILT NEW SETUP FOR AN EXPRESSIONS GENERATOR OK! READY TO BUILD OUR EXPRESSIONS FILE!", LogType.InfoLog);
+            this._masterTarget = (FileTarget)SharpLogBroker.MasterLogger.LoggerTargets.FirstOrDefault(TargetObj => TargetObj is FileTarget);
 
             // Now build our expressions file generation logger instance
             string GenerationLoggerName = $"ExpressionsGenerator_{Path.GetFileNameWithoutExtension(LogFileName)}";
             this._generationLogger = new SharpLogger(LoggerActions.CustomLogger, GenerationLoggerName);
+
+            // Spawn in the new target to log generation output to and remove the master target from it here
+            this._generationLogger.RemoveTarget(this._masterTarget);
             this._generationLogger.RegisterTarget(this._spawnGeneratorTarget());
 
             // Log that our generation target was built correctly and exit out
@@ -284,9 +289,9 @@ namespace SharpExpressions
                         {
                             // If we're at this point, something went wrong and needs to be logged out.
                             this._generationLogger.WriteLog($"ERROR! FAILED TO PROCESS A {ExpressionTypes.ToString().ToUpper()} EXPRESSION!", LogType.ErrorLog);
-                            this._generationLogger.WriteLog($"ERROR! FAILED TO PROCESS A {ExpressionTypes.ToString().ToUpper()} EXPRESSION!", LogType.ErrorLog);
+                            this._expressionsLogger.WriteLog($"ERROR! FAILED TO PROCESS A {ExpressionTypes.ToString().ToUpper()} EXPRESSION!", LogType.ErrorLog);
                             this._generationLogger.WriteLog($"FAILED CONTENT IS SHOWN BELOW\n{NextPassThruExpression.CommandLines}", LogType.ErrorLog);
-                            this._generationLogger.WriteLog($"FAILED CONTENT IS SHOWN BELOW\n{NextPassThruExpression.CommandLines}", LogType.ErrorLog);
+                            this._expressionsLogger.WriteLog($"FAILED CONTENT IS SHOWN BELOW\n{NextPassThruExpression.CommandLines}", LogType.ErrorLog);
                         }
                     }
 

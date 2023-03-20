@@ -79,7 +79,8 @@ namespace SharpSimulator.PassThruSimulationSupport
             // Find the BaudRate value here
             string BaudRateString = InputObject["ChannelBaudRate"].Value<string>();
             var BaudRateRead = (BaudRate)Enum.Parse(typeof(BaudRate), Enum.GetNames(typeof(BaudRate))
-                .FirstOrDefault(BaudObj => BaudObj.Contains(ProtocolRead.ToString()) && BaudObj.Contains(BaudRateString)));
+                .Where(BaudObj => BaudObj.Contains(ProtocolRead.ToString()))
+                .FirstOrDefault(BaudObj => BaudObj.Contains(BaudRateString)));
 
             // Basic pulled uint values and other 
             uint IdRead = InputObject["ChannelId"].Value<uint>();

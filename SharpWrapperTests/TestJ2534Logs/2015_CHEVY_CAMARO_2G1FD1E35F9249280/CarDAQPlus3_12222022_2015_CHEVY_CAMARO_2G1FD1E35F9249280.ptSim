@@ -2270,7 +2270,7 @@
     "ChannelConnectFlags": "CAN_ID_BOTH",
     "MessageFilters": [
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2280,7 +2280,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x11"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2290,7 +2290,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x12"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2300,7 +2300,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x13"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2310,7 +2310,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x15"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2320,7 +2320,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x17"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2330,7 +2330,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x1D"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2340,7 +2340,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x40"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2350,7 +2350,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x28"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2360,7 +2360,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x14"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2370,7 +2370,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x16"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2380,7 +2380,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x18"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2390,7 +2390,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x1E"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2400,7 +2400,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0xCD"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2410,7 +2410,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x45"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -2420,7 +2420,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0xCB"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -4635,7 +4635,7 @@
     "ChannelConnectFlags": "CAN_ID_BOTH",
     "MessageFilters": [
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",
@@ -4645,7 +4645,7 @@
         "FilterFlowCtl": "0x18 0xDA 0xF1 0x45"
       },
       {
-        "FilterFlags": null,
+        "FilterFlags": "NO_TX_FLAGS",
         "FilterType": "FLOW_CONTROL_FILTER",
         "FilterProtocol": "ISO15765",
         "FilterStatus": "INITIALIZED",

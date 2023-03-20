@@ -35,7 +35,7 @@ namespace SharpWrapper.PassThruSupport
             string FilterTypeString = CastFilter.FilterType.ToString();
             string FilterStatusString = CastFilter.FilterStatus.ToString();
             string FilterProtocolString = CastFilter.FilterProtocol.ToString();
-            string FilterFlagString = Enum.GetName(typeof(TxFlags), CastFilter.FilterFlags);
+            string FilterFlagString = Enum.GetName(typeof(TxFlags), CastFilter.FilterFlags) ?? TxFlags.NO_TX_FLAGS.ToString();
 
             // Build a custom object to output for our JSON
             var OutputObject = JObject.FromObject(new
@@ -79,18 +79,26 @@ namespace SharpWrapper.PassThruSupport
             if (InputObject.HasValues == false) { return default; }
 
             // Enum values pulled in here
-            TxFlags FlagsRead = InputObject["FilterFlags"].Type == JTokenType.Integer ?
-                (TxFlags)InputObject["FilterFlags"].Value<uint>() : 
-                (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["FilterFlags"].Value<string>());
-            FilterDef TypeRead = InputObject["FilterType"].Type == JTokenType.Integer ?
-                (FilterDef)InputObject["FilterType"].Value<uint>() :
-                (FilterDef)Enum.Parse(typeof(FilterDef), InputObject["FilterType"].Value<string>());
-            ProtocolId ProtocolRead = InputObject["FilterProtocol"].Type == JTokenType.Integer ?
-                (ProtocolId)InputObject["FilterProtocol"].Value<uint>() :
-                (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["FilterProtocol"].Value<string>());
-            SharpSessionStatus StatusRead = InputObject["FilterStatus"].Type == JTokenType.Integer ?
-                (SharpSessionStatus)InputObject["FilterStatus"].Value<uint>() :
-                (SharpSessionStatus)Enum.Parse(typeof(SharpSessionStatus), InputObject["FilterStatus"].Value<string>());
+            TxFlags FlagsRead = InputObject["FilterFlags"] == null
+                    ? TxFlags.NO_TX_FLAGS 
+                    : InputObject["FilterFlags"].Type == JTokenType.Integer 
+                        ? (TxFlags)InputObject["FilterFlags"].Value<uint>() 
+                        : (TxFlags)Enum.Parse(typeof(TxFlags), InputObject["FilterFlags"].Value<string>());
+            FilterDef TypeRead = InputObject["FilterType"] == null 
+                    ? FilterDef.PASS_FILTER 
+                    : InputObject["FilterType"].Type == JTokenType.Integer 
+                        ? (FilterDef)InputObject["FilterType"].Value<uint>() 
+                        : (FilterDef)Enum.Parse(typeof(FilterDef), InputObject["FilterType"].Value<string>());
+            ProtocolId ProtocolRead = InputObject["FilterProtocol"] == null 
+                ? ProtocolId.CAN 
+                : InputObject["FilterProtocol"].Type == JTokenType.Integer 
+                    ? (ProtocolId)InputObject["FilterProtocol"].Value<uint>() 
+                    : (ProtocolId)Enum.Parse(typeof(ProtocolId), InputObject["FilterProtocol"].Value<string>());
+            SharpSessionStatus StatusRead = InputObject["FilterStatus"] == null 
+                ? SharpSessionStatus.NULL 
+                : InputObject["FilterStatus"].Type == JTokenType.Integer 
+                    ? (SharpSessionStatus)InputObject["FilterStatus"].Value<uint>() 
+                    : (SharpSessionStatus)Enum.Parse(typeof(SharpSessionStatus), InputObject["FilterStatus"].Value<string>());
 
             // Filter content values
             uint IdRead = InputObject["FilterId"].Value<uint>();

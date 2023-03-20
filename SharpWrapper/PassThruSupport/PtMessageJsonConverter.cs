@@ -49,10 +49,10 @@ namespace SharpWrapper.PassThruSupport
             string ProtocolString = CastMessage.ProtocolId.ToString();
             string RxStatusString = CastMessage.RxStatus.ToString();
             string TimeStampString = CastMessage.Timestamp + "ms";
-            string TxFlagsString = Enum.GetName(typeof(TxFlags), CastMessage.TxFlags);
-            string DataSizeString = CastMessage.DataSize + (CastMessage.DataSize == 1 ? " Byte" : " Bytes");
-            string ExtraDataIndexString = CastMessage.ExtraDataIndex.ToString();
             string DataValueString = CastMessage.DataToHexString(true);
+            string ExtraDataIndexString = CastMessage.ExtraDataIndex.ToString();
+            string DataSizeString = CastMessage.DataSize + (CastMessage.DataSize == 1 ? " Byte" : " Bytes");
+            string TxFlagsString = Enum.GetName(typeof(TxFlags), CastMessage.TxFlags) ?? TxFlags.NO_TX_FLAGS.ToString();
 
             // Create our dynamic object for JSON output
             var OutputObject = JObject.FromObject(new

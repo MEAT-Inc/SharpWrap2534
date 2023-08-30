@@ -82,10 +82,34 @@ namespace SharpWrapperTests.SharpExpressions
             TestInitializers.LogTestMethodCompleted();
         }
         /// <summary>
+        /// Test method which will pick a log file from the given input and attempt to build expressions from it
+        /// </summary>
+        [TestMethod("Generate Expressions From Log File")]
+        public void GenerateExpressionsFromLogFile()
+        {
+            // Configure our logging instance and start the test
+            TestInitializers.InitializeTestLogging(out this._expTestLogger);
+            this._expTestLogger.WriteLog("Starting tests to generate expressions from user picked log files now...");
+
+            // Build an expression generator and build our output log files based on the user selected log file
+            string RequestedLogFile = TestInitializers.RequestTestLog();
+            var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(RequestedLogFile);
+            PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
+            Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {RequestedLogFile}!");
+
+            // Save the output file and make sure it's real
+            string BaseExpFileName = Path.GetFileNameWithoutExtension(RequestedLogFile);
+            string BuiltExpressionFile = BuiltGenerator.SaveExpressionsFile(BaseExpFileName, TestInitializers.ExpressionsOutputPath);
+            Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built expression file {BuiltExpressionFile} does not exist!");
+
+            // Log our test method is complete here
+            TestInitializers.LogTestMethodCompleted();
+        }
+        /// <summary>
         /// Test method which will pick a collection of logs from the given input and attempt to build expressions from it
         /// </summary>
-        [TestMethod("Generate Expressions From Tester Logs")]
-        public void GenerateExpressionsFromTesterFiles()
+        [TestMethod("Generate Expressions From Log Folder")]
+        public void GenerateExpressionsFromLogsFolder()
         {
             // Configure our logging instance and start the test
             TestInitializers.InitializeTestLogging(out this._expTestLogger);
@@ -93,19 +117,17 @@ namespace SharpWrapperTests.SharpExpressions
 
             // Iterate all the test files imported and generate expressions for all of them
             string[] RequestedLogFiles = TestInitializers.RequestTestLogs().ToArray();
-            foreach (var TestLogFile in TestInitializers.RequestTestLogs())
-            {
-                // Build an expression generator and build our output log files
-                var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(TestLogFile);
-                PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
-                Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {TestLogFile}!");
 
-                // Save the output file and make sure it's real
-                string BaseExpFileName = Path.GetFileNameWithoutExtension(TestLogFile);
-                string BuiltExpressionFile = BuiltGenerator.SaveExpressionsFile(BaseExpFileName, TestInitializers.ExpressionsOutputPath);
-                Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built expression file {BuiltExpressionFile} does not exist!");
-            }
+            // Build an expression generator and build our output log files
+            var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFiles(RequestedLogFiles);
+            PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
+            Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {BuiltGenerator.PassThruLogFile}!");
 
+            // Save the output file and make sure it's real
+            string BaseExpFileName = Path.GetFileNameWithoutExtension(BuiltGenerator.PassThruLogFile);
+            string BuiltExpressionFile = BuiltGenerator.SaveExpressionsFile(BaseExpFileName, TestInitializers.ExpressionsOutputPath);
+            Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built expression file {BuiltExpressionFile} does not exist!");
+        
             // Log our test method is complete here
             TestInitializers.LogTestMethodCompleted();
         }

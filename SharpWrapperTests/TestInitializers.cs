@@ -202,6 +202,29 @@ namespace SharpWrapperTests
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        /// Helper method used to request the tester to select an input log file to use for testing
+        /// </summary>
+        /// <returns>The log file selected for testing</returns>
+        public static string RequestTestLog()
+        {
+            // Show a file dialog box and request input for it
+            OpenFileDialog SelectFilesDialog = new OpenFileDialog
+            {
+                // Configure the new dialog box to show the user
+                Multiselect = false,
+                CheckPathExists = true,
+                CheckFileExists = true,
+                InitialDirectory = TestJ2534LogsPath
+            };
+
+            // Open up the dialog box and store the results. If no files are picked, throw an exception
+            if ((bool)!SelectFilesDialog.ShowDialog())
+                throw new InvalidOperationException("Error! A log file must be selected for testing!");
+
+            // Pull the selected files and return them out
+            return SelectFilesDialog.FileName;
+        }
+        /// <summary>
         /// Helper method used to request the tester to select a folder or set of files to use for testing
         /// </summary>
         /// <returns>The log files selected for testing</returns>

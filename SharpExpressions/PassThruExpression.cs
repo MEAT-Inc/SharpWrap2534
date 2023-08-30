@@ -279,6 +279,7 @@ namespace SharpExpressions
                 {
                     // Throw an exception output for this error type.
                     this._expressionLogger.WriteLog($"EXCEPTION THROWN DURING EXPRESSION VALUE STORE FOR COMMAND TYPE {this.GetType().Name}!", LogType.ErrorLog);
+                    this._expressionLogger.WriteLog($"INPUT PASSTHRU LOG LINES ARE BEING LOGGED BELOW\n\t{this.CommandLines}");
                     this._expressionLogger.WriteException("EXCEPTION IS BEING LOGGED BELOW", SetEx);
                     return false;
                 }

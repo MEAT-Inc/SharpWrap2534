@@ -266,6 +266,7 @@ namespace SharpExpressions
             // Make sure the count of properties matches the count of lines.
             if (FieldValueStrings.Length != FieldObjects.Length) {
                 this._expressionLogger.WriteLog("EXPRESSIONS FOR FIELDS AND VALUES ARE NOT EQUAL SIZES! THIS IS FATAL!", LogType.FatalLog);
+                this._expressionLogger.WriteLog($"INPUT PASSTHRU LOG LINES ARE BEING LOGGED BELOW\n\t{this.CommandLines}");
                 return false;
             }
 

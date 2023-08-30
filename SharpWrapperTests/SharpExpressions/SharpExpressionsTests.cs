@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using SharpExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpLogging;
+using System;
 
 namespace SharpWrapperTests.SharpExpressions
 {
@@ -66,6 +67,7 @@ namespace SharpWrapperTests.SharpExpressions
 
             // Build an expression generator and build our output log files based on the user selected log file
             string RequestedLogFile = TestInitializers.RequestTestLog();
+            if (!RequestedLogFile.EndsWith(".txt")) throw new InvalidOperationException("Error! Must provide txt files for this test!");
             var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(RequestedLogFile);
             PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
             Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {RequestedLogFile}!");
@@ -88,8 +90,12 @@ namespace SharpWrapperTests.SharpExpressions
             TestInitializers.InitializeTestLogging(out this._expTestLogger);
             this._expTestLogger.WriteLog("Starting tests to generate expressions from user picked log files now...");
 
-            // Build an expression generator and build our output log files based on the user selected log file
+            // Request new input log files and ensure they're all .txt files
             string[] RequestedLogFiles = TestInitializers.RequestTestLogs().ToArray();
+            if (RequestedLogFiles.Any(LogFile => !LogFile.EndsWith(".txt")))
+                throw new InvalidOperationException("Error! Must provide txt files for this test!");
+
+            // Build an expression generator and build our output log files based on the user selected log file
             var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFiles(RequestedLogFiles);
             PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
             Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {BuiltGenerator.PassThruLogFile}!");

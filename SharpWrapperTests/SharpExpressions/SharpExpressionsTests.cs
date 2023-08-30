@@ -36,7 +36,7 @@ namespace SharpWrapperTests.SharpExpressions
 
         /// <summary>
         /// CTOR for this test class.
-        /// Contains a startup routine used to build a new instance of the ALS App to configure resources
+        /// Contains a startup routine used to build a new instance of the SharpWrapper projects to configure resources
         /// </summary>
         [TestInitialize]
         public void InitializeExpressionsTests()
@@ -69,6 +69,34 @@ namespace SharpWrapperTests.SharpExpressions
             {
                 // Build an expression generator and build our output log files
                 var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(TestLogFile); 
+                PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
+                Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {TestLogFile}!");
+
+                // Save the output file and make sure it's real
+                string BaseExpFileName = Path.GetFileNameWithoutExtension(TestLogFile);
+                string BuiltExpressionFile = BuiltGenerator.SaveExpressionsFile(BaseExpFileName, TestInitializers.ExpressionsOutputPath);
+                Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built expression file {BuiltExpressionFile} does not exist!");
+            }
+
+            // Log our test method is complete here
+            TestInitializers.LogTestMethodCompleted();
+        }
+        /// <summary>
+        /// Test method which will pick a collection of logs from the given input and attempt to build expressions from it
+        /// </summary>
+        [TestMethod("Generate Expressions From Tester Logs")]
+        public void GenerateExpressionsFromTesterFiles()
+        {
+            // Configure our logging instance and start the test
+            TestInitializers.InitializeTestLogging(out this._expTestLogger);
+            this._expTestLogger.WriteLog("Starting tests to generate expressions from user picked log files now...");
+
+            // Iterate all the test files imported and generate expressions for all of them
+            string[] RequestedLogFiles = TestInitializers.RequestTestLogs().ToArray();
+            foreach (var TestLogFile in TestInitializers.RequestTestLogs())
+            {
+                // Build an expression generator and build our output log files
+                var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(TestLogFile);
                 PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
                 Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {TestLogFile}!");
 

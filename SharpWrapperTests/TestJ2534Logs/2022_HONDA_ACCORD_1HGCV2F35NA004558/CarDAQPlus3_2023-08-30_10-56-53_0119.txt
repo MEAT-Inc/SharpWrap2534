@@ -1,0 +1,2839 @@
+   Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 0.000s PTOpen(001D9F38, 003EC758)
+   pName: J2534-2:
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.2.21.0
+   Calling app: C:\i-HDS\D-PDU_API\ppl_j2534.exe, thread ID: 3912
+
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #012471
+     USB\VID_18E1&PID_1102&MI_02\6&21BEEC63&0&0002
+   returning DeviceID 1
+** 0.359s PTReadVersion(1, 012FF63C, 012FF5E4, 012FF58C)
+   DLL: CarDAQ-Plus 3 J2534 Library v1.2.21.0
+   API: 04.04
+   FW:  CarDAQ-Plus 3 FW:0.2.0.9 BL:0.2.0.6 SN: CMUA40000012471D
+** 0.359s PTIoctl(1, 1048576:?vendor?, 012FF3A8, 00000000)
+   Returning 15:ERR_INVALID_IOCTL_ID 'IoctlID 1048576:?vendor? unrecognized'
+** 0.359s PTGetLastError(012FF1CC)
+   Error String: IoctlID 1048576:?vendor? unrecognized
+** 1.047s PTSetProgrammingVoltage(1, 9, 4294967295)
+   VOLTAGE_OFF on j1962 pin 9
+++ 1.234s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 2
+** 1.234s PTIoctl(2, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+++ 1.234s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FE3A0, 012FD360, 012FC320, 012FF3E0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 3
+<< 1.234s PTReadMsgs(2, 04C74020, 1000, 0)   1.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.234s PTReadMsgs(2, 04C75020, 1000, 0)   1.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 1.234s PTStopMsgFilter(2, 3)
+   Removed message filter: 3
+++ 1.234s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  05 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  05  f1 
+   returning FilterID 4
+++ 1.234s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  11 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  11  f1 
+   returning FilterID 5
+++ 1.250s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  10 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  10  f1 
+   returning FilterID 6
+++ 1.250s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  0e 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  0e  f1 
+   returning FilterID 7
+++ 1.250s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  d8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  d8  f1 
+   returning FilterID 8
+++ 1.250s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  60 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  60  f1 
+   returning FilterID 9
+++ 1.250s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  b4 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  b4  f1 
+   returning FilterID 10
+++ 1.250s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  2a 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  2a  f1 
+   returning FilterID 11
+++ 1.250s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  1d 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  1d  f1 
+   returning FilterID 12
+++ 1.250s PTStartMsgFilter(2, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  30 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  30  f1 
+   returning FilterID 13
+<< 1.250s PTReadMsgs(2, 04C7A020, 1000, 0)   1.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 1.250s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.250s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.250s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.250s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.250s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.250s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.250s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.250s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.250s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.265s PTIoctl(2, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 1.265s PTReadMsgs(2, 04C7A020, 1000, 0)   1.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 1.265s PTWriteMsgs(2, 012FE3FC, 012FE2F8, 0)
+   Transaction 0037 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+   Queued everything
+   Queued 1/1
+<< 1.265s PTReadMsgs(2, 04C78020, 1000, 0)
+   Msg[0] 3.406009s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][db][ef][f1]
+   Msg[1] 3.406009s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+<< 1.265s PTReadMsgs() complete (channel 2)
+<< 1.265s PTReadMsgs(2, 04C7C020, 1000, 0)
+   Msg[0] 3.407751s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  10  7e  00 
+<< 1.265s PTReadMsgs() complete (channel 2)
+<< 1.265s PTReadMsgs(2, 04C77020, 1000, 0)   1.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.265s PTReadMsgs(2, 04C7B020, 1000, 0)
+   Msg[0] 3.412844s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  30  7e  00 
+<< 1.265s PTReadMsgs() complete (channel 2)
+<< 1.265s PTReadMsgs(2, 04C76020, 1000, 0)   1.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.265s PTReadMsgs(2, 04C71020, 1000, 0)   1.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.281s PTReadMsgs(2, 04C73020, 1000, 0)
+   Msg[0] 3.418416s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  60  7e  00 
+<< 1.281s PTReadMsgs() complete (channel 2)
+<< 1.281s PTReadMsgs(2, 04C77020, 1000, 0)   1.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.281s PTReadMsgs(2, 04C78020, 1000, 0)   1.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.281s PTReadMsgs(2, 04C71020, 1000, 0)   1.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.281s PTReadMsgs(2, 04C70020, 1000, 0)   1.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.281s PTReadMsgs(2, 04C79020, 1000, 0)   1.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.281s PTReadMsgs(2, 04C72020, 1000, 0)   1.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.281s PTReadMsgs(2, 04C70020, 1000, 0)   1.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.297s PTReadMsgs(2, 04C72020, 1000, 0)   1.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.297s PTReadMsgs(2, 04C76020, 1000, 0)   1.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.297s PTReadMsgs(2, 04C7D020, 1000, 0)   1.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.297s PTReadMsgs(2, 04C75020, 1000, 0)   1.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.297s PTReadMsgs(2, 04C79020, 1000, 0)   1.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.297s PTReadMsgs(2, 04C78020, 1000, 0)   1.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.297s PTReadMsgs(2, 04C77020, 1000, 0)   1.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.312s PTReadMsgs(2, 04C7F020, 1000, 0)   1.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.312s PTReadMsgs(2, 04C70020, 1000, 0)   1.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.312s PTReadMsgs(2, 04C74020, 1000, 0)   1.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.312s PTReadMsgs(2, 04C75020, 1000, 0)   1.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.312s PTReadMsgs(2, 04C72020, 1000, 0)   1.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.312s PTReadMsgs(2, 04C7B020, 1000, 0)   1.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.312s PTReadMsgs(2, 04C7B020, 1000, 0)   1.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.312s PTReadMsgs(2, 04C72020, 1000, 0)   1.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.328s PTReadMsgs(2, 04C7B020, 1000, 0)   1.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.328s PTReadMsgs(2, 04C79020, 1000, 0)   1.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.328s PTReadMsgs(2, 04C71020, 1000, 0)   1.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.328s PTReadMsgs(2, 04C70020, 1000, 0)   1.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.328s PTReadMsgs(2, 04C7A020, 1000, 0)   1.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.328s PTReadMsgs(2, 04C70020, 1000, 0)   1.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.328s PTReadMsgs(2, 04C76020, 1000, 0)   1.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.343s PTReadMsgs(2, 04C77020, 1000, 0)   1.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.343s PTReadMsgs(2, 04C75020, 1000, 0)   1.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.343s PTReadMsgs(2, 04C75020, 1000, 0)   1.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.343s PTReadMsgs(2, 04C7C020, 1000, 0)   1.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.343s PTReadMsgs(2, 04C7C020, 1000, 0)   1.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.343s PTReadMsgs(2, 04C77020, 1000, 0)   1.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.343s PTReadMsgs(2, 04C77020, 1000, 0)   1.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.343s PTReadMsgs(2, 04C77020, 1000, 0)   1.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.359s PTReadMsgs(2, 04C79020, 1000, 0)   1.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.359s PTReadMsgs(2, 04C74020, 1000, 0)   1.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.359s PTReadMsgs(2, 04C71020, 1000, 0)   1.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.359s PTReadMsgs(2, 04C73020, 1000, 0)   1.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.359s PTReadMsgs(2, 04C73020, 1000, 0)   1.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.359s PTReadMsgs(2, 04C72020, 1000, 0)   1.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.359s PTReadMsgs(2, 04C78020, 1000, 0)   1.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.375s PTReadMsgs(2, 04C78020, 1000, 0)   1.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.375s PTReadMsgs(2, 04C75020, 1000, 0)   1.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.375s PTReadMsgs(2, 04C7A020, 1000, 0)   1.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.375s PTReadMsgs(2, 04C76020, 1000, 0)   1.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.375s PTReadMsgs(2, 04C79020, 1000, 0)   1.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.375s PTReadMsgs(2, 04C78020, 1000, 0)   1.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.375s PTReadMsgs(2, 04C70020, 1000, 0)   1.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.375s PTReadMsgs(2, 04C7C020, 1000, 0)   1.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.375s PTReadMsgs(2, 04C76020, 1000, 0)   1.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.390s PTReadMsgs(2, 04C72020, 1000, 0)   1.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.390s PTReadMsgs(2, 04C78020, 1000, 0)   1.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.390s PTReadMsgs(2, 04C7F020, 1000, 0)   1.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.390s PTReadMsgs(2, 04C73020, 1000, 0)   1.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.390s PTReadMsgs(2, 04C79020, 1000, 0)   1.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.390s PTReadMsgs(2, 04C7B020, 1000, 0)   1.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.390s PTReadMsgs(2, 04C72020, 1000, 0)   1.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.406s PTReadMsgs(2, 04C74020, 1000, 0)   1.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.406s PTReadMsgs(2, 04C73020, 1000, 0)   1.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.406s PTReadMsgs(2, 04C74020, 1000, 0)   1.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.406s PTReadMsgs(2, 04C7B020, 1000, 0)   1.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.406s PTReadMsgs(2, 04C7C020, 1000, 0)   1.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.406s PTReadMsgs(2, 04C78020, 1000, 0)   1.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.406s PTReadMsgs(2, 04C79020, 1000, 0)   1.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.406s PTReadMsgs(2, 04C7C020, 1000, 0)   1.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.422s PTReadMsgs(2, 04C70020, 1000, 0)   1.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.422s PTReadMsgs(2, 04C76020, 1000, 0)   1.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.422s PTReadMsgs(2, 04C71020, 1000, 0)   1.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.422s PTReadMsgs(2, 04C73020, 1000, 0)   1.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.422s PTReadMsgs(2, 04C7D020, 1000, 0)   1.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.422s PTReadMsgs(2, 04C77020, 1000, 0)   1.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.422s PTReadMsgs(2, 04C74020, 1000, 0)   1.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 1.422s PTStopMsgFilter(2, 4)
+   Removed message filter: 4
+-- 1.422s PTStopMsgFilter(2, 5)
+   Removed message filter: 5
+-- 1.422s PTStopMsgFilter(2, 6)
+   Removed message filter: 6
+-- 1.422s PTStopMsgFilter(2, 7)
+   Removed message filter: 7
+-- 1.437s PTStopMsgFilter(2, 8)
+   Removed message filter: 8
+-- 1.437s PTStopMsgFilter(2, 9)
+   Removed message filter: 9
+-- 1.437s PTStopMsgFilter(2, 10)
+   Removed message filter: 10
+-- 1.437s PTStopMsgFilter(2, 11)
+   Removed message filter: 11
+-- 1.437s PTStopMsgFilter(2, 12)
+   Removed message filter: 12
+-- 1.437s PTStopMsgFilter(2, 13)
+   Removed message filter: 13
+-- 1.437s PTDisconnect(2)
+++ 1.453s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 14
+** 1.468s PTIoctl(14, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+<< 1.468s PTReadMsgs(14, 04C7B020, 1000, 0)   1.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.468s PTReadMsgs(14, 04C73020, 1000, 0)   1.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  ef 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  ef  f1 
+   returning FilterID 15
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  0b 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  0b  f1 
+   returning FilterID 16
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  1c 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  1c  f1 
+   returning FilterID 17
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  1e 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  1e  f1 
+   returning FilterID 18
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  04 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  04  f1 
+   returning FilterID 19
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  03 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  03  f1 
+   returning FilterID 20
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  02 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  02  f1 
+   returning FilterID 21
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  01 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  01  f1 
+   returning FilterID 22
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  28 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  28  f1 
+   returning FilterID 23
+++ 1.468s PTStartMsgFilter(14, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  53 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  53  f1 
+   returning FilterID 24
+<< 1.468s PTReadMsgs(14, 04C75020, 1000, 0)   1.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 1.468s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.468s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.468s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.468s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.468s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.484s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.484s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.484s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.484s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.484s PTIoctl(14, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 1.484s PTReadMsgs(14, 04C7D020, 1000, 0)   1.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 1.484s PTWriteMsgs(14, 012FE3FC, 012FE2F8, 0)
+   Transaction 006d for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+   Queued everything
+   Queued 1/1
+<< 1.484s PTReadMsgs(14, 04C73020, 1000, 0)
+   Msg[0] 3.631254s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][db][ef][f1]
+   Msg[1] 3.631254s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+<< 1.484s PTReadMsgs() complete (channel 14)
+<< 1.484s PTReadMsgs(14, 04C72020, 1000, 0)
+   Msg[0] 3.634379s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  1e  7e  00 
+<< 1.484s PTReadMsgs() complete (channel 14)
+<< 1.484s PTReadMsgs(14, 04C71020, 1000, 0)   1.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.500s PTReadMsgs(14, 04C7E020, 1000, 0)
+   Msg[0] 3.637997s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  53  7e  00 
+<< 1.500s PTReadMsgs() complete (channel 14)
+<< 1.500s PTReadMsgs(14, 04C71020, 1000, 0)   1.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.500s PTReadMsgs(14, 04C73020, 1000, 0)
+   Msg[0] 3.640901s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  ef  7e  00 
+   Msg[1] 3.641171s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  0b  7e  00 
+<< 1.500s PTReadMsgs() complete (channel 14)
+<< 1.500s PTReadMsgs(14, 04C78020, 1000, 0)   1.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.500s PTReadMsgs(14, 04C75020, 1000, 0)   1.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.500s PTReadMsgs(14, 04C72020, 1000, 0)   1.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.515s PTReadMsgs(14, 04C7C020, 1000, 0)   1.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.515s PTReadMsgs(14, 04C76020, 1000, 0)
+   Msg[0] 3.653651s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  28  7e  00 
+<< 1.515s PTReadMsgs() complete (channel 14)
+<< 1.515s PTReadMsgs(14, 04C79020, 1000, 0)   1.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.515s PTReadMsgs(14, 04C74020, 1000, 0)   1.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.515s PTReadMsgs(14, 04C75020, 1000, 0)   1.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.515s PTReadMsgs(14, 04C71020, 1000, 0)   1.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.515s PTReadMsgs(14, 04C7A020, 1000, 0)   1.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.515s PTReadMsgs(14, 04C7B020, 1000, 0)   1.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.531s PTReadMsgs(14, 04C78020, 1000, 0)   1.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.531s PTReadMsgs(14, 04C70020, 1000, 0)   1.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.531s PTReadMsgs(14, 04C70020, 1000, 0)   1.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.531s PTReadMsgs(14, 04C79020, 1000, 0)   1.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.531s PTReadMsgs(14, 04C73020, 1000, 0)   1.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.531s PTReadMsgs(14, 04C79020, 1000, 0)   1.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.531s PTReadMsgs(14, 04C78020, 1000, 0)   1.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.547s PTReadMsgs(14, 04C75020, 1000, 0)   1.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.547s PTReadMsgs(14, 04C70020, 1000, 0)   1.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.547s PTReadMsgs(14, 04C73020, 1000, 0)   1.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.547s PTReadMsgs(14, 04C78020, 1000, 0)   1.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.547s PTReadMsgs(14, 04C74020, 1000, 0)   1.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.547s PTReadMsgs(14, 04C71020, 1000, 0)   1.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.547s PTReadMsgs(14, 04C77020, 1000, 0)   1.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.547s PTReadMsgs(14, 04C77020, 1000, 0)   1.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.562s PTReadMsgs(14, 04C78020, 1000, 0)   1.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.562s PTReadMsgs(14, 04C76020, 1000, 0)   1.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.562s PTReadMsgs(14, 04C7D020, 1000, 0)   1.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.562s PTReadMsgs(14, 04C7F020, 1000, 0)   1.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.562s PTReadMsgs(14, 04C7C020, 1000, 0)   1.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.562s PTReadMsgs(14, 04C7C020, 1000, 0)   1.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.562s PTReadMsgs(14, 04C7C020, 1000, 0)   1.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.578s PTReadMsgs(14, 04C72020, 1000, 0)   1.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.578s PTReadMsgs(14, 04C74020, 1000, 0)   1.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.578s PTReadMsgs(14, 04C7B020, 1000, 0)   1.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.578s PTReadMsgs(14, 04C7C020, 1000, 0)   1.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.578s PTReadMsgs(14, 04C7C020, 1000, 0)   1.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.578s PTReadMsgs(14, 04C71020, 1000, 0)   1.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.578s PTReadMsgs(14, 04C7C020, 1000, 0)   1.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.593s PTReadMsgs(14, 04C7F020, 1000, 0)   1.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.593s PTReadMsgs(14, 04C76020, 1000, 0)   1.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.593s PTReadMsgs(14, 04C70020, 1000, 0)   1.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.593s PTReadMsgs(14, 04C79020, 1000, 0)   1.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.593s PTReadMsgs(14, 04C73020, 1000, 0)   1.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.593s PTReadMsgs(14, 04C70020, 1000, 0)   1.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.593s PTReadMsgs(14, 04C77020, 1000, 0)   1.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.593s PTReadMsgs(14, 04C7C020, 1000, 0)   1.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.609s PTReadMsgs(14, 04C70020, 1000, 0)   1.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.609s PTReadMsgs(14, 04C73020, 1000, 0)   1.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.609s PTReadMsgs(14, 04C75020, 1000, 0)   1.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.609s PTReadMsgs(14, 04C70020, 1000, 0)   1.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.609s PTReadMsgs(14, 04C72020, 1000, 0)   1.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.609s PTReadMsgs(14, 04C7A020, 1000, 0)   1.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.609s PTReadMsgs(14, 04C7D020, 1000, 0)   1.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.625s PTReadMsgs(14, 04C77020, 1000, 0)   1.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.625s PTReadMsgs(14, 04C75020, 1000, 0)   1.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.625s PTReadMsgs(14, 04C7A020, 1000, 0)   1.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.625s PTReadMsgs(14, 04C73020, 1000, 0)   1.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.625s PTReadMsgs(14, 04C75020, 1000, 0)   1.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.625s PTReadMsgs(14, 04C7C020, 1000, 0)   1.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.625s PTReadMsgs(14, 04C70020, 1000, 0)   1.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.625s PTReadMsgs(14, 04C78020, 1000, 0)   1.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.640s PTReadMsgs(14, 04C71020, 1000, 0)   1.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.640s PTReadMsgs(14, 04C75020, 1000, 0)   1.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.640s PTReadMsgs(14, 04C74020, 1000, 0)   1.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.640s PTReadMsgs(14, 04C72020, 1000, 0)   1.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.640s PTReadMsgs(14, 04C78020, 1000, 0)   1.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.640s PTReadMsgs(14, 04C75020, 1000, 0)   1.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.640s PTReadMsgs(14, 04C77020, 1000, 0)   1.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.640s PTReadMsgs(14, 04C7E020, 1000, 0)   1.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.656s PTReadMsgs(14, 04C7B020, 1000, 0)   1.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.656s PTReadMsgs(14, 04C74020, 1000, 0)   1.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.656s PTReadMsgs(14, 04C7F020, 1000, 0)   1.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.656s PTReadMsgs(14, 04C71020, 1000, 0)   1.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.656s PTReadMsgs(14, 04C7F020, 1000, 0)   1.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 1.656s PTStopMsgFilter(14, 15)
+   Removed message filter: 15
+-- 1.656s PTStopMsgFilter(14, 16)
+   Removed message filter: 16
+-- 1.656s PTStopMsgFilter(14, 17)
+   Removed message filter: 17
+-- 1.656s PTStopMsgFilter(14, 18)
+   Removed message filter: 18
+-- 1.656s PTStopMsgFilter(14, 19)
+   Removed message filter: 19
+-- 1.656s PTStopMsgFilter(14, 20)
+   Removed message filter: 20
+-- 1.656s PTStopMsgFilter(14, 21)
+   Removed message filter: 21
+-- 1.656s PTStopMsgFilter(14, 22)
+   Removed message filter: 22
+-- 1.656s PTStopMsgFilter(14, 23)
+   Removed message filter: 23
+-- 1.656s PTStopMsgFilter(14, 24)
+   Removed message filter: 24
+-- 1.672s PTDisconnect(14)
+++ 1.672s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 25
+** 1.672s PTIoctl(25, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+<< 1.672s PTReadMsgs(25, 04C79020, 1000, 0)   1.672s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.687s PTReadMsgs(25, 04C7F020, 1000, 0)   1.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  3a 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  3a  f1 
+   returning FilterID 26
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  5c 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  5c  f1 
+   returning FilterID 27
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  5b 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  5b  f1 
+   returning FilterID 28
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  b0 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  b0  f1 
+   returning FilterID 29
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  09 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  09  f1 
+   returning FilterID 30
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  08 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  08  f1 
+   returning FilterID 31
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  07 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  07  f1 
+   returning FilterID 32
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  06 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  06  f1 
+   returning FilterID 33
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  38 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  38  f1 
+   returning FilterID 34
+++ 1.687s PTStartMsgFilter(25, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  29 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  29  f1 
+   returning FilterID 35
+<< 1.687s PTReadMsgs(25, 04C72020, 1000, 0)   1.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 1.687s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.687s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.687s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.687s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.687s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.687s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.687s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.687s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.687s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.703s PTIoctl(25, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 1.703s PTReadMsgs(25, 04C7D020, 1000, 0)   1.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 1.703s PTWriteMsgs(25, 012FE3FC, 012FE2F8, 0)
+   Transaction 00a3 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+   Queued everything
+   Queued 1/1
+<< 1.703s PTReadMsgs(25, 04C7B020, 1000, 0)
+   Msg[0] 3.844638s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][db][ef][f1]
+   Msg[1] 3.844638s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+<< 1.703s PTReadMsgs() complete (channel 25)
+<< 1.703s PTReadMsgs(25, 04C7C020, 1000, 0)   1.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.703s PTReadMsgs(25, 04C7A020, 1000, 0)   1.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.703s PTReadMsgs(25, 04C72020, 1000, 0)   1.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.703s PTReadMsgs(25, 04C71020, 1000, 0)   1.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.718s PTReadMsgs(25, 04C73020, 1000, 0)   1.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.718s PTReadMsgs(25, 04C7F020, 1000, 0)
+   Msg[0] 3.856669s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  b0  7e  00 
+<< 1.718s PTReadMsgs() complete (channel 25)
+<< 1.718s PTReadMsgs(25, 04C7A020, 1000, 0)   1.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.718s PTReadMsgs(25, 04C7C020, 1000, 0)   1.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.718s PTReadMsgs(25, 04C72020, 1000, 0)   1.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.718s PTReadMsgs(25, 04C7D020, 1000, 0)   1.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.718s PTReadMsgs(25, 04C77020, 1000, 0)   1.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.718s PTReadMsgs(25, 04C7B020, 1000, 0)   1.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.734s PTReadMsgs(25, 04C70020, 1000, 0)   1.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.734s PTReadMsgs(25, 04C75020, 1000, 0)   1.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.734s PTReadMsgs(25, 04C72020, 1000, 0)   1.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.734s PTReadMsgs(25, 04C7B020, 1000, 0)   1.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.734s PTReadMsgs(25, 04C7E020, 1000, 0)   1.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.734s PTReadMsgs(25, 04C71020, 1000, 0)   1.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.734s PTReadMsgs(25, 04C71020, 1000, 0)   1.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.750s PTReadMsgs(25, 04C75020, 1000, 0)   1.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.750s PTReadMsgs(25, 04C72020, 1000, 0)   1.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.750s PTReadMsgs(25, 04C79020, 1000, 0)   1.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.750s PTReadMsgs(25, 04C7B020, 1000, 0)   1.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.750s PTReadMsgs(25, 04C7C020, 1000, 0)   1.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.750s PTReadMsgs(25, 04C7B020, 1000, 0)   1.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.750s PTReadMsgs(25, 04C71020, 1000, 0)   1.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.750s PTReadMsgs(25, 04C75020, 1000, 0)   1.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.765s PTReadMsgs(25, 04C7A020, 1000, 0)   1.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.765s PTReadMsgs(25, 04C73020, 1000, 0)   1.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.765s PTReadMsgs(25, 04C79020, 1000, 0)   1.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.765s PTReadMsgs(25, 04C7F020, 1000, 0)   1.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.765s PTReadMsgs(25, 04C7C020, 1000, 0)   1.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.765s PTReadMsgs(25, 04C7F020, 1000, 0)   1.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.765s PTReadMsgs(25, 04C7C020, 1000, 0)   1.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.765s PTReadMsgs(25, 04C77020, 1000, 0)   1.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.781s PTReadMsgs(25, 04C7A020, 1000, 0)   1.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.781s PTReadMsgs(25, 04C7F020, 1000, 0)   1.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.781s PTReadMsgs(25, 04C7E020, 1000, 0)   1.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.781s PTReadMsgs(25, 04C75020, 1000, 0)   1.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.781s PTReadMsgs(25, 04C7B020, 1000, 0)   1.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.781s PTReadMsgs(25, 04C7B020, 1000, 0)   1.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.781s PTReadMsgs(25, 04C71020, 1000, 0)   1.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.781s PTReadMsgs(25, 04C71020, 1000, 0)   1.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.781s PTReadMsgs(25, 04C7F020, 1000, 0)   1.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.797s PTReadMsgs(25, 04C71020, 1000, 0)   1.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.797s PTReadMsgs(25, 04C70020, 1000, 0)   1.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.797s PTReadMsgs(25, 04C7D020, 1000, 0)   1.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.797s PTReadMsgs(25, 04C7E020, 1000, 0)   1.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.797s PTReadMsgs(25, 04C79020, 1000, 0)   1.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.797s PTReadMsgs(25, 04C7D020, 1000, 0)   1.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.797s PTReadMsgs(25, 04C7B020, 1000, 0)   1.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.812s PTReadMsgs(25, 04C7A020, 1000, 0)   1.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.812s PTReadMsgs(25, 04C78020, 1000, 0)   1.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.812s PTReadMsgs(25, 04C7B020, 1000, 0)   1.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.812s PTReadMsgs(25, 04C7F020, 1000, 0)   1.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.812s PTReadMsgs(25, 04C7C020, 1000, 0)   1.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.812s PTReadMsgs(25, 04C7A020, 1000, 0)   1.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.812s PTReadMsgs(25, 04C7C020, 1000, 0)   1.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.812s PTReadMsgs(25, 04C74020, 1000, 0)   1.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.828s PTReadMsgs(25, 04C72020, 1000, 0)   1.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.828s PTReadMsgs(25, 04C72020, 1000, 0)   1.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.828s PTReadMsgs(25, 04C72020, 1000, 0)   1.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.828s PTReadMsgs(25, 04C7A020, 1000, 0)   1.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.828s PTReadMsgs(25, 04C7F020, 1000, 0)   1.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.828s PTReadMsgs(25, 04C7B020, 1000, 0)   1.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.828s PTReadMsgs(25, 04C74020, 1000, 0)   1.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.828s PTReadMsgs(25, 04C70020, 1000, 0)   1.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.843s PTReadMsgs(25, 04C7E020, 1000, 0)   1.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.843s PTReadMsgs(25, 04C71020, 1000, 0)   1.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.843s PTReadMsgs(25, 04C73020, 1000, 0)   1.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.843s PTReadMsgs(25, 04C7C020, 1000, 0)   1.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.843s PTReadMsgs(25, 04C76020, 1000, 0)   1.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.843s PTReadMsgs(25, 04C77020, 1000, 0)   1.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.843s PTReadMsgs(25, 04C70020, 1000, 0)   1.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.859s PTReadMsgs(25, 04C71020, 1000, 0)   1.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.859s PTReadMsgs(25, 04C70020, 1000, 0)   1.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.859s PTReadMsgs(25, 04C7B020, 1000, 0)   1.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.859s PTReadMsgs(25, 04C74020, 1000, 0)   1.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.859s PTReadMsgs(25, 04C7F020, 1000, 0)   1.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.859s PTReadMsgs(25, 04C72020, 1000, 0)   1.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 1.859s PTStopMsgFilter(25, 26)
+   Removed message filter: 26
+-- 1.859s PTStopMsgFilter(25, 27)
+   Removed message filter: 27
+-- 1.859s PTStopMsgFilter(25, 28)
+   Removed message filter: 28
+-- 1.875s PTStopMsgFilter(25, 29)
+   Removed message filter: 29
+-- 1.875s PTStopMsgFilter(25, 30)
+   Removed message filter: 30
+-- 1.875s PTStopMsgFilter(25, 31)
+   Removed message filter: 31
+-- 1.875s PTStopMsgFilter(25, 32)
+   Removed message filter: 32
+-- 1.875s PTStopMsgFilter(25, 33)
+   Removed message filter: 33
+-- 1.875s PTStopMsgFilter(25, 34)
+   Removed message filter: 34
+-- 1.875s PTStopMsgFilter(25, 35)
+   Removed message filter: 35
+-- 1.875s PTDisconnect(25)
+++ 1.875s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 36
+** 1.890s PTIoctl(36, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+<< 1.890s PTReadMsgs(36, 04C75020, 1000, 0)   1.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.890s PTReadMsgs(36, 04C74020, 1000, 0)   1.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  5e 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  5e  f1 
+   returning FilterID 37
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  27 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  27  f1 
+   returning FilterID 38
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  26 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  26  f1 
+   returning FilterID 39
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  25 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  25  f1 
+   returning FilterID 40
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  d2 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  d2  f1 
+   returning FilterID 41
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  15 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  15  f1 
+   returning FilterID 42
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  d9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  d9  f1 
+   returning FilterID 43
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  b1 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  b1  f1 
+   returning FilterID 44
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  09 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  09  f1 
+   returning FilterID 45
+++ 1.890s PTStartMsgFilter(36, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  61 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  61  f1 
+   returning FilterID 46
+<< 1.890s PTReadMsgs(36, 04C79020, 1000, 0)   1.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 1.890s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.890s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.890s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.890s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.906s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.906s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.906s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.906s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.906s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 1.906s PTIoctl(36, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 1.906s PTReadMsgs(36, 04C74020, 1000, 0)   1.906s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 1.906s PTWriteMsgs(36, 012FE3FC, 012FE2F8, 0)
+   Transaction 00d9 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+   Queued everything
+   Queued 1/1
+<< 1.906s PTReadMsgs(36, 04C7F020, 1000, 0)
+   Msg[0] 4.053393s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][db][ef][f1]
+   Msg[1] 4.053393s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+<< 1.906s PTReadMsgs() complete (channel 36)
+<< 1.906s PTReadMsgs(36, 04C78020, 1000, 0)   1.906s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.922s PTReadMsgs(36, 04C7D020, 1000, 0)   1.922s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.922s PTReadMsgs(36, 04C73020, 1000, 0)   1.922s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.922s PTReadMsgs(36, 04C7E020, 1000, 0)   1.922s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.922s PTReadMsgs(36, 04C7B020, 1000, 0)   1.922s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.922s PTReadMsgs(36, 04C78020, 1000, 0)   1.922s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.922s PTReadMsgs(36, 04C7C020, 1000, 0)   1.922s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.937s PTReadMsgs(36, 04C79020, 1000, 0)   1.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.937s PTReadMsgs(36, 04C76020, 1000, 0)   1.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.937s PTReadMsgs(36, 04C71020, 1000, 0)   1.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.937s PTReadMsgs(36, 04C70020, 1000, 0)   1.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.937s PTReadMsgs(36, 04C75020, 1000, 0)   1.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.937s PTReadMsgs(36, 04C7E020, 1000, 0)   1.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.937s PTReadMsgs(36, 04C7C020, 1000, 0)   1.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 1.937s PTReadMsgs(36, 04C79020, 1000, 0)   1.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.000s PTReadMsgs(36, 04C7F020, 1000, 0)   2.000s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.000s PTReadMsgs(36, 04C75020, 1000, 0)   2.000s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.000s PTReadMsgs(36, 04C75020, 1000, 0)   2.000s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.000s PTReadMsgs(36, 04C7F020, 1000, 0)   2.000s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.000s PTReadMsgs(36, 04C7A020, 1000, 0)   2.000s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.000s PTReadMsgs(36, 04C76020, 1000, 0)   2.000s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.000s PTReadMsgs(36, 04C78020, 1000, 0)   2.000s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.015s PTReadMsgs(36, 04C7D020, 1000, 0)   2.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.015s PTReadMsgs(36, 04C72020, 1000, 0)   2.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.015s PTReadMsgs(36, 04C7A020, 1000, 0)   2.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.015s PTReadMsgs(36, 04C70020, 1000, 0)   2.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.015s PTReadMsgs(36, 04C7D020, 1000, 0)   2.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.015s PTReadMsgs(36, 04C7A020, 1000, 0)   2.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.015s PTReadMsgs(36, 04C71020, 1000, 0)   2.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.015s PTReadMsgs(36, 04C7C020, 1000, 0)   2.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.031s PTReadMsgs(36, 04C7D020, 1000, 0)   2.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.031s PTReadMsgs(36, 04C71020, 1000, 0)   2.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.031s PTReadMsgs(36, 04C7C020, 1000, 0)   2.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.031s PTReadMsgs(36, 04C7C020, 1000, 0)   2.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.031s PTReadMsgs(36, 04C77020, 1000, 0)   2.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.047s PTReadMsgs(36, 04C7D020, 1000, 0)   2.047s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.047s PTReadMsgs(36, 04C76020, 1000, 0)   2.047s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.047s PTReadMsgs(36, 04C7F020, 1000, 0)   2.047s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.047s PTReadMsgs(36, 04C73020, 1000, 0)   2.047s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.047s PTReadMsgs(36, 04C7E020, 1000, 0)   2.047s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.047s PTReadMsgs(36, 04C77020, 1000, 0)   2.047s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.109s PTReadMsgs(36, 04C70020, 1000, 0)   2.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.109s PTReadMsgs(36, 04C70020, 1000, 0)   2.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 2.109s PTStopMsgFilter(36, 37)
+   Removed message filter: 37
+-- 2.109s PTStopMsgFilter(36, 38)
+   Removed message filter: 38
+-- 2.109s PTStopMsgFilter(36, 39)
+   Removed message filter: 39
+-- 2.109s PTStopMsgFilter(36, 40)
+   Removed message filter: 40
+-- 2.109s PTStopMsgFilter(36, 41)
+   Removed message filter: 41
+-- 2.109s PTStopMsgFilter(36, 42)
+   Removed message filter: 42
+-- 2.109s PTStopMsgFilter(36, 43)
+   Removed message filter: 43
+-- 2.109s PTStopMsgFilter(36, 44)
+   Removed message filter: 44
+-- 2.109s PTStopMsgFilter(36, 45)
+   Removed message filter: 45
+-- 2.109s PTStopMsgFilter(36, 46)
+   Removed message filter: 46
+-- 2.109s PTDisconnect(36)
+++ 2.125s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 47
+** 2.125s PTIoctl(47, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+<< 2.125s PTReadMsgs(47, 04C7E020, 1000, 0)   2.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.125s PTReadMsgs(47, 04C7C020, 1000, 0)   2.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 2.125s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  ee 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  ee  f1 
+   returning FilterID 48
+++ 2.125s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  16 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  16  f1 
+   returning FilterID 49
+++ 2.125s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  b6 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  b6  f1 
+   returning FilterID 50
+++ 2.125s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  2b 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  2b  f1 
+   returning FilterID 51
+++ 2.125s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  94 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  94  f1 
+   returning FilterID 52
+++ 2.125s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  ec 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  ec  f1 
+   returning FilterID 53
+++ 2.125s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  e0 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  e0  f1 
+   returning FilterID 54
+++ 2.125s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  b7 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  b7  f1 
+   returning FilterID 55
+++ 2.140s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  a1 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  a1  f1 
+   returning FilterID 56
+++ 2.140s PTStartMsgFilter(47, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  17 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  17  f1 
+   returning FilterID 57
+<< 2.140s PTReadMsgs(47, 04C78020, 1000, 0)   2.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.140s PTIoctl(47, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 2.140s PTReadMsgs(47, 04C7F020, 1000, 0)   2.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 2.140s PTWriteMsgs(47, 012FE3FC, 012FE2F8, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+   Queued everything
+   Queued 1/1
+<< 2.140s PTReadMsgs(47, 04C73020, 1000, 0)
+   Msg[0] 4.291452s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][db][ef][f1]
+   Msg[1] 4.291452s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+<< 2.140s PTReadMsgs() complete (channel 47)
+<< 2.156s PTReadMsgs(47, 04C77020, 1000, 0)   2.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.156s PTReadMsgs(47, 04C77020, 1000, 0)   2.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.156s PTReadMsgs(47, 04C7B020, 1000, 0)
+   Msg[0] 4.297364s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  2b  7e  00 
+<< 2.156s PTReadMsgs() complete (channel 47)
+<< 2.156s PTReadMsgs(47, 04C77020, 1000, 0)   2.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.156s PTReadMsgs(47, 04C74020, 1000, 0)   2.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.156s PTReadMsgs(47, 04C76020, 1000, 0)   2.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.156s PTReadMsgs(47, 04C78020, 1000, 0)   2.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.172s PTReadMsgs(47, 04C7A020, 1000, 0)   2.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.172s PTReadMsgs(47, 04C7D020, 1000, 0)   2.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.172s PTReadMsgs(47, 04C73020, 1000, 0)   2.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.187s PTReadMsgs(47, 04C7F020, 1000, 0)   2.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.187s PTReadMsgs(47, 04C72020, 1000, 0)   2.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.187s PTReadMsgs(47, 04C73020, 1000, 0)   2.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.187s PTReadMsgs(47, 04C72020, 1000, 0)   2.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.187s PTReadMsgs(47, 04C7E020, 1000, 0)   2.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.187s PTReadMsgs(47, 04C74020, 1000, 0)   2.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.203s PTReadMsgs(47, 04C72020, 1000, 0)   2.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.203s PTReadMsgs(47, 04C74020, 1000, 0)   2.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.203s PTReadMsgs(47, 04C7B020, 1000, 0)   2.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.203s PTReadMsgs(47, 04C77020, 1000, 0)   2.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.203s PTReadMsgs(47, 04C7E020, 1000, 0)   2.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.203s PTReadMsgs(47, 04C79020, 1000, 0)   2.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.203s PTReadMsgs(47, 04C78020, 1000, 0)   2.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.218s PTReadMsgs(47, 04C7E020, 1000, 0)   2.218s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.218s PTReadMsgs(47, 04C7A020, 1000, 0)   2.218s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.218s PTReadMsgs(47, 04C7F020, 1000, 0)   2.218s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.218s PTReadMsgs(47, 04C7C020, 1000, 0)   2.218s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.218s PTReadMsgs(47, 04C77020, 1000, 0)   2.218s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.218s PTReadMsgs(47, 04C77020, 1000, 0)   2.218s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.218s PTReadMsgs(47, 04C7B020, 1000, 0)   2.218s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.234s PTReadMsgs(47, 04C73020, 1000, 0)   2.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.234s PTReadMsgs(47, 04C70020, 1000, 0)   2.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.234s PTReadMsgs(47, 04C70020, 1000, 0)   2.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.234s PTReadMsgs(47, 04C71020, 1000, 0)   2.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.234s PTReadMsgs(47, 04C79020, 1000, 0)   2.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.234s PTReadMsgs(47, 04C70020, 1000, 0)   2.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.234s PTReadMsgs(47, 04C77020, 1000, 0)   2.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.234s PTReadMsgs(47, 04C71020, 1000, 0)   2.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.250s PTReadMsgs(47, 04C70020, 1000, 0)   2.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.250s PTReadMsgs(47, 04C78020, 1000, 0)   2.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.250s PTReadMsgs(47, 04C7B020, 1000, 0)   2.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.250s PTReadMsgs(47, 04C7F020, 1000, 0)   2.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.250s PTReadMsgs(47, 04C75020, 1000, 0)   2.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.250s PTReadMsgs(47, 04C72020, 1000, 0)   2.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.265s PTReadMsgs(47, 04C79020, 1000, 0)   2.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.265s PTReadMsgs(47, 04C7C020, 1000, 0)   2.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.265s PTReadMsgs(47, 04C71020, 1000, 0)   2.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.265s PTReadMsgs(47, 04C7C020, 1000, 0)   2.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.265s PTReadMsgs(47, 04C78020, 1000, 0)   2.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.265s PTReadMsgs(47, 04C79020, 1000, 0)   2.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.265s PTReadMsgs(47, 04C71020, 1000, 0)   2.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.265s PTReadMsgs(47, 04C7A020, 1000, 0)   2.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.281s PTReadMsgs(47, 04C78020, 1000, 0)   2.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.281s PTReadMsgs(47, 04C70020, 1000, 0)   2.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.281s PTReadMsgs(47, 04C75020, 1000, 0)   2.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.281s PTReadMsgs(47, 04C75020, 1000, 0)   2.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.281s PTReadMsgs(47, 04C7C020, 1000, 0)   2.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.281s PTReadMsgs(47, 04C7D020, 1000, 0)   2.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.297s PTReadMsgs(47, 04C7A020, 1000, 0)   2.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.297s PTReadMsgs(47, 04C76020, 1000, 0)   2.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.297s PTReadMsgs(47, 04C73020, 1000, 0)   2.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.297s PTReadMsgs(47, 04C71020, 1000, 0)   2.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.297s PTReadMsgs(47, 04C75020, 1000, 0)   2.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.297s PTReadMsgs(47, 04C7D020, 1000, 0)   2.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.297s PTReadMsgs(47, 04C78020, 1000, 0)   2.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.297s PTReadMsgs(47, 04C74020, 1000, 0)   2.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 2.297s PTStopMsgFilter(47, 48)
+   Removed message filter: 48
+-- 2.297s PTStopMsgFilter(47, 49)
+   Removed message filter: 49
+-- 2.312s PTStopMsgFilter(47, 50)
+   Removed message filter: 50
+-- 2.312s PTStopMsgFilter(47, 51)
+   Removed message filter: 51
+-- 2.312s PTStopMsgFilter(47, 52)
+   Removed message filter: 52
+-- 2.312s PTStopMsgFilter(47, 53)
+   Removed message filter: 53
+-- 2.312s PTStopMsgFilter(47, 54)
+   Removed message filter: 54
+-- 2.312s PTStopMsgFilter(47, 55)
+   Removed message filter: 55
+-- 2.312s PTStopMsgFilter(47, 56)
+   Removed message filter: 56
+-- 2.312s PTStopMsgFilter(47, 57)
+   Removed message filter: 57
+-- 2.312s PTDisconnect(47)
+++ 2.328s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 58
+** 2.328s PTIoctl(58, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+<< 2.328s PTReadMsgs(58, 04C7E020, 1000, 0)   2.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.328s PTReadMsgs(58, 04C7C020, 1000, 0)   2.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  be 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  be  f1 
+   returning FilterID 59
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  a7 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  a7  f1 
+   returning FilterID 60
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  a8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  a8  f1 
+   returning FilterID 61
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  b8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  b8  f1 
+   returning FilterID 62
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  bd 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  bd  f1 
+   returning FilterID 63
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  bb 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  bb  f1 
+   returning FilterID 64
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  ba 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  ba  f1 
+   returning FilterID 65
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  b9 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  b9  f1 
+   returning FilterID 66
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  aa 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  aa  f1 
+   returning FilterID 67
+++ 2.328s PTStartMsgFilter(58, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  b5 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  b5  f1 
+   returning FilterID 68
+<< 2.328s PTReadMsgs(58, 04C70020, 1000, 0)   2.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 2.328s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.343s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.343s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.343s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.343s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.343s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.343s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.343s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.343s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.343s PTIoctl(58, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 2.343s PTReadMsgs(58, 04C71020, 1000, 0)   2.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 2.343s PTWriteMsgs(58, 012FE3FC, 012FE2F8, 0)
+   Transaction 0046 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+   Queued everything
+   Queued 1/1
+<< 2.343s PTReadMsgs(58, 04C75020, 1000, 0)
+   Msg[0] 4.494291s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][db][ef][f1]
+   Msg[1] 4.494291s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+<< 2.343s PTReadMsgs() complete (channel 58)
+<< 2.359s PTReadMsgs(58, 04C7A020, 1000, 0)
+   Msg[0] 4.497043s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  b5  7e  00 
+<< 2.359s PTReadMsgs() complete (channel 58)
+<< 2.359s PTReadMsgs(58, 04C74020, 1000, 0)   2.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.359s PTReadMsgs(58, 04C74020, 1000, 0)   2.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.359s PTReadMsgs(58, 04C79020, 1000, 0)   2.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.359s PTReadMsgs(58, 04C71020, 1000, 0)   2.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.359s PTReadMsgs(58, 04C71020, 1000, 0)   2.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.359s PTReadMsgs(58, 04C79020, 1000, 0)   2.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.375s PTReadMsgs(58, 04C78020, 1000, 0)   2.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.375s PTReadMsgs(58, 04C70020, 1000, 0)   2.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.375s PTReadMsgs(58, 04C79020, 1000, 0)   2.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.375s PTReadMsgs(58, 04C7D020, 1000, 0)   2.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.375s PTReadMsgs(58, 04C77020, 1000, 0)   2.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.375s PTReadMsgs(58, 04C7C020, 1000, 0)   2.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.375s PTReadMsgs(58, 04C7D020, 1000, 0)   2.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.390s PTReadMsgs(58, 04C78020, 1000, 0)   2.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.390s PTReadMsgs(58, 04C7D020, 1000, 0)   2.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.390s PTReadMsgs(58, 04C77020, 1000, 0)   2.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.390s PTReadMsgs(58, 04C72020, 1000, 0)   2.390s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.406s PTReadMsgs(58, 04C7C020, 1000, 0)   2.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.406s PTReadMsgs(58, 04C7F020, 1000, 0)   2.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.406s PTReadMsgs(58, 04C72020, 1000, 0)   2.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.406s PTReadMsgs(58, 04C72020, 1000, 0)   2.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.406s PTReadMsgs(58, 04C7A020, 1000, 0)   2.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.406s PTReadMsgs(58, 04C75020, 1000, 0)   2.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.406s PTReadMsgs(58, 04C79020, 1000, 0)   2.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.406s PTReadMsgs(58, 04C78020, 1000, 0)   2.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.422s PTReadMsgs(58, 04C74020, 1000, 0)   2.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.422s PTReadMsgs(58, 04C72020, 1000, 0)   2.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.422s PTReadMsgs(58, 04C74020, 1000, 0)   2.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.422s PTReadMsgs(58, 04C78020, 1000, 0)   2.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.422s PTReadMsgs(58, 04C7D020, 1000, 0)   2.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.422s PTReadMsgs(58, 04C7E020, 1000, 0)   2.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.422s PTReadMsgs(58, 04C7C020, 1000, 0)   2.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.437s PTReadMsgs(58, 04C73020, 1000, 0)   2.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.437s PTReadMsgs(58, 04C76020, 1000, 0)   2.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.437s PTReadMsgs(58, 04C77020, 1000, 0)   2.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.437s PTReadMsgs(58, 04C7D020, 1000, 0)   2.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.437s PTReadMsgs(58, 04C7A020, 1000, 0)   2.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.437s PTReadMsgs(58, 04C7D020, 1000, 0)   2.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.437s PTReadMsgs(58, 04C71020, 1000, 0)   2.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.437s PTReadMsgs(58, 04C7B020, 1000, 0)   2.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.437s PTReadMsgs(58, 04C7F020, 1000, 0)   2.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.453s PTReadMsgs(58, 04C7A020, 1000, 0)   2.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.453s PTReadMsgs(58, 04C70020, 1000, 0)   2.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.453s PTReadMsgs(58, 04C7D020, 1000, 0)   2.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.453s PTReadMsgs(58, 04C79020, 1000, 0)   2.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.453s PTReadMsgs(58, 04C72020, 1000, 0)   2.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.453s PTReadMsgs(58, 04C71020, 1000, 0)   2.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.453s PTReadMsgs(58, 04C7E020, 1000, 0)   2.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.453s PTReadMsgs(58, 04C7D020, 1000, 0)   2.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.468s PTReadMsgs(58, 04C7A020, 1000, 0)   2.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.468s PTReadMsgs(58, 04C70020, 1000, 0)   2.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.468s PTReadMsgs(58, 04C7E020, 1000, 0)   2.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.468s PTReadMsgs(58, 04C77020, 1000, 0)   2.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.468s PTReadMsgs(58, 04C77020, 1000, 0)   2.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.468s PTReadMsgs(58, 04C73020, 1000, 0)   2.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.468s PTReadMsgs(58, 04C75020, 1000, 0)   2.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.468s PTReadMsgs(58, 04C75020, 1000, 0)   2.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.484s PTReadMsgs(58, 04C74020, 1000, 0)   2.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.484s PTReadMsgs(58, 04C79020, 1000, 0)   2.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.484s PTReadMsgs(58, 04C7A020, 1000, 0)   2.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.484s PTReadMsgs(58, 04C76020, 1000, 0)   2.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.484s PTReadMsgs(58, 04C77020, 1000, 0)   2.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.484s PTReadMsgs(58, 04C7C020, 1000, 0)   2.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.484s PTReadMsgs(58, 04C72020, 1000, 0)   2.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.484s PTReadMsgs(58, 04C74020, 1000, 0)   2.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.500s PTReadMsgs(58, 04C74020, 1000, 0)   2.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.500s PTReadMsgs(58, 04C78020, 1000, 0)   2.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.500s PTReadMsgs(58, 04C72020, 1000, 0)   2.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.500s PTReadMsgs(58, 04C7B020, 1000, 0)   2.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.500s PTReadMsgs(58, 04C70020, 1000, 0)   2.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.500s PTReadMsgs(58, 04C7A020, 1000, 0)   2.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 2.500s PTStopMsgFilter(58, 59)
+   Removed message filter: 59
+-- 2.500s PTStopMsgFilter(58, 60)
+   Removed message filter: 60
+-- 2.500s PTStopMsgFilter(58, 61)
+   Removed message filter: 61
+-- 2.515s PTStopMsgFilter(58, 62)
+   Removed message filter: 62
+-- 2.515s PTStopMsgFilter(58, 63)
+   Removed message filter: 63
+-- 2.515s PTStopMsgFilter(58, 64)
+   Removed message filter: 64
+-- 2.515s PTStopMsgFilter(58, 65)
+   Removed message filter: 65
+-- 2.515s PTStopMsgFilter(58, 66)
+   Removed message filter: 66
+-- 2.515s PTStopMsgFilter(58, 67)
+   Removed message filter: 67
+-- 2.515s PTStopMsgFilter(58, 68)
+   Removed message filter: 68
+-- 2.515s PTDisconnect(58)
+++ 2.531s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 69
+** 2.531s PTIoctl(69, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+<< 2.531s PTReadMsgs(69, 04C7B020, 1000, 0)   2.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.531s PTReadMsgs(69, 04C7C020, 1000, 0)   2.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  70 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  70  f1 
+   returning FilterID 70
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  ad 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  ad  f1 
+   returning FilterID 71
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  ac 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  ac  f1 
+   returning FilterID 72
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  ab 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  ab  f1 
+   returning FilterID 73
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  62 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  62  f1 
+   returning FilterID 74
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  a2 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  a2  f1 
+   returning FilterID 75
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  a3 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  a3  f1 
+   returning FilterID 76
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  97 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  97  f1 
+   returning FilterID 77
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  39 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  39  f1 
+   returning FilterID 78
+++ 2.531s PTStartMsgFilter(69, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  ae 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  ae  f1 
+   returning FilterID 79
+<< 2.531s PTReadMsgs(69, 04C72020, 1000, 0)   2.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 2.531s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.531s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.531s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.531s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.547s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.547s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.547s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.547s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.547s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.547s PTIoctl(69, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 2.547s PTReadMsgs(69, 04C7E020, 1000, 0)   2.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 2.547s PTWriteMsgs(69, 012FE3FC, 012FE2F8, 0)
+   Transaction 007c for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+   Queued everything
+   Queued 1/1
+<< 2.547s PTReadMsgs(69, 04C79020, 1000, 0)
+   Msg[0] 4.693344s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][db][ef][f1]
+   Msg[1] 4.693344s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+<< 2.547s PTReadMsgs() complete (channel 69)
+<< 2.547s PTReadMsgs(69, 04C7C020, 1000, 0)   2.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.547s PTReadMsgs(69, 04C7B020, 1000, 0)   2.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.562s PTReadMsgs(69, 04C7D020, 1000, 0)   2.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.562s PTReadMsgs(69, 04C79020, 1000, 0)   2.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.562s PTReadMsgs(69, 04C7D020, 1000, 0)   2.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.562s PTReadMsgs(69, 04C7F020, 1000, 0)   2.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.562s PTReadMsgs(69, 04C75020, 1000, 0)   2.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.562s PTReadMsgs(69, 04C7F020, 1000, 0)   2.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.562s PTReadMsgs(69, 04C72020, 1000, 0)   2.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.578s PTReadMsgs(69, 04C74020, 1000, 0)   2.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.578s PTReadMsgs(69, 04C74020, 1000, 0)   2.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.578s PTReadMsgs(69, 04C7F020, 1000, 0)   2.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.578s PTReadMsgs(69, 04C7B020, 1000, 0)   2.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.578s PTReadMsgs(69, 04C72020, 1000, 0)   2.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.578s PTReadMsgs(69, 04C71020, 1000, 0)   2.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.578s PTReadMsgs(69, 04C74020, 1000, 0)   2.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.578s PTReadMsgs(69, 04C7C020, 1000, 0)   2.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.593s PTReadMsgs(69, 04C77020, 1000, 0)   2.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.593s PTReadMsgs(69, 04C7E020, 1000, 0)   2.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.593s PTReadMsgs(69, 04C73020, 1000, 0)   2.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.593s PTReadMsgs(69, 04C76020, 1000, 0)   2.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.593s PTReadMsgs(69, 04C7B020, 1000, 0)   2.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.593s PTReadMsgs(69, 04C74020, 1000, 0)   2.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.593s PTReadMsgs(69, 04C78020, 1000, 0)   2.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.609s PTReadMsgs(69, 04C76020, 1000, 0)   2.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.687s PTReadMsgs(69, 04C72020, 1000, 0)   2.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.687s PTReadMsgs(69, 04C77020, 1000, 0)   2.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.687s PTReadMsgs(69, 04C7D020, 1000, 0)   2.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.687s PTReadMsgs(69, 04C74020, 1000, 0)   2.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.703s PTReadMsgs(69, 04C76020, 1000, 0)   2.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.703s PTReadMsgs(69, 04C7C020, 1000, 0)   2.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.703s PTReadMsgs(69, 04C77020, 1000, 0)   2.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 2.703s PTStopMsgFilter(69, 70)
+   Removed message filter: 70
+-- 2.703s PTStopMsgFilter(69, 71)
+   Removed message filter: 71
+-- 2.703s PTStopMsgFilter(69, 72)
+   Removed message filter: 72
+-- 2.703s PTStopMsgFilter(69, 73)
+   Removed message filter: 73
+-- 2.703s PTStopMsgFilter(69, 74)
+   Removed message filter: 74
+-- 2.703s PTStopMsgFilter(69, 75)
+   Removed message filter: 75
+-- 2.703s PTStopMsgFilter(69, 76)
+   Removed message filter: 76
+-- 2.703s PTStopMsgFilter(69, 77)
+   Removed message filter: 77
+-- 2.703s PTStopMsgFilter(69, 78)
+   Removed message filter: 78
+-- 2.703s PTStopMsgFilter(69, 79)
+   Removed message filter: 79
+-- 2.703s PTDisconnect(69)
+++ 2.718s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 80
+** 2.718s PTIoctl(80, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+<< 2.718s PTReadMsgs(80, 04C72020, 1000, 0)   2.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.734s PTReadMsgs(80, 04C7C020, 1000, 0)   2.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  70 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  70  f1 
+   returning FilterID 81
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  ea 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  ea  f1 
+   returning FilterID 82
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  91 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  91  f1 
+   returning FilterID 83
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  de 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  de  f1 
+   returning FilterID 84
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  62 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  62  f1 
+   returning FilterID 85
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  a2 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  a2  f1 
+   returning FilterID 86
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  a3 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  a3  f1 
+   returning FilterID 87
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  97 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  97  f1 
+   returning FilterID 88
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  39 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  39  f1 
+   returning FilterID 89
+++ 2.734s PTStartMsgFilter(80, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  88 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  88  f1 
+   returning FilterID 90
+<< 2.734s PTReadMsgs(80, 04C78020, 1000, 0)   2.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 2.734s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.734s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.734s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.734s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.734s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.750s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.750s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.750s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.750s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+** 2.750s PTIoctl(80, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 2.765s PTReadMsgs(80, 04C70020, 1000, 0)   2.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 2.765s PTWriteMsgs(80, 012FE3FC, 012FE2F8, 0)
+   Transaction 00b2 for 1 messages
+   Msg[0] 6:ISO15765. 6 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+   Queued everything
+   Queued 1/1
+<< 2.765s PTReadMsgs(80, 04C70020, 1000, 0)
+   Msg[0] 4.904424s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][db][ef][f1]
+   Msg[1] 4.904424s. 6:ISO15765. Actual data 6 of 6 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  db  ef  f1  3e  00 
+<< 2.765s PTReadMsgs() complete (channel 80)
+<< 2.765s PTReadMsgs(80, 04C77020, 1000, 0)   2.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.765s PTReadMsgs(80, 04C7C020, 1000, 0)   2.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.781s PTReadMsgs(80, 04C7E020, 1000, 0)   2.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.781s PTReadMsgs(80, 04C78020, 1000, 0)   2.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.781s PTReadMsgs(80, 04C79020, 1000, 0)   2.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.781s PTReadMsgs(80, 04C74020, 1000, 0)   2.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.797s PTReadMsgs(80, 04C7E020, 1000, 0)   2.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.797s PTReadMsgs(80, 04C74020, 1000, 0)   2.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.797s PTReadMsgs(80, 04C7C020, 1000, 0)   2.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.797s PTReadMsgs(80, 04C71020, 1000, 0)   2.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.797s PTReadMsgs(80, 04C7F020, 1000, 0)   2.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.797s PTReadMsgs(80, 04C7C020, 1000, 0)   2.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.797s PTReadMsgs(80, 04C72020, 1000, 0)   2.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.812s PTReadMsgs(80, 04C76020, 1000, 0)   2.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.812s PTReadMsgs(80, 04C7F020, 1000, 0)   2.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.812s PTReadMsgs(80, 04C7E020, 1000, 0)   2.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.812s PTReadMsgs(80, 04C7C020, 1000, 0)   2.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.812s PTReadMsgs(80, 04C77020, 1000, 0)   2.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.828s PTReadMsgs(80, 04C79020, 1000, 0)   2.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.828s PTReadMsgs(80, 04C7B020, 1000, 0)   2.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.828s PTReadMsgs(80, 04C73020, 1000, 0)   2.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.828s PTReadMsgs(80, 04C73020, 1000, 0)   2.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.828s PTReadMsgs(80, 04C79020, 1000, 0)   2.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.828s PTReadMsgs(80, 04C74020, 1000, 0)   2.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.828s PTReadMsgs(80, 04C7B020, 1000, 0)   2.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.843s PTReadMsgs(80, 04C74020, 1000, 0)   2.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.843s PTReadMsgs(80, 04C74020, 1000, 0)   2.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.859s PTReadMsgs(80, 04C79020, 1000, 0)   2.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.859s PTReadMsgs(80, 04C7E020, 1000, 0)   2.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.859s PTReadMsgs(80, 04C70020, 1000, 0)   2.859s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.875s PTReadMsgs(80, 04C7F020, 1000, 0)   2.875s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.875s PTReadMsgs(80, 04C7B020, 1000, 0)   2.875s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.890s PTReadMsgs(80, 04C71020, 1000, 0)   2.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.890s PTReadMsgs(80, 04C76020, 1000, 0)   2.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.890s PTReadMsgs(80, 04C74020, 1000, 0)   2.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.890s PTReadMsgs(80, 04C71020, 1000, 0)   2.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.890s PTReadMsgs(80, 04C7D020, 1000, 0)   2.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.890s PTReadMsgs(80, 04C74020, 1000, 0)   2.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.890s PTReadMsgs(80, 04C7A020, 1000, 0)   2.890s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.906s PTReadMsgs(80, 04C7A020, 1000, 0)   2.906s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.906s PTReadMsgs(80, 04C7A020, 1000, 0)   2.906s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.906s PTReadMsgs(80, 04C7F020, 1000, 0)   2.906s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.906s PTReadMsgs(80, 04C75020, 1000, 0)   2.906s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.906s PTReadMsgs(80, 04C75020, 1000, 0)   2.906s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.906s PTReadMsgs(80, 04C79020, 1000, 0)   2.906s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.922s PTReadMsgs(80, 04C78020, 1000, 0)   2.922s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 2.922s PTStopMsgFilter(80, 81)
+   Removed message filter: 81
+-- 2.922s PTStopMsgFilter(80, 82)
+   Removed message filter: 82
+-- 2.922s PTStopMsgFilter(80, 83)
+   Removed message filter: 83
+-- 2.922s PTStopMsgFilter(80, 84)
+   Removed message filter: 84
+-- 2.922s PTStopMsgFilter(80, 85)
+   Removed message filter: 85
+-- 2.922s PTStopMsgFilter(80, 86)
+   Removed message filter: 86
+-- 2.922s PTStopMsgFilter(80, 87)
+   Removed message filter: 87
+-- 2.922s PTStopMsgFilter(80, 88)
+   Removed message filter: 88
+-- 2.922s PTStopMsgFilter(80, 89)
+   Removed message filter: 89
+-- 2.922s PTStopMsgFilter(80, 90)
+   Removed message filter: 90
+-- 2.922s PTDisconnect(80)
+++ 2.937s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 91
+** 2.953s PTIoctl(91, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+<< 2.953s PTReadMsgs(91, 04C7F020, 1000, 0)   2.953s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.953s PTReadMsgs(91, 04C7B020, 1000, 0)   2.953s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 2.953s PTStartMsgFilter(91, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  10 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  10  f1 
+   returning FilterID 92
+<< 2.953s PTReadMsgs(91, 04C7F020, 1000, 0)   2.953s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 2.953s PTIoctl(91, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 2.953s PTReadMsgs(91, 04C7A020, 1000, 0)   2.953s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.953s PTReadMsgs(91, 04C7B020, 1000, 0)   2.953s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.953s PTReadMsgs(91, 04C79020, 1000, 0)   2.953s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.968s PTReadMsgs(91, 04C7D020, 1000, 0)   2.968s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.968s PTReadMsgs(91, 04C77020, 1000, 0)   2.968s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.968s PTReadMsgs(91, 04C7A020, 1000, 0)   2.968s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.968s PTReadMsgs(91, 04C76020, 1000, 0)   2.968s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.968s PTReadMsgs(91, 04C7C020, 1000, 0)   2.968s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.968s PTReadMsgs(91, 04C75020, 1000, 0)   2.968s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.968s PTReadMsgs(91, 04C70020, 1000, 0)   2.968s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 2.984s PTWriteMsgs(91, 012FE3FC, 012FE2F8, 0)
+   Transaction 00c4 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  10  f1  22  f1  90 
+   Queued everything
+   Queued 1/1
+<< 2.984s PTReadMsgs(91, 04C76020, 1000, 0)
+   Msg[0] 5.122353s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][da][10][f1]
+   Msg[1] 5.122353s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  da  10  f1  22  f1  90 
+   Msg[2] 5.123434s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000102
+   RxStatus: {:START_OF_MESSAGE, :CAN_29BIT_ID}
+   \__ [18][da][f1][10]
+<< 2.984s PTReadMsgs() complete (channel 91)
+<< 2.984s PTReadMsgs(91, 04C7E020, 1000, 0)   2.984s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.984s PTReadMsgs(91, 04C76020, 1000, 0)
+   Msg[0] 5.125773s. 6:ISO15765. Actual data 28 of 28 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  10  62  f1  90  11  31  48  47  43  56  32  46  33 
+        35  4e  41  30  30  34  35  35  38  00  00  00 
+<< 2.984s PTReadMsgs() complete (channel 91)
+<< 2.984s PTReadMsgs(91, 04C72020, 1000, 0)   2.984s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.984s PTReadMsgs(91, 04C7E020, 1000, 0)   2.984s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 2.984s PTReadMsgs(91, 04C7E020, 1000, 0)   2.984s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 2.984s PTStopMsgFilter(91, 92)
+   Removed message filter: 92
+-- 2.984s PTDisconnect(91)
+++ 3.000s PTConnect(1, 6:ISO15765, 0x800, 500000, 001E2028)
+   Flags: {11:CAN_ID_BOTH}
+   returning ChannelID 93
+** 3.015s PTIoctl(93, 2:SET_CONFIG, 012FF5A4, 00000000)
+   1 parameter(s) at 012FF5B4:
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+   [1/1] 3:LOOPBACK = 00000001 'Loopback ON'
+<< 3.015s PTReadMsgs(93, 04C7B020, 1000, 0)   3.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.015s PTReadMsgs(93, 04C79020, 1000, 0)   3.015s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 3.015s PTStartMsgFilter(93, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  10 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  10  f1 
+   returning FilterID 94
+<< 3.031s PTReadMsgs(93, 04C73020, 1000, 0)   3.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 3.031s PTIoctl(93, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 3.047s PTReadMsgs(93, 04C73020, 1000, 0)   3.047s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 3.047s PTWriteMsgs(93, 012FE3FC, 012FE2F8, 0)
+   Transaction 00cd for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  10  f1  22  25  00 
+   Queued everything
+   Queued 1/1
+<< 3.047s PTReadMsgs(93, 04C74020, 1000, 0)
+   Msg[0] 5.191928s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][da][10][f1]
+   Msg[1] 5.191928s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  da  10  f1  22  25  00 
+   Msg[2] 5.192774s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  10  7f  22  31 
+<< 3.047s PTReadMsgs() complete (channel 93)
+<< 3.047s PTReadMsgs(93, 04C77020, 1000, 0)   3.047s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.047s PTReadMsgs(93, 04C7F020, 1000, 0)   3.047s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.062s PTReadMsgs(93, 04C72020, 1000, 0)   3.062s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.062s PTReadMsgs(93, 04C72020, 1000, 0)   3.062s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 3.062s PTStartMsgFilter(93, 3:FLOW_CONTROL_FILTER, 012FE3A0, 012FD360, 012FC320, 012FF3E0)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e8 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000040
+   TxFlags: {6:ISO15765_FRAME_PAD}
+   \__  00  00  07  e0 
+   returning FilterID 95
+<< 3.062s PTReadMsgs(93, 04C7C020, 1000, 0)   3.062s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.062s PTReadMsgs(93, 04C75020, 1000, 0)   3.062s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 3.062s PTStopMsgFilter(93, 95)
+   Removed message filter: 95
+<< 3.062s PTReadMsgs(93, 04C78020, 1000, 0)   3.062s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 3.062s PTIoctl(93, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 3.062s PTReadMsgs(93, 04C7A020, 1000, 0)   3.062s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 3.062s PTWriteMsgs(93, 012FE3FC, 012FE2F8, 0)
+   Transaction 00d3 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  10  f1  22  26  00 
+   Queued everything
+   Queued 1/1
+<< 3.062s PTReadMsgs(93, 04C78020, 1000, 0)
+   Msg[0] 5.212226s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][da][10][f1]
+   Msg[1] 5.212226s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  da  10  f1  22  26  00 
+   Msg[2] 5.213082s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000102
+   RxStatus: {:START_OF_MESSAGE, :CAN_29BIT_ID}
+   \__ [18][da][f1][10]
+   Msg[3] 5.214252s. 6:ISO15765. Actual data 17 of 17 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  10  62  26  00  52  21  01  01  01  ee  0e  00  00 
+        00 
+<< 3.062s PTReadMsgs() complete (channel 93)
+<< 3.078s PTReadMsgs(93, 04C72020, 1000, 0)   3.078s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.078s PTReadMsgs(93, 04C7B020, 1000, 0)   3.078s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.078s PTReadMsgs(93, 04C75020, 1000, 0)   3.078s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.078s PTReadMsgs(93, 04C7A020, 1000, 0)   3.078s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.078s PTReadMsgs(93, 04C72020, 1000, 0)   3.078s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.093s PTReadMsgs(93, 04C7B020, 1000, 0)   3.093s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.093s PTReadMsgs(93, 04C77020, 1000, 0)   3.093s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.093s PTReadMsgs(93, 04C7B020, 1000, 0)   3.093s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.093s PTReadMsgs(93, 04C7D020, 1000, 0)   3.093s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.093s PTReadMsgs(93, 04C79020, 1000, 0)   3.093s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.093s PTReadMsgs(93, 04C78020, 1000, 0)   3.093s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.093s PTReadMsgs(93, 04C78020, 1000, 0)   3.093s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.093s PTReadMsgs(93, 04C79020, 1000, 0)   3.093s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.109s PTReadMsgs(93, 04C78020, 1000, 0)   3.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.109s PTReadMsgs(93, 04C74020, 1000, 0)   3.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.109s PTReadMsgs(93, 04C72020, 1000, 0)   3.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.109s PTReadMsgs(93, 04C72020, 1000, 0)   3.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.109s PTReadMsgs(93, 04C72020, 1000, 0)   3.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.109s PTReadMsgs(93, 04C7B020, 1000, 0)   3.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.109s PTReadMsgs(93, 04C76020, 1000, 0)   3.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.125s PTReadMsgs(93, 04C79020, 1000, 0)   3.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.125s PTReadMsgs(93, 04C7E020, 1000, 0)   3.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.125s PTReadMsgs(93, 04C7C020, 1000, 0)   3.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.125s PTReadMsgs(93, 04C76020, 1000, 0)   3.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.125s PTReadMsgs(93, 04C72020, 1000, 0)   3.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.125s PTReadMsgs(93, 04C79020, 1000, 0)   3.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.140s PTReadMsgs(93, 04C7B020, 1000, 0)   3.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.140s PTReadMsgs(93, 04C77020, 1000, 0)   3.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.140s PTReadMsgs(93, 04C7D020, 1000, 0)   3.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.140s PTReadMsgs(93, 04C72020, 1000, 0)   3.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.140s PTReadMsgs(93, 04C72020, 1000, 0)   3.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.140s PTReadMsgs(93, 04C75020, 1000, 0)   3.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.140s PTReadMsgs(93, 04C7F020, 1000, 0)   3.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.140s PTReadMsgs(93, 04C76020, 1000, 0)   3.140s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.156s PTReadMsgs(93, 04C73020, 1000, 0)   3.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.156s PTReadMsgs(93, 04C76020, 1000, 0)   3.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.156s PTReadMsgs(93, 04C70020, 1000, 0)   3.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.156s PTReadMsgs(93, 04C71020, 1000, 0)   3.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.156s PTReadMsgs(93, 04C72020, 1000, 0)   3.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.156s PTReadMsgs(93, 04C7C020, 1000, 0)   3.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.172s PTReadMsgs(93, 04C77020, 1000, 0)   3.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.172s PTReadMsgs(93, 04C7B020, 1000, 0)   3.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.172s PTReadMsgs(93, 04C7D020, 1000, 0)   3.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.172s PTReadMsgs(93, 04C77020, 1000, 0)   3.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.172s PTReadMsgs(93, 04C78020, 1000, 0)   3.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.172s PTReadMsgs(93, 04C78020, 1000, 0)   3.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.187s PTReadMsgs(93, 04C7C020, 1000, 0)   3.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.187s PTReadMsgs(93, 04C77020, 1000, 0)   3.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.187s PTReadMsgs(93, 04C7F020, 1000, 0)   3.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.187s PTReadMsgs(93, 04C71020, 1000, 0)   3.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.187s PTReadMsgs(93, 04C7F020, 1000, 0)   3.187s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.203s PTReadMsgs(93, 04C7B020, 1000, 0)   3.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.203s PTReadMsgs(93, 04C75020, 1000, 0)   3.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.203s PTReadMsgs(93, 04C7B020, 1000, 0)   3.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.203s PTReadMsgs(93, 04C7D020, 1000, 0)   3.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.203s PTReadMsgs(93, 04C78020, 1000, 0)   3.203s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.218s PTReadMsgs(93, 04C7A020, 1000, 0)   3.218s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.218s PTReadMsgs(93, 04C7E020, 1000, 0)   3.218s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.234s PTReadMsgs(93, 04C72020, 1000, 0)   3.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.234s PTReadMsgs(93, 04C7F020, 1000, 0)   3.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.234s PTReadMsgs(93, 04C79020, 1000, 0)   3.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.234s PTReadMsgs(93, 04C7B020, 1000, 0)   3.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.234s PTReadMsgs(93, 04C71020, 1000, 0)   3.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.250s PTReadMsgs(93, 04C77020, 1000, 0)   3.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.250s PTReadMsgs(93, 04C78020, 1000, 0)   3.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.250s PTReadMsgs(93, 04C7B020, 1000, 0)   3.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.250s PTReadMsgs(93, 04C74020, 1000, 0)   3.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.250s PTReadMsgs(93, 04C72020, 1000, 0)   3.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.250s PTReadMsgs(93, 04C77020, 1000, 0)   3.250s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.265s PTReadMsgs(93, 04C75020, 1000, 0)   3.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.265s PTReadMsgs(93, 04C7B020, 1000, 0)   3.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.265s PTReadMsgs(93, 04C73020, 1000, 0)   3.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.265s PTReadMsgs(93, 04C70020, 1000, 0)   3.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.265s PTReadMsgs(93, 04C7B020, 1000, 0)   3.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.265s PTReadMsgs(93, 04C7A020, 1000, 0)   3.265s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.297s PTReadMsgs(93, 04C72020, 1000, 0)   3.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.297s PTReadMsgs(93, 04C71020, 1000, 0)   3.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.297s PTReadMsgs(93, 04C7D020, 1000, 0)   3.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.297s PTReadMsgs(93, 04C79020, 1000, 0)   3.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.312s PTReadMsgs(93, 04C7C020, 1000, 0)   3.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.312s PTReadMsgs(93, 04C7B020, 1000, 0)   3.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.312s PTReadMsgs(93, 04C76020, 1000, 0)   3.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.312s PTReadMsgs(93, 04C73020, 1000, 0)   3.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.312s PTReadMsgs(93, 04C78020, 1000, 0)   3.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.312s PTReadMsgs(93, 04C73020, 1000, 0)   3.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.312s PTReadMsgs(93, 04C7D020, 1000, 0)   3.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.328s PTReadMsgs(93, 04C73020, 1000, 0)   3.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.328s PTReadMsgs(93, 04C78020, 1000, 0)   3.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.328s PTReadMsgs(93, 04C79020, 1000, 0)   3.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.328s PTReadMsgs(93, 04C78020, 1000, 0)   3.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.328s PTReadMsgs(93, 04C7E020, 1000, 0)   3.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.328s PTReadMsgs(93, 04C7B020, 1000, 0)   3.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.328s PTReadMsgs(93, 04C77020, 1000, 0)   3.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.328s PTReadMsgs(93, 04C72020, 1000, 0)   3.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.328s PTReadMsgs(93, 04C71020, 1000, 0)   3.328s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.343s PTReadMsgs(93, 04C7F020, 1000, 0)   3.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.343s PTReadMsgs(93, 04C75020, 1000, 0)   3.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.343s PTReadMsgs(93, 04C77020, 1000, 0)   3.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.343s PTReadMsgs(93, 04C7E020, 1000, 0)   3.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.343s PTReadMsgs(93, 04C70020, 1000, 0)   3.343s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.359s PTReadMsgs(93, 04C78020, 1000, 0)   3.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.359s PTReadMsgs(93, 04C7B020, 1000, 0)   3.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.359s PTReadMsgs(93, 04C74020, 1000, 0)   3.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.359s PTReadMsgs(93, 04C73020, 1000, 0)   3.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.359s PTReadMsgs(93, 04C7D020, 1000, 0)   3.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.359s PTReadMsgs(93, 04C72020, 1000, 0)   3.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.359s PTReadMsgs(93, 04C71020, 1000, 0)   3.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.359s PTReadMsgs(93, 04C74020, 1000, 0)   3.359s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.375s PTReadMsgs(93, 04C77020, 1000, 0)   3.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.406s PTReadMsgs(93, 04C7E020, 1000, 0)   3.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.422s PTReadMsgs(93, 04C7A020, 1000, 0)   3.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+++ 3.422s PTStartMsgFilter(93, 3:FLOW_CONTROL_FILTER, 012FDF34, 012FCEF4, 012FBEB4, 012FEF74)
+   Mask[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  ff  ff  ff  ff 
+   Pattern[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  f1  60 
+   FlowControl[0] 6:ISO15765. 4 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  60  f1 
+   returning FilterID 96
+<< 3.422s PTReadMsgs(93, 04C70020, 1000, 0)   3.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 3.422s PTIoctl(93, 2:SET_CONFIG, 012FF08C, 00000000)
+   3 parameter(s) at 012FF06C:
+   [1/3] 30:ISO15765_BS = 00000000 '0'   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+   [1/3] 30:ISO15765_BS = 00000000 '0'
+   [2/3] 37:ISO15765_WFT_MAX = 000000ff '255'
+   [3/3] 31:ISO15765_STMIN = 00000000 '0 ms'
+<< 3.422s PTReadMsgs(93, 04C75020, 1000, 0)   3.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 3.422s PTWriteMsgs(93, 012FE3FC, 012FE2F8, 0)
+   Transaction 00d8 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  60  f1  22  70  22 
+   Queued everything
+   Queued 1/1
+<< 3.437s PTReadMsgs(93, 04C71020, 1000, 0)
+   Msg[0] 5.57435s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][da][60][f1]
+   Msg[1] 5.57435s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  da  60  f1  22  70  22 
+<< 3.437s PTReadMsgs() complete (channel 93)
+<< 3.437s PTReadMsgs(93, 04C73020, 1000, 0)   3.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.437s PTReadMsgs(93, 04C71020, 1000, 0)
+   Msg[0] 5.579291s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000102
+   RxStatus: {:START_OF_MESSAGE, :CAN_29BIT_ID}
+   \__ [18][da][f1][60]
+<< 3.437s PTReadMsgs() complete (channel 93)
+<< 3.437s PTReadMsgs(93, 04C75020, 1000, 0)   3.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.437s PTReadMsgs(93, 04C73020, 1000, 0)   3.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.437s PTReadMsgs(93, 04C71020, 1000, 0)   3.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.437s PTReadMsgs(93, 04C73020, 1000, 0)   3.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.453s PTReadMsgs(93, 04C79020, 1000, 0)   3.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.453s PTReadMsgs(93, 04C7C020, 1000, 0)   3.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.453s PTReadMsgs(93, 04C74020, 1000, 0)   3.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.453s PTReadMsgs(93, 04C70020, 1000, 0)   3.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.453s PTReadMsgs(93, 04C7D020, 1000, 0)   3.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.453s PTReadMsgs(93, 04C78020, 1000, 0)   3.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.453s PTReadMsgs(93, 04C72020, 1000, 0)   3.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.453s PTReadMsgs(93, 04C75020, 1000, 0)   3.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.468s PTReadMsgs(93, 04C73020, 1000, 0)   3.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.468s PTReadMsgs(93, 04C77020, 1000, 0)   3.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.468s PTReadMsgs(93, 04C7D020, 1000, 0)   3.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.468s PTReadMsgs(93, 04C76020, 1000, 0)   3.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.468s PTReadMsgs(93, 04C76020, 1000, 0)   3.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.468s PTReadMsgs(93, 04C76020, 1000, 0)   3.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.468s PTReadMsgs(93, 04C75020, 1000, 0)   3.468s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.484s PTReadMsgs(93, 04C74020, 1000, 0)   3.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.484s PTReadMsgs(93, 04C7D020, 1000, 0)   3.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.484s PTReadMsgs(93, 04C70020, 1000, 0)   3.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.484s PTReadMsgs(93, 04C71020, 1000, 0)   3.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.484s PTReadMsgs(93, 04C7D020, 1000, 0)   3.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.484s PTReadMsgs(93, 04C70020, 1000, 0)   3.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.484s PTReadMsgs(93, 04C74020, 1000, 0)   3.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.484s PTReadMsgs(93, 04C79020, 1000, 0)   3.484s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.500s PTReadMsgs(93, 04C71020, 1000, 0)   3.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.500s PTReadMsgs(93, 04C75020, 1000, 0)   3.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.500s PTReadMsgs(93, 04C7C020, 1000, 0)   3.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.500s PTReadMsgs(93, 04C7A020, 1000, 0)   3.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.500s PTReadMsgs(93, 04C73020, 1000, 0)   3.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.500s PTReadMsgs(93, 04C7C020, 1000, 0)   3.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.500s PTReadMsgs(93, 04C72020, 1000, 0)   3.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.500s PTReadMsgs(93, 04C7F020, 1000, 0)   3.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.515s PTReadMsgs(93, 04C72020, 1000, 0)   3.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.515s PTReadMsgs(93, 04C74020, 1000, 0)   3.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.515s PTReadMsgs(93, 04C70020, 1000, 0)   3.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.515s PTReadMsgs(93, 04C75020, 1000, 0)
+   Msg[0] 5.658193s. 6:ISO15765. Actual data 61 of 61 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  60  62  70  22  ec  00  00  00  00  00  00  66  f5 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00 
+<< 3.515s PTReadMsgs() complete (channel 93)
+<< 3.515s PTReadMsgs(93, 04C7E020, 1000, 0)   3.515s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.531s PTReadMsgs(93, 04C7E020, 1000, 0)   3.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.531s PTReadMsgs(93, 04C7F020, 1000, 0)   3.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.531s PTReadMsgs(93, 04C7F020, 1000, 0)   3.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.531s PTReadMsgs(93, 04C7D020, 1000, 0)   3.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.531s PTReadMsgs(93, 04C72020, 1000, 0)   3.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.531s PTReadMsgs(93, 04C79020, 1000, 0)   3.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.531s PTReadMsgs(93, 04C7E020, 1000, 0)   3.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.531s PTReadMsgs(93, 04C78020, 1000, 0)   3.531s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.547s PTReadMsgs(93, 04C7B020, 1000, 0)   3.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.547s PTReadMsgs(93, 04C76020, 1000, 0)   3.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.547s PTReadMsgs(93, 04C7C020, 1000, 0)   3.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.547s PTReadMsgs(93, 04C7D020, 1000, 0)   3.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.547s PTReadMsgs(93, 04C78020, 1000, 0)   3.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.547s PTReadMsgs(93, 04C73020, 1000, 0)   3.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.547s PTReadMsgs(93, 04C7D020, 1000, 0)   3.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.562s PTReadMsgs(93, 04C74020, 1000, 0)   3.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.562s PTReadMsgs(93, 04C7A020, 1000, 0)   3.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.562s PTReadMsgs(93, 04C73020, 1000, 0)   3.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.562s PTReadMsgs(93, 04C78020, 1000, 0)   3.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.562s PTReadMsgs(93, 04C79020, 1000, 0)   3.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.562s PTReadMsgs(93, 04C7A020, 1000, 0)   3.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.562s PTReadMsgs(93, 04C78020, 1000, 0)   3.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.562s PTReadMsgs(93, 04C71020, 1000, 0)   3.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.578s PTReadMsgs(93, 04C7F020, 1000, 0)   3.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.578s PTReadMsgs(93, 04C7C020, 1000, 0)   3.578s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.593s PTReadMsgs(93, 04C79020, 1000, 0)   3.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+>> 3.593s PTWriteMsgs(93, 012FE3FC, 012FE2F8, 0)
+   Transaction 00d9 for 1 messages
+   Msg[0] 6:ISO15765. 7 bytes. TxF=00000140
+   TxFlags: {6:ISO15765_FRAME_PAD, 8:CAN_29BIT_ID}
+   \__  18  da  60  f1  22  70  10 
+   Queued everything
+   Queued 1/1
+<< 3.593s PTReadMsgs(93, 04C78020, 1000, 0)
+   Msg[0] 5.736119s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000109
+   RxStatus: {:TX_MSG_TYPE, :TX_INDICATION, :CAN_29BIT_ID}
+   \__ [18][da][60][f1]
+   Msg[1] 5.736119s. 6:ISO15765. Actual data 7 of 7 bytes. RxS=00000101
+   RxStatus: {:TX_MSG_TYPE, :CAN_29BIT_ID}
+   \__  18  da  60  f1  22  70  10 
+<< 3.593s PTReadMsgs() complete (channel 93)
+<< 3.593s PTReadMsgs(93, 04C71020, 1000, 0)   3.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.593s PTReadMsgs(93, 04C70020, 1000, 0)   3.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.593s PTReadMsgs(93, 04C7E020, 1000, 0)   3.593s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.609s PTReadMsgs(93, 04C74020, 1000, 0)   3.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.609s PTReadMsgs(93, 04C7E020, 1000, 0)
+   Msg[0] 5.748533s. 6:ISO15765. Actual data 0 of 4 bytes. RxS=00000102
+   RxStatus: {:START_OF_MESSAGE, :CAN_29BIT_ID}
+   \__ [18][da][f1][60]
+<< 3.609s PTReadMsgs() complete (channel 93)
+<< 3.609s PTReadMsgs(93, 04C7D020, 1000, 0)   3.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.609s PTReadMsgs(93, 04C7D020, 1000, 0)   3.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.609s PTReadMsgs(93, 04C71020, 1000, 0)   3.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.609s PTReadMsgs(93, 04C7A020, 1000, 0)   3.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.609s PTReadMsgs(93, 04C7A020, 1000, 0)   3.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.609s PTReadMsgs(93, 04C7C020, 1000, 0)   3.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.625s PTReadMsgs(93, 04C7D020, 1000, 0)   3.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.625s PTReadMsgs(93, 04C70020, 1000, 0)   3.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.625s PTReadMsgs(93, 04C74020, 1000, 0)   3.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.625s PTReadMsgs(93, 04C78020, 1000, 0)   3.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.625s PTReadMsgs(93, 04C7A020, 1000, 0)   3.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.625s PTReadMsgs(93, 04C74020, 1000, 0)   3.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.625s PTReadMsgs(93, 04C71020, 1000, 0)   3.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.640s PTReadMsgs(93, 04C79020, 1000, 0)   3.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.640s PTReadMsgs(93, 04C75020, 1000, 0)   3.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.640s PTReadMsgs(93, 04C72020, 1000, 0)   3.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.640s PTReadMsgs(93, 04C79020, 1000, 0)   3.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.640s PTReadMsgs(93, 04C7B020, 1000, 0)   3.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.640s PTReadMsgs(93, 04C78020, 1000, 0)   3.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.640s PTReadMsgs(93, 04C70020, 1000, 0)   3.640s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.656s PTReadMsgs(93, 04C7B020, 1000, 0)   3.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.656s PTReadMsgs(93, 04C71020, 1000, 0)   3.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.656s PTReadMsgs(93, 04C7A020, 1000, 0)   3.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.656s PTReadMsgs(93, 04C75020, 1000, 0)   3.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.656s PTReadMsgs(93, 04C78020, 1000, 0)   3.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.656s PTReadMsgs(93, 04C79020, 1000, 0)   3.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.656s PTReadMsgs(93, 04C71020, 1000, 0)   3.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.656s PTReadMsgs(93, 04C74020, 1000, 0)   3.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.672s PTReadMsgs(93, 04C70020, 1000, 0)   3.672s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.672s PTReadMsgs(93, 04C78020, 1000, 0)   3.672s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.672s PTReadMsgs(93, 04C76020, 1000, 0)   3.672s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.672s PTReadMsgs(93, 04C7F020, 1000, 0)   3.672s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.672s PTReadMsgs(93, 04C76020, 1000, 0)   3.672s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.672s PTReadMsgs(93, 04C73020, 1000, 0)   3.672s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.672s PTReadMsgs(93, 04C78020, 1000, 0)   3.672s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.687s PTReadMsgs(93, 04C76020, 1000, 0)   3.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.687s PTReadMsgs(93, 04C7D020, 1000, 0)   3.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.687s PTReadMsgs(93, 04C7F020, 1000, 0)
+   Msg[0] 5.829538s. 6:ISO15765. Actual data 61 of 61 bytes. RxS=00000100
+   RxStatus: {:CAN_29BIT_ID}
+   \__  18  da  f1  60  62  70  10  ff  ff  ff  ff  ff  ff  a0  00  f0 
+        f0  e0  80  e0  40  00  00  00  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+        00  00  00  00  00  00  00  00  00  00  00  00  00 
+<< 3.687s PTReadMsgs() complete (channel 93)
+<< 3.687s PTReadMsgs(93, 04C75020, 1000, 0)   3.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.687s PTReadMsgs(93, 04C7D020, 1000, 0)   3.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.687s PTReadMsgs(93, 04C7E020, 1000, 0)   3.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.687s PTReadMsgs(93, 04C72020, 1000, 0)   3.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.703s PTReadMsgs(93, 04C7E020, 1000, 0)   3.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.703s PTReadMsgs(93, 04C7C020, 1000, 0)   3.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.703s PTReadMsgs(93, 04C71020, 1000, 0)   3.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.703s PTReadMsgs(93, 04C7A020, 1000, 0)   3.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.703s PTReadMsgs(93, 04C7D020, 1000, 0)   3.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.703s PTReadMsgs(93, 04C7D020, 1000, 0)   3.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.703s PTReadMsgs(93, 04C7C020, 1000, 0)   3.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.703s PTReadMsgs(93, 04C7D020, 1000, 0)   3.703s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.718s PTReadMsgs(93, 04C79020, 1000, 0)   3.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.718s PTReadMsgs(93, 04C72020, 1000, 0)   3.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.718s PTReadMsgs(93, 04C7C020, 1000, 0)   3.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.718s PTReadMsgs(93, 04C75020, 1000, 0)   3.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.718s PTReadMsgs(93, 04C7C020, 1000, 0)   3.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.718s PTReadMsgs(93, 04C7A020, 1000, 0)   3.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.718s PTReadMsgs(93, 04C7B020, 1000, 0)   3.718s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.734s PTReadMsgs(93, 04C7C020, 1000, 0)   3.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.750s PTReadMsgs(93, 04C73020, 1000, 0)   3.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.750s PTReadMsgs(93, 04C74020, 1000, 0)   3.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.750s PTReadMsgs(93, 04C76020, 1000, 0)   3.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.750s PTReadMsgs(93, 04C71020, 1000, 0)   3.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.750s PTReadMsgs(93, 04C70020, 1000, 0)   3.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.750s PTReadMsgs(93, 04C7B020, 1000, 0)   3.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 3.750s PTStopMsgFilter(93, 96)
+   Removed message filter: 96
+<< 3.750s PTReadMsgs(93, 04C79020, 1000, 0)   3.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.765s PTReadMsgs(93, 04C77020, 1000, 0)   3.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.765s PTReadMsgs(93, 04C79020, 1000, 0)   3.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.765s PTReadMsgs(93, 04C7F020, 1000, 0)   3.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.765s PTReadMsgs(93, 04C7F020, 1000, 0)   3.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.765s PTReadMsgs(93, 04C79020, 1000, 0)   3.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.765s PTReadMsgs(93, 04C71020, 1000, 0)   3.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.765s PTReadMsgs(93, 04C7B020, 1000, 0)   3.765s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.781s PTReadMsgs(93, 04C72020, 1000, 0)   3.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.781s PTReadMsgs(93, 04C79020, 1000, 0)   3.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.781s PTReadMsgs(93, 04C75020, 1000, 0)   3.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.781s PTReadMsgs(93, 04C7F020, 1000, 0)   3.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.781s PTReadMsgs(93, 04C7D020, 1000, 0)   3.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.781s PTReadMsgs(93, 04C72020, 1000, 0)   3.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.781s PTReadMsgs(93, 04C72020, 1000, 0)   3.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.797s PTReadMsgs(93, 04C70020, 1000, 0)   3.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.797s PTReadMsgs(93, 04C71020, 1000, 0)   3.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.797s PTReadMsgs(93, 04C7F020, 1000, 0)   3.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.797s PTReadMsgs(93, 04C77020, 1000, 0)   3.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.797s PTReadMsgs(93, 04C7D020, 1000, 0)   3.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.797s PTReadMsgs(93, 04C71020, 1000, 0)   3.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.812s PTReadMsgs(93, 04C7F020, 1000, 0)   3.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.812s PTReadMsgs(93, 04C79020, 1000, 0)   3.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.812s PTReadMsgs(93, 04C71020, 1000, 0)   3.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.812s PTReadMsgs(93, 04C74020, 1000, 0)   3.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.812s PTReadMsgs(93, 04C75020, 1000, 0)   3.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.812s PTReadMsgs(93, 04C7E020, 1000, 0)   3.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.812s PTReadMsgs(93, 04C77020, 1000, 0)   3.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.828s PTReadMsgs(93, 04C71020, 1000, 0)   3.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.828s PTReadMsgs(93, 04C72020, 1000, 0)   3.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.828s PTReadMsgs(93, 04C74020, 1000, 0)   3.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.828s PTReadMsgs(93, 04C77020, 1000, 0)   3.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.828s PTReadMsgs(93, 04C7F020, 1000, 0)   3.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.828s PTReadMsgs(93, 04C77020, 1000, 0)   3.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.828s PTReadMsgs(93, 04C78020, 1000, 0)   3.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.828s PTReadMsgs(93, 04C7B020, 1000, 0)   3.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.843s PTReadMsgs(93, 04C71020, 1000, 0)   3.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+<< 3.843s PTReadMsgs(93, 04C7C020, 1000, 0)   3.843s Returning 16:BUFFER_EMPTY 'Zero messages received'
+-- 3.843s PTStopMsgFilter(93, 94)
+   Removed message filter: 94
+-- 3.843s PTDisconnect(93)
+-- 4.484s PTClose(1)

@@ -59,14 +59,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SharpLogger">
-      <Version>2.7.3.327</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="SharpLogger">
+      <Version>2.7.8.334</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y  "$(TargetDir)*" "$(ProjectDir)$(ProjectName)Nuget\lib\net472"</PostBuildEvent>

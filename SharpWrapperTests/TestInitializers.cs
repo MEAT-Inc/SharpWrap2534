@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Win32;
 using SharpLogging;
 
 namespace SharpWrapperTests
@@ -109,9 +110,20 @@ namespace SharpWrapperTests
             if (!SharpLogBroker.InitializeLogging(BrokerConfiguration))
                 throw new InvalidOperationException("Error! Failed to configure a new SharpLogging session!");
 
+            // Clean out the log files if there's more than 10 of them but make sure we leave the current one
+            List<string> PreviousTestLogs = Directory.GetFiles(SharpLogBroker.LogFileFolder).ToList();
+            if (PreviousTestLogs.Contains(SharpLogBroker.LogFilePath)) PreviousTestLogs.Remove(SharpLogBroker.LogFilePath);
+            if (PreviousTestLogs.Count > 10) foreach (var PreviousLog in PreviousTestLogs) File.Delete(PreviousLog);
+
+            // Initialize output folders if they do not exist at this point
+            if (!Directory.Exists(SimulationsOutputPath)) Directory.CreateDirectory(SimulationsOutputPath);
+            if (!Directory.Exists(ExpressionsOutputPath)) Directory.CreateDirectory(ExpressionsOutputPath);
+            if (!Directory.Exists(SimulationLoggingPath)) Directory.CreateDirectory(SimulationLoggingPath);
+            if (!Directory.Exists(ExpressionsLoggingPath)) Directory.CreateDirectory(ExpressionsLoggingPath);
+
             // Delete any old test session results here so our output content is up to date
-            foreach (string SimulationsFile in Directory.GetFiles(SimulationsOutputPath)) File.Delete(SimulationsFile);
-            foreach (string ExpressionsFile in Directory.GetFiles(ExpressionsOutputPath)) File.Delete(ExpressionsFile);
+            // foreach (string SimulationsFile in Directory.GetFiles(SimulationsOutputPath)) File.Delete(SimulationsFile);
+            // foreach (string ExpressionsFile in Directory.GetFiles(ExpressionsOutputPath)) File.Delete(ExpressionsFile);
             foreach (string SimulationsLogFile in Directory.GetFiles(SimulationLoggingPath)) File.Delete(SimulationsLogFile);
             foreach (string ExpressionsLogFile in Directory.GetFiles(ExpressionsLoggingPath)) File.Delete(ExpressionsLogFile);
 
@@ -189,6 +201,29 @@ namespace SharpWrapperTests
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
+        /// <summary>
+        /// Helper method used to request the tester to select a folder or set of files to use for testing
+        /// </summary>
+        /// <returns>The log files selected for testing</returns>
+        public static IEnumerable<string> RequestTestLogs()
+        {
+            // Show a file dialog box and request input for it
+            OpenFileDialog SelectFilesDialog = new OpenFileDialog
+            {
+                // Configure the new dialog box to show the user
+                Multiselect = true,
+                CheckPathExists = true,
+                CheckFileExists = true,
+                InitialDirectory = TestJ2534LogsPath
+            };
+
+            // Open up the dialog box and store the results. If no files are picked, throw an exception
+            if ((bool)!SelectFilesDialog.ShowDialog()) 
+                throw new InvalidOperationException("Error! Log files must be selected for testing!");
+
+            // Pull the selected files and return them out
+            return SelectFilesDialog.FileNames;
+        }
         /// <summary>
         /// Helper method used to return back a random test log file
         /// </summary>

@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpExpressions;
-using SharpLogging;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using SharpSimulator;
+using SharpLogging;
 
 namespace SharpWrapperTests.SharpSimulator
 {

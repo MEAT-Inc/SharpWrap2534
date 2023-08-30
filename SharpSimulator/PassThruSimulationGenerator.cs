@@ -173,6 +173,21 @@ namespace SharpSimulator
             return new PassThruSimulationGenerator(ExpressionGenerator);
         }
         /// <summary>
+        /// Spawns a new SimulationGenerator from a collection of PassThru log files.
+        /// </summary>
+        /// <param name="PassThruLogFiles">The log files to load into expressions. This MUST be a normal PassThru log!</param>
+        /// <returns>A new expressions generator ready to load all content inside of the input log file</returns>
+        public static PassThruSimulationGenerator LoadPassThruLogFiles(string[] PassThruLogFiles)
+        {
+            // Load a generator for our content here
+            PassThruExpressionsGenerator ExpressionGenerator = PassThruExpressionsGenerator.LoadPassThruLogFiles(PassThruLogFiles);
+            if (ExpressionGenerator.GenerateLogExpressions().Length == 0)
+                throw new DataException($"Error! No expressions were able to be built from log file {ExpressionGenerator.PassThruLogFile}!");
+
+            // Build and return a new simulation generator from our built expressions objects
+            return new PassThruSimulationGenerator(ExpressionGenerator);
+        }
+        /// <summary>
         /// Spawns a new SimulationGenerator from a PassThru expressions file
         /// </summary>
         /// <param name="ExpressionsFile">The expressions file to load and convert. This MUST be an Expressions log!</param>

@@ -53,8 +53,8 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SharpLogging, Version=2.7.3.327, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpLogger.2.7.3.327\lib\net472\SharpLogging.dll</HintPath>
+    <Reference Include="SharpLogging, Version=2.7.8.334, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpLogger.2.7.8.334\lib\net472\SharpLogging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -120,7 +120,7 @@
       <Name>SharpExpressions</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharpSimulator\SharpSimulator.csproj">
-      <Project>{0A39E208-7927-41BC-A509-39E60B287969}</Project>
+      <Project>{0a39e208-7927-41bc-a509-39e60b287969}</Project>
       <Name>SharpSimulator</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharpWrapper\SharpWrapper.csproj">
@@ -128,7 +128,6 @@
       <Name>SharpWrapper</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="TestJ2534Logs\2008_VOLKSWAGEN_GTI_WVWHD71K28W309719\GDP3_2020-05-06_09-16-55_0131.txt" />
     <Content Include="TestJ2534Logs\2008_VOLKSWAGEN_GTI_WVWHD71K28W309719\GDP3_2020-05-06_09-22-31_0251.txt" />
@@ -193,6 +192,7 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(TargetDir)TestJ2534Logs" 
+
 cmd.exe /C xcopy "$(ProjectDir)TestJ2534Logs" "$(TargetDir)TestJ2534Logs" /E /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.targets')" />

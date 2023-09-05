@@ -116,20 +116,6 @@
     <None Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\FulcrumInjector_Logging_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.log" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpExpressions\SharpExpressions.csproj">
-      <Project>{d7f2fba3-281e-432d-96d8-7e6fbf1147f7}</Project>
-      <Name>SharpExpressions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharpSimulator\SharpSimulator.csproj">
-      <Project>{0a39e208-7927-41bc-a509-39e60b287969}</Project>
-      <Name>SharpSimulator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharpWrapper\SharpWrapper.csproj">
-      <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
-      <Name>SharpWrapper</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="TestJ2534Logs\2008_VOLKSWAGEN_GTI_WVWHD71K28W309719\GDP3_2020-05-06_09-16-55_0131.txt" />
     <Content Include="TestJ2534Logs\2008_VOLKSWAGEN_GTI_WVWHD71K28W309719\GDP3_2020-05-06_09-22-31_0251.txt" />
     <Content Include="TestJ2534Logs\2009_FORD_ESCAPE_1FMCU94G79KC58221\CarDAQPlus2_2020-06-09_09-47-42_0521.txt" />
@@ -181,6 +167,20 @@
     <Content Include="TestJ2534Logs\2021_TOYOTA_ RAV4EV_4T3D6RFV0MU043147\CarDAQPlus3_12212022_2021_TOYOTA_RAV4EV_4T3D6RFV0MU043147.txt" />
     <Content Include="TestJ2534Logs\2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607\CarDAQPlus3_12212022_2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607.txt" />
     <Content Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\CarDAQPlus3_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpExpressions\SharpExpressions.csproj">
+      <Project>{d7f2fba3-281e-432d-96d8-7e6fbf1147f7}</Project>
+      <Name>SharpExpressions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpSimulator\SharpSimulator.csproj">
+      <Project>{0a39e208-7927-41bc-a509-39e60b287969}</Project>
+      <Name>SharpSimulator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpWrapper\SharpWrapper.csproj">
+      <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
+      <Name>SharpWrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

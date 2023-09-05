@@ -237,6 +237,15 @@ namespace SharpSimulator
                     var PTFilterCommands = ExpressionSet.Value
                         .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTStartMsgFilter)
                         .Cast<PassThruStartMessageFilterExpression>()
+                        .GroupBy(FilterObj => new
+                        {
+                            FilterMask = FilterObj.MessageFilterContents[0].Last(),
+                            FilterPattern = FilterObj.MessageFilterContents[1].Last(),
+                            FilterFlow = FilterObj.MessageFilterContents.Count >= 3 
+                                ? FilterObj.MessageFilterContents[2].Last()
+                                : string.Empty
+                        })
+                        .Select(FilterGroup => FilterGroup.First())
                         .ToArray();
                     var PTReadCommands = ExpressionSet.Value
                         .Where(ExpObj => ExpObj.TypeOfExpression == PassThruExpressionTypes.PTReadMsgs)

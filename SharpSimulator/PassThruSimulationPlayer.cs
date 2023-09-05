@@ -664,7 +664,17 @@ namespace SharpSimulator
 
             // Close the current channel, build a new one using the given protocol and then setup our filters.
             this.PhysicalChannel = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt);
-            foreach (var ChannelFilter in FiltersToApply) { this.PhysicalChannel.StartMessageFilter(ChannelFilter); }
+            foreach (var ChannelFilter in FiltersToApply)
+            {
+                // Try and set each filter for the channel. Skip duplicate filters
+                try { this.PhysicalChannel.StartMessageFilter(ChannelFilter); }
+                catch
+                {
+                    // Log out what our duplicate filter was
+                    this._simPlayingLogger.WriteLog($"Error! Filter was unable to be set for requested simulation channel!", LogType.ErrorLog);
+                    this._simPlayingLogger.WriteLog($"Filter: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog);
+                }
+            }
 
             // Build output message events here
             this.SimChannelModified(new SimChannelEventArgs(this.SimulationSession));

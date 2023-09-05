@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.props')" />
+  <Import Project="..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.props')" />
   <Import Project="..\..\\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.props" Condition="Exists('..\..\\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -44,17 +44,18 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MSTest.TestFramework.3.0.2\lib\net462\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\MSTest.TestFramework.3.1.1\lib\net462\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MSTest.TestFramework.3.0.2\lib\net462\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\MSTest.TestFramework.3.1.1\lib\net462\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.5.2.3\lib\net46\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SharpLogging, Version=2.7.3.327, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpLogger.2.7.3.327\lib\net472\SharpLogging.dll</HintPath>
+    <Reference Include="SharpLogging, Version=2.7.8.334, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpLogger.2.7.8.334\lib\net472\SharpLogging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -115,21 +116,6 @@
     <None Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\FulcrumInjector_Logging_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.log" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpExpressions\SharpExpressions.csproj">
-      <Project>{d7f2fba3-281e-432d-96d8-7e6fbf1147f7}</Project>
-      <Name>SharpExpressions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharpSimulator\SharpSimulator.csproj">
-      <Project>{0A39E208-7927-41BC-A509-39E60B287969}</Project>
-      <Name>SharpSimulator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharpWrapper\SharpWrapper.csproj">
-      <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
-      <Name>SharpWrapper</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
     <Content Include="TestJ2534Logs\2008_VOLKSWAGEN_GTI_WVWHD71K28W309719\GDP3_2020-05-06_09-16-55_0131.txt" />
     <Content Include="TestJ2534Logs\2008_VOLKSWAGEN_GTI_WVWHD71K28W309719\GDP3_2020-05-06_09-22-31_0251.txt" />
     <Content Include="TestJ2534Logs\2009_FORD_ESCAPE_1FMCU94G79KC58221\CarDAQPlus2_2020-06-09_09-47-42_0521.txt" />
@@ -182,18 +168,33 @@
     <Content Include="TestJ2534Logs\2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607\CarDAQPlus3_12212022_2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607.txt" />
     <Content Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\CarDAQPlus3_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpExpressions\SharpExpressions.csproj">
+      <Project>{d7f2fba3-281e-432d-96d8-7e6fbf1147f7}</Project>
+      <Name>SharpExpressions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpSimulator\SharpSimulator.csproj">
+      <Project>{0a39e208-7927-41bc-a509-39e60b287969}</Project>
+      <Name>SharpSimulator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpWrapper\SharpWrapper.csproj">
+      <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
+      <Name>SharpWrapper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(TargetDir)TestJ2534Logs" 
+
+cmd.exe /C xcopy "$(ProjectDir)TestJ2534Logs" "$(TargetDir)TestJ2534Logs" /E /Y</PostBuildEvent>
+  </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.props'))" />
-    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.targets'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.targets'))" />
   </Target>
-  <PropertyGroup>
-    <PostBuildEvent>mkdir "$(TargetDir)TestJ2534Logs" 
-cmd.exe /C xcopy "$(ProjectDir)TestJ2534Logs" "$(TargetDir)TestJ2534Logs" /E /Y</PostBuildEvent>
-  </PropertyGroup>
-  <Import Project="..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.targets')" />
+  <Import Project="..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.targets')" />
 </Project>

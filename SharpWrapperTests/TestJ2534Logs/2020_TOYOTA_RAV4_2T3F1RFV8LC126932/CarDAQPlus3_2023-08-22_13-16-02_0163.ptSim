@@ -1,0 +1,6438 @@
+[
+  {
+    "Item1": 2,
+    "Item2": {
+  "ChannelId": 2,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0xC7",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0xC7"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0xC7",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0xC7"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0xC7",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0xC7"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": []
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0xC7 0x22 0xF1 0x90 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x62 0xF1 0x90 0x32 0x54 0x33 0x46 0x31 0x52 0x46 0x56"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0xC7 0x22 0xF1 0x90 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x62 0xF1 0x90 0x32 0x54 0x33 0x46 0x31 0x52 0x46 0x56"
+}
+  ]
+}
+  },
+  {
+    "Item1": 43,
+    "Item2": {
+  "ChannelId": 43,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x91",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x99"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x91",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x99"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x91",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x99"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x7E 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0xAB 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0xEB 0x01"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x7F 0x22 0x31"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0xAB 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x7E 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0xEB 0x01"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x91"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x99 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+  ]
+}
+  },
+  {
+    "Item1": 51,
+    "Item2": {
+  "ChannelId": 51,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xB0",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xB8"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xB0",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xB8"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0xB0",
+  "FilterFlowCtl": "0x00 0x00 0x07 0xB8"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x7E 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0xAB 0x11 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0xAB 0x11 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0xAB 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0xEB 0x01 0x20 0xA5"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x03 0x22 0xF1 0x81 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "START_OF_MESSAGE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x62 0xF1 0x81 0x01 0x46 0x31 0x35 0x32 0x36 0x30 0x52 0x33"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "START_OF_MESSAGE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x62 0x01 0x05 0x38 0x39 0x35 0x34 0x31 0x30 0x52 0x31 0x34"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0xAB 0x11 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0xAB 0x11 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0xAB 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x03 0x22 0xF1 0x81 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x7E 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0xEB 0x01 0x20 0xA5"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "START_OF_MESSAGE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x62 0xF1 0x81 0x01 0x46 0x31 0x35 0x32 0x36 0x30 0x52 0x33"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "START_OF_MESSAGE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x62 0x01 0x05 0x38 0x39 0x35 0x34 0x31 0x30 0x52 0x31 0x34"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB0"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0xB8 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+  ]
+}
+  },
+  {
+    "Item1": 25,
+    "Item2": {
+  "ChannelId": 25,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x7A",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x7A"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x7A",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x7A"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x7A",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x7A"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x7E 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0xEB 0x01"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7A 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7A 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7A 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7A 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7A 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7A 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7A 0x10 0x01 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0xEB 0x01"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7A 0x7E 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7A"
+}
+  ]
+}
+  },
+  {
+    "Item1": 55,
+    "Item2": {
+  "ChannelId": 55,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0xC7",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0xC7"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0xC7",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0xC7"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0xC7",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0xC7"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x7E 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "13 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0xEB 0x01 0x26 0x01 0x22 0x12 0xF0 0x10"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0xC7 0x22 0xF1 0x81 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x62 0xF1 0x81 0x01 0x4E 0x30 0x31 0x30 0x66 0x66 0x42"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0xC7 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x62 0x01 0x05 0x38 0x36 0x37 0x34 0x31 0x30 0x36 0x30"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0xC7 0x22 0xF1 0x81 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0xC7 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0xC7 0x10 0x01 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x7E 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "13 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0xEB 0x01 0x26 0x01 0x22 0x12 0xF0 0x10"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x62 0xF1 0x81 0x01 0x4E 0x30 0x31 0x30 0x66 0x66 0x42"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x62 0x01 0x05 0x38 0x36 0x37 0x34 0x31 0x30 0x36 0x30"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0xC7"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0xC7 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+  ]
+}
+  },
+  {
+    "Item1": 47,
+    "Item2": {
+  "ChannelId": 47,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x7C",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x7C"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x7C",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x7C"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x7C",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x7C"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7E 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "9 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0xEB 0x01 0x20 0x4E"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7C 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7C 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7C 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7C 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7C 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x7C 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x7C 0x10 0x01 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7E 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "9 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0xEB 0x01 0x20 0x4E"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x7C"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x7C 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+  ]
+}
+  },
+  {
+    "Item1": 29,
+    "Item2": {
+  "ChannelId": 29,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x90",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x98"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x90",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x98"
+},
+    {
+  "FilterFlags": "ISO15765_FRAME_PAD",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x90",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x98"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7E 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0xAB 0x11 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0xAB 0x11 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0xAB 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0xEB 0x01"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0xAB 0x11 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0xAB 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x3E 0x00 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x01 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0x10 0x03 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x02 0xAB 0x11 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "ISO15765_FRAME_PAD",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90 0x03 0x22 0x01 0x05 0x00 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0xEB 0x01"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "6 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7E 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "10 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "9",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "4 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x90"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x98 0x7F 0x22 0x31"
+}
+  ]
+}
+  },
+  {
+    "Item1": 33,
+    "Item2": {
+  "ChannelId": 33,
+  "ChannelBaudRate": 500000,
+  "ChannelProtocol": "ISO15765",
+  "ChannelConnectFlags": "NO_CONNECT_FLAGS",
+  "MessageFilters": [
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x0F",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x0F"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x6D",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x6D"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x0F",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x0F"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x0F",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x0F"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x6D",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x6D"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x79",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x79"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x79",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x79"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x79",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x79"
+},
+    {
+  "FilterFlags": "NO_TX_FLAGS",
+  "FilterType": "FLOW_CONTROL_FILTER",
+  "FilterProtocol": "ISO15765",
+  "FilterStatus": "INITIALIZED",
+  "FilterId": 0,
+  "FilterMask": "0xFF 0xFF 0xFF 0xFF 0xFF",
+  "FilterPattern": "0x00 0x00 0x07 0x50 0x6D",
+  "FilterFlowCtl": "0x00 0x00 0x07 0x58 0x6D"
+}
+  ],
+  "MessagePairs": [
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x7E 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0xEB 0x01"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x0F 0x22 0xF1 0x81 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x62 0xF1 0x81 0x01 0x38 0x38 0x32 0x31 0x46 0x33 0x33"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x0F 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x62 0x01 0x05 0x38 0x38 0x32 0x31 0x30 0x30 0x36 0x30"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x7E 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": []
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0xEB 0x01"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x6D 0x22 0xF1 0x81 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x62 0xF1 0x81 0x02 0x38 0x36 0x34 0x36 0x46 0x34 0x32"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x6D 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x62 0x01 0x05 0x38 0x36 0x34 0x36 0x43 0x30 0x52 0x30"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7E 0x00"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0xAB 0x12"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "9 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0xEB 0x01 0x20 0x77"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x03 0x00 0x32 0x01 0xF4"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x79 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x79 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x79 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0x22 0x31"
+}
+      ]
+    },
+    {
+      "MessageRead": {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+      "MessageResponses": [
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+        {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+      ]
+    }
+  ],
+  "MessagesSent": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x6D 0x22 0xF1 0x81 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x6D 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x0F 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x3E 0x00 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x6D 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x79 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x79 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x03 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x79 0x22 0x01 0x05 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0x10 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x79 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0xAB 0x11 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x03 0x0F 0xAB 0x01 0x00 0x00 0x00 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "NO_RX_STATUS",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "12 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x04 0x0F 0x22 0xF1 0x81 0x00 0x00 0x00"
+}
+  ],
+  "MessagesRead": [
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0xEB 0x01"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x62 0xF1 0x81 0x02 0x38 0x36 0x34 0x36 0x46 0x34 0x32"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x7E 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x62 0x01 0x05 0x38 0x36 0x34 0x36 0x43 0x30 0x52 0x30"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0xEB 0x01"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x62 0xF1 0x81 0x01 0x38 0x38 0x32 0x31 0x46 0x33 0x33"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "130",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "16 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x62 0x01 0x05 0x38 0x38 0x32 0x31 0x30 0x30 0x36 0x30"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x0F"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x0F 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7E 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "7 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x6D 0x7E 0x00"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x6D"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x03 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0x22 0x31"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x01 0x00 0x32 0x01 0xF4"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "8 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x7F 0xAB 0x12"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "9 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0xEB 0x01 0x20 0x77"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "137",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "5 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x50 0x79"
+},
+    {
+  "ProtocolId": "ISO15765",
+  "RxStatus": "ISO15765_ADDR_TYPE",
+  "TxFlags": "NO_TX_FLAGS",
+  "Timestamp": "0ms",
+  "DataSize": "11 Bytes",
+  "ExtraDataIndex": "0",
+  "Data": "0x00 0x00 0x07 0x58 0x79 0x50 0x01 0x00 0x32 0x01 0xF4"
+}
+  ]
+}
+  }
+]

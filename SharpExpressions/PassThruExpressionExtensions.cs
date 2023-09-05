@@ -88,9 +88,14 @@ namespace SharpExpressions
             List<string> OutputMessages = new List<string>();
             foreach (var MsgLineSet in SplitMessageLines)
             {
+                // Clean out spaces from the input lines
+                string CleanedMsgSet = MsgLineSet
+                    .Replace("\r        ", " ")
+                    .Replace("\r", string.Empty);
+                
                 // RegexMatch output here.
                 var RegexResultTuples = new List<Tuple<string, string>>();
-                bool MatchedContent = MessageContentRegex.Evaluate(MsgLineSet, out var MatchedMessageStrings);
+                bool MatchedContent = MessageContentRegex.Evaluate(CleanedMsgSet, out var MatchedMessageStrings);
                 if (!MatchedContent) continue;
 
                 // Make sure the value for Flags is not zero. If it is, then we need to insert a "No Value" object

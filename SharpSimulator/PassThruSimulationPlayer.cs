@@ -105,9 +105,10 @@ namespace SharpSimulator
         public class SimChannelEventArgs : EventArgs
         {
             // Event objects for this event
-            public readonly Sharp2534Session Session;       // Controlling Session
-            public readonly J2534Device SessionDevice;      // Device controlled by the session
-            public readonly J2534Channel SessionChannel;    // Channel being controlled for this simulation
+            public DateTime TimeProcessed { get; private set; }         // Time this event is processed
+            public Sharp2534Session Session { get; private set; }      // Controlling Session
+            public J2534Device SessionDevice { get; private set; }      // Device controlled by the session
+            public J2534Channel SessionChannel { get; private set; }    // Channel being controlled for this simulation
 
             // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -119,6 +120,7 @@ namespace SharpSimulator
             {
                 // Store session objects here
                 this.Session = InputSession;
+                this.TimeProcessed = DateTime.Now;
                 this.SessionDevice = this.Session.JDeviceInstance;
                 this.SessionChannel = this.SessionDevice.DeviceChannels.First(ChObj => ChObj.ChannelId != 0);
             }
@@ -129,7 +131,7 @@ namespace SharpSimulator
         public class SimMessageEventArgs : EventArgs
         {
             // Event objects for this event
-            public readonly Sharp2534Session Session;       // Controlling Session
+            public readonly Sharp2534Session Session;      // Controlling Session
             public readonly J2534Device SessionDevice;      // Device controlled by the session
             public readonly J2534Channel SessionChannel;    // Channel being controlled for this simulation
 
@@ -137,6 +139,11 @@ namespace SharpSimulator
             public readonly bool ResponsePassed;
             public readonly PassThruStructs.PassThruMsg ReadMessage;
             public readonly PassThruStructs.PassThruMsg[] Responses;
+
+            // Bindable string properties for these events 
+            public DateTime TimeProcessed { get; private set; }      
+            public string ReadMessageString => ReadMessage.DataToHexString();
+            public string[] ResponseStrings => Responses.Select(ResponseObj => ResponseObj.DataToHexString()).ToArray();
 
             // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -150,6 +157,7 @@ namespace SharpSimulator
             {
                 // Store session objects here
                 this.Session = InputSession;
+                this.TimeProcessed = DateTime.Now;
                 this.SessionDevice = this.Session.JDeviceInstance;
                 this.SessionChannel = this.SessionDevice.DeviceChannels.First(ChObj => ChObj.ChannelId != 0);
 
@@ -664,7 +672,17 @@ namespace SharpSimulator
 
             // Close the current channel, build a new one using the given protocol and then setup our filters.
             this.PhysicalChannel = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt);
-            foreach (var ChannelFilter in FiltersToApply) { this.PhysicalChannel.StartMessageFilter(ChannelFilter); }
+            foreach (var ChannelFilter in FiltersToApply)
+            {
+                // Try and set each filter for the channel. Skip duplicate filters
+                try { this.PhysicalChannel.StartMessageFilter(ChannelFilter); }
+                catch
+                {
+                    // Log out what our duplicate filter was
+                    this._simPlayingLogger.WriteLog($"Error! Filter was unable to be set for requested simulation channel!", LogType.ErrorLog);
+                    this._simPlayingLogger.WriteLog($"Filter: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog);
+                }
+            }
 
             // Build output message events here
             this.SimChannelModified(new SimChannelEventArgs(this.SimulationSession));

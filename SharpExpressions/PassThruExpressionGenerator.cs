@@ -123,6 +123,25 @@ namespace SharpExpressions
             return OutputGenerator;
         }
         /// <summary>
+        /// Spawns a new PassThruExpressionGenerator from a collection of PassThru log files.
+        /// </summary>
+        /// <param name="PassThruLogFiles">The log files to load into expressions. This MUST be a normal PassThru log!</param>
+        /// <returns>A new expressions generator ready to load all content inside of the input log file</returns>
+        public static PassThruExpressionsGenerator LoadPassThruLogFiles(string[] PassThruLogFiles)
+        {
+            // Combine the content of all the log files and load it into a generator 
+            string CombinedLogFileContent = string.Empty;
+            string CombinedLogFileName = Path.ChangeExtension(Path.GetTempFileName(), ".txt");
+
+            // Iterate the files and store their content in the output file content variable
+            foreach (var LogFile in PassThruLogFiles) CombinedLogFileContent += File.ReadAllText(LogFile); 
+            File.WriteAllText(CombinedLogFileName, CombinedLogFileContent);
+
+            // Load a generator for our content here
+            PassThruExpressionsGenerator OutputGenerator = new PassThruExpressionsGenerator(CombinedLogFileName);
+            return OutputGenerator;
+        }
+        /// <summary>
         /// Spawns a new PassThruExpressionGenerator from a PassThru expressions file
         /// </summary>
         /// <param name="ExpressionsFile">The expressions file to load and convert. This MUST be an Expressions log!</param>

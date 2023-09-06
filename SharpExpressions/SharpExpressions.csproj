@@ -78,7 +78,7 @@
       <Version>2.7.8.334</Version>
     </PackageReference>
     <PackageReference Include="SharpWrapper">
-      <Version>6.1.10.468</Version>
+      <Version>6.1.11.469</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

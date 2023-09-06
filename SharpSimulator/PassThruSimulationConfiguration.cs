@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
@@ -24,27 +25,31 @@ namespace SharpSimulator
         private static ProtocolId[] _supportedProtocols;                                 // Supported simulation default protocols
         private static PassThruSimulationConfiguration[] _supportedConfigurations;       // Supported default simulation configurations
 
-        // Simulation reader base configuration values pulled from JSON or defined by the user
-        public uint ReaderTimeout;                                                       // Timeout for each read routine
-        public uint ReaderMsgCount;                                                      // The number of messages to read
-        public uint ResponseTimeout;                                                     // The timeout for sending responses
-                                                                                         
-        // Basic Channel Configurations                                                  
-        public BaudRate ReaderBaudRate;                                                  // Baudrate for the current channel
-        public ProtocolId ReaderProtocol;                                                // Protocol for the current channel
-        public PassThroughConnect ReaderChannelFlags;                                    // Flags for the current channel
-                                                                                         
-        // Reader configuration filters and IOCTLs                                       
-        public J2534Filter[] ReaderFilters;                                              // Filters to apply to our reader channel
-        public PassThruStructs.SConfigList ReaderConfigs;                                // The configurations to apply as IOCTLs for the channel
-
         #endregion // Fields
 
         #region Properties
 
+        // Name of this simulation configuration 
+        public string ConfigurationName { get; set; }                                    // Name of the configuration. Defaults to protocol
+
+        // Simulation reader base configuration values pulled from JSON or defined by the user
+        public uint ReaderTimeout { get; set; }                                          // Timeout for each read routine
+        public uint ReaderMsgCount { get; set; }                                         // The number of messages to read
+        public uint ResponseTimeout { get; set; }                                        // The timeout for sending responses
+
+        // Basic Channel Configurations                                                  
+        public BaudRate ReaderBaudRate { get; set; }                                     // Baudrate for the current channel
+        public ProtocolId ReaderProtocol { get; set; }                                   // Protocol for the current channel
+        public PassThroughConnect ReaderChannelFlags { get; set; }                       // Flags for the current channel
+
+        // Reader configuration filters and IOCTLs                                       
+        public J2534Filter[] ReaderFilters { get; set; }                                 // Filters to apply to our reader channel
+        public PassThruStructs.SConfigList ReaderConfigs { get; set; }                   // The configurations to apply as IOCTLs for the channel
+
         // List of all configurations and all supported protocols for playback during simulations
         public static ProtocolId[] SupportedProtocols => _supportedProtocols ??= _loadSupportedProtocols();
         public static PassThruSimulationConfiguration[] SupportedConfigurations => _supportedConfigurations ??= _loadSupportedConfigurations();
+
         #endregion // Properties
 
         #region Structs and Classes
@@ -55,7 +60,10 @@ namespace SharpSimulator
         /// <summary>
         /// Builds a new configuration object and sets defaults to null/empty
         /// </summary>
-        public PassThruSimulationConfiguration(ProtocolId ProtocolInUse, BaudRate BaudRate)
+        /// <param name="ProtocolInUse">Protocol for the configuration</param>
+        /// <param name="BaudRate">BaudRate of the simulation</param>
+        /// <param name="ConfigurationName">Optional name of our configuration</param>
+        public PassThruSimulationConfiguration(ProtocolId ProtocolInUse, BaudRate BaudRate, string ConfigurationName = null)
         {
             // Setup a new configuration logger if possible
             _configurationLogger ??= new SharpLogger(LoggerActions.UniversalLogger);
@@ -63,6 +71,10 @@ namespace SharpSimulator
             // Store protocol and BaudRate
             this.ReaderBaudRate = BaudRate;
             this.ReaderProtocol = ProtocolInUse;
+
+            // Configure the name of the simulation configuration
+            this.ConfigurationName = !string.IsNullOrWhiteSpace(ConfigurationName) 
+                ? ConfigurationName : $"{this.ReaderProtocol}_{this.ReaderProtocol}";
 
             // Store basic values here
             this.ReaderMsgCount = 1;
@@ -73,6 +85,26 @@ namespace SharpSimulator
             // Setup basic empty array for filters with a max count of 10
             this.ReaderFilters = new J2534Filter[10];
             this.ReaderConfigs = new PassThruStructs.SConfigList(0);
+        }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Gets an auto ID routine for the given protocol value.
+        /// </summary>
+        /// <param name="ConfigurationName">Name of the configuration being returned</param>
+        /// <returns>Routine matching the given protocol or null</returns>
+        public static PassThruSimulationConfiguration LoadSimulationConfig(string ConfigurationName)
+        {
+            // Find our routine.
+            var RoutineLocated = SupportedConfigurations.FirstOrDefault(RoutineObj => RoutineObj.ConfigurationName == ConfigurationName);
+            _configurationLogger.WriteLog(
+                RoutineLocated == null ? "NO CONFIG WAS FOUND! RETURNING NULL!" : $"RETURNING CONFIG \"{ConfigurationName}\" NOW...",
+                RoutineLocated == null ? LogType.ErrorLog : LogType.InfoLog
+            );
+
+            // Return the located routine here
+            return RoutineLocated;
         }
         /// <summary>
         /// Gets an auto ID routine for the given protocol value.

@@ -5,13 +5,13 @@
   ],
   "SimulationConfigurations": [
     {
-      "ConfigurationName": "CAN - 11 Bit", 
+      "ConfigurationName": "CAN - 11 Bit",
       "ReaderTimeout": 100,
       "ReaderMsgCount": 10,
       "ResponseTimeout": 1000,
       "ReaderBaudRate": 500000,
       "ReaderChannelFlags": "NO_CONNECT_FLAGS",
-      "ReaderProtocol": "CAN",
+      "ReaderProtocol": "ISO15765",
       "ReaderFilters": [
         {
           "FilterId": 0,

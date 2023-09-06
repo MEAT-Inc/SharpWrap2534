@@ -46,7 +46,6 @@ namespace SharpSimulator
         public J2534Filter[] ReaderFilters { get; set; }                                 // Filters to apply to our reader channel
         public PassThruStructs.SConfigList ReaderConfigs { get; set; }                   // The configurations to apply as IOCTLs for the channel
 
-
         // List of all configurations and all supported protocols for playback during simulations
         public static ProtocolId[] SupportedProtocols => _supportedProtocols ??= _loadSupportedProtocols();
         public static PassThruSimulationConfiguration[] SupportedConfigurations => _supportedConfigurations ??= _loadSupportedConfigurations();

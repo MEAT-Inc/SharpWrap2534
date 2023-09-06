@@ -12,16 +12,16 @@ namespace SharpWrapper.J2534Objects
     public class J2534Filter : IComparable
     {
         // Filter Type info
-        public TxFlags FilterFlags;
-        public FilterDef FilterType;
-        public ProtocolId FilterProtocol;
-        public SharpSessionStatus FilterStatus;
+        public TxFlags FilterFlags { get; set; }
+        public FilterDef FilterType { get; set; }
+        public ProtocolId FilterProtocol { get; set; }
+        public SharpSessionStatus FilterStatus { get; set; }
 
         // Filter values.
-        public uint FilterId;
-        public string FilterMask;
-        public string FilterPattern;
-        public string FilterFlowCtl;
+        public uint FilterId { get; set; }
+        public string FilterMask { get; set; }
+        public string FilterPattern { get; set; }
+        public string FilterFlowCtl { get; set; }
 
         // ---------------------------------------------------------------------------------------------------------------
 

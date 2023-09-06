@@ -1,11 +1,10 @@
 {
   "SupportedProtocols": [
-    "CAN",
     "ISO15765"
   ],
   "SimulationConfigurations": [
     {
-      "ConfigurationName": "CAN - 11 Bit",
+      "ConfigurationName": "ISO15765 - 11 Bit (Pass All)",
       "ReaderTimeout": 100,
       "ReaderMsgCount": 10,
       "ResponseTimeout": 1000,
@@ -35,7 +34,7 @@
       }
     },
     {
-      "ConfigurationName": "ISO15765 - 11 Bit",
+      "ConfigurationName": "ISO15765 - 11 Bit (Flow Control)",
       "ReaderTimeout": 100,
       "ReaderMsgCount": 10,
       "ResponseTimeout": 1000,

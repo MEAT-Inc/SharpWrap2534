@@ -382,6 +382,7 @@ namespace SharpSimulator
                 _simulationLogger.WriteLog("CONVERTING TO STRINGS NOW...", LogType.WarnLog);
                 Tuple<uint, PassThruSimulationChannel>[] ChannelsConstructed = this.SimulationChannels
                     .Select(SimChannel => new Tuple<uint, PassThruSimulationChannel>(SimChannel.ChannelId, SimChannel))
+                    .OrderBy(SimChannel => SimChannel.Item1)
                     .ToArray();
 
                 // Log information and write output.

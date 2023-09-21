@@ -72,6 +72,11 @@ namespace SharpWrapperTests.SharpSimulator
             PassThruExpression[] OutputExpressions = InputGenerator.GenerateLogExpressions();
             Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {RequestedLogFile}!");
 
+            // Save the output expressions file and make sure it's real
+            string BaseExpFileName = Path.GetFileNameWithoutExtension(RequestedLogFile);
+            string BuiltExpressionFile = InputGenerator.SaveExpressionsFile(BaseExpFileName, TestInitializers.ExpressionsOutputPath);
+            Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built expression file {BuiltExpressionFile} does not exist!");
+
             // Now once we've validated expressions were built, generate our simulations
             var BuiltSimGenerator = new PassThruSimulationGenerator(RequestedLogFile, OutputExpressions);
             PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation();
@@ -104,6 +109,11 @@ namespace SharpWrapperTests.SharpSimulator
             var InputGenerator = PassThruExpressionsGenerator.LoadPassThruLogFiles(RequestedLogFiles);
             PassThruExpression[] OutputExpressions = InputGenerator.GenerateLogExpressions();
             Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {InputGenerator.PassThruLogFile}!");
+
+            // Save the output expressions file and make sure it's real
+            string BaseExpFileName = Path.GetFileNameWithoutExtension(InputGenerator.PassThruLogFile);
+            string BuiltExpressionFile = InputGenerator.SaveExpressionsFile(BaseExpFileName, TestInitializers.ExpressionsOutputPath);
+            Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built expression file {BuiltExpressionFile} does not exist!");
 
             // Now once we've validated expressions were built, generate our simulations
             var BuiltSimGenerator = new PassThruSimulationGenerator(InputGenerator.PassThruLogFile, OutputExpressions);
@@ -191,6 +201,11 @@ namespace SharpWrapperTests.SharpSimulator
                 var InputGenerator = PassThruExpressionsGenerator.LoadPassThruLogFiles(TestLogSet);
                 PassThruExpression[] OutputExpressions = InputGenerator.GenerateLogExpressions();
                 Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {InputGenerator.PassThruLogFile}!");
+
+                // Save the output expressions file and make sure it's real
+                string BaseExpFileName = Path.GetFileNameWithoutExtension(InputGenerator.PassThruLogFile);
+                string BuiltExpressionFile = InputGenerator.SaveExpressionsFile(BaseExpFileName, TestInitializers.ExpressionsOutputPath);
+                Assert.IsTrue(File.Exists(BuiltExpressionFile), $"Error! Built expression file {BuiltExpressionFile} does not exist!");
 
                 // Now once we've validated expressions were built, generate our simulations
                 var BuiltSimGenerator = new PassThruSimulationGenerator(InputGenerator.PassThruLogFile, OutputExpressions);

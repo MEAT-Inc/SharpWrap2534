@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using SharpExpressions.PassThruExpressions;
 using SharpLogging;
 
@@ -113,8 +114,13 @@ namespace SharpExpressions
                 .ToArray();
 
             // Store string to replace and build new list of strings
-            var NewLines = new List<string>() { SplitString }; NewLines.Add("\r");
-            NewLines.AddRange(this.SplitCommandLines.Select(LineObj => "   " + LineObj.Trim())); 
+            var NewLines = new List<string>() { SplitString, "\r" };
+            foreach (string CommandLine in this.SplitCommandLines)
+            {
+                // If we're looking at a command line, make sure we tab it over accordingly
+                bool IsCommandData = Regex.Match(CommandLine, "[0-9a-f]{2}(?>\\s{1,}|)").Success;
+                NewLines.Add((IsCommandData ? "\t   " : "   ") + CommandLine.Trim());
+            }
             
             // NOTE: Removed to fix formatting for output content
             // NewLines.Add("\n");

@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.props')" />
-  <Import Project="..\..\\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.props" Condition="Exists('..\..\\packages\MSTest.TestAdapter.3.0.2\build\net462\MSTest.TestAdapter.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6C6826BC-B0C5-4523-8E8A-377C65C738FC}</ProjectGuid>
+    <ProjectGuid>{BDAE42E8-60EA-4ADA-92FA-E261AB458EE8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SharpWrapperTests</RootNamespace>
@@ -30,7 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -39,81 +40,31 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MSTest.TestFramework.3.1.1\lib\net462\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MSTest.TestFramework.3.1.1\lib\net462\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.5.2.4\lib\net46\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SharpLogging, Version=2.7.8.334, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpLogger.2.7.8.334\lib\net472\SharpLogging.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SharpAutoId\SharpAutoIdTests.cs" />
     <Compile Include="SharpExpressions\SharpExpressionsTests.cs" />
     <Compile Include="SharpPipes\SharpPipesTests.cs" />
     <Compile Include="SharpSimulator\SharpSimulatorTests.cs" />
-    <Compile Include="TestInitializers.cs" />
     <Compile Include="SharpWrapper\SharpWrapperTests.cs" />
+    <Compile Include="TestInitializers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="TestJ2534Logs\2015_CHEVY_CAMARO_2G1FD1E35F9249280\CarDAQPlus3_12222022_2015_CHEVY_CAMARO_2G1FD1E35F9249280.ptExp" />
-    <None Include="TestJ2534Logs\2015_CHEVY_CAMARO_2G1FD1E35F9249280\CarDAQPlus3_12222022_2015_CHEVY_CAMARO_2G1FD1E35F9249280.ptSim" />
-    <None Include="TestJ2534Logs\2015_CHEVY_CAMARO_2G1FD1E35F9249280\FulcrumInjector_Logging_12222022-130040_2015_CHEVY_CAMARO_2G1FD1E35F9249280.log" />
-    <None Include="TestJ2534Logs\2015_CHEVY_CORVETTE_1G1YK2D74F5109288\CarDAQPlus3_12222022_2015_CHEVY_CORVETTE_1G1YK2D74F5109288.ptExp" />
-    <None Include="TestJ2534Logs\2015_CHEVY_CORVETTE_1G1YK2D74F5109288\CarDAQPlus3_12222022_2015_CHEVY_CORVETTE_1G1YK2D74F5109288.ptSim" />
-    <None Include="TestJ2534Logs\2015_CHEVY_CORVETTE_1G1YK2D74F5109288\FulcrumInjector_Logging_12222022-131820_2015_CHEVY_CORVETTE_1G1YK2D74F5109288.log" />
-    <None Include="TestJ2534Logs\2016_CHEVY_SILVERADO_3GCUKREC9GG389021\CarDAQPlus3_12202022_2016_CHEVY_SILVERADO_3GCUKREC9GG389021.ptExp" />
-    <None Include="TestJ2534Logs\2016_CHEVY_SILVERADO_3GCUKREC9GG389021\CarDAQPlus3_12202022_2016_CHEVY_SILVERADO_3GCUKREC9GG389021.ptSim" />
-    <None Include="TestJ2534Logs\2016_CHEVY_SILVERADO_3GCUKREC9GG389021\FulcrumInjector_Logging_12202022_2016_CHEVY_SILVERADO_3GCUKREC9GG389021.log" />
-    <None Include="TestJ2534Logs\2017_CHEVY_CRUZE_1G1FB1RS6H0114331\CarDAQPlus3_12222022_2017_CHEVY_CAMARO_1G1FB1RS6H0114331.ptExp" />
-    <None Include="TestJ2534Logs\2017_CHEVY_CRUZE_1G1FB1RS6H0114331\CarDAQPlus3_12222022_2017_CHEVY_CAMARO_1G1FB1RS6H0114331.ptSim" />
-    <None Include="TestJ2534Logs\2017_CHEVY_CRUZE_1G1FB1RS6H0114331\FulcrumInjector_Logging_12222022-130040_2017_CHEVY_CAMARO_1G1FB1RS6H0114331.log" />
-    <None Include="TestJ2534Logs\2018_CHEVY_CRUZE_1G1BE5SM8J7247047\CarDAQPlus3_12222022_2018_CHEVY_CRUZE_1G1BE5SM8J7247047.ptExp" />
-    <None Include="TestJ2534Logs\2018_CHEVY_CRUZE_1G1BE5SM8J7247047\CarDAQPlus3_12222022_2018_CHEVY_CRUZE_1G1BE5SM8J7247047.ptSim" />
-    <None Include="TestJ2534Logs\2018_CHEVY_CRUZE_1G1BE5SM8J7247047\FulcrumInjector_Logging_12222022-131820_2018_CHEVY_CRUZE_1G1BE5SM8J7247047.log" />
-    <None Include="TestJ2534Logs\2018_CHEVY_MALIBU_1G1ZB5ST0JF108065\CarDAQPlus3_12222022_2018_CHEVY_MALIBU_1G1ZB5ST0JF108065.ptExp" />
-    <None Include="TestJ2534Logs\2018_CHEVY_MALIBU_1G1ZB5ST0JF108065\CarDAQPlus3_12222022_2018_CHEVY_MALIBU_1G1ZB5ST0JF108065.ptSim" />
-    <None Include="TestJ2534Logs\2018_CHEVY_MALIBU_1G1ZB5ST0JF108065\FulcrumInjector_Logging_12222022-131820_2018_CHEVY_MALIBU_1G1ZB5ST0JF108065.log" />
-    <None Include="TestJ2534Logs\2020_GMC_SIERRA_3GTU9BEDXLG175726\CarDAQPlus3_12202022_2020_GMC_SIERRA_3GTU9BEDXLG175726.ptExp" />
-    <None Include="TestJ2534Logs\2020_GMC_SIERRA_3GTU9BEDXLG175726\CarDAQPlus3_12202022_2020_GMC_SIERRA_3GTU9BEDXLG175726.ptSim" />
-    <None Include="TestJ2534Logs\2020_GMC_SIERRA_3GTU9BEDXLG175726\FulcrumInjector_Logging_12202022_2020_GMC_SIERRA_3GTU9BEDXLG175726.log" />
-    <None Include="TestJ2534Logs\2021_CHEVY_EQUINOX_3GNAXFEV3MS135227\CarDAQPlus3_12222022_2021_CHEVY_EQUINOX_3GNAXFEV3MS135227.ptExp" />
-    <None Include="TestJ2534Logs\2021_CHEVY_EQUINOX_3GNAXFEV3MS135227\CarDAQPlus3_12222022_2021_CHEVY_EQUINOX_3GNAXFEV3MS135227.ptSim" />
-    <None Include="TestJ2534Logs\2021_CHEVY_EQUINOX_3GNAXFEV3MS135227\FulcrumInjector_Logging_12222022-131820_2021_CHEVY_EQUINOX_3GNAXFEV3MS135227.log" />
-    <None Include="TestJ2534Logs\2021_CHEVY_SILVERADO_3GCPYFEDXMG432098\CarDAQPlus3_12202022_2021_CHEVY_SILVERADO_3GCPYFEDXMG432098.ptExp" />
-    <None Include="TestJ2534Logs\2021_CHEVY_SILVERADO_3GCPYFEDXMG432098\CarDAQPlus3_12202022_2021_CHEVY_SILVERADO_3GCPYFEDXMG432098.ptSim" />
-    <None Include="TestJ2534Logs\2021_CHEVY_SILVERADO_3GCPYFEDXMG432098\FulcrumInjector_Logging_12202022_2021_SILVERADO_3GCUKREC9GG389021.log" />
-    <None Include="TestJ2534Logs\2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182\CarDAQPlus3_12212022_2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182.ptExp" />
-    <None Include="TestJ2534Logs\2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182\CarDAQPlus3_12212022_2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182.ptSim" />
-    <None Include="TestJ2534Logs\2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182\FulcrumInjector_Logging_12212022_2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182.log" />
-    <None Include="TestJ2534Logs\2021_TOYOTA_ RAV4EV_4T3D6RFV0MU043147\CarDAQPlus3_12212022_2021_TOYOTA_RAV4EV_4T3D6RFV0MU043147.ptExp" />
-    <None Include="TestJ2534Logs\2021_TOYOTA_ RAV4EV_4T3D6RFV0MU043147\CarDAQPlus3_12212022_2021_TOYOTA_RAV4EV_4T3D6RFV0MU043147.ptSim" />
-    <None Include="TestJ2534Logs\2021_TOYOTA_ RAV4EV_4T3D6RFV0MU043147\FulcrumInjector_Logging_12212022_2021_TOYOTA_ RAV4EV_4T3D6RFV0MU043147.log" />
-    <None Include="TestJ2534Logs\2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607\CarDAQPlus3_12212022_2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607.ptExp" />
-    <None Include="TestJ2534Logs\2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607\CarDAQPlus3_12212022_2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607.ptSim" />
-    <None Include="TestJ2534Logs\2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607\FulcrumInjector_Logging_12212022_2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607.log" />
-    <None Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\CarDAQPlus3_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.ptExp" />
-    <None Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\CarDAQPlus3_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.ptSim" />
-    <None Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\FulcrumInjector_Logging_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.log" />
+    <PackageReference Include="MSTest.TestAdapter">
+      <Version>3.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="MSTest.TestFramework">
+      <Version>3.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="SharpLogger">
+      <Version>2.7.8.334</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestJ2534Logs\2008_VOLKSWAGEN_GTI_WVWHD71K28W309719\GDP3_2020-05-06_09-16-55_0131.txt" />
@@ -130,7 +81,7 @@
     <Content Include="TestJ2534Logs\2009_FORD_ESCAPE_1FMCU94G79KC58221\CarDAQPlus2_2020-06-09_11-34-20_0810.txt" />
     <Content Include="TestJ2534Logs\2015_CHEVY_CAMARO_2G1FD1E35F9249280\CarDAQPlus3_12222022_2015_CHEVY_CAMARO_2G1FD1E35F9249280.txt" />
     <Content Include="TestJ2534Logs\2015_CHEVY_CORVETTE_1G1YK2D74F5109288\CarDAQPlus3_12222022_2015_CHEVY_CORVETTE_1G1YK2D74F5109288.txt" />
-    <Content Include="TestJ2534Logs\2015_ENCORE_KL4CJFSB0FB135241\CarDAQPlus4_2020-09-24_15-29-27_0698.txt" />
+    <Content Include="TestJ2534Logs\2015_GMC_ENCORE_KL4CJFSB0FB135241\CarDAQPlus4_2020-09-24_15-29-27_0698.txt" />
     <Content Include="TestJ2534Logs\2015_TOTOTA_PRIUS_JTDKN3DU0F0455660\GDP3_2020-07-27_15-29-02_0738.txt" />
     <Content Include="TestJ2534Logs\2015_TOYOTA_CAMRY_4T1BD1FK8FU154450\GDP3_2020-06-05_14-41-14_0840.txt" />
     <Content Include="TestJ2534Logs\2015_TOYOTA_CAMRY_4T1BD1FK8FU154450\GDP3_2020-06-05_14-42-43_0317.txt" />
@@ -141,32 +92,69 @@
     <Content Include="TestJ2534Logs\2015_TOYOTA_CAMRY_4T1BD1FK8FU154450\GDP3_2020-06-05_14-44-36_0525.txt" />
     <Content Include="TestJ2534Logs\2015_TOYOTA_CAMRY_4T1BD1FK8FU154450\GDP3_2020-06-05_14-44-37_0060.txt" />
     <Content Include="TestJ2534Logs\2016_CHEVY_SILVERADO_3GCUKREC9GG389021\CarDAQPlus3_12202022_2016_CHEVY_SILVERADO_3GCUKREC9GG389021.txt" />
+    <Content Include="TestJ2534Logs\2017_BUICK_ENCLAVE_5GAKVBKD4HJ245493\CarDAQPlus3_2020-09-24_11-45-14_0980.txt" />
     <Content Include="TestJ2534Logs\2017_CHEVY_CRUZE_1G1FB1RS6H0114331\CarDAQPlus3_12222022_2017_CHEVY_CAMARO_1G1FB1RS6H0114331.txt" />
-    <Content Include="TestJ2534Logs\2017_CRUZ_1G1BE5SM2H7273833\CarDAQPlus3_2020-09-24_12-03-31_0949.txt" />
-    <Content Include="TestJ2534Logs\2017_ENCLAVE_5GAKVBKD4HJ245493\CarDAQPlus3_2020-09-24_11-45-14_0980.txt" />
-    <Content Include="TestJ2534Logs\2017_EQUINOX_2GNALCEKXH1607814\CarDAQPlus4_2020-09-24_15-03-03_0604.txt" />
-    <Content Include="TestJ2534Logs\2017_HIGHLANDER_5TDJZRFH5HS394292\CarDAQPlus4_2020-09-24_16-08-53_0381.txt" />
-    <Content Include="TestJ2534Logs\2017_HIGHLANDER_5TDJZRFH5HS394292\CarDAQPlus4_2020-09-24_16-08-58_0585.txt" />
-    <Content Include="TestJ2534Logs\2017_HIGHLANDER_5TDJZRFH5HS394292\CarDAQPlus4_2020-09-24_16-11-54_0447.txt" />
-    <Content Include="TestJ2534Logs\2017_MALIBU_1G1ZE5ST3HF270256\CarDAQPlus3_2020-09-24_11-04-34_0689.txt" />
+    <Content Include="TestJ2534Logs\2017_CHEVY_CRUZ_1G1BE5SM2H7273833\CarDAQPlus3_2020-09-24_12-03-31_0949.txt" />
+    <Content Include="TestJ2534Logs\2017_CHEVY_EQUINOX_2GNALCEKXH1607814\CarDAQPlus4_2020-09-24_15-03-03_0604.txt" />
+    <Content Include="TestJ2534Logs\2017_CHEVY_TRAVERSE_1GNKRFKD3HJ319326\CarDAQPlus3_2020-09-24_12-47-05_0706.txt" />
+    <Content Include="TestJ2534Logs\2017_CHEVY_TRAX_3GNCJLSB0HL260186\CarDAQPlus4_2020-09-24_14-05-53_0983.txt" />
+    <Content Include="TestJ2534Logs\2017_TOYOTA_HIGHLANDER_5TDJZRFH5HS394292\CarDAQPlus4_2020-09-24_16-08-53_0381.txt" />
+    <Content Include="TestJ2534Logs\2017_TOYOTA_HIGHLANDER_5TDJZRFH5HS394292\CarDAQPlus4_2020-09-24_16-08-58_0585.txt" />
+    <Content Include="TestJ2534Logs\2017_TOYOTA_HIGHLANDER_5TDJZRFH5HS394292\CarDAQPlus4_2020-09-24_16-11-54_0447.txt" />
+    <Content Include="TestJ2534Logs\2017_TOYOTA_MALIBU_1G1ZE5ST3HF270256\CarDAQPlus3_2020-09-24_11-04-34_0689.txt" />
     <Content Include="TestJ2534Logs\2017_TOYOTA_YARIS_3MYDLBYV1HY158483\AE_DriveQUICK_2017Yaris.txt" />
     <Content Include="TestJ2534Logs\2017_TOYOTA_YARIS_3MYDLBYV1HY158483\TIS_2017_Yaris_1.txt" />
     <Content Include="TestJ2534Logs\2017_TOYOTA_YARIS_3MYDLBYV1HY158483\TIS_2017_Yaris_2.txt" />
     <Content Include="TestJ2534Logs\2017_TOYOTA_YARIS_3MYDLBYV1HY158483\TIS_2017_Yaris_3.txt" />
-    <Content Include="TestJ2534Logs\2017_TRAVERSE_1GNKRFKD3HJ319326\CarDAQPlus3_2020-09-24_12-47-05_0706.txt" />
-    <Content Include="TestJ2534Logs\2017_TRAX_3GNCJLSB0HL260186\CarDAQPlus4_2020-09-24_14-05-53_0983.txt" />
     <Content Include="TestJ2534Logs\2018_CHEVY_CRUZE_1G1BE5SM8J7247047\CarDAQPlus3_12222022_2018_CHEVY_CRUZE_1G1BE5SM8J7247047.txt" />
     <Content Include="TestJ2534Logs\2018_CHEVY_MALIBU_1G1ZB5ST0JF108065\CarDAQPlus3_12222022_2018_CHEVY_MALIBU_1G1ZB5ST0JF108065.txt" />
     <Content Include="TestJ2534Logs\2019_BUICK_REGAL-TOURX_W04GV8SX6J1065675\CarDAQPlus3_2020-05-07_11-50-36_0654.txt" />
     <Content Include="TestJ2534Logs\2020_GMC_SIERRA_3GTU9BEDXLG175726\CarDAQPlus3_12202022_2020_GMC_SIERRA_3GTU9BEDXLG175726.txt" />
+    <Content Include="TestJ2534Logs\2020_TOYOTA_RAV4_2T3F1RFV8LC126932\CarDAQPlus3_2023-08-22_13-11-55_0337.txt" />
+    <Content Include="TestJ2534Logs\2020_TOYOTA_RAV4_2T3F1RFV8LC126932\CarDAQPlus3_2023-08-22_13-15-21_0973.txt" />
+    <Content Include="TestJ2534Logs\2020_TOYOTA_RAV4_2T3F1RFV8LC126932\CarDAQPlus3_2023-08-22_13-16-02_0163.txt" />
+    <Content Include="TestJ2534Logs\2020_TOYOTA_RAV4_2T3F1RFV8LC126932\CarDAQPlus3_2023-08-22_2T3F1RFV8LC126932.txt" />
     <Content Include="TestJ2534Logs\2020_VOLKSWAGEN_JETTA_3VWCB7BU2LM026484\CarDAQPlus3_2020-06-04_15-31-58_0518.txt" />
     <Content Include="TestJ2534Logs\2020_VOLKSWAGEN_JETTA_3VWCB7BU2LM026484\CarDAQPlus3_2020-06-04_15-34-43_0948.txt" />
     <Content Include="TestJ2534Logs\2021_CHEVY_EQUINOX_3GNAXFEV3MS135227\CarDAQPlus3_12222022_2021_CHEVY_EQUINOX_3GNAXFEV3MS135227.txt" />
     <Content Include="TestJ2534Logs\2021_CHEVY_SILVERADO_3GCPYFEDXMG432098\CarDAQPlus3_12202022_2021_CHEVY_SILVERADO_3GCPYFEDXMG432098.txt" />
     <Content Include="TestJ2534Logs\2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182\CarDAQPlus3_12212022_2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182.txt" />
     <Content Include="TestJ2534Logs\2021_TOYOTA_ RAV4EV_4T3D6RFV0MU043147\CarDAQPlus3_12212022_2021_TOYOTA_RAV4EV_4T3D6RFV0MU043147.txt" />
+    <Content Include="TestJ2534Logs\2022_HONDA_ACCORD_1HGCV2F35NA004558\CarDAQPlus3_2023-08-30_10-56-53_0119.txt" />
+    <Content Include="TestJ2534Logs\2022_HONDA_ACCORD_1HGCV2F35NA004558\CarDAQPlus3_2023-08-30_10-57-03_0089.txt" />
+    <Content Include="TestJ2534Logs\2022_HONDA_ACCORD_1HGCV2F35NA004558\CarDAQPlus3_2023-08-30_1HGCV2F35NA004558.txt" />
     <Content Include="TestJ2534Logs\2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607\CarDAQPlus3_12212022_2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607.txt" />
     <Content Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\CarDAQPlus3_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestJ2534Logs\2015_CHEVY_CAMARO_2G1FD1E35F9249280\CarDAQPlus3_12222022_2015_CHEVY_CAMARO_2G1FD1E35F9249280.ptExp" />
+    <None Include="TestJ2534Logs\2015_CHEVY_CAMARO_2G1FD1E35F9249280\CarDAQPlus3_12222022_2015_CHEVY_CAMARO_2G1FD1E35F9249280.ptSim" />
+    <None Include="TestJ2534Logs\2015_CHEVY_CORVETTE_1G1YK2D74F5109288\CarDAQPlus3_12222022_2015_CHEVY_CORVETTE_1G1YK2D74F5109288.ptExp" />
+    <None Include="TestJ2534Logs\2015_CHEVY_CORVETTE_1G1YK2D74F5109288\CarDAQPlus3_12222022_2015_CHEVY_CORVETTE_1G1YK2D74F5109288.ptSim" />
+    <None Include="TestJ2534Logs\2016_CHEVY_SILVERADO_3GCUKREC9GG389021\CarDAQPlus3_12202022_2016_CHEVY_SILVERADO_3GCUKREC9GG389021.ptExp" />
+    <None Include="TestJ2534Logs\2016_CHEVY_SILVERADO_3GCUKREC9GG389021\CarDAQPlus3_12202022_2016_CHEVY_SILVERADO_3GCUKREC9GG389021.ptSim" />
+    <None Include="TestJ2534Logs\2017_CHEVY_CRUZE_1G1FB1RS6H0114331\CarDAQPlus3_12222022_2017_CHEVY_CAMARO_1G1FB1RS6H0114331.ptExp" />
+    <None Include="TestJ2534Logs\2017_CHEVY_CRUZE_1G1FB1RS6H0114331\CarDAQPlus3_12222022_2017_CHEVY_CAMARO_1G1FB1RS6H0114331.ptSim" />
+    <None Include="TestJ2534Logs\2018_CHEVY_CRUZE_1G1BE5SM8J7247047\CarDAQPlus3_12222022_2018_CHEVY_CRUZE_1G1BE5SM8J7247047.ptExp" />
+    <None Include="TestJ2534Logs\2018_CHEVY_CRUZE_1G1BE5SM8J7247047\CarDAQPlus3_12222022_2018_CHEVY_CRUZE_1G1BE5SM8J7247047.ptSim" />
+    <None Include="TestJ2534Logs\2018_CHEVY_MALIBU_1G1ZB5ST0JF108065\CarDAQPlus3_12222022_2018_CHEVY_MALIBU_1G1ZB5ST0JF108065.ptExp" />
+    <None Include="TestJ2534Logs\2018_CHEVY_MALIBU_1G1ZB5ST0JF108065\CarDAQPlus3_12222022_2018_CHEVY_MALIBU_1G1ZB5ST0JF108065.ptSim" />
+    <None Include="TestJ2534Logs\2020_GMC_SIERRA_3GTU9BEDXLG175726\CarDAQPlus3_12202022_2020_GMC_SIERRA_3GTU9BEDXLG175726.ptExp" />
+    <None Include="TestJ2534Logs\2020_GMC_SIERRA_3GTU9BEDXLG175726\CarDAQPlus3_12202022_2020_GMC_SIERRA_3GTU9BEDXLG175726.ptSim" />
+    <None Include="TestJ2534Logs\2020_TOYOTA_RAV4_2T3F1RFV8LC126932\CarDAQPlus3_2023-08-22_13-16-02_0163.ptExp" />
+    <None Include="TestJ2534Logs\2020_TOYOTA_RAV4_2T3F1RFV8LC126932\CarDAQPlus3_2023-08-22_13-16-02_0163.ptSim" />
+    <None Include="TestJ2534Logs\2021_CHEVY_EQUINOX_3GNAXFEV3MS135227\CarDAQPlus3_12222022_2021_CHEVY_EQUINOX_3GNAXFEV3MS135227.ptExp" />
+    <None Include="TestJ2534Logs\2021_CHEVY_EQUINOX_3GNAXFEV3MS135227\CarDAQPlus3_12222022_2021_CHEVY_EQUINOX_3GNAXFEV3MS135227.ptSim" />
+    <None Include="TestJ2534Logs\2021_CHEVY_SILVERADO_3GCPYFEDXMG432098\CarDAQPlus3_12202022_2021_CHEVY_SILVERADO_3GCPYFEDXMG432098.ptExp" />
+    <None Include="TestJ2534Logs\2021_CHEVY_SILVERADO_3GCPYFEDXMG432098\CarDAQPlus3_12202022_2021_CHEVY_SILVERADO_3GCPYFEDXMG432098.ptSim" />
+    <None Include="TestJ2534Logs\2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182\CarDAQPlus3_12212022_2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182.ptExp" />
+    <None Include="TestJ2534Logs\2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182\CarDAQPlus3_12212022_2021_HYUNDAI_ELANTRA_5NPLN4AG4MH035182.ptSim" />
+    <None Include="TestJ2534Logs\2021_TOYOTA_ RAV4EV_4T3D6RFV0MU043147\CarDAQPlus3_12212022_2021_TOYOTA_RAV4EV_4T3D6RFV0MU043147.ptExp" />
+    <None Include="TestJ2534Logs\2021_TOYOTA_ RAV4EV_4T3D6RFV0MU043147\CarDAQPlus3_12212022_2021_TOYOTA_RAV4EV_4T3D6RFV0MU043147.ptSim" />
+    <None Include="TestJ2534Logs\2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607\CarDAQPlus3_12212022_2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607.ptExp" />
+    <None Include="TestJ2534Logs\2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607\CarDAQPlus3_12212022_2022_HYUNDAI_TUSCON_5NMJB3AE3NH154607.ptSim" />
+    <None Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\CarDAQPlus3_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.ptExp" />
+    <None Include="TestJ2534Logs\2022_TOYOTA_CAMRY_4T1C11AK0NU012595\CarDAQPlus3_12212022_2022_TOYOTA_CAMRY_4T1C11AK0NU012595.ptSim" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpExpressions\SharpExpressions.csproj">
@@ -177,24 +165,12 @@
       <Project>{0a39e208-7927-41bc-a509-39e60b287969}</Project>
       <Name>SharpSimulator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SharpWrapper\SharpWrapper.csproj">
-      <Project>{e4508bd6-9045-4840-a659-be40cc205c78}</Project>
-      <Name>SharpWrapper</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(TargetDir)TestJ2534Logs" 
-
-cmd.exe /C xcopy "$(ProjectDir)TestJ2534Logs" "$(TargetDir)TestJ2534Logs" /E /Y</PostBuildEvent>
+    <PreBuildEvent>cmd.exe /C mkdir "$(TargetDir)TestJ2534Logs" 
+cmd.exe /C xcopy "$(ProjectDir)TestJ2534Logs" "$(TargetDir)TestJ2534Logs" /E /Y
+</PreBuildEvent>
   </PropertyGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.props'))" />
-    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.targets'))" />
-  </Target>
-  <Import Project="..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.3.1.1\build\net462\MSTest.TestAdapter.targets')" />
 </Project>

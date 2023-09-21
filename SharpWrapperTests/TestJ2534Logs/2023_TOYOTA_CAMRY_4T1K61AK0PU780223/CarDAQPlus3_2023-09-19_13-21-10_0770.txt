@@ -1,0 +1,21 @@
+   Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 0.000s PTOpen(00000000, 0019DE10)
+   pName: <NULL>
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.2.21.0
+   Calling app: C:\Program Files (x86)\Toyota Diagnostics\Techstream\bin\MainMenu.exe, thread ID: 10204
+
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #015220
+     USB\VID_18E1&PID_1102&MI_02\6&1106DBF9&0&0002
+   Attempting automatic firmware update
+   Flashing 01:board-1 firmware
+   reflash start
+   reflash loop done
+   reflash complete!
+   running new code.
+   returning DeviceID 1
+** 2.969s PTReadVersion(1, 0019E290, 0019E2E0, 0019E43C)
+   DLL: CarDAQ-Plus 3 J2534 Library v1.2.21.0
+   API: 04.04
+   FW:  CarDAQ-Plus 3 FW:0.2.0.9 BL:0.2.0.6 SN: CMVIP0000015220F
+-- 2.969s PTClose(1)

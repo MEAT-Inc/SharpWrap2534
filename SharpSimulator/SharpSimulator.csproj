@@ -69,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpExpressions">
-      <Version>0.5.12.227</Version>
+      <Version>0.5.12.230</Version>
     </PackageReference>
     <PackageReference Include="SharpLogger">
       <Version>2.7.8.334</Version>

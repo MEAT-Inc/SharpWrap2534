@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -369,7 +367,7 @@ namespace SharpWrapperTests
 
             // Split the console once more and throw the failure if requested to do so
             SeparateConsole();
-            if (!AssertFailure) return; 
+            if (!AssertFailure) return;
             Assert.Fail($"{Message} -- [{ThrownException.GetType().Name}] -- Thrown from method: {SendingMethod}!");
         }
     }

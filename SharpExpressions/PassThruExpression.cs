@@ -114,8 +114,10 @@ namespace SharpExpressions
 
             // Store string to replace and build new list of strings
             var NewLines = new List<string>() { SplitString }; NewLines.Add("\r");
-            NewLines.AddRange(this.SplitCommandLines.Select(LineObj => "   " + LineObj.Trim()));
-            NewLines.Add("\n");
+            NewLines.AddRange(this.SplitCommandLines.Select(LineObj => "   " + LineObj.Trim())); 
+            
+            // NOTE: Removed to fix formatting for output content
+            // NewLines.Add("\n");
 
             // Add our breakdown contents here.
             NewLines.Add(SplitTable[0]);

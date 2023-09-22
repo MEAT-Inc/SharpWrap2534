@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -29,12 +27,25 @@ namespace SharpWrapperTests
         private static readonly int _splittingLineSize = 120;          // Size of the splitting lines to write in console output
         private static readonly string _splittingLineChar = "=";       // Character to use in the splitting line output
 
-        // Static field holding information about our test log files and output path values
+        // Static fields holding information about our test log files and output path values
         public static readonly string WorkingDirectory = Directory.GetCurrentDirectory();
         public static readonly string BaseOutputPath = Path.Combine(WorkingDirectory, "TestOutput");
-        public static readonly string TestJ2534LogsPath = Path.Combine(WorkingDirectory, "TestJ2534Logs");
         public static readonly string BaseLoggingPath = Path.Combine(BaseOutputPath, "SharpWrapperLogging");
-        
+ 
+        // Static property holding our output log folder for test log files
+        public static string TestJ2534LogsPath
+        {
+            get
+            {
+                // Define the bin folder and the google drive folder
+                string BinFolder = Path.Combine(WorkingDirectory, "TestJ2534Logs");
+                string DriveFolder = @"W:\Shared drives\Vehicle Scan Sessions";
+
+                // Return the drive folder if it's real, otherwise return the bin folder
+                return Directory.Exists(DriveFolder) ? DriveFolder : BinFolder;
+            }
+        }
+
         // Simulation and expression output file locations for built content during these tests
         public static readonly string SimulationsOutputPath = Path.Combine(BaseOutputPath, "OutputSimulations");
         public static readonly string ExpressionsOutputPath = Path.Combine(BaseOutputPath, "OutputExpressions");
@@ -369,7 +380,7 @@ namespace SharpWrapperTests
 
             // Split the console once more and throw the failure if requested to do so
             SeparateConsole();
-            if (!AssertFailure) return; 
+            if (!AssertFailure) return;
             Assert.Fail($"{Message} -- [{ThrownException.GetType().Name}] -- Thrown from method: {SendingMethod}!");
         }
     }

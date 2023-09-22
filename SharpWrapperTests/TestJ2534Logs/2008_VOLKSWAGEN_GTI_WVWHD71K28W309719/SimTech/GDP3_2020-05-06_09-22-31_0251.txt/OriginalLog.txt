@@ -1,0 +1,2132 @@
+   Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 1108.468s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 1108.484s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 1108.484s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+++ 0.000s PTOpen(05ED3BC8, 06559E2C)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 1
+++ 0.016s PTConnect(1, 32782:TP2_0_PS, 0, 500000, 0613E4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 2
+** 0.016s PTIoctl(2, 2:SET_CONFIG, 05EB9D48, 00000000)
+   1 parameter(s) at 05EB9D28:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 0.031s PTIoctl(2, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 0.031s PTIoctl(2, 32778:REQUEST_CONNECTION, 05EB9D28, 00000000)
+   Request Connection: 11 bytes at 05ED3BC8
+   \__  00  00  02  00  1f  c0  00  10  00  03  01 
+<< 0.031s PTReadMsgs(2, 05ECD8F8, 1, 3000)   TP Conn Address TX 0x32e, RX 0x300 established
+
+   Msg[0] 1104.807048s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][03][2e]
+<< 0.047s PTReadMsgs() complete (channel 2)
+** 1.109s PTIoctl(2, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 1.109s PTIoctl(2, 32779:TEARDOWN_CONNECTION, 05EB9B98, 00000000)
+   Teardown Connection: 4 bytes at 00BCDE58
+   \__  00  00  03  00 
+!! TP Conn Address 0x300 Lost, could not find in table
+<< 1.109s PTReadMsgs(2, 05ECD8F8, 1, 3000)
+   Msg[0] 1105.86686s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 1.109s PTReadMsgs() complete (channel 2)
+<< 1.109s PTReadMsgs(2, 05ECD4B0, 1, 1000)   2.109s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 2.109s PTGetLastError(0A53E508)
+   Error String: Zero messages received
+-- 2.125s PTClose(1)
+++ 2.250s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 2.250s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 2.250s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+++ 2.250s PTOpen(05ED3C40, 06524CCC)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 3
+++ 2.266s PTConnect(3, 32782:TP2_0_PS, 0, 500000, 0613E4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 4
+** 2.266s PTIoctl(4, 2:SET_CONFIG, 05EB9C68, 00000000)
+   1 parameter(s) at 05EB9D88:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 2.266s PTIoctl(4, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 2.266s PTIoctl(4, 32778:REQUEST_CONNECTION, 05EB9C68, 00000000)
+   Request Connection: 11 bytes at 05ED3CE8
+   \__  00  00  02  00  01  c0  00  10  00  03  01 
+<< 2.266s PTReadMsgs(4, 05ECCE90, 1, 3000)   TP Conn Address TX 0x740, RX 0x300 established
+
+   Msg[0] 1107.027988s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][40]
+<< 2.266s PTReadMsgs() complete (channel 4)
+>> 3.312s PTWriteMsgs(4, 05ECCE90, 0613E664, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  90 
+   Queued everything
+   Queued 1/1
+<< 3.312s PTReadMsgs(4, 05ECCE90, 1, 1000)
+   Msg[0] 1108.111802s. 32782:TP2_0_PS. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  03  00  00  13  5a  90  57  56  57  48  44  37  31  4b 
+        32  38  57  33  30  39  37  31  39 
+<< 3.359s PTReadMsgs() complete (channel 4)
+<< 3.359s PTReadMsgs(4, 05ECCE90, 1, 300)   3.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 3.656s PTGetLastError(0613E4F8)
+   Error String: Zero messages received
+** 3.656s PTIoctl(4, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 3.656s PTIoctl(4, 32779:TEARDOWN_CONNECTION, 00BCDC98, 00000000)
+   Teardown Connection: 4 bytes at 05EB9D88
+   \__  00  00  03  00 
+<< 3.656s PTReadMsgs(4, 05ECCE90, 1, 3000)!! TP Conn Address 0x300 Lost, could not find in table
+
+   Msg[0] 1108.420434s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 3.672s PTReadMsgs() complete (channel 4)
+<< 3.672s PTReadMsgs(4, 05ECCE90, 1, 1000)   4.672s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 4.672s PTGetLastError(0A53E508)
+   Error String: Zero messages received
+-- 4.672s PTClose(3)
+++ 4.812s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 4.812s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 4.812s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+++ 4.812s PTOpen(05E85970, 0658DF80)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 6
+++ 4.812s PTConnect(6, 32782:TP2_0_PS, 0, 500000, 0613E4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 7
+** 4.812s PTIoctl(7, 2:SET_CONFIG, 05EC3648, 00000000)
+   1 parameter(s) at 05EC36A8:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 4.828s PTIoctl(7, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 4.828s PTIoctl(7, 32778:REQUEST_CONNECTION, 05EC3778, 00000000)
+   Request Connection: 11 bytes at 05ED3C58
+   \__  00  00  02  00  03  c0  00  10  00  03  01 
+<< 4.828s PTReadMsgs(7, 05EBFCF0, 1, 3000)   TP Conn Address TX 0x790, RX 0x300 established
+
+   Msg[0] 1109.616102s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][90]
+<< 4.859s PTReadMsgs() complete (channel 7)
+>> 4.969s PTWriteMsgs(7, 05EBFCF0, 0613E414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  90  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 4.969s PTReadMsgs(7, 05EBFCF0, 1, 1000)   5.969s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 5.969s PTGetLastError(0613E2A8)
+   Error String: Zero messages received
+>> 5.969s PTWriteMsgs(7, 05EBFCF0, 0613E414, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  90  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 5.969s PTReadMsgs(7, 05EBFCF0, 1, 1000)   TP Conn Address 0x300 Lost, reason 1
+
+   Msg[0] 1111.088197s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][01]
+<< 6.328s PTReadMsgs() complete (channel 7)
+<< 6.328s PTReadMsgs(7, 05EBFCF0, 1, 300)   6.641s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 6.641s PTGetLastError(0613E2A8)
+   Error String: Zero messages received
+>> 6.641s PTWriteMsgs(7, 05EBFCF0, 0613E414, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  90  00  02  1a  9b 
+!! ERROR UNHANDLED FRAME: respFifo unexpected retval for cOutboundDataResp
+   source:  b=01:board-1 r=$11
+   dest:    b=00:board-PC r=$00
+   command: 8008:cOutboundDataResp
+   maj_tID: $000e
+   min_tID: $0001
+   retval:  126:iMsgInitDiscardedTimeout
+   \__  00  00  01  11  08  80  0e  00  01  00  00  00  26  01  00  00 
+        33  81  3e  42  54  50  43  61  6e  57  72  69  74  65  3a  20 
+        4e  6f  20  6d  61  74  63  68  69  6e  67  20  63  68  61  6e 
+        6e  65  6c  20  73  65  74  20  75  70  20  66  6f  72  20  73 
+        65  67  6d  65  6e  74  65  64  20  6d  65  73  73  61  67  65 
+        00 
+   6.641s Returning 7:ERR_FAILED 'Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message''
+** 6.641s PTGetLastError(0613E2C8)
+   Error String: Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message'
+>> 6.641s PTWriteMsgs(7, 05EBFCF0, 0613E424, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  90  00  04  31  b8  00  00 
+!! ERROR UNHANDLED FRAME: respFifo unexpected retval for cOutboundDataResp
+   source:  b=01:board-1 r=$11
+   dest:    b=00:board-PC r=$00
+   command: 8008:cOutboundDataResp
+   maj_tID: $000f
+   min_tID: $0001
+   retval:  126:iMsgInitDiscardedTimeout
+   \__  00  00  01  11  08  80  0f  00  01  00  00  00  26  01  00  00 
+        f4  8c  3e  42  54  50  43  61  6e  57  72  69  74  65  3a  20 
+        4e  6f  20  6d  61  74  63  68  69  6e  67  20  63  68  61  6e 
+        6e  65  6c  20  73  65  74  20  75  70  20  66  6f  72  20  73 
+        65  67  6d  65  6e  74  65  64  20  6d  65  73  73  61  67  65 
+        00 
+   6.641s Returning 7:ERR_FAILED 'Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message''
+** 6.641s PTGetLastError(0613E2D8)
+   Error String: Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message'
+** 6.687s PTIoctl(7, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 6.687s PTIoctl(7, 32779:TEARDOWN_CONNECTION, 05EC3648, 00000000)
+   Teardown Connection: 4 bytes at 05EC3638
+   \__  00  00  03  00 
+   Returning 5:ERR_INVALID_IOCTL_VALUE 'RX CAN ID not found'
+** 6.687s PTGetLastError(0613E518)
+   Error String: RX CAN ID not found
+<< 6.687s PTReadMsgs(7, 05E64C50, 1, 1000)   7.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 7.687s PTGetLastError(0613E508)
+   Error String: Zero messages received
+-- 17.484s PTClose(6)
+++ 17.891s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 17.891s PTGetNextCarDAQ(08BCE3DC, 08BCE404, 08BCE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 17.891s PTGetNextCarDAQ(08BCE3DC, 08BCE404, 08BCE3D4)
+++ 17.891s PTOpen(05ED3D90, 06566278)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 8
+++ 17.906s PTConnect(8, 32782:TP2_0_PS, 0, 500000, 08BCE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 9
+** 17.906s PTIoctl(9, 2:SET_CONFIG, 05EC3658, 00000000)
+   1 parameter(s) at 05EC3718:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 17.906s PTIoctl(9, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 17.906s PTIoctl(9, 32778:REQUEST_CONNECTION, 05EC3658, 00000000)
+   Request Connection: 11 bytes at 05ED3D48
+   \__  00  00  02  00  01  c0  00  10  00  03  01 
+<< 17.906s PTReadMsgs(9, 05F05C80, 1, 3000)   TP Conn Address TX 0x740, RX 0x300 established
+
+   Msg[0] 1122.676688s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][40]
+<< 17.922s PTReadMsgs() complete (channel 9)
+>> 18.016s PTWriteMsgs(9, 05F05C80, 08BCE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 18.031s PTReadMsgs(9, 05F05C80, 1, 1000)
+   Msg[0] 1122.830359s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  30  39  30  37  31  31 
+        35  41  44  20  30  30  36  30  10  00  00  00  80  00  00  06 
+        29  3d  32  2e  30  6c  20  52  34  2f  34  56  20  54  46  53 
+        49  20  20  20  20  20 
+<< 18.078s PTReadMsgs() complete (channel 9)
+<< 18.078s PTReadMsgs(9, 05F05C80, 1, 300)   18.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 18.375s PTGetLastError(08BCE2A8)
+   Error String: Zero messages received
+>> 18.375s PTWriteMsgs(9, 05F05C80, 08BCE294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 18.375s PTReadMsgs(9, 05F05C80, 1, 1000)
+   Msg[0] 1123.166714s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  80  03  7f  1a  78 
+<< 18.406s PTReadMsgs() complete (channel 9)
+<< 18.406s PTReadMsgs(9, 05F05C80, 1, 300)
+   Msg[0] 1123.202441s. 32782:TP2_0_PS. Actual data 29 of 29 bytes. RxS=00000000
+   \__  00  00  03  00  00  17  5a  9a  80  00  00  06  29  3d  30  30 
+        36  30  10  09  04  03  01  08  1c  07  01  60  ff 
+<< 18.453s PTReadMsgs() complete (channel 9)
+<< 18.453s PTReadMsgs(9, 05F05C80, 1, 300)   18.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 18.750s PTGetLastError(08BCE128)
+   Error String: Zero messages received
+>> 18.750s PTWriteMsgs(9, 05F05C80, 08BCE424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  40  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 18.750s PTReadMsgs(9, 05F05C80, 1, 1000)
+   Msg[0] 1123.540488s. 32782:TP2_0_PS. Actual data 24 of 24 bytes. RxS=00000000
+   \__  00  00  03  00  00  12  71  b8  01  01  01  02  01  03  01  06 
+        01  07  01  08  01  0d  01  18 
+<< 18.781s PTReadMsgs() complete (channel 9)
+<< 18.781s PTReadMsgs(9, 05F05C80, 1, 300)   19.078s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 19.078s PTGetLastError(08BCE2B8)
+   Error String: Zero messages received
+>> 19.094s PTWriteMsgs(9, 05ECCE90, 08BCE414, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  90 
+   Queued everything
+   Queued 1/1
+<< 19.094s PTReadMsgs(9, 05ECCE90, 1, 1000)
+   Msg[0] 1123.880484s. 32782:TP2_0_PS. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  03  00  00  13  5a  90  57  56  57  48  44  37  31  4b 
+        32  38  57  33  30  39  37  31  39 
+<< 19.125s PTReadMsgs() complete (channel 9)
+<< 19.125s PTReadMsgs(9, 05ECCE90, 1, 300)   19.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 19.422s PTGetLastError(08BCE2A8)
+   Error String: Zero messages received
+>> 19.484s PTWriteMsgs(9, 05EF8E78, 08BCE734, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  f1  ad 
+   Queued everything
+   Queued 1/1
+<< 19.484s PTReadMsgs(9, 05EF8E78, 1, 1000)
+   Msg[0] 1124.266735s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  00  03  7f  f1  11 
+<< 19.516s PTReadMsgs() complete (channel 9)
+<< 19.516s PTReadMsgs(9, 05EF8E78, 1, 300)   19.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 19.812s PTGetLastError(08BCE5C8)
+   Error String: Zero messages received
+** 19.812s PTIoctl(9, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 19.812s PTIoctl(9, 32779:TEARDOWN_CONNECTION, 05EC3658, 00000000)
+   Teardown Connection: 4 bytes at 05EC36E8
+   \__  00  00  03  00 
+<< 19.812!! TP Conn Address 0xs PTReadMsgs(3009 Lost, could not find in table
+, 05EF8E78, 1, 3000)
+   Msg[0] 1124.573373s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 19.812s PTReadMsgs() complete (channel 9)
+<< 19.812s PTReadMsgs(9, 05EF8E78, 1, 1000)   20.812s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 20.812s PTGetLastError(08BCE508)
+   Error String: Zero messages received
+-- 20.953s PTClose(8)
+++ 21.078s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 21.078s PTGetNextCarDAQ(08BCE3DC, 08BCE404, 08BCE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 21.078s PTGetNextCarDAQ(08BCE3DC, 08BCE404, 08BCE3D4)
+++ 21.078s PTOpen(05F09D38, 0659F2F8)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 14
+++ 21.094s PTConnect(14, 32782:TP2_0_PS, 0, 500000, 08BCE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 15
+** 21.094s PTIoctl(15, 2:SET_CONFIG, 05EC36C8, 00000000)
+   1 parameter(s) at 05EC3678:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 21.094s PTIoctl(15, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 21.094s PTIoctl(15, 32778:REQUEST_CONNECTION, 05EC36C8, 00000000)
+   Request Connection: 11 bytes at 05F09E40
+   \__  00  00  02  00  01  c0  00  10  00  03  01 
+<< 21.094s PTReadMsgs(15, 05EF8E78, 1, 3000)   TP Conn Address TX 0x740, RX 0x300 established
+
+   Msg[0] 1125.85654s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][40]
+<< 21.094s PTReadMsgs() complete (channel 15)
+>> 21.203s PTWriteMsgs(15, 05FB52B8, 08BCE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 21.203s PTReadMsgs(15, 05FB52B8, 1, 1000)
+   Msg[0] 1126.01013s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  30  39  30  37  31  31 
+        35  41  44  20  30  30  36  30  10  00  00  00  80  00  00  06 
+        29  3d  32  2e  30  6c  20  52  34  2f  34  56  20  54  46  53 
+        49  20  20  20  20  20 
+<< 21.250s PTReadMsgs() complete (channel 15)
+<< 21.250s PTReadMsgs(15, 05FB52B8, 1, 300)   21.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 21.562s PTGetLastError(08BCE2A8)
+   Error String: Zero messages received
+>> 21.562s PTWriteMsgs(15, 05EBFCF0, 08BCE294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 21.562s PTReadMsgs(15, 05EBFCF0, 1, 1000)
+   Msg[0] 1126.356475s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  80  03  7f  1a  78 
+<< 21.594s PTReadMsgs() complete (channel 15)
+<< 21.609s PTReadMsgs(15, 05EBFCF0, 1, 300)
+   Msg[0] 1126.392273s. 32782:TP2_0_PS. Actual data 29 of 29 bytes. RxS=00000000
+   \__  00  00  03  00  00  17  5a  9a  80  00  00  06  29  3d  30  30 
+        36  30  10  09  04  03  01  08  1c  07  01  60  ff 
+<< 21.641s PTReadMsgs() complete (channel 15)
+<< 21.641s PTReadMsgs(15, 05EBFCF0, 1, 300)   21.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 21.937s PTGetLastError(08BCE128)
+   Error String: Zero messages received
+>> 21.937s PTWriteMsgs(15, 05EF8E78, 08BCE424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  40  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 21.937s PTReadMsgs(15, 05EF8E78, 1, 1000)
+   Msg[0] 1126.74026s. 32782:TP2_0_PS. Actual data 24 of 24 bytes. RxS=00000000
+   \__  00  00  03  00  00  12  71  b8  01  01  01  02  01  03  01  06 
+        01  07  01  08  01  0d  01  18 
+<< 21.984s PTReadMsgs() complete (channel 15)
+<< 21.984s PTReadMsgs(15, 05EF8E78, 1, 300)   22.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 22.281s PTGetLastError(08BCE2B8)
+   Error String: Zero messages received
+>> 22.281s PTWriteMsgs(15, 05EF8E78, 08BCE414, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  90 
+   Queued everything
+   Queued 1/1
+<< 22.281s PTReadMsgs(15, 05EF8E78, 1, 1000)
+   Msg[0] 1127.090254s. 32782:TP2_0_PS. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  03  00  00  13  5a  90  57  56  57  48  44  37  31  4b 
+        32  38  57  33  30  39  37  31  39 
+<< 22.328s PTReadMsgs() complete (channel 15)
+<< 22.328s PTReadMsgs(15, 05EF8E78, 1, 300)   22.641s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 22.641s PTGetLastError(08BCE2A8)
+   Error String: Zero messages received
+-- 28.812s PTClose(14)
+++ 28.875s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 28.875s PTGetNextCarDAQ(0A1DE3DC, 0A1DE404, 0A1DE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 28.875s PTGetNextCarDAQ(0A1DE3DC, 0A1DE404, 0A1DE3D4)
+++ 28.875s PTOpen(05F09D38, 065CB168)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 20
+++ 28.891s PTConnect(20, 32782:TP2_0_PS, 0, 500000, 0A1DE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 21
+** 28.891s PTIoctl(21, 2:SET_CONFIG, 05EC3758, 00000000)
+   1 parameter(s) at 05EC3748:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 28.891s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 28.891s PTIoctl(21, 32778:REQUEST_CONNECTION, 05EC3748, 00000000)
+   Request Connection: 11 bytes at 05F09D80
+   \__  00  00  02  00  1f  c0  00  10  00  03  01 
+<< 28.891s PTReadMsgs(21, 00B853B8, 1, 3000)   TP Conn Address TX 0x32e, RX 0x300 established
+
+   Msg[0] 1133.656574s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][03][2e]
+<< 28.906s PTReadMsgs() complete (channel 21)
+>> 29.000s PTWriteMsgs(21, 00B853B8, 0A1DE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 29.016s PTReadMsgs(21, 00B853B8, 1, 1000)
+   Msg[0] 1133.856482s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  30  39  30  37  35  33 
+        30  4c  20  20  30  30  35  32  10  00  00  00  00  06  46  22 
+        04  ff  4a  35  33  33  20  20  47  61  74  65  77  61  79  20 
+        20  20  48  30  37  20 
+<< 29.094s PTReadMsgs() complete (channel 21)
+<< 29.094s PTReadMsgs(21, 00B853B8, 1, 300)   29.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 29.406s PTGetLastError(0A1DE2A8)
+   Error String: Zero messages received
+>> 29.406s PTWriteMsgs(21, 05F05C80, 0A1DE294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9a 
+!! ERROR UNHANDLED FRAME: respFifo unexpected retval for cOutboundDataResp
+   source:  b=01:board-1 r=$11
+   dest:    b=00:board-PC r=$00
+   command: 8008:cOutboundDataResp
+   maj_tID: $000d
+   min_tID: $0001
+   retval:  126:iMsgInitDiscardedTimeout
+   \__  00  00  01  11  08  80  0d  00  01  00  00  00  26  01  00  00 
+        db  ef  99  43  54  50  43  61  6e  57  72  69  74  65  3a  20 
+        4e  6f  20  6d  61  74  63  68  69  6e  67  20  63  68  61  6e 
+        6e  65  6c  20  73  65  74  20  75  70  20  66  6f  72  20  73 
+        65  67  6d  65  6e  74  65  64  20  6d  65  73  73  61  67  65 
+        00 
+   29.406s Returning 7:ERR_FAILED 'Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message''
+** 29.406s PTGetLastError(0A1DE148)
+   Error String: Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message'
+>> 29.406s PTWriteMsgs(21, 05FF8CE8, 0A1DE424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  03  2e  00  04  31  b8  00  00 
+!! ERROR UNHANDLED FRAME: respFifo unexpected retval for cOutboundDataResp
+   source:  b=01:board-1 r=$11
+   dest:    b=00:board-PC r=$00
+   command: 8008:cOutboundDataResp
+   maj_tID: $000e
+   min_tID: $0001
+   retval:  126:iMsgInitDiscardedTimeout
+   \__  00  00  01  11  08  80  0e  00  01  00  00  00  26  01  00  00 
+        71  fb  99  43  54  50  43  61  6e  57  72  69  74  65  3a  20 
+        4e  6f  20  6d  61  74  63  68  69  6e  67  20  63  68  61  6e 
+        6e  65  6c  20  73  65  74  20  75  70  20  66  6f  72  20  73 
+        65  67  6d  65  6e  74  65  64  20  6d  65  73  73  61  67  65 
+        00 
+   29.406s Returning 7:ERR_FAILED 'Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message''
+** 29.406s PTGetLastError(0A1DE2D8)
+   Error String: Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message'
+>> 29.547s PTWriteMsgs(21, 05FDFD98, 09CDE5C4, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9f 
+!! ERROR UNHANDLED FRAME: respFifo unexpected retval for cOutboundDataResp
+   source:  b=01:board-1 r=$11
+   dest:    b=00:board-PC r=$00
+   command: 8008:cOutboundDataResp
+   maj_tID: $000f
+   min_tID: $0001
+   retval:  126:iMsgInitDiscardedTimeout
+   \__  00  00  01  11  08  80  0f  00  01  00  00  00  26  01  00  00 
+        b9  3b  9c  43  54  50  43  61  6e  57  72  69  74  65  3a  20 
+        4e  6f  20  6d  61  74  63  68  69  6e  67  20  63  68  61  6e 
+        6e  65  6c  20  73  65  74  20  75  70  20  66  6f  72  20  73 
+        65  67  6d  65  6e  74  65  64  20  6d  65  73  73  61  67  65 
+        00 
+   29.562s Returning 7:ERR_FAILED 'Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message''
+** 29.562s PTGetLastError(09CDE478)
+   Error String: Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message'
+** 29.687s PTIoctl(21, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 29.687s PTIoctl(21, 32779:TEARDOWN_CONNECTION, 05EC3798, 00000000)
+   Teardown Connection: 4 bytes at 05EC3758
+   \__  00  00  03  00 
+<< !! TP Conn Address 0x29.687s PTReadMsgs(21, 05FDFD98, 1, 3000)300 Lost, could not find in table
+
+   Msg[0] 1134.442381s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 29.687s PTReadMsgs() complete (channel 21)
+<< 29.687s PTReadMsgs(21, 05FDFD98, 1, 1000)   30.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 30.687s PTGetLastError(0A1DE508)
+   Error String: Zero messages received
+-- 30.953s PTClose(20)
+++ 31.219s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 31.219s PTGetNextCarDAQ(0A1DE3DC, 0A1DE404, 0A1DE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 31.219s PTGetNextCarDAQ(0A1DE3DC, 0A1DE404, 0A1DE3D4)
+++ 31.219s PTOpen(00B86350, 065EA9A0)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 23
+++ 31.234s PTConnect(23, 32782:TP2_0_PS, 0, 500000, 0A1DE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 24
+** 31.234s PTIoctl(24, 2:SET_CONFIG, 05EC37B8, 00000000)
+   1 parameter(s) at 05EC3698:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 31.234s PTIoctl(24, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 31.234s PTIoctl(24, 32778:REQUEST_CONNECTION, 05EC37B8, 00000000)
+   Request Connection: 11 bytes at 00B86350
+   \__  00  00  02  00  07  c0  00  10  00  03  01 
+<< 31.234s PTReadMsgs(24, 05FD2E50, 1, 3000)   TP Conn Address TX 0x751, RX 0x300 established
+
+   Msg[0] 1136.008257s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][51]
+<< 31.250s PTReadMsgs() complete (channel 24)
+>> 31.359s PTWriteMsgs(24, 05FFE9C0, 0A1DE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  51  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 31.359s PTReadMsgs(24, 05FFE9C0, 1, 1000)
+   Msg[0] 1136.418373s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  36  39  32  30  39  37 
+        34  41  20  20  31  32  31  36  03  00  1c  23  fa  9c  60  16 
+        00  00  4b  4f  4d  42  49  49  4e  53  54  52  55  4d  45  4e 
+        54  20  56  44  44  20 
+<< 31.656s PTReadMsgs() complete (channel 24)
+<< 31.656s PTReadMsgs(24, 05FFE9C0, 1, 300)   31.969s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 31.969s PTGetLastError(0A1DE2A8)
+   Error String: Zero messages received
+>> 31.969s PTWriteMsgs(24, 05FD2E50, 0A1DE424, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  51  00  04  31  b8  00  00 
+!! ERROR UNHANDLED FRAME: respFifo unexpected retval for cOutboundDataResp
+   source:  b=01:board-1 r=$11
+   dest:    b=00:board-PC r=$00
+   command: 8008:cOutboundDataResp
+   maj_tID: $000d
+   min_tID: $0001
+   retval:  126:iMsgInitDiscardedTimeout
+   \__  00  00  01  11  08  80  0d  00  01  00  00  00  26  01  00  00 
+        31  02  c1  43  54  50  43  61  6e  57  72  69  74  65  3a  20 
+        4e  6f  20  6d  61  74  63  68  69  6e  67  20  63  68  61  6e 
+        6e  65  6c  20  73  65  74  20  75  70  20  66  6f  72  20  73 
+        65  67  6d  65  6e  74  65  64  20  6d  65  73  73  61  67  65 
+        00 
+   31.969s Returning 7:ERR_FAILED 'Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message''
+** 31.969s PTGetLastError(0A1DE2D8)
+   Error String: Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message'
+>> 31.969s PTWriteMsgs(24, 05FFE9C0, 0A1DE414, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  51  00  02  1a  90 
+!! ERROR UNHANDLED FRAME: respFifo unexpected retval for cOutboundDataResp
+   source:  b=01:board-1 r=$11
+   dest:    b=00:board-PC r=$00
+   command: 8008:cOutboundDataResp
+   maj_tID: $000e
+   min_tID: $0001
+   retval:  126:iMsgInitDiscardedTimeout
+   \__  00  00  01  11  08  80  0e  00  01  00  00  00  26  01  00  00 
+        e0  0d  c1  43  54  50  43  61  6e  57  72  69  74  65  3a  20 
+        4e  6f  20  6d  61  74  63  68  69  6e  67  20  63  68  61  6e 
+        6e  65  6c  20  73  65  74  20  75  70  20  66  6f  72  20  73 
+        65  67  6d  65  6e  74  65  64  20  6d  65  73  73  61  67  65 
+        00 
+   31.969s Returning 7:ERR_FAILED 'Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message''
+** 31.969s PTGetLastError(0A1DE2C8)
+   Error String: Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message'
+>> 32.016s PTWriteMsgs(24, 05FDFD98, 09CDE654, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  51  00  02  21  02 
+!! ERROR UNHANDLED FRAME: respFifo unexpected retval for cOutboundDataResp
+   source:  b=01:board-1 r=$11
+   dest:    b=00:board-PC r=$00
+   command: 8008:cOutboundDataResp
+   maj_tID: $000f
+   min_tID: $0001
+   retval:  126:iMsgInitDiscardedTimeout
+   \__  00  00  01  11  08  80  0f  00  01  00  00  00  26  01  00  00 
+        79  c7  c1  43  54  50  43  61  6e  57  72  69  74  65  3a  20 
+        4e  6f  20  6d  61  74  63  68  69  6e  67  20  63  68  61  6e 
+        6e  65  6c  20  73  65  74  20  75  70  20  66  6f  72  20  73 
+        65  67  6d  65  6e  74  65  64  20  6d  65  73  73  61  67  65 
+        00 
+   32.016s Returning 7:ERR_FAILED 'Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message''
+** 32.016s PTGetLastError(09CDE508)
+   Error String: Firmware error 294:iMsgInitDiscardedTimeout 'TPCanWrite: No matching channel set up for segmented message'
+** 32.031s PTIoctl(24, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 32.031s PTIoctl(24, 32779:TEARDOWN_CONNECTION, 05EC37B8, 00000000)
+   Teardown Connection: 4 bytes at 05EC3778
+   \__  00  00  03  00 
+<< 32.031s PTReadMsgs(24, 05FDFD98, 1, 3000)!! TP Conn Address 0x300 Lost, could not find in table
+
+   Msg[0] 1136.785483s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 32.031s PTReadMsgs() complete (channel 24)
+<< 32.031s PTReadMsgs(24, 05FDFD98, 1, 1000)   33.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 33.031s PTGetLastError(0A1DE508)
+   Error String: Zero messages received
+-- 37.016s PTClose(23)
+++ 37.094s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 37.094s PTGetNextCarDAQ(00CDE3DC, 00CDE404, 00CDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 37.094s PTGetNextCarDAQ(00CDE3DC, 00CDE404, 00CDE3D4)
+++ 37.094s PTOpen(00B86230, 0660B3C0)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 26
+++ 37.109s PTConnect(26, 32782:TP2_0_PS, 0, 500000, 00CDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 27
+** 37.109s PTIoctl(27, 2:SET_CONFIG, 05EC35D8, 00000000)
+   1 parameter(s) at 05EC3718:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 37.109s PTIoctl(27, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 37.109s PTIoctl(27, 32778:REQUEST_CONNECTION, 05EC3718, 00000000)
+   Request Connection: 11 bytes at 00B86230
+   \__  00  00  02  00  1f  c0  00  10  00  03  01 
+<< 37.109s PTReadMsgs(27, 05FFE9C0, 1, 3000)   TP Conn Address TX 0x32e, RX 0x300 established
+
+   Msg[0] 1141.876534s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][03][2e]
+<< 37.125s PTReadMsgs() complete (channel 27)
+>> 37.219s PTWriteMsgs(27, 05FFE9C0, 00CDE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 37.219s PTReadMsgs(27, 05FFE9C0, 1, 1000)
+   Msg[0] 1142.066431s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  30  39  30  37  35  33 
+        30  4c  20  20  30  30  35  32  10  00  00  00  00  06  46  22 
+        04  ff  4a  35  33  33  20  20  47  61  74  65  77  61  79  20 
+        20  20  48  30  37  20 
+<< 37.312s PTReadMsgs() complete (channel 27)
+<< 37.312s PTReadMsgs(27, 05FFE9C0, 1, 300)   37.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 37.609s PTGetLastError(00CDE2A8)
+   Error String: Zero messages received
+>> 37.609s PTWriteMsgs(27, 05F6ADE0, 00CDE294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 37.609s PTReadMsgs(27, 05F6ADE0, 1, 1000)
+   Msg[0] 1142.41638s. 32782:TP2_0_PS. Actual data 30 of 30 bytes. RxS=00000000
+   \__  00  00  03  00  00  18  5a  9a  00  06  46  22  04  ff  30  30 
+        35  32  10  0a  ed  81  7f  07  10  13  02  00  02  ff 
+<< 37.656s PTReadMsgs() complete (channel 27)
+<< 37.656s PTReadMsgs(27, 05F6ADE0, 1, 300)   37.969s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 37.969s PTGetLastError(00CDE128)
+   Error String: Zero messages received
+>> 37.969s PTWriteMsgs(27, 05F05C80, 00CDE424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  03  2e  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 37.969s PTReadMsgs(27, 05F05C80, 1, 1000)
+   Msg[0] 1142.746261s. 32782:TP2_0_PS. Actual data 18 of 18 bytes. RxS=00000000
+   \__  00  00  03  00  00  0c  71  b8  01  04  01  05  01  06  01  07 
+        01  08 
+<< 37.984s PTReadMsgs() complete (channel 27)
+<< 37.984s PTReadMsgs(27, 05F05C80, 1, 300)   38.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 38.297s PTGetLastError(00CDE2B8)
+   Error String: Zero messages received
+>> 38.437s PTWriteMsgs(27, 05FD30A0, 00CDE5C4, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9f 
+   Queued everything
+   Queued 1/1
+<< 38.437s PTReadMsgs(27, 05FD30A0, 1, 1000)
+   Msg[0] 1143.526286s. 32782:TP2_0_PS. Actual data 230 of 230 bytes. RxS=00000000
+   \__  00  00  03  00  00  e0  5a  9f  d9  01  01  00  05  11  15  00 
+        00  02  02  00  01  03  03  00  01  53  19  00  00  04  13  00 
+        01  44  09  00  01  15  05  00  01  55  06  00  01  22  0a  00 
+        00  13  0b  00  00  14  0c  00  00  4c  08  00  00  10  1d  00 
+        00  32  18  00  00  17  07  06  01  25  14  06  05  09  20  02 
+        01  46  21  02  01  42  22  02  01  52  23  02  01  62  24  02 
+        01  72  25  02  01  36  26  02  00  65  29  02  01  16  2a  02 
+        01  08  2c  02  01  76  2d  02  00  7d  2e  02  00  26  30  02 
+        00  69  43  02  00  06  35  02  00  3d  3a  02  00  6d  34  02 
+        00  63  46  02  00  73  47  02  00  47  53  04  01  75  55  04 
+        00  37  5b  04  00  57  57  04  00  0f  4f  04  05  56  52  04 
+        15  77  5a  04  00  18  2f  04  00  1c  40  04  01  5d  4b  04 
+        00  6c  49  04  00  59  41  04  00  4f  28  02  00  19  1f  14 
+        05  3c  1c  00  00  5c  1a  00  00  2e  54  04  00  7f  4e  04 
+        00  04  00  00  02  ff 
+<< 38.766s PTReadMsgs() complete (channel 27)
+<< 38.766s PTReadMsgs(27, 05FD30A0, 1, 300)   39.078s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 39.078s PTGetLastError(00CDE458)
+   Error String: Zero messages received
+>> 39.078s PTWriteMsgs(27, 05EEAC38, 00CDE254, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 39.078s PTReadMsgs(27, 05EEAC38, 1, 1000)
+   Msg[0] 1143.876645s. 32782:TP2_0_PS. Actual data 30 of 30 bytes. RxS=00000000
+   \__  00  00  03  00  00  18  5a  9a  00  06  46  22  04  ff  30  30 
+        35  32  10  0a  ed  81  7f  07  10  13  02  00  02  ff 
+<< 39.125s PTReadMsgs() complete (channel 27)
+<< 39.125s PTReadMsgs(27, 05EEAC38, 1, 300)   39.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 39.422s PTGetLastError(00CDE0E8)
+   Error String: Zero messages received
+** 39.547s PTIoctl(27, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 39.547s PTIoctl(27, 32779:TEARDOWN_CONNECTION, 05EC35D8, 00000000)
+   Teardown Connection: 4 bytes at 05EC3658
+   \__  00  00  03  00 
+!! TP Conn Address 0x300 Lost, could not find in table
+<< 39.547s PTReadMsgs(27, 05FFE9C0, 1, 3000)
+   Msg[0] 1144.302023s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 39.547s PTReadMsgs() complete (channel 27)
+<< 39.547s PTReadMsgs(27, 05FFE9C0, 1, 1000)   40.547s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 40.547s PTGetLastError(0613E508)
+   Error String: Zero messages received
+-- 45.203s PTClose(26)
+++ 45.266s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 45.266s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 45.266s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+++ 45.266s PTOpen(00B539C0, 0660B77C)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 33
+++ 45.281s PTConnect(33, 32782:TP2_0_PS, 0, 500000, 09CDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 34
+** 45.281s PTIoctl(34, 2:SET_CONFIG, 05EC3908, 00000000)
+   1 parameter(s) at 05EC3838:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 45.281s PTIoctl(34, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 45.281s PTIoctl(34, 32778:REQUEST_CONNECTION, 05EC3938, 00000000)
+   Request Connection: 11 bytes at 00B539C0
+   \__  00  00  02  00  1f  c0  00  10  00  03  01 
+<< 45.281s PTReadMsgs(34, 05FEB8F0, 1, 3000)   TP Conn Address TX 0x32e, RX 0x300 established
+
+   Msg[0] 1150.056186s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][03][2e]
+<< 45.297s PTReadMsgs() complete (channel 34)
+>> 45.406s PTWriteMsgs(34, 05FEB8F0, 09CDE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 45.406s PTReadMsgs(34, 05FEB8F0, 1, 1000)
+   Msg[0] 1150.246096s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  30  39  30  37  35  33 
+        30  4c  20  20  30  30  35  32  10  00  00  00  00  06  46  22 
+        04  ff  4a  35  33  33  20  20  47  61  74  65  77  61  79  20 
+        20  20  48  30  37  20 
+<< 45.484s PTReadMsgs() complete (channel 34)
+<< 45.484s PTReadMsgs(34, 05FEB8F0, 1, 300)   45.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 45.797s PTGetLastError(09CDE2A8)
+   Error String: Zero messages received
+>> 45.797s PTWriteMsgs(34, 05FBA478, 09CDE294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 45.797s PTReadMsgs(34, 05FBA478, 1, 1000)
+   Msg[0] 1150.596048s. 32782:TP2_0_PS. Actual data 30 of 30 bytes. RxS=00000000
+   \__  00  00  03  00  00  18  5a  9a  00  06  46  22  04  ff  30  30 
+        35  32  10  0a  ed  81  7f  07  10  13  02  00  02  ff 
+<< 45.844s PTReadMsgs() complete (channel 34)
+<< 45.844s PTReadMsgs(34, 05FBA478, 1, 300)   46.141s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 46.141s PTGetLastError(09CDE128)
+   Error String: Zero messages received
+>> 46.141s PTWriteMsgs(34, 05F05C80, 09CDE424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  03  2e  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 46.141s PTReadMsgs(34, 05F05C80, 1, 1000)
+   Msg[0] 1150.926361s. 32782:TP2_0_PS. Actual data 18 of 18 bytes. RxS=00000000
+   \__  00  00  03  00  00  0c  71  b8  01  04  01  05  01  06  01  07 
+        01  08 
+<< 46.172s PTReadMsgs() complete (channel 34)
+<< 46.172s PTReadMsgs(34, 05F05C80, 1, 300)   46.469s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 46.469s PTGetLastError(09CDE2B8)
+   Error String: Zero messages received
+>> 46.625s PTWriteMsgs(34, 05F05C80, 09BDE5C4, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9f 
+   Queued everything
+   Queued 1/1
+<< 46.641s PTReadMsgs(34, 05F05C80, 1, 1000)
+   Msg[0] 1151.726248s. 32782:TP2_0_PS. Actual data 230 of 230 bytes. RxS=00000000
+   \__  00  00  03  00  00  e0  5a  9f  d9  01  01  00  05  11  15  00 
+        00  02  02  00  01  03  03  00  01  53  19  00  00  04  13  00 
+        01  44  09  00  01  15  05  00  01  55  06  00  01  22  0a  00 
+        00  13  0b  00  00  14  0c  00  00  4c  08  00  00  10  1d  00 
+        00  32  18  00  00  17  07  06  01  25  14  06  05  09  20  02 
+        01  46  21  02  01  42  22  02  01  52  23  02  01  62  24  02 
+        01  72  25  02  01  36  26  02  00  65  29  02  01  16  2a  02 
+        01  08  2c  02  01  76  2d  02  00  7d  2e  02  00  26  30  02 
+        00  69  43  02  00  06  35  02  00  3d  3a  02  00  6d  34  02 
+        00  63  46  02  00  73  47  02  00  47  53  04  01  75  55  04 
+        00  37  5b  04  00  57  57  04  00  0f  4f  04  05  56  52  04 
+        15  77  5a  04  00  18  2f  04  00  1c  40  04  01  5d  4b  04 
+        00  6c  49  04  00  59  41  04  00  4f  28  02  00  19  1f  14 
+        05  3c  1c  00  00  5c  1a  00  00  2e  54  04  00  7f  4e  04 
+        00  04  00  00  02  ff 
+<< 46.969s PTReadMsgs() complete (channel 34)
+<< 46.969s PTReadMsgs(34, 05F05C80, 1, 300)   47.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 47.281s PTGetLastError(09BDE458)
+   Error String: Zero messages received
+>> 47.281s PTWriteMsgs(34, 06003B08, 09BDE254, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 47.281s PTReadMsgs(34, 06003B08, 1, 1000)
+   Msg[0] 1152.086286s. 32782:TP2_0_PS. Actual data 30 of 30 bytes. RxS=00000000
+   \__  00  00  03  00  00  18  5a  9a  00  06  46  22  04  ff  30  30 
+        35  32  10  0a  ed  81  7f  07  10  13  02  00  02  ff 
+<< 47.328s PTReadMsgs() complete (channel 34)
+<< 47.328s PTReadMsgs(34, 06003B08, 1, 300)   47.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 47.625s PTGetLastError(09BDE0E8)
+   Error String: Zero messages received
+** 47.750s PTIoctl(34, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 47.750s PTIoctl(34, 32779:TEARDOWN_CONNECTION, 05EC38F8, 00000000)
+   Teardown Connection: 4 bytes at 05EC3858
+   \__  00  00  03  00 
+<< 47.750s PTReadMsgs(34, 05F05C80, 1, 3000)!! TP Conn Address 0x300 Lost, could not find in table
+
+   Msg[0] 1152.504659s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 47.750s PTReadMsgs() complete (channel 34)
+<< 47.750s PTReadMsgs(34, 05F05C80, 1, 1000)   48.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 48.750s PTGetLastError(09CDE508)
+   Error String: Zero messages received
+-- 48.984s PTClose(33)
+++ 49.297s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 49.297s PTGetNextCarDAQ(09BDE3DC, 09BDE404, 09BDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 49.297s PTGetNextCarDAQ(09BDE3DC, 09BDE404, 09BDE3D4)
+++ 49.297s PTOpen(00B53B10, 06661790)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 40
+++ 49.297s PTConnect(40, 32782:TP2_0_PS, 0, 500000, 09BDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 41
+** 49.312s PTIoctl(41, 2:SET_CONFIG, 05EC3968, 00000000)
+   1 parameter(s) at 05EC3878:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 49.312s PTIoctl(41, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 49.312s PTIoctl(41, 32778:REQUEST_CONNECTION, 05EC3828, 00000000)
+   Request Connection: 11 bytes at 00B53B10
+   \__  00  00  02  00  01  c0  00  10  00  03  01 
+<< 49.312s PTReadMsgs(41, 05FD0228, 1, 3000)   TP Conn Address TX 0x740, RX 0x300 established
+
+   Msg[0] 1154.074927s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][40]
+<< 49.312s PTReadMsgs() complete (channel 41)
+>> 49.422s PTWriteMsgs(41, 05FD0228, 09BDE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 49.422s PTReadMsgs(41, 05FD0228, 1, 1000)
+   Msg[0] 1154.228409s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  30  39  30  37  31  31 
+        35  41  44  20  30  30  36  30  10  00  00  00  80  00  00  06 
+        29  3d  32  2e  30  6c  20  52  34  2f  34  56  20  54  46  53 
+        49  20  20  20  20  20 
+<< 49.469s PTReadMsgs() complete (channel 41)
+<< 49.469s PTReadMsgs(41, 05FD0228, 1, 300)   49.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 49.781s PTGetLastError(09BDE2A8)
+   Error String: Zero messages received
+>> 49.781s PTWriteMsgs(41, 06011308, 09BDE294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 49.781s PTReadMsgs(41, 06011308, 1, 1000)
+   Msg[0] 1154.564496s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  80  03  7f  1a  78 
+<< 49.812s PTReadMsgs() complete (channel 41)
+<< 49.812s PTReadMsgs(41, 06011308, 1, 300)
+   Msg[0] 1154.600197s. 32782:TP2_0_PS. Actual data 29 of 29 bytes. RxS=00000000
+   \__  00  00  03  00  00  17  5a  9a  80  00  00  06  29  3d  30  30 
+        36  30  10  09  04  03  01  08  1c  07  01  60  ff 
+<< 49.844s PTReadMsgs() complete (channel 41)
+<< 49.844s PTReadMsgs(41, 06011308, 1, 300)   50.141s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 50.141s PTGetLastError(09BDE128)
+   Error String: Zero messages received
+>> 50.141s PTWriteMsgs(41, 0600E730, 09BDE424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  40  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 50.156s PTReadMsgs(41, 0600E730, 1, 1000)
+   Msg[0] 1154.948521s. 32782:TP2_0_PS. Actual data 24 of 24 bytes. RxS=00000000
+   \__  00  00  03  00  00  12  71  b8  01  01  01  02  01  03  01  06 
+        01  07  01  08  01  0d  01  18 
+<< 50.187s PTReadMsgs() complete (channel 41)
+<< 50.187s PTReadMsgs(41, 0600E730, 1, 300)   50.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 50.500s PTGetLastError(09BDE2B8)
+   Error String: Zero messages received
+>> 50.500s PTWriteMsgs(41, 06013FE0, 09BDE414, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  90 
+   Queued everything
+   Queued 1/1
+<< 50.500s PTReadMsgs(41, 06013FE0, 1, 1000)
+   Msg[0] 1155.288422s. 32782:TP2_0_PS. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  03  00  00  13  5a  90  57  56  57  48  44  37  31  4b 
+        32  38  57  33  30  39  37  31  39 
+<< 50.531s PTReadMsgs() complete (channel 41)
+<< 50.531s PTReadMsgs(41, 06013FE0, 1, 300)   50.828s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 50.828s PTGetLastError(09BDE2A8)
+   Error String: Zero messages received
+>> 50.891s PTWriteMsgs(41, 06025400, 09CDE644, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  40  00  04  18  00  ff  00 
+   Queued everything
+   Queued 1/1
+<< 50.891s PTReadMsgs(41, 06025400, 1, 1000)
+   Msg[0] 1155.684483s. 32782:TP2_0_PS. Actual data 11 of 11 bytes. RxS=00000000
+   \__  00  00  03  00  00  05  58  01  02  99  e0 
+<< 50.922s PTReadMsgs() complete (channel 41)
+<< 50.922s PTReadMsgs(41, 06025400, 1, 300)   51.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 51.234s PTGetLastError(09CDE4D8)
+   Error String: Zero messages received
+>> 51.328s PTWriteMsgs(41, 09D46CD8, 09BDE624, 0)
+   Transaction 0011 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 11 bytes. TxF=00000000
+   \__  00  00  07  40  00  05  12  00  04  02  99 
+   Queued everything
+   Queued 1/1
+<< 51.328s PTReadMsgs(41, 09D46CD8, 1, 1000)
+   Msg[0] 1156.135977s. 32782:TP2_0_PS. Actual data 47 of 47 bytes. RxS=00000000
+   \__  00  00  03  00  00  29  52  00  6c  01  e0  00  02  ff  01  50 
+        5e  00  00  00  00  86  85  74  14  0a  02  c4  c6  07  64  62 
+        1a  28  87  1a  28  41  12  fa  63  15  7f  6a  04  02  99 
+<< 51.375s PTReadMsgs() complete (channel 41)
+<< 51.375s PTReadMsgs(41, 09D46CD8, 1, 300)   51.687s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 51.687s PTGetLastError(09BDE4B8)
+   Error String: Zero messages received
+** 51.703s PTIoctl(41, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 51.703s PTIoctl(41, 32779:TEARDOWN_CONNECTION, 05EC38A8, 00000000)
+   Teardown Connection: 4 bytes at 05EC3828
+   \__  00  00  03  00 
+<< 51.703s PTReadMsgs(41, 05F90A88, 1, 3000)!! TP Conn Address 0x300 Lost, could not find in table
+
+   Msg[0] 1156.466487s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 51.703s PTReadMsgs() complete (channel 41)
+<< 51.719s PTReadMsgs(41, 05F90A88, 1, 1000)   52.719s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 52.719s PTGetLastError(09CDE508)
+   Error String: Zero messages received
+-- 52.953s PTClose(40)
+++ 53.219s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 53.219s PTGetNextCarDAQ(09BDE3DC, 09BDE404, 09BDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 53.219s PTGetNextCarDAQ(09BDE3DC, 09BDE404, 09BDE3D4)
+++ 53.219s PTOpen(03EA5BB8, 066F76F0)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 47
+++ 53.234s PTConnect(47, 32782:TP2_0_PS, 0, 500000, 09BDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 48
+** 53.234s PTIoctl(48, 2:SET_CONFIG, 05EC3888, 00000000)
+   1 parameter(s) at 05EC38B8:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 53.234s PTIoctl(48, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 53.234s PTIoctl(48, 32778:REQUEST_CONNECTION, 05EC3848, 00000000)
+   Request Connection: 11 bytes at 03EA5B40
+   \__  00  00  02  00  14  c0  00  10  00  03  01 
+<< 53.234s PTReadMsgs(48, 05F2C790, 1, 3000)   TP Conn Address TX 0x781, RX 0x300 established
+
+   Msg[0] 1158.00859s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][81]
+<< 53.250s PTReadMsgs() complete (channel 48)
+>> 53.359s PTWriteMsgs(48, 06020628, 09BDE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  81  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 53.359s PTReadMsgs(48, 06020628, 1, 1000)
+   Msg[0] 1158.418753s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  36  39  32  30  39  37 
+        34  41  20  20  b1  32  31  36  00  00  00  00  80  00  00  06 
+        da  96  49  4d  4d  4f  20  20  20  20  20  20  20  20  20  20 
+        20  20  56  44  44  20 
+<< 53.656s PTReadMsgs() complete (channel 48)
+<< 53.656s PTReadMsgs(48, 06020628, 1, 300)   53.969s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 53.969s PTGetLastError(09BDE2A8)
+   Error String: Zero messages received
+>> 53.969s PTWriteMsgs(48, 05F1EFA0, 09BDE294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  81  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 53.969s PTReadMsgs(48, 05F1EFA0, 1, 1000)
+   Msg[0] 1158.739325s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  00  03  7f  1a  12 
+<< 53.984s PTReadMsgs() complete (channel 48)
+<< 53.984s PTReadMsgs(48, 05F1EFA0, 1, 300)   54.281s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 54.281s PTGetLastError(09BDE128)
+   Error String: Zero messages received
+>> 54.281s PTWriteMsgs(48, 05FD9680, 09BDE424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  81  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 54.281s PTReadMsgs(48, 05FD9680, 1, 1000)
+   Msg[0] 1159.078353s. 32782:TP2_0_PS. Actual data 14 of 14 bytes. RxS=00000000
+   \__  00  00  03  00  00  08  71  b8  01  03  01  06  01  08 
+<< 54.328s PTReadMsgs() complete (channel 48)
+<< 54.328s PTReadMsgs(48, 05FD9680, 1, 300)   54.625s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 54.625s PTGetLastError(09BDE2B8)
+   Error String: Zero messages received
+>> 54.625s PTWriteMsgs(48, 05FD8528, 09BDE414, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  81  00  02  1a  90 
+   Queued everything
+   Queued 1/1
+<< 54.625s PTReadMsgs(48, 05FD8528, 1, 1000)
+   Msg[0] 1159.418859s. 32782:TP2_0_PS. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  03  00  00  13  5a  90  57  56  57  48  44  37  31  4b 
+        32  38  57  33  30  39  37  31  39 
+<< 54.656s PTReadMsgs() complete (channel 48)
+<< 54.656s PTReadMsgs(48, 05FD8528, 1, 300)   54.969s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 54.969s PTGetLastError(09BDE2A8)
+   Error String: Zero messages received
+>> 55.016s PTWriteMsgs(48, 09D43060, 09CDE644, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  81  00  04  18  02  ff  00 
+   Queued everything
+   Queued 1/1
+<< 55.016s PTReadMsgs(48, 09D43060, 1, 1000)
+   Msg[0] 1159.798523s. 32782:TP2_0_PS. Actual data 11 of 11 bytes. RxS=00000000
+   \__  00  00  03  00  00  05  58  01  00  03  6e 
+<< 55.047s PTReadMsgs() complete (channel 48)
+<< 55.047s PTReadMsgs(48, 09D43060, 1, 300)   55.344s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 55.344s PTGetLastError(09CDE4D8)
+   Error String: Zero messages received
+>> 55.406s PTWriteMsgs(48, 09D9A308, 09BDE624, 0)
+   Transaction 0011 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 11 bytes. TxF=00000000
+   \__  00  00  07  81  00  05  12  00  04  00  03 
+   Queued everything
+   Queued 1/1
+<< 55.422s PTReadMsgs(48, 09D9A308, 1, 1000)
+   Msg[0] 1160.228355s. 32782:TP2_0_PS. Actual data 26 of 26 bytes. RxS=00000000
+   \__  00  00  03  00  00  14  52  00  6c  01  6e  02  01  ff  01  4e 
+        71  00  00  00  01  16  2e  04  00  03 
+<< 55.469s PTReadMsgs() complete (channel 48)
+<< 55.469s PTReadMsgs(48, 09D9A308, 1, 300)   55.766s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 55.766s PTGetLastError(09BDE4B8)
+   Error String: Zero messages received
+** 55.781s PTIoctl(48, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 55.781s PTIoctl(48, 32779:TEARDOWN_CONNECTION, 05EC3918, 00000000)
+   Teardown Connection: 4 bytes at 05EC38A8
+   \__  00  00  03  00 
+!! TP Conn Address 0x300 Lost, could not find in table
+<< 55.781s PTReadMsgs(48, 09DD8818, 1, 3000)
+   Msg[0] 1160.541881s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 55.781s PTReadMsgs() complete (channel 48)
+<< 55.781s PTReadMsgs(48, 09DD8818, 1, 1000)   56.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 56.781s PTGetLastError(09CDE508)
+   Error String: Zero messages received
+-- 57.031s PTClose(47)
+++ 57.328s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 57.328s PTGetNextCarDAQ(09BDE3DC, 09BDE404, 09BDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 57.328s PTGetNextCarDAQ(09BDE3DC, 09BDE404, 09BDE3D4)
+++ 57.328s PTOpen(03EA5C30, 06712E98)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 53
+++ 57.328s PTConnect(53, 32782:TP2_0_PS, 0, 500000, 09BDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 54
+** 57.328s PTIoctl(54, 2:SET_CONFIG, 05EC38E8, 00000000)
+   1 parameter(s) at 05EC38C8:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 57.344s PTIoctl(54, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 57.344s PTIoctl(54, 32778:REQUEST_CONNECTION, 05EC3998, 00000000)
+   Request Connection: 11 bytes at 03EA5C30
+   \__  00  00  02  00  4f  c0  00  10  00  03  01 
+<< 57.344s PTReadMsgs(54, 05EBD3B8, 1, 3000)   TP Conn Address TX 0x4dc, RX 0x300 established
+
+   Msg[0] 1162.109564s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][04][dc]
+<< 57.359s PTReadMsgs() complete (channel 54)
+>> 57.453s PTWriteMsgs(54, 05FDBDB0, 09BDE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  04  dc  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 57.453s PTReadMsgs(54, 05FDBDB0, 1, 1000)
+   Msg[0] 1162.303596s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  38  45  30  30  33  35  35  39 
+        33  4d  20  20  30  31  35  30  03  00  00  00  00  00  00  00 
+        00  00  53  44  41  52  20  53  49  52  49  55  53  20  20  20 
+        20  20  48  30  37  20 
+<< 57.547s PTReadMsgs() complete (channel 54)
+<< 57.547s PTReadMsgs(54, 05FDBDB0, 1, 300)   57.844s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 57.844s PTGetLastError(09BDE2A8)
+   Error String: Zero messages received
+>> 57.844s PTWriteMsgs(54, 05EBD3B8, 09BDE424, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  04  dc  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 57.859s PTReadMsgs(54, 05EBD3B8, 1, 1000)
+   Msg[0] 1162.631709s. 32782:TP2_0_PS. Actual data 18 of 18 bytes. RxS=00000000
+   \__  00  00  03  00  00  0c  71  b8  01  02  01  04  01  06  01  07 
+        01  08 
+<< 57.875s PTReadMsgs() complete (channel 54)
+<< 57.875s PTReadMsgs(54, 05EBD3B8, 1, 300)   58.172s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 58.172s PTGetLastError(09BDE2B8)
+   Error String: Zero messages received
+>> 58.234s PTWriteMsgs(54, 05EBD3B8, 09CDE644, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  04  dc  00  04  18  02  ff  00 
+   Queued everything
+   Queued 1/1
+<< 58.234s PTReadMsgs(54, 05EBD3B8, 1, 1000)
+   Msg[0] 1163.020529s. 32782:TP2_0_PS. Actual data 17 of 17 bytes. RxS=00000000
+   \__  00  00  03  00  00  0b  58  03  0a  39  6b  0a  4b  60  05  18 
+        24 
+<< 58.266s PTReadMsgs() complete (channel 54)
+<< 58.266s PTReadMsgs(54, 05EBD3B8, 1, 300)   58.562s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 58.562s PTGetLastError(09CDE4D8)
+   Error String: Zero messages received
+>> 58.641s PTWriteMsgs(54, 05EBD3B8, 09BDE624, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 11 bytes. TxF=00000000
+   \__  00  00  04  dc  00  05  12  00  04  0a  39 
+   Queued everything
+   Queued 1/1
+<< 58.641s PTReadMsgs(54, 05EBD3B8, 1, 1000)
+   Msg[0] 1163.449567s. 32782:TP2_0_PS. Actual data 26 of 26 bytes. RxS=00000000
+   \__  00  00  03  00  00  14  52  00  6c  01  6b  05  01  2d  01  50 
+        14  00  00  00  00  f2  81  04  0a  39 
+<< 58.687s PTReadMsgs() complete (channel 54)
+<< 58.687s PTReadMsgs(54, 05EBD3B8, 1, 300)   59.000s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 59.000s PTGetLastError(09BDE4B8)
+   Error String: Zero messages received
+>> 59.031s PTWriteMsgs(54, 05EBD3B8, 09BDE624, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 11 bytes. TxF=00000000
+   \__  00  00  04  dc  00  05  12  00  04  0a  4b 
+   Queued everything
+   Queued 1/1
+<< 59.031s PTReadMsgs(54, 05EBD3B8, 1, 1000)
+   Msg[0] 1163.828641s. 32782:TP2_0_PS. Actual data 26 of 26 bytes. RxS=00000000
+   \__  00  00  03  00  00  14  52  00  6c  01  60  07  01  2d  01  50 
+        14  00  00  00  00  f2  81  04  0a  4b 
+<< 59.078s PTReadMsgs() complete (channel 54)
+<< 59.078s PTReadMsgs(54, 05EBD3B8, 1, 300)   59.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 59.375s PTGetLastError(09BDE4B8)
+   Error String: Zero messages received
+>> 59.406s PTWriteMsgs(54, 05EBD3B8, 09BDE624, 0)
+   Transaction 0011 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 11 bytes. TxF=00000000
+   \__  00  00  04  dc  00  05  12  00  04  05  18 
+   Queued everything
+   Queued 1/1
+<< 59.406s PTReadMsgs(54, 05EBD3B8, 1, 1000)
+   Msg[0] 1164.207279s. 32782:TP2_0_PS. Actual data 26 of 26 bytes. RxS=00000000
+   \__  00  00  03  00  00  14  52  00  6c  01  24  05  0c  5c  01  50 
+        a9  00  00  00  00  8d  1d  04  05  18 
+<< 59.453s PTReadMsgs() complete (channel 54)
+<< 59.453s PTReadMsgs(54, 05EBD3B8, 1, 300)   59.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 59.750s PTGetLastError(09BDE4B8)
+   Error String: Zero messages received
+** 59.781s PTIoctl(54, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 59.781s PTIoctl(54, 32779:TEARDOWN_CONNECTION, 05EC3998, 00000000)
+   Teardown Connection: 4 bytes at 05EC38B8
+   \__  00  00  03  00 
+!! TP Conn Address 0x300 Lost, could not find in table
+<< 59.781s PTReadMsgs(54, 05EBD3B8, 1, 3000)
+   Msg[0] 1164.530849s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 59.781s PTReadMsgs() complete (channel 54)
+<< 59.781s PTReadMsgs(54, 05EBD3B8, 1, 1000)   60.781s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 60.781s PTGetLastError(09BDE508)
+   Error String: Zero messages received
+-- 61.000s PTClose(53)
+++ 61.266s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 61.266s PTGetNextCarDAQ(09BDE3DC, 09BDE404, 09BDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 61.266s PTGetNextCarDAQ(09BDE3DC, 09BDE404, 09BDE3D4)
+++ 61.266s PTOpen(05E5AF38, 06759320)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 61
+++ 61.266s PTConnect(61, 32782:TP2_0_PS, 0, 500000, 09BDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 62
+** 61.266s PTIoctl(62, 2:SET_CONFIG, 05EC3848, 00000000)
+   1 parameter(s) at 05EC38F8:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 61.266s PTIoctl(62, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 61.266s PTIoctl(62, 32778:REQUEST_CONNECTION, 05EC37F8, 00000000)
+   Request Connection: 11 bytes at 00AE88F8
+   \__  00  00  02  00  52  c0  00  10  00  03  01 
+<< 61.266s PTReadMsgs(62, 05FD1DF8, 1, 3000)   TP Conn Address 0x300 Lost, reason 1
+
+   Msg[0] 1167.127973s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][01]
+<< 62.375s PTReadMsgs() complete (channel 62)
+-- 62.375s PTClose(61)
+++ 75.219s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 75.234s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 75.234s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+++ 75.234s PTOpen(05E5B088, 0676FF58)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 63
+++ 75.234s PTConnect(63, 32782:TP2_0_PS, 0, 500000, 09CDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 64
+** 75.234s PTIoctl(64, 2:SET_CONFIG, 05EC3958, 00000000)
+   1 parameter(s) at 05EC38D8:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 75.234s PTIoctl(64, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 75.234s PTIoctl(64, 32778:REQUEST_CONNECTION, 05EC38D8, 00000000)
+   Request Connection: 11 bytes at 05E5B088
+   \__  00  00  02  00  1f  c0  00  10  00  03  01 
+<< 75.234s PTReadMsgs(64, 09D011C8, 1, 3000)   TP Conn Address TX 0x32e, RX 0x300 established
+
+   Msg[0] 1180.015571s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][03][2e]
+<< 75.266s PTReadMsgs() complete (channel 64)
+>> 75.359s PTWriteMsgs(64, 09D011C8, 09CDE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 75.359s PTReadMsgs(64, 09D011C8, 1, 1000)
+   Msg[0] 1180.205596s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  30  39  30  37  35  33 
+        30  4c  20  20  30  30  35  32  10  00  00  00  00  06  46  22 
+        04  ff  4a  35  33  33  20  20  47  61  74  65  77  61  79  20 
+        20  20  48  30  37  20 
+<< 75.453s PTReadMsgs() complete (channel 64)
+<< 75.453s PTReadMsgs(64, 09D011C8, 1, 300)   75.750s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 75.750s PTGetLastError(09CDE2A8)
+   Error String: Zero messages received
+>> 75.750s PTWriteMsgs(64, 09D011C8, 09CDE294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 75.750s PTReadMsgs(64, 09D011C8, 1, 1000)
+   Msg[0] 1180.555499s. 32782:TP2_0_PS. Actual data 30 of 30 bytes. RxS=00000000
+   \__  00  00  03  00  00  18  5a  9a  00  06  46  22  04  ff  30  30 
+        35  32  10  0a  ed  81  7f  07  10  13  02  00  02  ff 
+<< 75.797s PTReadMsgs() complete (channel 64)
+<< 75.797s PTReadMsgs(64, 09D011C8, 1, 300)   76.094s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 76.094s PTGetLastError(09CDE128)
+   Error String: Zero messages received
+>> 76.109s PTWriteMsgs(64, 09D011C8, 09CDE424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  03  2e  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 76.109s PTReadMsgs(64, 09D011C8, 1, 1000)
+   Msg[0] 1180.885672s. 32782:TP2_0_PS. Actual data 18 of 18 bytes. RxS=00000000
+   \__  00  00  03  00  00  0c  71  b8  01  04  01  05  01  06  01  07 
+        01  08 
+<< 76.125s PTReadMsgs() complete (channel 64)
+<< 76.141s PTReadMsgs(64, 09D011C8, 1, 300)   76.437s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 76.437s PTGetLastError(09CDE2B8)
+   Error String: Zero messages received
+>> 76.484s PTWriteMsgs(64, 09D011C8, 09CDE644, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  03  2e  00  04  18  02  ff  00 
+   Queued everything
+   Queued 1/1
+<< 76.484s PTReadMsgs(64, 09D011C8, 1, 1000)
+   Msg[0] 1181.25552s. 32782:TP2_0_PS. Actual data 11 of 11 bytes. RxS=00000000
+   \__  00  00  03  00  00  05  58  01  05  18  24 
+<< 76.500s PTReadMsgs() complete (channel 64)
+<< 76.500s PTReadMsgs(64, 09D011C8, 1, 300)   76.797s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 76.797s PTGetLastError(09CDE4D8)
+   Error String: Zero messages received
+>> 76.875s PTWriteMsgs(64, 05FBBB10, 09BDE624, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 11 bytes. TxF=00000000
+   \__  00  00  03  2e  00  05  12  00  04  05  18 
+   Queued everything
+   Queued 1/1
+<< 76.875s PTReadMsgs(64, 05FBBB10, 1, 1000)
+   Msg[0] 1181.675947s. 32782:TP2_0_PS. Actual data 26 of 26 bytes. RxS=00000000
+   \__  00  00  03  00  00  14  52  00  6c  01  24  02  0c  5c  01  50 
+        14  00  00  00  00  f3  1a  04  05  18 
+<< 76.922s PTReadMsgs() complete (channel 64)
+<< 76.922s PTReadMsgs(64, 05FBBB10, 1, 300)   77.219s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 77.219s PTGetLastError(09BDE4B8)
+   Error String: Zero messages received
+** 77.234s PTIoctl(64, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 77.234s PTIoctl(64, 32779:TEARDOWN_CONNECTION, 05EC3818, 00000000)
+   Teardown Connection: 4 bytes at 05EC38C8
+   \__  00  00  03  00 
+<< 77.234s PTReadMsgs(64, 05FEAFC0, 1, 3000)!! TP Conn Address 0x300 Lost, could not find in table
+
+   Msg[0] 1181.990446s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 77.234s PTReadMsgs() complete (channel 64)
+<< 77.234s PTReadMsgs(64, 05FEAFC0, 1, 1000)   78.234s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 78.234s PTGetLastError(09CDE508)
+   Error String: Zero messages received
+-- 78.937s PTClose(63)
+++ 79.000s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 79.016s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 79.016s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+++ 79.016s PTOpen(03EA5AE0, 06592990)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 69
+++ 79.016s PTConnect(69, 32782:TP2_0_PS, 0, 500000, 09CDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 70
+** 79.016s PTIoctl(70, 2:SET_CONFIG, 05EC3838, 00000000)
+   1 parameter(s) at 05EC38E8:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 79.016s PTIoctl(70, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 79.016s PTIoctl(70, 32778:REQUEST_CONNECTION, 05EC38E8, 00000000)
+   Request Connection: 11 bytes at 03EA5C60
+   \__  00  00  02  00  07  c0  00  10  00  03  01 
+<< 79.016s PTReadMsgs(70, 09D392B0, 1, 3000)   TP Conn Address TX 0x751, RX 0x300 established
+
+   Msg[0] 1183.788928s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][51]
+<< 79.031s PTReadMsgs() complete (channel 70)
+>> 79.141s PTWriteMsgs(70, 09D392B0, 09CDE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  51  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 79.141s PTReadMsgs(70, 09D392B0, 1, 1000)
+   Msg[0] 1184.218802s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  36  39  32  30  39  37 
+        34  41  20  20  31  32  31  36  03  00  1c  23  fa  9c  60  16 
+        00  00  4b  4f  4d  42  49  49  4e  53  54  52  55  4d  45  4e 
+        54  20  56  44  44  20 
+<< 79.469s PTReadMsgs() complete (channel 70)
+<< 79.469s PTReadMsgs(70, 09D392B0, 1, 300)   79.766s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 79.766s PTGetLastError(09CDE2A8)
+   Error String: Zero messages received
+>> 79.766s PTWriteMsgs(70, 09D392B0, 09CDE424, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  51  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 79.766s PTReadMsgs(70, 09D392B0, 1, 1000)
+   Msg[0] 1184.568956s. 32782:TP2_0_PS. Actual data 20 of 20 bytes. RxS=00000000
+   \__  00  00  03  00  00  0e  71  b8  01  02  01  03  01  04  01  06 
+        01  07  01  08 
+<< 79.812s PTReadMsgs() complete (channel 70)
+<< 79.812s PTReadMsgs(70, 09D392B0, 1, 300)   80.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 80.125s PTGetLastError(09CDE2B8)
+   Error String: Zero messages received
+>> 80.125s PTWriteMsgs(70, 09D392B0, 09CDE414, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  51  00  02  1a  90 
+   Queued everything
+   Queued 1/1
+<< 80.125s PTReadMsgs(70, 09D392B0, 1, 1000)
+   Msg[0] 1184.918939s. 32782:TP2_0_PS. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  03  00  00  13  5a  90  57  56  57  48  44  37  31  4b 
+        32  38  57  33  30  39  37  31  39 
+<< 80.156s PTReadMsgs() complete (channel 70)
+<< 80.156s PTReadMsgs(70, 09D392B0, 1, 300)   80.469s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 80.469s PTGetLastError(09CDE2A8)
+   Error String: Zero messages received
+>> 80.516s PTWriteMsgs(70, 09D392B0, 0613E654, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  51  00  02  21  02 
+   Queued everything
+   Queued 1/1
+<< 80.516s PTReadMsgs(70, 09D392B0, 1, 1000)
+   Msg[0] 1185.32864s. 32782:TP2_0_PS. Actual data 32 of 32 bytes. RxS=00000000
+   \__  00  00  03  00  00  1a  61  02  24  21  aa  13  64  34  40  00 
+        30  05  0a  71  25  00  00  25  00  00  25  00  00  25  03  47 
+<< 80.578s PTReadMsgs() complete (channel 70)
+<< 80.578s PTReadMsgs(70, 09D392B0, 1, 300)   80.875s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 80.875s PTGetLastError(0613E4E8)
+   Error String: Zero messages received
+** 80.891s PTIoctl(70, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 80.891s PTIoctl(70, 32779:TEARDOWN_CONNECTION, 05EC38E8, 00000000)
+   Teardown Connection: 4 bytes at 05EC3958
+   \__  00  00  03  00 
+<< 80.891s PTReadMsgs(70, 05F2DF58, 1, 3000)!! TP Conn Address 0x300 Lost, could not find in table
+
+   Msg[0] 1185.64938s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 80.891s PTReadMsgs() complete (channel 70)
+<< 80.891s PTReadMsgs(70, 05F2DF58, 1, 1000)   81.891s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 81.891s PTGetLastError(09BDE508)
+   Error String: Zero messages received
+-- 81.906s PTClose(69)
+++ 93.187s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 93.187s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 93.187s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+++ 93.187s PTOpen(03EA5C48, 065C2C60)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 75
+++ 93.187s PTConnect(75, 32782:TP2_0_PS, 0, 500000, 0613E4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 76
+** 93.187s PTIoctl(76, 2:SET_CONFIG, 05EC3998, 00000000)
+   1 parameter(s) at 00BCDC68:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 93.187s PTIoctl(76, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 93.187s PTIoctl(76, 32778:REQUEST_CONNECTION, 05EC3998, 00000000)
+   Request Connection: 11 bytes at 03EA5BA0
+   \__  00  00  02  00  01  c0  00  10  00  03  01 
+<< 93.203s PTReadMsgs(76, 09D01150, 1, 3000)   TP Conn Address TX 0x740, RX 0x300 established
+
+   Msg[0] 1197.961408s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][40]
+<< 93.203s PTReadMsgs() complete (channel 76)
+>> 93.312s PTWriteMsgs(76, 05F69D38, 0613E414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 93.312s PTReadMsgs(76, 05F69D38, 1, 1000)
+   Msg[0] 1198.115044s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  30  39  30  37  31  31 
+        35  41  44  20  30  30  36  30  10  00  00  00  80  00  00  06 
+        29  3d  32  2e  30  6c  20  52  34  2f  34  56  20  54  46  53 
+        49  20  20  20  20  20 
+<< 93.359s PTReadMsgs() complete (channel 76)
+<< 93.359s PTReadMsgs(76, 05F69D38, 1, 300)   93.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 93.656s PTGetLastError(0613E2A8)
+   Error String: Zero messages received
+>> 93.656s PTWriteMsgs(76, 09D01150, 0613E294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 93.672s PTReadMsgs(76, 09D01150, 1, 1000)
+   Msg[0] 1198.451416s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  80  03  7f  1a  78 
+<< 93.703s PTReadMsgs() complete (channel 76)
+<< 93.703s PTReadMsgs(76, 09D01150, 1, 300)
+   Msg[0] 1198.487145s. 32782:TP2_0_PS. Actual data 29 of 29 bytes. RxS=00000000
+   \__  00  00  03  00  00  17  5a  9a  80  00  00  06  29  3d  30  30 
+        36  30  10  09  04  03  01  08  1c  07  01  60  ff 
+<< 93.734s PTReadMsgs() complete (channel 76)
+<< 93.734s PTReadMsgs(76, 09D01150, 1, 300)   94.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 94.031s PTGetLastError(0613E128)
+   Error String: Zero messages received
+>> 94.031s PTWriteMsgs(76, 09D01150, 0613E424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  40  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 94.031s PTReadMsgs(76, 09D01150, 1, 1000)
+   Msg[0] 1198.825398s. 32782:TP2_0_PS. Actual data 24 of 24 bytes. RxS=00000000
+   \__  00  00  03  00  00  12  71  b8  01  01  01  02  01  03  01  06 
+        01  07  01  08  01  0d  01  18 
+<< 94.062s PTReadMsgs() complete (channel 76)
+<< 94.078s PTReadMsgs(76, 09D01150, 1, 300)   94.375s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 94.375s PTGetLastError(0613E2B8)
+   Error String: Zero messages received
+>> 94.375s PTWriteMsgs(76, 09D01150, 0613E414, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  40  00  02  1a  90 
+   Queued everything
+   Queued 1/1
+<< 94.375s PTReadMsgs(76, 09D01150, 1, 1000)
+   Msg[0] 1199.165405s. 32782:TP2_0_PS. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  03  00  00  13  5a  90  57  56  57  48  44  37  31  4b 
+        32  38  57  33  30  39  37  31  39 
+<< 94.406s PTReadMsgs() complete (channel 76)
+<< 94.406s PTReadMsgs(76, 09D01150, 1, 300)   94.719s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 94.719s PTGetLastError(0613E2A8)
+   Error String: Zero messages received
+>> 94.781s PTWriteMsgs(76, 05EBD3B8, 0613E644, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 9 bytes. TxF=00000000
+   \__  00  00  07  40  00  03  14  ff  00 
+   Queued everything
+   Queued 1/1
+<< 94.781s PTReadMsgs(76, 05EBD3B8, 1, 1000)
+   Msg[0] 1199.571327s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  00  03  54  ff  00 
+<< 94.812s PTReadMsgs() complete (channel 76)
+<< 94.812s PTReadMsgs(76, 05EBD3B8, 1, 300)   95.125s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 95.125s PTGetLastError(0613E4D8)
+   Error String: Zero messages received
+>> 95.125s PTWriteMsgs(76, 05EBD3B8, 09CDE644, 0)
+   Transaction 0011 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  40  00  04  18  00  ff  00 
+   Queued everything
+   Queued 1/1
+<< 95.125s PTReadMsgs(76, 05EBD3B8, 1, 1000)
+   Msg[0] 1199.911346s. 32782:TP2_0_PS. Actual data 8 of 8 bytes. RxS=00000000
+   \__  00  00  03  00  00  02  58  00 
+<< 95.156s PTReadMsgs() complete (channel 76)
+<< 95.156s PTReadMsgs(76, 05EBD3B8, 1, 300)   95.453s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 95.453s PTGetLastError(09CDE4D8)
+   Error String: Zero messages received
+** 95.500s PTIoctl(76, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 95.500s PTIoctl(76, 32779:TEARDOWN_CONNECTION, 05EA6220, 00000000)
+   Teardown Connection: 4 bytes at 05EC35D8
+   \__  00  00  03  00 
+<< 95.500s PTReadMsgs(!! TP Conn Address 0x76300,  Lost, could not find in table
+05EBD3B8, 1, 3000)
+   Msg[0] 1200.261818s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 95.500s PTReadMsgs() complete (channel 76)
+<< 95.500s PTReadMsgs(76, 05EBD3B8, 1, 1000)   96.500s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 96.500s PTGetLastError(09CDE508)
+   Error String: Zero messages received
+-- 96.750s PTClose(75)
+++ 97.000s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 97.000s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 97.000s PTGetNextCarDAQ(0613E3DC, 0613E404, 0613E3D4)
+++ 97.000s PTOpen(03E71308, 06554228)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 81
+++ 97.016s PTConnect(81, 32782:TP2_0_PS, 0, 500000, 0613E4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 82
+** 97.016s PTIoctl(82, 2:SET_CONFIG, 03E6B330, 00000000)
+   1 parameter(s) at 00BCDC98:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 97.016s PTIoctl(82, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 97.016s PTIoctl(82, 32778:REQUEST_CONNECTION, 03E6B330, 00000000)
+   Request Connection: 11 bytes at 03E711E8
+   \__  00  00  02  00  14  c0  00  10  00  03  01 
+<< 97.016s PTReadMsgs(82, 05F6BFE0, 1, 3000)   TP Conn Address TX 0x781, RX 0x300 established
+
+   Msg[0] 1201.789028s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][81]
+<< 97.031s PTReadMsgs() complete (channel 82)
+>> 97.141s PTWriteMsgs(82, 05EBD3B8, 0613E414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  81  00  02  1a  9b 
+!! ERROR UNHANDLED FRAME: respFifo unexpected type of cIndication
+   source:  b=01:board-1 r=$11
+   dest:    b=00:board-PC r=$00
+   command: a:cIndication
+   maj_tID: $000c
+   min_tID: $0001
+   retval:  123:iMsgConnEstablished
+   \__  00  00  01  11  0a  00  0c  00  01  00  00  00  23  01  00  00 
+        64  d8  a1  47  00  03  00  00  81  07  00  00  0f  8a  4a  9b 
+   Queued everything
+   Queued 1/1
+<< 97.141s PTReadMsgs(82, 05EBD3B8, 1, 1000)
+   Msg[0] 1202.219097s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  36  39  32  30  39  37 
+        34  41  20  20  b1  32  31  36  00  00  00  00  80  00  00  06 
+        da  96  49  4d  4d  4f  20  20  20  20  20  20  20  20  20  20 
+        20  20  56  44  44  20 
+<< 97.469s PTReadMsgs() complete (channel 82)
+<< 97.469s PTReadMsgs(82, 05EBD3B8, 1, 300)   97.766s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 97.766s PTGetLastError(0613E2A8)
+   Error String: Zero messages received
+>> 97.766s PTWriteMsgs(82, 05EBD3B8, 0613E294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  81  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 97.766s PTReadMsgs(82, 05EBD3B8, 1, 1000)
+   Msg[0] 1202.54871s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  00  03  7f  1a  12 
+<< 97.797s PTReadMsgs() complete (channel 82)
+<< 97.797s PTReadMsgs(82, 05EBD3B8, 1, 300)   98.094s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 98.094s PTGetLastError(0613E128)
+   Error String: Zero messages received
+>> 98.094s PTWriteMsgs(82, 05EBD3B8, 0613E424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  81  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 98.094s PTReadMsgs(82, 05EBD3B8, 1, 1000)
+   Msg[0] 1202.878607s. 32782:TP2_0_PS. Actual data 14 of 14 bytes. RxS=00000000
+   \__  00  00  03  00  00  08  71  b8  01  03  01  06  01  08 
+<< 98.125s PTReadMsgs() complete (channel 82)
+<< 98.125s PTReadMsgs(82, 05EBD3B8, 1, 300)   98.422s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 98.422s PTGetLastError(0613E2B8)
+   Error String: Zero messages received
+>> 98.422s PTWriteMsgs(82, 05EBD3B8, 0613E414, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  81  00  02  1a  90 
+   Queued everything
+   Queued 1/1
+<< 98.422s PTReadMsgs(82, 05EBD3B8, 1, 1000)
+   Msg[0] 1203.219216s. 32782:TP2_0_PS. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  03  00  00  13  5a  90  57  56  57  48  44  37  31  4b 
+        32  38  57  33  30  39  37  31  39 
+<< 98.469s PTReadMsgs() complete (channel 82)
+<< 98.469s PTReadMsgs(82, 05EBD3B8, 1, 300)   98.766s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 98.766s PTGetLastError(0613E2A8)
+   Error String: Zero messages received
+>> 98.812s PTWriteMsgs(82, 05EBD3B8, 09CDE644, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 9 bytes. TxF=00000000
+   \__  00  00  07  81  00  03  14  ff  00 
+   Queued everything
+   Queued 1/1
+<< 98.812s PTReadMsgs(82, 05EBD3B8, 1, 1000)
+   Msg[0] 1203.598708s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  00  03  54  ff  00 
+<< 98.844s PTReadMsgs() complete (channel 82)
+<< 98.844s PTReadMsgs(82, 05EBD3B8, 1, 300)   99.141s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 99.141s PTGetLastError(09CDE4D8)
+   Error String: Zero messages received
+>> 99.156s PTWriteMsgs(82, 05EBD3B8, 09CDE644, 0)
+   Transaction 0011 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  81  00  04  18  02  ff  00 
+   Queued everything
+   Queued 1/1
+<< 99.156s PTReadMsgs(82, 05EBD3B8, 1, 1000)
+   Msg[0] 1203.919329s. 32782:TP2_0_PS. Actual data 11 of 11 bytes. RxS=00000000
+   \__  00  00  03  00  00  05  58  01  00  03  6e 
+<< 99.172s PTReadMsgs() complete (channel 82)
+<< 99.172s PTReadMsgs(82, 05EBD3B8, 1, 300)   99.469s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 99.469s PTGetLastError(09CDE4D8)
+   Error String: Zero messages received
+>> 99.531s PTWriteMsgs(82, 05EBD3B8, 0613E624, 0)
+   Transaction 0012 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 11 bytes. TxF=00000000
+   \__  00  00  07  81  00  05  12  00  04  00  03 
+   Queued everything
+   Queued 1/1
+<< 99.531s PTReadMsgs(82, 05EBD3B8, 1, 1000)
+   Msg[0] 1204.328571s. 32782:TP2_0_PS. Actual data 26 of 26 bytes. RxS=00000000
+   \__  00  00  03  00  00  14  52  00  6c  01  6e  02  01  ff  01  4e 
+        71  00  00  00  01  16  2e  04  00  03 
+<< 99.578s PTReadMsgs() complete (channel 82)
+<< 99.578s PTReadMsgs(82, 05EBD3B8, 1, 300)   99.875s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 99.875s PTGetLastError(0613E4B8)
+   Error String: Zero messages received
+** 99.891s PTIoctl(82, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 99.891s PTIoctl(82, 32779:TEARDOWN_CONNECTION, 03EAB3E8, 00000000)
+   Teardown Connection: 4 bytes at 03EAB2E8
+   \__  00  00  03  00 
+!! TP Conn Address 0x300 Lost, could not find in table
+<< 99.891s PTReadMsgs(82, 05EBD3B8, 1, 3000)
+   Msg[0] 1204.641751s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 99.891s PTReadMsgs() complete (channel 82)
+<< 99.891s PTReadMsgs(82, 05EBD3B8, 1, 1000)   100.891s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 100.891s PTGetLastError(09CDE508)
+   Error String: Zero messages received
+-- 101.125s PTClose(81)
+++ 101.437s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 101.437s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 101.437s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+++ 101.437s PTOpen(03EA5888, 0658199C)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 87
+++ 101.437s PTConnect(87, 32782:TP2_0_PS, 0, 500000, 09CDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 88
+** 101.437s PTIoctl(88, 2:SET_CONFIG, 03EAB388, 00000000)
+   1 parameter(s) at 03EAB3F8:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 101.437s PTIoctl(88, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 101.437s PTIoctl(88, 32778:REQUEST_CONNECTION, 03EAB298, 00000000)
+   Request Connection: 11 bytes at 03EA59A8
+   \__  00  00  02  00  4f  c0  00  10  00  03  01 
+<< 101.437s PTReadMsgs(88, 06038EC0, 1, 3000)   TP Conn Address TX 0x4dc, RX 0x300 established
+
+   Msg[0] 1206.22047s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][04][dc]
+<< 101.469s PTReadMsgs() complete (channel 88)
+>> 101.562s PTWriteMsgs(88, 05F6A058, 09CDE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  04  dc  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 101.562s PTReadMsgs(88, 05F6A058, 1, 1000)
+   Msg[0] 1206.414527s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  38  45  30  30  33  35  35  39 
+        33  4d  20  20  30  31  35  30  03  00  00  00  00  00  00  00 
+        00  00  53  44  41  52  20  53  49  52  49  55  53  20  20  20 
+        20  20  48  30  37  20 
+<< 101.656s PTReadMsgs() complete (channel 88)
+<< 101.656s PTReadMsgs(88, 05F6A058, 1, 300)   101.953s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 101.953s PTGetLastError(09CDE2A8)
+   Error String: Zero messages received
+>> 101.969s PTWriteMsgs(88, 09D5C728, 09CDE424, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  04  dc  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 101.969s PTReadMsgs(88, 09D5C728, 1, 1000)
+   Msg[0] 1206.743788s. 32782:TP2_0_PS. Actual data 18 of 18 bytes. RxS=00000000
+   \__  00  00  03  00  00  0c  71  b8  01  02  01  04  01  06  01  07 
+        01  08 
+<< 101.984s PTReadMsgs() complete (channel 88)
+<< 101.984s PTReadMsgs(88, 09D5C728, 1, 300)   102.297s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 102.297s PTGetLastError(09CDE2B8)
+   Error String: Zero messages received
+>> 102.344s PTWriteMsgs(88, 05F68320, 0A1DE644, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 9 bytes. TxF=00000000
+   \__  00  00  04  dc  00  03  14  ff  00 
+   Queued everything
+   Queued 1/1
+<< 102.344s PTReadMsgs(88, 05F68320, 1, 1000)
+   Msg[0] 1207.111522s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  00  03  54  ff  00 
+<< 102.359s PTReadMsgs() complete (channel 88)
+<< 102.359s PTReadMsgs(88, 05F68320, 1, 300)   102.656s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 102.656s PTGetLastError(0A1DE4D8)
+   Error String: Zero messages received
+>> 102.656s PTWriteMsgs(88, 05F6A288, 0A1DE644, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  04  dc  00  04  18  02  ff  00 
+   Queued everything
+   Queued 1/1
+<< 102.672s PTReadMsgs(88, 05F6A288, 1, 1000)
+   Msg[0] 1207.438902s. 32782:TP2_0_PS. Actual data 8 of 8 bytes. RxS=00000000
+   \__  00  00  03  00  00  02  58  00 
+<< 102.687s PTReadMsgs() complete (channel 88)
+<< 102.687s PTReadMsgs(88, 05F6A288, 1, 300)   102.984s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 102.984s PTGetLastError(0A1DE4D8)
+   Error String: Zero messages received
+** 103.031s PTIoctl(88, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 103.031s PTIoctl(88, 32779:TEARDOWN_CONNECTION, 03EAB398, 00000000)
+   Teardown Connection: 4 bytes at 03EAB348
+   \__  00  00  03  00 
+!! TP Conn Address 0x300 Lost, could not find in table
+<< 103.031s PTReadMsgs(88, 05F29C60, 1, 3000)
+   Msg[0] 1207.792122s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 103.031s PTReadMsgs() complete (channel 88)
+<< 103.031s PTReadMsgs(88, 05F29C60, 1, 1000)   104.031s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 104.031s PTGetLastError(0A1DE508)
+   Error String: Zero messages received
+-- 104.281s PTClose(87)
+++ 104.547s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 104.547s PTGetNextCarDAQ(0A1DE3DC, 0A1DE404, 0A1DE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 104.547s PTGetNextCarDAQ(0A1DE3DC, 0A1DE404, 0A1DE3D4)
+++ 104.547s PTOpen(03EA5A50, 065AE01C)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 91
+++ 104.547s PTConnect(91, 32782:TP2_0_PS, 0, 500000, 0A1DE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 92
+** 104.562s PTIoctl(92, 2:SET_CONFIG, 03EAB2F8, 00000000)
+   1 parameter(s) at 03EAB3B8:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 104.562s PTIoctl(92, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 104.562s PTIoctl(92, 32778:REQUEST_CONNECTION, 03EAB2F8, 00000000)
+   Request Connection: 11 bytes at 03EA57B0
+   \__  00  00  02  00  1f  c0  00  10  00  03  01 
+<< 104.562s PTReadMsgs(92, 00BD6C18, 1, 3000)   TP Conn Address TX 0x32e, RX 0x300 established
+
+   Msg[0] 1209.324745s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][03][2e]
+<< 104.562s PTReadMsgs() complete (channel 92)
+>> 104.672s PTWriteMsgs(92, 09DEF8F0, 0A1DE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 104.672s PTReadMsgs(92, 09DEF8F0, 1, 1000)
+   Msg[0] 1209.514817s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  30  39  30  37  35  33 
+        30  4c  20  20  30  30  35  32  10  00  00  00  00  06  46  22 
+        04  ff  4a  35  33  33  20  20  47  61  74  65  77  61  79  20 
+        20  20  48  30  37  20 
+<< 104.766s PTReadMsgs() complete (channel 92)
+<< 104.766s PTReadMsgs(92, 09DEF8F0, 1, 300)   105.062s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 105.062s PTGetLastError(0A1DE2A8)
+   Error String: Zero messages received
+>> 105.062s PTWriteMsgs(92, 06028168, 0A1DE294, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  03  2e  00  02  1a  9a 
+   Queued everything
+   Queued 1/1
+<< 105.062s PTReadMsgs(92, 06028168, 1, 1000)
+   Msg[0] 1209.865294s. 32782:TP2_0_PS. Actual data 30 of 30 bytes. RxS=00000000
+   \__  00  00  03  00  00  18  5a  9a  00  06  46  22  04  ff  30  30 
+        35  32  10  0a  ed  81  7f  07  10  13  02  00  02  ff 
+<< 105.109s PTReadMsgs() complete (channel 92)
+<< 105.109s PTReadMsgs(92, 06028168, 1, 300)   105.406s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 105.406s PTGetLastError(0A1DE128)
+   Error String: Zero messages received
+>> 105.406s PTWriteMsgs(92, 09DEFAE0, 0A1DE424, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  03  2e  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 105.406s PTReadMsgs(92, 09DEFAE0, 1, 1000)
+   Msg[0] 1210.194843s. 32782:TP2_0_PS. Actual data 18 of 18 bytes. RxS=00000000
+   \__  00  00  03  00  00  0c  71  b8  01  04  01  05  01  06  01  07 
+        01  08 
+<< 105.437s PTReadMsgs() complete (channel 92)
+<< 105.437s PTReadMsgs(92, 09DEFAE0, 1, 300)   105.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 105.734s PTGetLastError(0A1DE2B8)
+   Error String: Zero messages received
+>> 105.797s PTWriteMsgs(92, 09CFF398, 0A1DE644, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 9 bytes. TxF=00000000
+   \__  00  00  03  2e  00  03  14  ff  00 
+   Queued everything
+   Queued 1/1
+<< 105.797s PTReadMsgs(92, 09CFF398, 1, 1000)
+   Msg[0] 1210.604894s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  80  03  7f  14  78 
+<< 105.844s PTReadMsgs() complete (channel 92)
+<< 105.844s PTReadMsgs(92, 09CFF398, 1, 300)   106.156s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 106.156s PTGetLastError(0A1DE4D8)
+   Error String: Zero messages received
+>> 106.156s PTWriteMsgs(92, 09CFF398, 0A1DE644, 0)
+   Transaction 0010 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 9 bytes. TxF=00000000
+   \__  00  00  03  2e  00  03  14  ff  00 
+   Queued everything
+   Queued 1/1
+<< 106.156s PTReadMsgs(92, 09CFF398, 1, 1000)
+   Msg[0] 1210.924801s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  00  03  7f  14  10 
+<< 106.172s PTReadMsgs() complete (channel 92)
+<< 106.172s PTReadMsgs(92, 09CFF398, 1, 300)   106.469s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 106.469s PTGetLastError(0A1DE4D8)
+   Error String: Zero messages received
+>> 106.469s PTWriteMsgs(92, 09CFF398, 0A1DE644, 0)
+   Transaction 0011 for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  03  2e  00  04  18  02  ff  00 
+   Queued everything
+   Queued 1/1
+<< 106.484s PTReadMsgs(92, 09CFF398, 1, 1000)
+   Msg[0] 1211.244829s. 32782:TP2_0_PS. Actual data 8 of 8 bytes. RxS=00000000
+   \__  00  00  03  00  00  02  58  00 
+<< 106.484s PTReadMsgs() complete (channel 92)
+<< 106.484s PTReadMsgs(92, 09CFF398, 1, 300)
+   Msg[0] 1211.344876s. 32782:TP2_0_PS. Actual data 9 of 9 bytes. RxS=00000000
+   \__  00  00  03  00  00  03  58  00  ff 
+<< 106.594s PTReadMsgs() complete (channel 92)
+<< 106.594s PTReadMsgs(92, 09CFF398, 1, 300)   106.891s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 106.891s PTGetLastError(0A1DE4D8)
+   Error String: Zero messages received
+** 106.937s PTIoctl(92, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 106.937s PTIoctl(92, 32779:TEARDOWN_CONNECTION, 03EAB298, 00000000)
+   Teardown Connection: 4 bytes at 03EAB248
+   \__  00  00  03  00 
+<< 106.937s PTReadMsgs(92, 05ECCE90, 1, 3000)!! TP Conn Address 0x300 Lost, could not find in table
+
+   Msg[0] 1211.697471s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 106.937s PTReadMsgs() complete (channel 92)
+<< 106.937s PTReadMsgs(92, 05ECCE90, 1, 1000)   107.937s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 107.937s PTGetLastError(0A1DE508)
+   Error String: Zero messages received
+-- 108.812s PTClose(91)
+++ 108.875s PTGetNextCarDAQ(00000000, 00000000, 00000000)
+++ 108.875s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+GDP3 'GDP3 #035964' Address 'USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000'
+++ 108.875s PTGetNextCarDAQ(09CDE3DC, 09CDE404, 09CDE3D4)
+++ 108.875s PTOpen(03EA5600, 06647100)
+   pName: GDP3 #035964
+   Library Version: GDP3 J2534 Library v1.0.30.0
+     GDP3 #035964
+     USB\VID_18E1&PID_1004&MI_00\7&859349F&0&0000
+   returning DeviceID 96
+++ 108.891s PTConnect(96, 32782:TP2_0_PS, 0, 500000, 09CDE4D4)
+   Flags: {no ConnectFlags}
+   returning ChannelID 97
+** 108.891s PTIoctl(97, 2:SET_CONFIG, 03EAB338, 00000000)
+   1 parameter(s) at 03EAB3E8:
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   [1/1] 32769:J1962_PINS = 0000060e 'pin 6 / pin 14'
+   Connecting J1962_PINS 0x60e at 500000
+** 108.891s PTIoctl(97, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 108.891s PTIoctl(97, 32778:REQUEST_CONNECTION, 03EAB338, 00000000)
+   Request Connection: 11 bytes at 05E85AA8
+   \__  00  00  02  00  07  c0  00  10  00  03  01 
+<< 108.891s PTReadMsgs(97, 05EBD3B8, 1, 3000)   TP Conn Address TX 0x751, RX 0x300 established
+
+   Msg[0] 1213.658889s. 32782:TP2_0_PS. Actual data 0 of 8 bytes. RxS=00010000
+   RxStatus: {10:CONNECTION_ESTABLISHED}
+   \__ [00][00][03][00][00][00][07][51]
+<< 108.906s PTReadMsgs() complete (channel 97)
+>> 109.000s PTWriteMsgs(97, 05EBD3B8, 09CDE414, 0)
+   Transaction 000c for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  51  00  02  1a  9b 
+   Queued everything
+   Queued 1/1
+<< 109.000s PTReadMsgs(97, 05EBD3B8, 1, 1000)
+   Msg[0] 1214.069833s. 32782:TP2_0_PS. Actual data 54 of 54 bytes. RxS=00000000
+   \__  00  00  03  00  00  30  5a  9b  31  4b  36  39  32  30  39  37 
+        34  41  20  20  31  32  31  36  03  00  1c  23  fa  9c  60  16 
+        00  00  4b  4f  4d  42  49  49  4e  53  54  52  55  4d  45  4e 
+        54  20  56  44  44  20 
+<< 109.312s PTReadMsgs() complete (channel 97)
+<< 109.312s PTReadMsgs(97, 05EBD3B8, 1, 300)   109.609s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 109.609s PTGetLastError(09CDE2A8)
+   Error String: Zero messages received
+>> 109.625s PTWriteMsgs(97, 05EBD3B8, 09CDE424, 0)
+   Transaction 000d for 1 messages
+   Msg[0] 32782:TP2_0_PS. 10 bytes. TxF=00000000
+   \__  00  00  07  51  00  04  31  b8  00  00 
+   Queued everything
+   Queued 1/1
+<< 109.625s PTReadMsgs(97, 05EBD3B8, 1, 1000)
+   Msg[0] 1214.418998s. 32782:TP2_0_PS. Actual data 20 of 20 bytes. RxS=00000000
+   \__  00  00  03  00  00  0e  71  b8  01  02  01  03  01  04  01  06 
+        01  07  01  08 
+<< 109.656s PTReadMsgs() complete (channel 97)
+<< 109.672s PTReadMsgs(97, 05EBD3B8, 1, 300)   109.969s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 109.969s PTGetLastError(09CDE2B8)
+   Error String: Zero messages received
+>> 109.969s PTWriteMsgs(97, 05EBD3B8, 09CDE414, 0)
+   Transaction 000e for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  51  00  02  1a  90 
+   Queued everything
+   Queued 1/1
+<< 109.969s PTReadMsgs(97, 05EBD3B8, 1, 1000)
+   Msg[0] 1214.769608s. 32782:TP2_0_PS. Actual data 25 of 25 bytes. RxS=00000000
+   \__  00  00  03  00  00  13  5a  90  57  56  57  48  44  37  31  4b 
+        32  38  57  33  30  39  37  31  39 
+<< 110.016s PTReadMsgs() complete (channel 97)
+<< 110.016s PTReadMsgs(97, 05EBD3B8, 1, 300)   110.312s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 110.312s PTGetLastError(09CDE2A8)
+   Error String: Zero messages received
+>> 110.359s PTWriteMsgs(97, 05EBD3B8, 045FE654, 0)
+   Transaction 000f for 1 messages
+   Msg[0] 32782:TP2_0_PS. 8 bytes. TxF=00000000
+   \__  00  00  07  51  00  02  21  02 
+   Queued everything
+   Queued 1/1
+<< 110.375s PTReadMsgs(97, 05EBD3B8, 1, 1000)
+   Msg[0] 1215.169383s. 32782:TP2_0_PS. Actual data 32 of 32 bytes. RxS=00000000
+   \__  00  00  03  00  00  1a  61  02  24  21  aa  13  64  34  40  00 
+        30  05  0a  71  25  00  00  25  00  00  25  00  00  25  03  47 
+<< 110.422s PTReadMsgs() complete (channel 97)
+<< 110.422s PTReadMsgs(97, 05EBD3B8, 1, 300)   110.719s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 110.719s PTGetLastError(045FE4E8)
+   Error String: Zero messages received
+** 110.734s PTIoctl(97, 8:CLEAR_RX_BUFFER, 00000000, 00000000)
+** 110.734s PTIoctl(97, 32779:TEARDOWN_CONNECTION, 03EAB338, 00000000)
+   Teardown Connection: 4 bytes at 03EAB268
+   \__  00  00  03  00 
+!! TP Conn Address 0x300 Lost, could not find in table
+<< 110.734s PTReadMsgs(97, 05F54510, 1, 3000)
+   Msg[0] 1215.489656s. 32782:TP2_0_PS. Actual data 0 of 5 bytes. RxS=00020000
+   RxStatus: {11:CONNECTION_LOST}
+   \__ [00][00][03][00][00]
+<< 110.734s PTReadMsgs() complete (channel 97)
+<< 110.734s PTReadMsgs(97, 05F54510, 1, 1000)   111.734s Returning 16:BUFFER_EMPTY 'Zero messages received'
+** 111.734s PTGetLastError(0613E508)
+   Error String: Zero messages received
+-- 111.750s PTClose(96)
+   Error during close 'No error in PassThruClose()'

@@ -239,6 +239,7 @@ namespace SharpSimulator
                         .Cast<PassThruStartMessageFilterExpression>()
                         .GroupBy(FilterObj => new
                         {
+                            // Only include unique filters here and don't include invalid ones
                             FilterMask = FilterObj.MessageFilterContents[0].Last(),
                             FilterPattern = FilterObj.MessageFilterContents[1].Last(),
                             FilterFlow = FilterObj.MessageFilterContents.Count >= 3 
@@ -382,6 +383,7 @@ namespace SharpSimulator
                 _simulationLogger.WriteLog("CONVERTING TO STRINGS NOW...", LogType.WarnLog);
                 Tuple<uint, PassThruSimulationChannel>[] ChannelsConstructed = this.SimulationChannels
                     .Select(SimChannel => new Tuple<uint, PassThruSimulationChannel>(SimChannel.ChannelId, SimChannel))
+                    .OrderBy(SimChannel => SimChannel.Item1)
                     .ToArray();
 
                 // Log information and write output.

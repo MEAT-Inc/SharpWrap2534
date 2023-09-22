@@ -52,21 +52,31 @@ namespace SharpExpressions.PassThruExpressions
 
             // If we failed to pull our read count just send out ? and ?. If it's a complete read count, then we know we're passed so just do 0/0
             if (!PtReadMsgsResult) this._expressionLogger.WriteLog($"FAILED TO REGEX OPERATE ON ONE OR MORE TYPES FOR EXPRESSION TYPE {this.GetType().Name}!");
-            if (!MessagesReadResult) MessagesReadStrings = CommandInput.Contains("PTReadMsgs() complete") || CommandInput.Contains("Zero messages received")
-                ? new[] { "Read 0/0", "0", "0" }
-                : new[] { "Read ? of ? messages", "?", "?" };
-
+            
             // Find our values to store here and add them to our list of values.
             List<string> StringsToApply = new List<string> { PassThruReadMsgsStrings[0] };
             StringsToApply.AddRange(this.PtReadMessagesRegex.ExpressionValueGroups
                 .Where(NextIndex => NextIndex <= PassThruReadMsgsStrings.Length)
                 .Select(NextIndex => PassThruReadMsgsStrings[NextIndex]));
+            
+            // Find the properties of our message objects here
+            this.FindMessageContents(out this.MessageProperties);
+            if (!MessagesReadResult) MessagesReadStrings = CommandInput.Contains("PTReadMsgs() complete") || CommandInput.Contains("Zero messages received")
+                ? new[] { "Read 0/0", "0", "0" }
+                : new[]
+                {
+                    // Build a new read count status string based on the requested message count and property list
+                    $"Read {this.MessageProperties.Count} of {PassThruReadMsgsStrings[4]} messages",
+                    $"{this.MessageProperties.Count}",
+                    $"{PassThruReadMsgsStrings[4]}"
+                };
+
+            // Store our message read contents here after manual assignment for failed regex routines
             StringsToApply.AddRange(this.MessagesReadRegex.ExpressionValueGroups
                 .Where(NextIndex => NextIndex <= MessagesReadStrings.Length)
                 .Select(NextIndex => MessagesReadStrings[NextIndex]));
 
             // Now apply values using base method and exit out of this routine
-            this.FindMessageContents(out this.MessageProperties);
             if (!this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray()))
                 throw new InvalidOperationException($"FAILED TO SET CLASS VALUES FOR EXPRESSION OBJECT OF TYPE {this.GetType().Name}!");
         }

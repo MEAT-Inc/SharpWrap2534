@@ -56,7 +56,12 @@
       ],
       "ReaderConfigs": {
         "NumberOfParams": 0,
-        "ConfigList": []
+        "ConfigList": [
+          {
+            "SConfigValue": 1,
+            "SConfigParamId": 32768
+          }
+        ]
       }
     },
     {

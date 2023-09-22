@@ -386,6 +386,28 @@ namespace SharpSimulator
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        /// Applies an entire simulation configuration onto the simulation player 
+        /// </summary>
+        /// <param name="SimConfiguration">The configuration we're looking to set on the playback helper</param>
+        public void SetPlaybackConfiguration(PassThruSimulationConfiguration SimConfiguration)
+        {
+            // Log out the configuration we're setting and apply the values 
+            this._simPlayingLogger. WriteLog($"APPLYING CONFIGURATION {SimConfiguration.ConfigurationName} TO SIMULATION PLAYER NOW...");
+            this.SetDefaultConfigurations(SimConfiguration.ReaderConfigs);
+            this.SetDefaultMessageFilters(SimConfiguration.ReaderFilters);
+            this.SetDefaultConnectionType(
+                SimConfiguration.ReaderProtocol,
+                SimConfiguration.ReaderChannelFlags,
+                SimConfiguration.ReaderBaudRate);
+            this.SetDefaultMessageValues(
+                SimConfiguration.ReaderTimeout,
+                SimConfiguration.ReaderMsgCount,
+                SimConfiguration.ResponseTimeout);
+
+            // Log out that our configuration has been set and exit out 
+            this._simPlayingLogger.WriteLog($"APPLIED ALL CONFIGURATION VALUES FOR CONFIGURATION {SimConfiguration.ConfigurationName} CORRECTLY!", LogType.InfoLog);
+        }
+        /// <summary>
         /// Toggles if we allow responses to our messages or not.
         /// </summary>
         /// <param name="ResponsesEnabled">Value to set for responses being on or off</param>

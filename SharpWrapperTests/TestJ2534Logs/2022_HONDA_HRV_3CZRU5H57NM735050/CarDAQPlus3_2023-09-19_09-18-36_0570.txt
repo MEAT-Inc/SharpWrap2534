@@ -1,0 +1,19 @@
+   Failed to load Toshiba DLL, using Windows Bluetooth API
+++ 0.000s PTOpen(00F29F38, 0113C758)
+   pName: J2534-2:
+   Library Version: CarDAQ-Plus 3 J2534 Library v1.2.21.0
+   Calling app: C:\i-HDS\D-PDU_API\ppl_j2534.exe, thread ID: 11252
+
+   Exactly one PassThruDevice, picking it automatically
+     CarDAQ-Plus 3 #015220
+     USB\VID_18E1&PID_1102&MI_02\6&1106DBF9&0&0002
+   returning DeviceID 1
+** 0.406s PTReadVersion(1, 01AFF5D4, 01AFF57C, 01AFF524)
+   DLL: CarDAQ-Plus 3 J2534 Library v1.2.21.0
+   API: 04.04
+   FW:  CarDAQ-Plus 3 FW:0.2.0.9 BL:0.2.0.6 SN: CMVIP0000015220F
+** 0.406s PTIoctl(1, 1048576:?vendor?, 01AFF340, 00000000)
+   Returning 15:ERR_INVALID_IOCTL_ID 'IoctlID 1048576:?vendor? unrecognized'
+** 0.406s PTGetLastError(01AFF164)
+   Error String: IoctlID 1048576:?vendor? unrecognized
+-- 1.031s PTClose(1)

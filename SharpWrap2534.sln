@@ -26,9 +26,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSimulator", "SharpSimu
 		{E4508BD6-9045-4840-A659-BE40CC205C78} = {E4508BD6-9045-4840-A659-BE40CC205C78}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrapperTests", "SharpWrapperTests\SharpWrapperTests.csproj", "{6C6826BC-B0C5-4523-8E8A-377C65C738FC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharpWrap2534", "SharpWrap2534", "{A437553C-52A5-4C96-A175-12B057422477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpWrapperTests", "SharpWrapperTests\SharpWrapperTests.csproj", "{BDAE42E8-60EA-4ADA-92FA-E261AB458EE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,10 +56,10 @@ Global
 		{0A39E208-7927-41BC-A509-39E60B287969}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A39E208-7927-41BC-A509-39E60B287969}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A39E208-7927-41BC-A509-39E60B287969}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6C6826BC-B0C5-4523-8E8A-377C65C738FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C6826BC-B0C5-4523-8E8A-377C65C738FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C6826BC-B0C5-4523-8E8A-377C65C738FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C6826BC-B0C5-4523-8E8A-377C65C738FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDAE42E8-60EA-4ADA-92FA-E261AB458EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDAE42E8-60EA-4ADA-92FA-E261AB458EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDAE42E8-60EA-4ADA-92FA-E261AB458EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDAE42E8-60EA-4ADA-92FA-E261AB458EE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

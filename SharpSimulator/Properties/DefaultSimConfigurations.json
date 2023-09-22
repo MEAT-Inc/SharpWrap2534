@@ -1,10 +1,11 @@
 {
   "SupportedProtocols": [
+    "CAN",
     "ISO15765"
   ],
   "SimulationConfigurations": [
     {
-      "ConfigurationName": "ISO15765 - 11 Bit (Pass All)",
+      "ConfigurationName": "ISO15765 - 11 Bit",
       "ReaderTimeout": 100,
       "ReaderMsgCount": 10,
       "ResponseTimeout": 1000,
@@ -15,10 +16,70 @@
         {
           "FilterId": 0,
           "FilterFlags": "NO_TX_FLAGS",
-          "FilterMask": "00 00 07 00",
-          "FilterPattern": "00 00 07 00",
+          "FilterMask": "00 00 00 00",
+          "FilterPattern": "00 00 00 00",
+          "FilterFlowCtl": "No Flow Control",
+          "FilterProtocol": "ISO15765",
+          "FilterType": "PASS_FILTER",
+          "FilterStatus": "INITIALIZED"
+        }
+      ],
+      "ReaderConfigs": {
+        "NumberOfParams": 0,
+        "ConfigList": [
+          {
+            "SConfigValue": 1,
+            "SConfigParamId": 32768
+          }
+        ]
+      }
+    },
+    {
+      "ConfigurationName": "CAN - 29 Bit",
+      "ReaderTimeout": 100,
+      "ReaderMsgCount": 10,
+      "ResponseTimeout": 1000,
+      "ReaderBaudRate": 500000,
+      "ReaderChannelFlags": "CAN_29BIT_ID",
+      "ReaderProtocol": "CAN",
+      "ReaderFilters": [
+        {
+          "FilterId": 0,
+          "FilterFlags": "CAN_29BIT_ID",
+          "FilterMask": "FF FF 00 00",
+          "FilterPattern": "18 DA 00 00",
           "FilterFlowCtl": "No Flow Control",
           "FilterProtocol": "CAN",
+          "FilterType": "PASS_FILTER",
+          "FilterStatus": "INITIALIZED"
+        }
+      ],
+      "ReaderConfigs": {
+        "NumberOfParams": 0,
+        "ConfigList": [
+          {
+            "SConfigValue": 1,
+            "SConfigParamId": 32768
+          }
+        ]
+      }
+    },
+    {
+      "ConfigurationName": "ISO15765 - Mixed Mode",
+      "ReaderTimeout": 100,
+      "ReaderMsgCount": 10,
+      "ResponseTimeout": 1000,
+      "ReaderBaudRate": 500000,
+      "ReaderChannelFlags": "CAN_ID_BOTH",
+      "ReaderProtocol": "ISO15765",
+      "ReaderFilters": [
+        {
+          "FilterId": 0,
+          "FilterFlags": "NO_TX_FLAGS",
+          "FilterMask": "00 00 00 00",
+          "FilterPattern": "00 00 00 00",
+          "FilterFlowCtl": "No Flow Control",
+          "FilterProtocol": "ISO15765",
           "FilterType": "PASS_FILTER",
           "FilterStatus": "INITIALIZED"
         }
@@ -27,108 +88,8 @@
         "NumberOfParams": 1,
         "ConfigList": [
           {
-            "SConfigParamId": 32768,
-            "SConfigValue": 1
-          }
-        ]
-      }
-    },
-    {
-      "ConfigurationName": "ISO15765 - 11 Bit (Flow Control)",
-      "ReaderTimeout": 100,
-      "ReaderMsgCount": 10,
-      "ResponseTimeout": 1000,
-      "ReaderBaudRate": 500000,
-      "ReaderChannelFlags": "NO_CONNECT_FLAGS",
-      "ReaderProtocol": "ISO15765",
-      "ReaderFilters": [
-        {
-          "FilterId": 0,
-          "FilterFlags": "ISO15765_FRAME_PAD",
-          "FilterMask": "FF FF FF FF",
-          "FilterPattern": "00 00 07 E0",
-          "FilterFlowCtl": "00 00 07 E8",
-          "FilterProtocol": "CAN",
-          "FilterType": "FLOW_CONTROL_FILTER",
-          "FilterStatus": "INITIALIZED"
-        },
-        {
-          "FilterId": 0,
-          "FilterFlags": "ISO15765_FRAME_PAD",
-          "FilterMask": "FF FF FF FF",
-          "FilterPattern": "00 00 07 E1",
-          "FilterFlowCtl": "00 00 07 E9",
-          "FilterProtocol": "CAN",
-          "FilterType": "FLOW_CONTROL_FILTER",
-          "FilterStatus": "INITIALIZED"
-        },
-        {
-          "FilterId": 0,
-          "FilterFlags": "ISO15765_FRAME_PAD",
-          "FilterMask": "FF FF FF FF",
-          "FilterPattern": "00 00 07 E2",
-          "FilterFlowCtl": "00 00 07 EA",
-          "FilterProtocol": "CAN",
-          "FilterType": "FLOW_CONTROL_FILTER",
-          "FilterStatus": "INITIALIZED"
-        },
-        {
-          "FilterId": 0,
-          "FilterFlags": "ISO15765_FRAME_PAD",
-          "FilterMask": "FF FF FF FF",
-          "FilterPattern": "00 00 07 E3",
-          "FilterFlowCtl": "00 00 07 EB",
-          "FilterProtocol": "CAN",
-          "FilterType": "FLOW_CONTROL_FILTER",
-          "FilterStatus": "INITIALIZED"
-        },
-        {
-          "FilterId": 0,
-          "FilterFlags": "ISO15765_FRAME_PAD",
-          "FilterMask": "FF FF FF FF",
-          "FilterPattern": "00 00 07 E4",
-          "FilterFlowCtl": "00 00 07 EC",
-          "FilterProtocol": "CAN",
-          "FilterType": "FLOW_CONTROL_FILTER",
-          "FilterStatus": "INITIALIZED"
-        },
-        {
-          "FilterId": 0,
-          "FilterFlags": "ISO15765_FRAME_PAD",
-          "FilterMask": "FF FF FF FF",
-          "FilterPattern": "00 00 07 E5",
-          "FilterFlowCtl": "00 00 07 ED",
-          "FilterProtocol": "CAN",
-          "FilterType": "FLOW_CONTROL_FILTER",
-          "FilterStatus": "INITIALIZED"
-        },
-        {
-          "FilterId": 0,
-          "FilterFlags": "ISO15765_FRAME_PAD",
-          "FilterMask": "FF FF FF FF",
-          "FilterPattern": "00 00 07 E6",
-          "FilterFlowCtl": "00 00 07 EE",
-          "FilterProtocol": "CAN",
-          "FilterType": "FLOW_CONTROL_FILTER",
-          "FilterStatus": "INITIALIZED"
-        },
-        {
-          "FilterId": 0,
-          "FilterFlags": "ISO15765_FRAME_PAD",
-          "FilterMask": "FF FF FF FF",
-          "FilterPattern": "00 00 07 E7",
-          "FilterFlowCtl": "00 00 07 EF",
-          "FilterProtocol": "CAN",
-          "FilterType": "FLOW_CONTROL_FILTER",
-          "FilterStatus": "INITIALIZED"
-        }
-      ],
-      "ReaderConfigs": {
-        "NumberOfParams": 1,
-        "ConfigList": [
-          {
-            "SConfigParamId": 32768,
-            "SConfigValue": 1
+            "SConfigValue": 1,
+            "SConfigParamId": 32768
           }
         ]
       }

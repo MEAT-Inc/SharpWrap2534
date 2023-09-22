@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SharpLogging;
 using SharpWrapper;
 using SharpWrapper.J2534Objects;
@@ -287,11 +290,54 @@ namespace SharpSimulator
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        /// Loads a simulation file into the playback helper by parsing the JSON contents of the provided file
+        /// </summary>
+        /// <param name="SimulationFile">Full path to the simulation file we're looking to play back</param>
+        /// <returns>True if the simulation is loaded. False if it is not</returns>
+        public bool LoadSimulationFile(string SimulationFile)
+        {
+            // Load the file and parse all the JSON contents from it to build our channels
+            int FailedCounter = 0;
+            var PulledChannels = JArray.Parse(File.ReadAllText(SimulationFile));
+            this._simPlayingLogger.WriteLog($"LOADING AND PARSING SIMULATION FILE {SimulationFile} NOW...", LogType.WarnLog);
+
+            // Iterate all the channels loaded in the JSON file and parse them
+            foreach (var ChannelInstance in PulledChannels.Children())
+            {
+                try
+                {
+                    // Try and build our channel here
+                    JToken ChannelToken = ChannelInstance.Last;
+                    if (ChannelToken == null)
+                        throw new InvalidDataException("Error! Input channel was seen to be an invalid layout!");
+
+                    // Now using the JSON Converter, unwrap the channel into a simulation object and store it on our player
+                    PassThruSimulationChannel BuiltChannel = ChannelToken.First.ToObject<PassThruSimulationChannel>();
+                    this._simulationChannels.Add(BuiltChannel);
+                }
+                catch (Exception ConvertEx)
+                {
+                    // Log failures out here
+                    FailedCounter++;
+                    this._simPlayingLogger.WriteLog("FAILED TO CONVERT SIMULATION CHANNEL FROM JSON TO OBJECT!", LogType.ErrorLog);
+                    this._simPlayingLogger.WriteLog("EXCEPTION AND CHANNEL OBJECT ARE BEING LOGGED BELOW...", LogType.WarnLog);
+                    this._simPlayingLogger.WriteLog($"SIM CHANNEL JSON:\n{ChannelInstance.ToString(Formatting.Indented)}", LogType.TraceLog);
+                    this._simPlayingLogger.WriteException("EXCEPTION THROWN:", ConvertEx);
+                }
+            }
+
+            // Log out that we're loaded up and return out true once done
+            this._simPlayingLogger.WriteLog($"IMPORTED SIMULATION FILE {SimulationFile} CORRECTLY!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog($"PULLED IN A TOTAL OF {this._simulationChannels.Count} INPUT SIMULATION CHANNELS INTO OUR LOADER WITHOUT FAILURE!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog($"ENCOUNTERED A TOTAL OF {FailedCounter} FAILURES WHILE LOADING CHANNELS!", LogType.InfoLog);
+            return true;
+        }
+        /// <summary>
         /// Appends a new simulation channel into our loader using an input channel object
         /// </summary>
         /// <param name="ChannelToAdd">Channel to store on our loader</param>
         /// <returns>The index of the channel added</returns>
-        public int AddSimulationChannel(PassThruSimulationChannel ChannelToAdd)
+        public bool AddSimulationChannel(PassThruSimulationChannel ChannelToAdd)
         {
             // Store all values of our channel here
             this._simulationChannels = this.SimulationChannels
@@ -300,7 +346,7 @@ namespace SharpSimulator
 
             // Find new index and return it. Check the min index of the filters and the channels then the messages.
             this._simPlayingLogger.WriteLog($"ADDED NEW VALUES FOR A SIMULATION CHANNEL {ChannelToAdd.ChannelId} WITHOUT ISSUES!", LogType.InfoLog);
-            return PairedSimulationMessages.Length - 1;
+            return this._simulationChannels.Contains(ChannelToAdd);
         }
         /// <summary>
         /// Removes a channel by the ID value passed in
@@ -339,6 +385,28 @@ namespace SharpSimulator
 
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
+        /// <summary>
+        /// Applies an entire simulation configuration onto the simulation player 
+        /// </summary>
+        /// <param name="SimConfiguration">The configuration we're looking to set on the playback helper</param>
+        public void SetPlaybackConfiguration(PassThruSimulationConfiguration SimConfiguration)
+        {
+            // Log out the configuration we're setting and apply the values 
+            this._simPlayingLogger. WriteLog($"APPLYING CONFIGURATION {SimConfiguration.ConfigurationName} TO SIMULATION PLAYER NOW...");
+            this.SetDefaultConfigurations(SimConfiguration.ReaderConfigs);
+            this.SetDefaultMessageFilters(SimConfiguration.ReaderFilters);
+            this.SetDefaultConnectionType(
+                SimConfiguration.ReaderProtocol,
+                SimConfiguration.ReaderChannelFlags,
+                SimConfiguration.ReaderBaudRate);
+            this.SetDefaultMessageValues(
+                SimConfiguration.ReaderTimeout,
+                SimConfiguration.ReaderMsgCount,
+                SimConfiguration.ResponseTimeout);
+
+            // Log out that our configuration has been set and exit out 
+            this._simPlayingLogger.WriteLog($"APPLIED ALL CONFIGURATION VALUES FOR CONFIGURATION {SimConfiguration.ConfigurationName} CORRECTLY!", LogType.InfoLog);
+        }
         /// <summary>
         /// Toggles if we allow responses to our messages or not.
         /// </summary>

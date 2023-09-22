@@ -4,8 +4,10 @@ using SharpExpressions;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Win32;
 using SharpSimulator;
 using SharpLogging;
+using SharpWrapper.PassThruTypes;
 
 namespace SharpWrapperTests.SharpSimulator
 {
@@ -237,6 +239,42 @@ namespace SharpWrapperTests.SharpSimulator
 
             // Log our test method is complete here
             TestInitializers.LogTestMethodCompleted();
+        }
+
+        /// <summary>
+        /// Test method used to run the simulation playback helper for a given simulation file
+        /// </summary>
+        [TestMethod("Run Generated Simulation")]
+        public void ExecuteGeneratedSimulation()
+        {
+            // Configure our logging instance and start the test
+            TestInitializers.InitializeTestLogging(out this._simTestLogger);
+            this._simTestLogger.WriteLog("Starting tests to play a generated simulation from user picked file now...");
+
+            // Request the user provide a simulation for the test and attempt to load it
+            string RequestedSimFile = TestInitializers.RequestTestLog();
+            if (!RequestedSimFile.EndsWith(".ptSim")) throw new InvalidOperationException("Error! Must provide .ptSim files for this test!");
+
+            // Build a playback helper and let it allocate a new PassThru device, then load our simulation file
+            PassThruSimulationPlayer SimulationPlayer = new PassThruSimulationPlayer(JVersion.V0404, "CarDAQ-Plus 3");
+            Assert.IsTrue(SimulationPlayer.SimulationSession != null, "Error! SharpSession was not built for simulation helper!");
+            this._simTestLogger.WriteLog($"Built SharpSession for playback correctly! Session details are being shown below.");
+            this._simTestLogger.WriteLog(SimulationPlayer.SimulationSession.ToDetailedString());
+
+            // Load the simulation file into our playback helper and configure the playback setup routines
+            Assert.IsTrue(SimulationPlayer.LoadSimulationFile(RequestedSimFile), "Error! Failed to load simulation file into a playback helper!");
+            PassThruSimulationConfiguration MixedModeConfiguration = PassThruSimulationConfiguration.LoadSimulationConfig("ISO15765 - Mixed Mode");
+            Assert.IsTrue(MixedModeConfiguration != null, "Error! Failed to find mixed mode configuration for playback!");
+
+            // Apply the configuration values to our playback helper here
+            SimulationPlayer.SetResponsesEnabled(true);
+            SimulationPlayer.SetPlaybackConfiguration(MixedModeConfiguration);
+            this._simTestLogger.WriteLog("Configured simulation playback helper without issues! Simulation is ready to run!");
+
+            // Boot the simulation here if needed
+            this._simTestLogger.WriteLog("Spinning up simulation reader now. At this point, this test has passed");
+            SimulationPlayer.InitializeSimReader();
+            SimulationPlayer.StartSimulationReader();
         }
     }
 }

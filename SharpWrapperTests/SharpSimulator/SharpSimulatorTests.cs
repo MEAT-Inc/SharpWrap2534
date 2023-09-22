@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using SharpSimulator;
 using SharpLogging;
+using SharpWrapper.PassThruTypes;
 
 namespace SharpWrapperTests.SharpSimulator
 {
@@ -237,6 +238,24 @@ namespace SharpWrapperTests.SharpSimulator
 
             // Log our test method is complete here
             TestInitializers.LogTestMethodCompleted();
+        }
+
+        /// <summary>
+        /// Test method used to run the simulation playback helper for a given simulation file
+        /// </summary>
+        [TestMethod("Run Generated Simulation")]
+        public void ExecuteGeneratedSimulation()
+        {
+            // Configure our logging instance and start the test
+            TestInitializers.InitializeTestLogging(out this._simTestLogger);
+            this._simTestLogger.WriteLog("Starting tests to play a generated simulation from user picked file now...");
+
+            // Request the user provide a simulation for the test and attempt to load it
+            string RequestedLogFile = TestInitializers.RequestTestLog();
+            if (!RequestedLogFile.EndsWith(".ptSim")) throw new InvalidOperationException("Error! Must provide .ptSim files for this test!");
+            PassThruSimulationPlayer SimulationPlayer = new PassThruSimulationPlayer(JVersion.V0404, "CarDAQ-Plus 3");
+
+            SimulationPlayer.AddSimulationChannel()
         }
     }
 }

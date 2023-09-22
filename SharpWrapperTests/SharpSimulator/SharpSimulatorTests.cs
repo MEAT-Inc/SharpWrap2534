@@ -56,6 +56,23 @@ namespace SharpWrapperTests.SharpSimulator
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        /// Test method which generates all simulation configurations from the generator configuration
+        /// JSON file
+        /// </summary>
+        [TestMethod("Generate Simulation Configurations")]
+        public void GenerateSimulationConfigurations()
+        {
+            // Configure our logging instance and start the test
+            TestInitializers.InitializeTestLogging(out this._simTestLogger);
+            this._simTestLogger.WriteLog("Starting tests to generate simulation configurations now...");
+
+            // Build all of our simulation configurations here
+            int ConfigurationCount = (int)PassThruSimulationConfiguration.SupportedConfigurations?.Length;
+            Assert.IsTrue(ConfigurationCount != 0, "Error! No simulation configurations were generated!");
+            this._simTestLogger.WriteLog($"Built configurations correctly! Loaded in {ConfigurationCount} configurations for simulations!");
+        }
+
+        /// <summary>
         /// Test method which will pick a log file from the given input and attempt to build expressions from it
         /// </summary>
         [TestMethod("Generate From PassThru File")]

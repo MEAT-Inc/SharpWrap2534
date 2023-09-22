@@ -239,6 +239,7 @@ namespace SharpSimulator
                         .Cast<PassThruStartMessageFilterExpression>()
                         .GroupBy(FilterObj => new
                         {
+                            // Only include unique filters here and don't include invalid ones
                             FilterMask = FilterObj.MessageFilterContents[0].Last(),
                             FilterPattern = FilterObj.MessageFilterContents[1].Last(),
                             FilterFlow = FilterObj.MessageFilterContents.Count >= 3 

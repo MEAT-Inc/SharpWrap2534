@@ -228,8 +228,9 @@ namespace SharpExpressions
         ///     8) Store the built values on this class instance to return out our built expression objects
         ///     9) Log completed building and return the collection of built expressions
         /// </summary>
+        /// <param name="EnableGeneratorLogging">When true, logging for this generator is enabled. Defaults to false</param>
         /// <returns>Returns a set of file objects which contain the PT commands from a file.</returns>
-        public PassThruExpression[] GenerateLogExpressions()
+        public PassThruExpression[] GenerateLogExpressions(bool EnableGeneratorLogging = false)
         {
             // Log building expression log command line sets now
             this._expressionsLogger.WriteLog($"CONVERTING INPUT LOG FILE {this.PassThruLogFile} INTO AN EXPRESSION SET NOW...", LogType.InfoLog);
@@ -290,6 +291,12 @@ namespace SharpExpressions
                         OutputExpressions[MatchIndex] = NextPassThruExpression;
                         OutputFileContent[MatchIndex] = NextPassThruExpression.ToString();
 
+                        // If logging is disabled, fire an event and move onto the next iteration
+                        if (!EnableGeneratorLogging) {
+                            this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted, TimeMatches.Length));
+                            return;
+                        }
+                        
                         // Setup our scope diagnostic properties for the generator logger
                         this._generationLogger.AddScopeProperties(
                             new KeyValuePair<string, object>("expression-method", ExpressionTypes.ToString().ToUpper()),
@@ -319,11 +326,15 @@ namespace SharpExpressions
                 }
                 catch (Exception GenerateExpressionEx)
                 {
-                    // Log out and failures thrown during this operation
-                    this._expressionsLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
-                    this._generationLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
-                    this._expressionsLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, LogType.WarnLog, LogType.TraceLog);
-                    this._generationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, LogType.WarnLog, LogType.TraceLog);
+                    // Check if logging is enabled for this routine 
+                    if (EnableGeneratorLogging)
+                    {
+                        // Log out and failures thrown during this operation
+                        this._expressionsLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
+                        this._generationLogger.WriteLog($"FAILED TO GENERATE AN EXPRESSION FROM INPUT COMMAND {MatchContents} (Index: {MatchIndex})!", LogType.WarnLog);
+                        this._expressionsLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, LogType.WarnLog, LogType.TraceLog);
+                        this._generationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", GenerateExpressionEx, LogType.WarnLog, LogType.TraceLog);
+                    }
 
                     // Update progress values if needed now using the event for the progress checker
                     this.OnGeneratorProgress?.Invoke(this, new ExpressionProgressEventArgs(LoopsCompleted++, TimeMatches.Length));

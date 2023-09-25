@@ -209,8 +209,9 @@ namespace SharpSimulator
         /// Uses the input Expressions objects on this generator and converts them into a collection of simulation objects
         /// These are then written to a file for our simulation output
         /// </summary>
+        /// <param name="EnableGeneratorLogging">When true, logging for this generator is enabled. Defaults to false</param>
         /// <returns>The collection of built simulation channels from our log file</returns>
-        public PassThruSimulationChannel[] GenerateLogSimulation()
+        public PassThruSimulationChannel[] GenerateLogSimulation(bool EnableGeneratorLogging = false)
         {
             // Start by pulling in our grouped simulation channel objects
             var GroupedExpressions = this._generateGroupedIds();
@@ -259,22 +260,31 @@ namespace SharpSimulator
 
                     // Tick the loop counter and setup our channel properties
                     LoopsCompleted++;
-                    this._generationLogger.AddScopeProperties(
-                        new KeyValuePair<string, object>("sim-channel-id", SimChannelId),
-                        new KeyValuePair<string, object>("sim-message-pairs", ChannelExpressions.Length),
-                        new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
-                        new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
+                    if (EnableGeneratorLogging)
+                    {
+                        // Only run this routine if logging is enabled for this generator
+                        this._generationLogger.AddScopeProperties(
+                            new KeyValuePair<string, object>("sim-channel-id", SimChannelId),
+                            new KeyValuePair<string, object>("sim-message-pairs", ChannelExpressions.Length),
+                            new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
+                            new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
+                    }
 
                     // If no commands found, then just move onto the next channel
                     if (PTConnectCommands.Length == 0)
                     {
-                        // Log out our exception and invoke a new progress event with the properties we configured above
-                        this._simulationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
-                        this._generationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
-                        this._simulationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
-                        this._generationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
+                        // Check if logging is enabled for this generator 
+                        if (EnableGeneratorLogging)
+                        {
+                            // Log out our exception and invoke a new progress event with the properties we configured above
+                            this._simulationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
+                            this._generationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
+                            this._simulationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
+                            this._generationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
+                        }
 
                         // Return out to our next loop/channel
+                        this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted, TotalLoops));
                         return;
                     }
 
@@ -290,7 +300,7 @@ namespace SharpSimulator
                         .FirstOrDefault(ProtocolName => ProtocolInUse.ToString().Contains(ProtocolName)) + "_" + ConnectCommand.BaudRate);
 
                     // If no read commands were found or no write commands were found, move onto the next channel instance
-                    if (PTReadCommands.Length == 0 || PTWriteCommands.Length == 0)
+                    if ((PTReadCommands.Length == 0 || PTWriteCommands.Length == 0) && EnableGeneratorLogging)
                     {
                         // Log out our exception and invoke a new progress event with the properties we configured above
                         this._simulationLogger.WriteLog($"FAILED TO GENERATE NEW SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTREAD/PTWRITE COMMANDS WERE FOUND!", LogType.ErrorLog);
@@ -299,6 +309,7 @@ namespace SharpSimulator
                         this._generationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
 
                         // Return out to our next loop/channel
+                        this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted, TotalLoops));
                         return;
                     }
 
@@ -319,15 +330,19 @@ namespace SharpSimulator
                         // Now insert this expression object based on what keys are in the output collection of expressions
                         SimChannelsBuilt.Add(SimChannelId, SimChannelBuilt);
 
-                        // Log information about the built out command objects.
-                        this._generationLogger.WriteLog($"BUILT NEW {SimChannelBuilt.ChannelProtocol} CHANNEL WITH A SPECIFIED BAUD RATE OF {SimChannelBuilt.ChannelBaudRate}");
-                        this._generationLogger.WriteLog(
-                            $"PULLED OUT THE FOLLOWING INFO FROM OUR COMMANDS (CHANNEL ID {SimChannelId}):" +
-                            $" {PTConnectCommands.Length} PT CONNECTS" +
-                            $" | {PTFilterCommands.Length} FILTERS" +
-                            $" | {PTReadCommands.Length} READ COMMANDS" +
-                            $" | {PTWriteCommands.Length} WRITE COMMANDS" +
-                            $" | {SimChannelBuilt.MessagePairs.Length} MESSAGE PAIRS TOTAL");
+                        // Check if logging is enabled for this routine 
+                        if (EnableGeneratorLogging)
+                        {
+                            // Log information about the built out command objects.
+                            this._generationLogger.WriteLog($"BUILT NEW {SimChannelBuilt.ChannelProtocol} CHANNEL WITH A SPECIFIED BAUD RATE OF {SimChannelBuilt.ChannelBaudRate}");
+                            this._generationLogger.WriteLog(
+                                $"PULLED OUT THE FOLLOWING INFO FROM OUR COMMANDS (CHANNEL ID {SimChannelId}):" +
+                                $" {PTConnectCommands.Length} PT CONNECTS" +
+                                $" | {PTFilterCommands.Length} FILTERS" +
+                                $" | {PTReadCommands.Length} READ COMMANDS" +
+                                $" | {PTWriteCommands.Length} WRITE COMMANDS" +
+                                $" | {SimChannelBuilt.MessagePairs.Length} MESSAGE PAIRS TOTAL");
+                        }
                     }
 
                     // Invoke a new progress event here and move onto the next channel
@@ -335,11 +350,15 @@ namespace SharpSimulator
                 }
                 catch (Exception BuildChannelCommandEx)
                 {
-                    // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
-                    this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.ErrorLog);
-                    this._generationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.ErrorLog);
-                    this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.ErrorLog);
-                    this._generationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.ErrorLog);
+                    // Check if logging is enabled for this routine
+                    if (EnableGeneratorLogging)
+                    {
+                        // Log failures out and find out why the fails happen then move to our progress routine or move to next iteration
+                        this._simulationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.ErrorLog);
+                        this._generationLogger.WriteLog($"FAILED TO GENERATE A SIMULATION CHANNEL FROM A SET OF EXPRESSIONS!", LogType.ErrorLog);
+                        this._simulationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.ErrorLog);
+                        this._generationLogger.WriteException("EXCEPTION THROWN IS LOGGED BELOW", BuildChannelCommandEx, LogType.ErrorLog);
+                    }
                     
                     // Invoke a new progress event here and move on
                     this.OnGeneratorProgress?.Invoke(this, new SimulationProgressEventArgs(LoopsCompleted++, TotalLoops));

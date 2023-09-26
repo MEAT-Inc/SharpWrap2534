@@ -790,9 +790,9 @@ namespace SharpSimulator
                 this.SimulationSession.PTDisconnect(0);
 
                 // Attempt to send output events in a task to stop hanging our response operations
-                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
-                for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
-                    this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
+                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, MessagesToSend));
+                for (int RespIndex = 0; RespIndex < MessagesToSend.Length; RespIndex += 1)
+                    this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(MessagesToSend[RespIndex].Data)}");
 
                 // Return passed sending output
                 return true;

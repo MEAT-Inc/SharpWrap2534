@@ -779,8 +779,14 @@ namespace SharpSimulator
 
             try
             {
+                // Pull the messages where we're able to actually send them correctly
+                // BUG: Sending framepad messages is causing failures. We need to ignore anything that is NOT physical data
+                PassThruStructs.PassThruMsg[] MessagesToSend = PulledMessages.MessageResponses
+                    .Where(MsgObj => MsgObj.RxStatus == RxStatus.NO_RX_STATUS)
+                    .ToArray();
+
                 // Try and send the message, indicate passed sending routine
-                this.PhysicalChannel.PTWriteMessages(PulledMessages.MessageResponses, this.SenderResponseTimeout);
+                this.PhysicalChannel.PTWriteMessages(MessagesToSend, this.SenderResponseTimeout);
                 this.SimulationSession.PTDisconnect(0);
 
                 // Attempt to send output events in a task to stop hanging our response operations

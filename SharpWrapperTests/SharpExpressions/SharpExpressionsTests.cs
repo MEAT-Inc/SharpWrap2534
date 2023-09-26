@@ -69,7 +69,7 @@ namespace SharpWrapperTests.SharpExpressions
             string RequestedLogFile = TestInitializers.RequestTestLog();
             if (!RequestedLogFile.EndsWith(".txt")) throw new InvalidOperationException("Error! Must provide txt files for this test!");
             var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(RequestedLogFile);
-            PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
+            PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions(TestInitializers.DebugExpressionGenerators);
             Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {RequestedLogFile}!");
 
             // Save the output file and make sure it's real
@@ -97,7 +97,7 @@ namespace SharpWrapperTests.SharpExpressions
 
             // Build an expression generator and build our output log files based on the user selected log file
             var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFiles(RequestedLogFiles);
-            PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
+            PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions(TestInitializers.DebugExpressionGenerators);
             Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {BuiltGenerator.PassThruLogFile}!");
 
             // Save the output file and make sure it's real
@@ -124,7 +124,7 @@ namespace SharpWrapperTests.SharpExpressions
             {
                 // Build an expression generator and build our output log files
                 var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(TestLogFile); 
-                PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
+                PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions(TestInitializers.DebugExpressionGenerators);
                 Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {TestLogFile}!");
 
                 // Save the output file and make sure it's real
@@ -151,7 +151,7 @@ namespace SharpWrapperTests.SharpExpressions
             {
                 // Build an expression generator and build our output log files
                 var BuiltGenerator = PassThruExpressionsGenerator.LoadPassThruLogFiles(TestLogSet);
-                PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions();
+                PassThruExpression[] OutputExpressions = BuiltGenerator.GenerateLogExpressions(TestInitializers.DebugExpressionGenerators);
                 Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {BuiltGenerator.PassThruLogFile}!");
 
                 // Save the output file and make sure it's real

@@ -62,12 +62,8 @@ namespace SharpExpressions.PassThruExpressions
                 .Where(NextIndex => NextIndex <= MessagesSentStrings.Length)
                 .Select(NextIndex => MessagesSentStrings[NextIndex]));
 
-            // Find our message content values here.
-            // string MessageTable = this.FindMessageContents(out this.MessageProperties);
-            // if (MessageTable is "" or "No Messages Found!") 
-            //     this._expressionLogger.WriteLog($"WARNING! NO MESSAGES FOUND FOR EXPRESSION TYPE {this.GetType().Name}!", LogType.WarnLog);
-
-            // Now apply values using base method and exit out of this routine
+            // Find our message content values here and apply the expression properties
+            this.FindMessageContents(out this.MessageProperties);
             if (!this.SetExpressionProperties(FieldsToSet, StringsToApply.ToArray()))
                 throw new InvalidOperationException($"FAILED TO SET CLASS VALUES FOR EXPRESSION OBJECT OF TYPE {this.GetType().Name}!");
         }

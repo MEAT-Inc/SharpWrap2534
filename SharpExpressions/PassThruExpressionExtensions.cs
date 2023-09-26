@@ -124,7 +124,7 @@ namespace SharpExpressions
                     string.Join(" ", Enumerable.Range(0, SelectedStrings[SelectedStrings.Length - 1].Length / 2)
                         .Select(strIndex => SelectedStrings[SelectedStrings.Length - 1].Substring(strIndex * 2, 2)));
 
-                // Fix for framepad
+                // Fix for framepad formatting
                 if (SelectedStrings[SelectedStrings.Length - 1].Contains("["))
                     SelectedStrings[SelectedStrings.Length - 1] = SelectedStrings[SelectedStrings.Length - 1].Replace(" ", "");
 
@@ -134,7 +134,9 @@ namespace SharpExpressions
                 // Format our message data content to include a 0x before the data byte and caps lock message bytes.
                 string MessageData = SelectedStrings[LastStringIndex];
                 string[] SplitMessageData = MessageData.Split(' ');
-                string RebuiltMessageData = string.Join(" ", SplitMessageData.Select(StringPart => $"0x{StringPart.Trim().ToUpper()}"));
+                string RebuiltMessageData = string.Join(" ", SplitMessageData.Select(StringPart => StringPart.Contains("[")
+                    ? StringPart.Trim().ToUpper()
+                    : $"0x{StringPart.Trim().ToUpper()}"));
                 SelectedStrings[LastStringIndex] = RebuiltMessageData;
 
                 // Now loop each part of the matched content and add values into our output tuple set.

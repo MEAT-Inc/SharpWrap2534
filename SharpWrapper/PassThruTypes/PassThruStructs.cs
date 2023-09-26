@@ -86,10 +86,10 @@ namespace SharpWrapper.PassThruTypes
                 // Build a new string output object which holds all the contents of our Message object
                 return $"PassThru Message\n" +
                        $"   Protocol ID:  {this.ProtocolId}\n" +
-                       $"   Message Data: {this.DataToHexString(true)}\n" +
                        $"   Message Size: {this.DataSize} Bytes\n" +
                        $"   Tx Flags:     {this.TxFlags}\n" +
-                       $"   Rx Status:    {this.RxStatus}\n";
+                       $"   Rx Status:    {this.RxStatus}\n" + 
+                       $"   Message Data: {this.DataToHexString(true)}\n";
             }
         }
         /// <summary>

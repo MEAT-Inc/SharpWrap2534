@@ -416,13 +416,15 @@ namespace SharpSimulator.PassThruSimulationSupport
                     }
 
                     // If it's not a frame pad message, add to our simulation
-                    var RxStatus = uint.Parse(MessageSet[4].Replace("RxS=", string.Empty), NumberStyles.HexNumber);
                     var ProtocolId = (ProtocolId)Enum.Parse(typeof(ProtocolId), MessageSet[2].Split(':')[0]);
-
-                    // Build a message and then return it.
                     MessageData = MessageData.Replace("0x", string.Empty).Replace("  ", " ");
-                    var NextMessage = J2534Device.CreatePTMsgFromString(ProtocolId, 0x00, MessageData);
-                    NextMessage.RxStatus = (RxStatus)RxStatus;
+                    RxStatus MsgRxStatus = (RxStatus)uint.Parse(MessageSet[4].Replace("RxS=", string.Empty), NumberStyles.HexNumber);
+                    TxFlags MsgTxFlags = ProtocolId == ProtocolId.ISO15765 && MsgRxStatus == RxStatus.NO_RX_STATUS
+                        ? TxFlags.ISO15765_FRAME_PAD
+                        : TxFlags.NO_TX_FLAGS;
+
+                    // Build a message and then return it. Store the needed RxStatus values for it if needed
+                    var NextMessage = J2534Device.CreatePTMsgFromString(ProtocolId, (uint)MsgTxFlags, (uint)MsgRxStatus, MessageData);
                     MessagesBuilt = MessagesBuilt.Append(NextMessage).ToArray();
                 }
                 catch (Exception ConversionEx)

@@ -302,6 +302,7 @@ namespace SharpSimulator
             this._simPlayingLogger.WriteLog($"LOADING AND PARSING SIMULATION FILE {SimulationFile} NOW...", LogType.WarnLog);
 
             // Iterate all the channels loaded in the JSON file and parse them
+            this._simulationChannels = new List<PassThruSimulationChannel>();
             foreach (var ChannelInstance in PulledChannels.Children())
             {
                 try
@@ -430,7 +431,7 @@ namespace SharpSimulator
             this.SenderResponseTimeout = SenderTimeoutValue;
 
             // Log our stored values out as trace log.
-            this._simPlayingLogger.WriteLog($"STORED NEW READER CONFIGURATION! VALUES SET {MessageCount}:\n" +
+            this._simPlayingLogger.WriteLog($"STORED NEW READER CONFIGURATION! VALUES SET:\n" +
                 $"{this.ReaderMessageCount} MESSAGES TO READ\n" +
                 $"{this.ReaderTimeout} TIMEOUT ON EACH READ COMMAND\n" +
                 $"{this.SenderResponseTimeout} TIMEOUT ON EACH RESPONSE COMMAND",
@@ -679,7 +680,7 @@ namespace SharpSimulator
                 try
                 {
                     // Setup a response channel object
-                    if (!this._generateResponseChannel(IndexOfMessageSet))
+                    if (!this._generateResponseChannel(IndexOfMessageSet, IndexOfMessageFound))
                         throw new Exception(
                             "GENERATE_RESPONSE_CHANNEL_EXCEPTION",
                             new InvalidOperationException("FAILED TO BUILD RESPONSE CHANNEL OBJECT!")
@@ -724,8 +725,9 @@ namespace SharpSimulator
         /// Configures a new Simulation channel for a given input index value
         /// </summary>
         /// <param name="IndexOfMessageSet">Channel index to apply from</param>
+        /// <param name="IndexOfMessageFound">Index of messages to respond from</param>
         /// <returns></returns>
-        private bool _generateResponseChannel(int IndexOfMessageSet)
+        private bool _generateResponseChannel(int IndexOfMessageSet, int IndexOfMessageFound)
         {
             // Check the index value
             if (IndexOfMessageSet < 0 || IndexOfMessageSet >= this.PairedSimulationMessages.Length)
@@ -738,15 +740,27 @@ namespace SharpSimulator
             var ProtocolValue = this.ChannelProtocols[IndexOfMessageSet];
             var FiltersToApply = this.ChannelFilters[IndexOfMessageSet];
 
+            // Find our message contents and pick what filters we're looking to apply
+            var PulledMessages = this.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound]; 
+            var FilterFlowCtl = PulledMessages.MessageResponses.FirstOrDefault(MsgObj => MsgObj.RxStatus == 0).DataToHexString();
+            bool CanMatchFilter = FiltersToApply.Any(FilterObj => string.IsNullOrWhiteSpace(FilterFlowCtl) || FilterFlowCtl.Contains(FilterObj.FilterFlowCtl));
+
             // Close the current channel, build a new one using the given protocol and then setup our filters.
             this.PhysicalChannel = this.SimulationSession.PTConnect(0, ProtocolValue, ChannelFlags, ChannelBaudRate, out uint ChannelIdBuilt);
             foreach (var ChannelFilter in FiltersToApply)
             {
+                // If we're able to do filter matching, do it here
+                if (CanMatchFilter && !FilterFlowCtl.Contains(ChannelFilter.FilterFlowCtl)) continue;
+
                 // Try and set each filter for the channel. Skip duplicate filters
-                try { this.PhysicalChannel.StartMessageFilter(ChannelFilter); }
+                try
+                {
+                    this.PhysicalChannel.StartMessageFilter(ChannelFilter);
+                    this._simPlayingLogger.WriteLog($"Started Filter: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog);
+                }
                 catch
                 {
-                    // Log out what our duplicate filter was
+                    // Log out what our duplicate/invalid filter was
                     this._simPlayingLogger.WriteLog($"Error! Filter was unable to be set for requested simulation channel!", LogType.ErrorLog);
                     this._simPlayingLogger.WriteLog($"Filter: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog);
                 }

@@ -5,13 +5,13 @@
   ],
   "SimulationConfigurations": [
     {
-      "ConfigurationName": "ISO15765 - 11 Bit",
+      "ConfigurationName": "CAN - 11 Bit",
       "ReaderTimeout": 100,
       "ReaderMsgCount": 10,
       "ResponseTimeout": 1000,
       "ReaderBaudRate": 500000,
       "ReaderChannelFlags": "NO_CONNECT_FLAGS",
-      "ReaderProtocol": "ISO15765",
+      "ReaderProtocol": "CAN",
       "ReaderFilters": [
         {
           "FilterId": 0,
@@ -19,7 +19,7 @@
           "FilterMask": "00 00 00 00",
           "FilterPattern": "00 00 00 00",
           "FilterFlowCtl": "No Flow Control",
-          "FilterProtocol": "ISO15765",
+          "FilterProtocol": "CAN",
           "FilterType": "PASS_FILTER",
           "FilterStatus": "INITIALIZED"
         }
@@ -79,7 +79,7 @@
           "FilterMask": "00 00 00 00",
           "FilterPattern": "00 00 00 00",
           "FilterFlowCtl": "No Flow Control",
-          "FilterProtocol": "ISO15765",
+          "FilterProtocol": "CAN",
           "FilterType": "PASS_FILTER",
           "FilterStatus": "INITIALIZED"
         }

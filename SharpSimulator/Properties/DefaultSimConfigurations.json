@@ -46,8 +46,8 @@
         {
           "FilterId": 0,
           "FilterFlags": "CAN_29BIT_ID",
-          "FilterMask": "FF FF 00 00",
-          "FilterPattern": "18 DA 00 00",
+          "FilterMask": "00 00 00 00",
+          "FilterPattern": "00 00 00 00",
           "FilterFlowCtl": "No Flow Control",
           "FilterProtocol": "CAN",
           "FilterType": "PASS_FILTER",

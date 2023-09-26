@@ -396,6 +396,7 @@ namespace SharpWrapper.PassThruTypes
     /// <summary>
     /// RX Status flags for inbound messages
     /// </summary>
+    [Flags]
     public enum RxStatus
     {
         NO_RX_STATUS = 0x00000000,
@@ -419,6 +420,7 @@ namespace SharpWrapper.PassThruTypes
     /// <summary>
     /// TX flags for outbound messages.
     /// </summary>
+    [Flags]
     public enum TxFlags : uint
     {
         NO_TX_FLAGS = 0x00000000,

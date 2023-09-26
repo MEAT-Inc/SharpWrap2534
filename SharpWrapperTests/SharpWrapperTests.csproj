@@ -40,6 +40,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationFramework" />
@@ -64,6 +65,9 @@
     </PackageReference>
     <PackageReference Include="SharpLogger">
       <Version>2.7.8.334</Version>
+    </PackageReference>
+    <PackageReference Include="SharpWrapper">
+      <Version>6.1.13.488</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

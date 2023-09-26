@@ -50,7 +50,7 @@ namespace SharpWrapperTests.SharpSimulator
             // Perform any needed logic inside this block for each test method setup
             this._testLogFiles = TestInitializers.GetRandomTestLogs(5).ToList();
             this._testLogSets = TestInitializers.GetRandomTestLogSets(2).ToList();
-
+            
             // Log setup complete and testing is ready to run
             TestInitializers.LogTestSuiteStartupEnded(this);
         }
@@ -83,12 +83,12 @@ namespace SharpWrapperTests.SharpSimulator
             // Configure our logging instance and start the test
             TestInitializers.InitializeTestLogging(out this._simTestLogger);
             this._simTestLogger.WriteLog("Starting tests to generate a simulation from user picked log file now...");
-
+            
             // Build an expression generator and build our output log files based on the user selected log file
             string RequestedLogFile = TestInitializers.RequestTestLog();
             if (!RequestedLogFile.EndsWith(".txt")) throw new InvalidOperationException("Error! Must provide txt files for this test!");
             var InputGenerator = PassThruExpressionsGenerator.LoadPassThruLogFile(RequestedLogFile);
-            PassThruExpression[] OutputExpressions = InputGenerator.GenerateLogExpressions();
+            PassThruExpression[] OutputExpressions = InputGenerator.GenerateLogExpressions(TestInitializers.DebugExpressionGenerators);
             Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {RequestedLogFile}!");
 
             // Save the output expressions file and make sure it's real
@@ -98,7 +98,7 @@ namespace SharpWrapperTests.SharpSimulator
 
             // Now once we've validated expressions were built, generate our simulations
             var BuiltSimGenerator = new PassThruSimulationGenerator(RequestedLogFile, OutputExpressions);
-            PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation();
+            PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation(TestInitializers.DebugSimulationGenerators);
             Assert.IsTrue(SimulationChannels.Length != 0, $"Error! No simulation channels were built for file {RequestedLogFile}!");
 
             // Save the output file and make sure it's real
@@ -118,7 +118,7 @@ namespace SharpWrapperTests.SharpSimulator
             // Configure our logging instance and start the test
             TestInitializers.InitializeTestLogging(out this._simTestLogger);
             this._simTestLogger.WriteLog("Starting tests to generate a simulation from user picked log files now...");
-
+            
             // Request new input log files and ensure they're all .txt files
             string[] RequestedLogFiles = TestInitializers.RequestTestLogs().ToArray();
             if (RequestedLogFiles.Any(LogFile => !LogFile.EndsWith(".txt")))
@@ -126,7 +126,7 @@ namespace SharpWrapperTests.SharpSimulator
 
             // Build an expression generator and build our output log files based on the user selected log file
             var InputGenerator = PassThruExpressionsGenerator.LoadPassThruLogFiles(RequestedLogFiles);
-            PassThruExpression[] OutputExpressions = InputGenerator.GenerateLogExpressions();
+            PassThruExpression[] OutputExpressions = InputGenerator.GenerateLogExpressions(TestInitializers.DebugExpressionGenerators);
             Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {InputGenerator.PassThruLogFile}!");
 
             // Save the output expressions file and make sure it's real
@@ -136,7 +136,7 @@ namespace SharpWrapperTests.SharpSimulator
 
             // Now once we've validated expressions were built, generate our simulations
             var BuiltSimGenerator = new PassThruSimulationGenerator(InputGenerator.PassThruLogFile, OutputExpressions);
-            PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation();
+            PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation(TestInitializers.DebugSimulationGenerators);
             Assert.IsTrue(SimulationChannels.Length != 0, $"Error! No simulation channels were built for file {RequestedLogFiles}!");
 
             // Save the output file and make sure it's real
@@ -156,7 +156,7 @@ namespace SharpWrapperTests.SharpSimulator
             // Configure our logging instance and start the test
             TestInitializers.InitializeTestLogging(out this._simTestLogger);
             this._simTestLogger.WriteLog("Starting tests to generate a simulation from user picked expression file now...");
-
+            
             // Build an expression generator and build our output log files based on the user selected log file
             string RequestedExpFile = TestInitializers.RequestTestLog();
             if (!RequestedExpFile.EndsWith(".ptExp")) throw new InvalidOperationException("Error! Must provide ptExp files for this test!");
@@ -164,7 +164,7 @@ namespace SharpWrapperTests.SharpSimulator
 
             // Now once we've validated expressions were built, generate our simulations
             var BuiltSimGenerator = new PassThruSimulationGenerator(RequestedExpFile, InputFileGenerator.ExpressionsBuilt);
-            PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation();
+            PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation(TestInitializers.DebugSimulationGenerators);
             Assert.IsTrue(SimulationChannels.Length != 0, $"Error! No simulation channels were built for file {RequestedExpFile}!");
 
             // Save the output file and make sure it's real
@@ -185,13 +185,13 @@ namespace SharpWrapperTests.SharpSimulator
             // Configure our logging instance and start the test
             TestInitializers.InitializeTestLogging(out this._simTestLogger);
             this._simTestLogger.WriteLog("Starting tests to generate simulations from PassThru log files now...");
-
+            
             // Iterate all the test files imported and generate expressions for all of them
             foreach (var TestLogFile in this._testLogFiles)
             {
                 // Now once we've validated expressions were built, generate our simulations
                 var BuiltSimGenerator = PassThruSimulationGenerator.LoadPassThruLogFile(TestLogFile);
-                PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation();
+                PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation(TestInitializers.DebugSimulationGenerators);
                 Assert.IsTrue(SimulationChannels.Length != 0, $"Error! No simulation channels were built for file {TestLogFile}!");
 
                 // Save the output file and make sure it's real
@@ -218,7 +218,7 @@ namespace SharpWrapperTests.SharpSimulator
             {
                 // Build an expression generator and build our output log files based on the user selected log file
                 var InputGenerator = PassThruExpressionsGenerator.LoadPassThruLogFiles(TestLogSet);
-                PassThruExpression[] OutputExpressions = InputGenerator.GenerateLogExpressions();
+                PassThruExpression[] OutputExpressions = InputGenerator.GenerateLogExpressions(TestInitializers.DebugExpressionGenerators);
                 Assert.IsTrue(OutputExpressions.Length != 0, $"Error! No expressions were found for file {InputGenerator.PassThruLogFile}!");
 
                 // Save the output expressions file and make sure it's real
@@ -228,7 +228,7 @@ namespace SharpWrapperTests.SharpSimulator
 
                 // Now once we've validated expressions were built, generate our simulations
                 var BuiltSimGenerator = new PassThruSimulationGenerator(InputGenerator.PassThruLogFile, OutputExpressions);
-                PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation();
+                PassThruSimulationChannel[] SimulationChannels = BuiltSimGenerator.GenerateLogSimulation(TestInitializers.DebugSimulationGenerators);
                 Assert.IsTrue(SimulationChannels.Length != 0, $"Error! No simulation channels were built for file {InputGenerator.PassThruLogFile}!");
 
                 // Save the output file and make sure it's real

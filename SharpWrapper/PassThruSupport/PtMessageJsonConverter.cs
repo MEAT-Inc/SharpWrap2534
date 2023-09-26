@@ -46,24 +46,24 @@ namespace SharpWrapper.PassThruSupport
             PassThruStructs.PassThruMsg CastMessage = (PassThruStructs.PassThruMsg)ValueObject;
 
             // Get all the string JSON properties we want to use for this object
-            string ProtocolString = CastMessage.ProtocolId.ToString();
-            string RxStatusString = CastMessage.RxStatus.ToString();
             string TimeStampString = CastMessage.Timestamp + "ms";
+            string ProtocolString = CastMessage.ProtocolId.ToString();
             string DataValueString = CastMessage.DataToHexString(true);
             string ExtraDataIndexString = CastMessage.ExtraDataIndex.ToString();
             string DataSizeString = CastMessage.DataSize + (CastMessage.DataSize == 1 ? " Byte" : " Bytes");
             string TxFlagsString = Enum.GetName(typeof(TxFlags), CastMessage.TxFlags) ?? TxFlags.NO_TX_FLAGS.ToString();
+            string RxStatusString = Enum.GetName(typeof(RxStatus), CastMessage.RxStatus) ?? RxStatus.NO_RX_STATUS.ToString();
 
             // Create our dynamic object for JSON output
             var OutputObject = JObject.FromObject(new
             {
-                ProtocolId = ProtocolString,              
-                RxStatus = RxStatusString,
+                Data = DataValueString,
                 TxFlags = TxFlagsString,
-                Timestamp = TimeStampString,
+                RxStatus = RxStatusString,
                 DataSize = DataSizeString,
-                ExtraDataIndex = ExtraDataIndexString,
-                Data = DataValueString
+                ProtocolId = ProtocolString,
+                Timestamp = TimeStampString,
+                ExtraDataIndex = ExtraDataIndexString
             });
 
             // Now write this built object.
@@ -109,13 +109,13 @@ namespace SharpWrapper.PassThruSupport
             // Return built output object
             return new PassThruStructs.PassThruMsg()
             {   
-                ProtocolId = ProtocolRead,
-                RxStatus = RxStatusRead,
                 TxFlags =  TxFlagsRead,
+                RxStatus = RxStatusRead,
+                DataSize = DataSizeRead,
+                ProtocolId = ProtocolRead,
                 Timestamp = TimeStampRead,
-                DataSize =  DataSizeRead,
-                ExtraDataIndex = ExtraDataIndexRead,
-                Data = MessageDataAsBytes
+                Data = MessageDataAsBytes,
+                ExtraDataIndex = ExtraDataIndexRead
             };
         }
     }

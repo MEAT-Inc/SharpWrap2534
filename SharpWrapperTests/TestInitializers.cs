@@ -21,11 +21,15 @@ namespace SharpWrapperTests
         #region Fields
 
         // Constants for logging output and setting up search routines
-        private static SharpLogger _testInvokersLogger;                // Private backing logger object used to write content during tests
+        private static SharpLogger _testInvokersLogger;                  // Private backing logger object used to write content during tests
+                                                                         
+        // Constants for the logger output format strings                
+        private static readonly int _splittingLineSize = 120;            // Size of the splitting lines to write in console output
+        private static readonly string _splittingLineChar = "=";         // Character to use in the splitting line output
 
-        // Constants for the logger output format strings
-        private static readonly int _splittingLineSize = 120;          // Size of the splitting lines to write in console output
-        private static readonly string _splittingLineChar = "=";       // Character to use in the splitting line output
+        // Static fields telling us if we should enable debug logging for generation routines 
+        public static readonly bool DebugExpressionGenerators = true;    // Toggle for expressions generator debugging    
+        public static readonly bool DebugSimulationGenerators = true;    // Toggle for simulation generator debugging
 
         // Static fields holding information about our test log files and output path values
         public static readonly string WorkingDirectory = Directory.GetCurrentDirectory();

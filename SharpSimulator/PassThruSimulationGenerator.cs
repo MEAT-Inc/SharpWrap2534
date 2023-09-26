@@ -227,7 +227,6 @@ namespace SharpSimulator
                 try
                 {
                     // Pull the Channel ID and the expression objects here and build a channel from it
-                    uint SimChannelId = ExpressionSet.Key;
                     PassThruExpression[] ChannelExpressions = ExpressionSet.Value;
                     
                     // Find all the PTFilter commands first and invert them.
@@ -264,7 +263,7 @@ namespace SharpSimulator
                     {
                         // Only run this routine if logging is enabled for this generator
                         this._generationLogger.AddScopeProperties(
-                            new KeyValuePair<string, object>("sim-channel-id", SimChannelId),
+                            new KeyValuePair<string, object>("sim-channel-id", ExpressionSet.Key),
                             new KeyValuePair<string, object>("sim-message-pairs", ChannelExpressions.Length),
                             new KeyValuePair<string, object>("generation-count", $"{LoopsCompleted} OF {TotalLoops}"),
                             new KeyValuePair<string, object>("generation-progress", ((double)LoopsCompleted / (double)TotalLoops * 100.00).ToString("F2")));
@@ -277,8 +276,8 @@ namespace SharpSimulator
                         if (EnableGeneratorLogging)
                         {
                             // Log out our exception and invoke a new progress event with the properties we configured above
-                            this._simulationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
-                            this._generationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
+                            this._simulationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {ExpressionSet.Key}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
+                            this._generationLogger.WriteLog($"FAILED TO GENERATE SIMULATION CHANNEL WITH ID {ExpressionSet.Key}! NO PTCONNECT COMMANDS WERE FOUND!", LogType.ErrorLog);
                             this._simulationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
                             this._generationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
                         }
@@ -303,8 +302,8 @@ namespace SharpSimulator
                     if ((PTReadCommands.Length == 0 || PTWriteCommands.Length == 0) && EnableGeneratorLogging)
                     {
                         // Log out our exception and invoke a new progress event with the properties we configured above
-                        this._simulationLogger.WriteLog($"FAILED TO GENERATE NEW SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTREAD/PTWRITE COMMANDS WERE FOUND!", LogType.ErrorLog);
-                        this._generationLogger.WriteLog($"FAILED TO GENERATE NEW SIMULATION CHANNEL WITH ID {SimChannelId}! NO PTREAD/PTWRITE COMMANDS WERE FOUND!", LogType.ErrorLog);
+                        this._simulationLogger.WriteLog($"FAILED TO GENERATE NEW SIMULATION CHANNEL WITH ID {ExpressionSet.Key}! NO PTREAD/PTWRITE COMMANDS WERE FOUND!", LogType.ErrorLog);
+                        this._generationLogger.WriteLog($"FAILED TO GENERATE NEW SIMULATION CHANNEL WITH ID {ExpressionSet.Key}! NO PTREAD/PTWRITE COMMANDS WERE FOUND!", LogType.ErrorLog);
                         this._simulationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
                         this._generationLogger.WriteLog($"CHANNEL EXPRESSIONS CONTAINED {ChannelExpressions.Length} EXPRESSION OBJECTS", LogType.ErrorLog);
 
@@ -314,7 +313,7 @@ namespace SharpSimulator
                     }
 
                     // Build simulation channel here and return it out
-                    var SimChannelBuilt = new PassThruSimulationChannel(SimChannelId, ProtocolInUse, ChannelFlags, ChannelBaud);
+                    var SimChannelBuilt = new PassThruSimulationChannel(ExpressionSet.Key, ProtocolInUse, ChannelFlags, ChannelBaud);
                     SimChannelBuilt.StoreMessageFilters(PTFilterCommands);
                     SimChannelBuilt.StoreMessagesRead(PTReadCommands);
                     SimChannelBuilt.StoreMessagesWritten(PTWriteCommands);
@@ -324,11 +323,11 @@ namespace SharpSimulator
                     lock (SimChannelsBuilt)
                     {
                         // If the ID exists already, throw this exception out
-                        if (SimChannelsBuilt.ContainsKey(SimChannelId))
-                            throw new InvalidDataException($"ERROR! CAN NOT APPEND A SIM CHANNEL WITH ID {SimChannelId} SINCE IT EXISTS ALREADY!");
+                        if (SimChannelsBuilt.ContainsKey(ExpressionSet.Key))
+                            throw new InvalidDataException($"ERROR! CAN NOT APPEND A SIM CHANNEL WITH ID {ExpressionSet.Key} SINCE IT EXISTS ALREADY!");
 
                         // Now insert this expression object based on what keys are in the output collection of expressions
-                        SimChannelsBuilt.Add(SimChannelId, SimChannelBuilt);
+                        SimChannelsBuilt.Add(ExpressionSet.Key, SimChannelBuilt);
 
                         // Check if logging is enabled for this routine 
                         if (EnableGeneratorLogging)
@@ -336,7 +335,7 @@ namespace SharpSimulator
                             // Log information about the built out command objects.
                             this._generationLogger.WriteLog($"BUILT NEW {SimChannelBuilt.ChannelProtocol} CHANNEL WITH A SPECIFIED BAUD RATE OF {SimChannelBuilt.ChannelBaudRate}");
                             this._generationLogger.WriteLog(
-                                $"PULLED OUT THE FOLLOWING INFO FROM OUR COMMANDS (CHANNEL ID {SimChannelId}):" +
+                                $"PULLED OUT THE FOLLOWING INFO FROM OUR COMMANDS (CHANNEL ID {ExpressionSet.Key}):" +
                                 $" {PTConnectCommands.Length} PT CONNECTS" +
                                 $" | {PTFilterCommands.Length} FILTERS" +
                                 $" | {PTReadCommands.Length} READ COMMANDS" +

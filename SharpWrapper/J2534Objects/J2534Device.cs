@@ -169,10 +169,42 @@ namespace SharpWrapper.J2534Objects
 
             // Built new PTMessage.
             uint MsgDataSize = (uint)SoapHexBin.Value.Length;
-            PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize);
-            BuiltPtMsg.ProtocolId = ProtocolId;
-            BuiltPtMsg.TxFlags = (TxFlags)MsgFlags;
-            BuiltPtMsg.DataSize = MsgDataSize;
+            PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize)
+            {
+                ProtocolId = ProtocolId,
+                TxFlags = (TxFlags)MsgFlags,
+                DataSize = MsgDataSize
+            };
+
+            // Apply message values into here.
+            for (int ByteIndex = 0; ByteIndex < SoapHexBin.Value.Length; ByteIndex++)
+                BuiltPtMsg.Data[ByteIndex] = SoapHexBin.Value[ByteIndex];
+
+            // Return built message.
+            return BuiltPtMsg;
+        }
+        /// <summary>
+        /// Builds a new message from a given string value
+        /// </summary>
+        /// <param name="ProtocolId">Message protocol</param>
+        /// <param name="MsgFlags">Flags</param>
+        /// <param name="RxStatus">The RX Status</param>
+        /// <param name="MessageString">String of message bytes</param>
+        /// <returns>Converted PTMessage</returns>
+        public static PassThruStructs.PassThruMsg CreatePTMsgFromString(ProtocolId ProtocolId, uint MsgFlags, uint RxStatus, string MessageString)
+        {
+            // Build a soaphex of the message contents.
+            SoapHexBinary SoapHexBin = SoapHexBinary.Parse(MessageString);
+
+            // Built new PTMessage.
+            uint MsgDataSize = (uint)SoapHexBin.Value.Length;
+            PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize)
+            {
+                ProtocolId = ProtocolId,
+                DataSize = MsgDataSize,
+                TxFlags = (TxFlags)MsgFlags,
+                RxStatus = (RxStatus)RxStatus
+            };
 
             // Apply message values into here.
             for (int ByteIndex = 0; ByteIndex < SoapHexBin.Value.Length; ByteIndex++)
@@ -185,18 +217,44 @@ namespace SharpWrapper.J2534Objects
         /// Converts a set of bytes into a PTMessage
         /// </summary>
         /// <param name="ProtocolId">Protocol to send</param>
-        /// <param name="MessageFlags">Flags for the message</param>
+        /// <param name="MsgFlags">Flags for the message</param>
         /// <param name="MessageBytes">Bytes of the message data</param>
         /// <returns>Built PTMessage</returns>
-        public static PassThruStructs.PassThruMsg CreatePTMsgFromDataBytes(ProtocolId ProtocolId, uint MessageFlags, byte[] MessageBytes)
+        public static PassThruStructs.PassThruMsg CreatePTMsgFromDataBytes(ProtocolId ProtocolId, uint MsgFlags, byte[] MessageBytes)
         {
             // Build new PTMessage
             PassThruStructs.PassThruMsg BuiltMessage = new PassThruStructs.PassThruMsg((uint)MessageBytes.Length);
 
             // Store properties onto the message.
             BuiltMessage.ProtocolId = ProtocolId;
-            BuiltMessage.TxFlags = (TxFlags)MessageFlags;
+            BuiltMessage.TxFlags = (TxFlags)MsgFlags;
             BuiltMessage.DataSize = (uint)MessageBytes.Length;
+
+            // Apply message bytes.
+            for (int ByteIndex = 0; ByteIndex < (uint)MessageBytes.Length; ByteIndex++)
+                BuiltMessage.Data[ByteIndex] = MessageBytes[ByteIndex];
+
+            // Return built message.
+            return BuiltMessage;
+        }
+        /// <summary>
+        /// Converts a set of bytes into a PTMessage
+        /// </summary>
+        /// <param name="ProtocolId">Protocol to send</param>
+        /// <param name="MsgFlags">Flags for the message</param>
+        /// <param name="RxStatus">The RX Status</param>
+        /// <param name="MessageBytes">Bytes of the message data</param>
+        /// <returns>Built PTMessage</returns>
+        public static PassThruStructs.PassThruMsg CreatePTMsgFromDataBytes(ProtocolId ProtocolId, uint MsgFlags, uint RxStatus, byte[] MessageBytes)
+        {
+            // Build new PTMessage
+            PassThruStructs.PassThruMsg BuiltMessage = new PassThruStructs.PassThruMsg((uint)MessageBytes.Length)
+            {
+                ProtocolId = ProtocolId,
+                TxFlags = (TxFlags)MsgFlags,
+                RxStatus = (RxStatus)RxStatus,
+                DataSize = (uint)MessageBytes.Length
+            };
 
             // Apply message bytes.
             for (int ByteIndex = 0; ByteIndex < (uint)MessageBytes.Length; ByteIndex++)

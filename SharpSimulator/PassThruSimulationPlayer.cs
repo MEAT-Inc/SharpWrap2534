@@ -667,14 +667,9 @@ namespace SharpSimulator
                         IndexOfMessageFound = ChannelMessagePair.ToList().IndexOf(MessageSet);
                     }
                 }
-
-                // Using the index found now build our output values
-                if (IndexOfMessageFound == -1)
-                {
-                    // Build and send a new message set event out even if there was no response processed
-                    this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, ReadMessage, null));
-                    continue;
-                }
+                
+                // If no message was found for the given input, move onto the next one
+                if (IndexOfMessageFound == -1) continue;
 
                 // Mark a new channel is needed and build new one for configuration of messages
                 try

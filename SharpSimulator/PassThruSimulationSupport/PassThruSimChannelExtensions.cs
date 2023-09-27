@@ -186,7 +186,7 @@ namespace SharpSimulator.PassThruSimulationSupport
         /// </summary>
         /// <param name="FilterExpression"></param>
         /// <returns></returns>
-        public static J2534Filter ConvertFilterExpression(PassThruStartMessageFilterExpression FilterExpression, bool Inverted = false)
+        public static J2534Filter ConvertFilterExpression(this PassThruStartMessageFilterExpression FilterExpression, bool Inverted = false)
         {
             // Store the Pattern, Mask, and Flow Ctl objects if they exist.
             FilterExpression.FindFilterContents(out List<string[]> FilterContent);
@@ -297,7 +297,7 @@ namespace SharpSimulator.PassThruSimulationSupport
         /// </summary>
         /// <param name="MessageExpression">The expressions to convert</param>
         /// <returns>A collection of built PassThru messages based on the read expressions</returns>
-        public static PassThruStructs.PassThruMsg[] ConvertWriteExpression(PassThruWriteMessagesExpression MessageExpression)
+        public static PassThruStructs.PassThruMsg[] ConvertWriteExpression(this PassThruWriteMessagesExpression MessageExpression)
         {
             // Store the Message Data and the values of the message params.
             MessageExpression.FindMessageContents(out List<string[]> MessageContents);
@@ -380,7 +380,7 @@ namespace SharpSimulator.PassThruSimulationSupport
         /// </summary>
         /// <param name="MessageExpression">The expressions to convert</param>
         /// <returns>A collection of built PassThru messages based on the read expressions</returns>
-        public static PassThruStructs.PassThruMsg[] ConvertReadExpression(PassThruReadMessagesExpression MessageExpression)
+        public static PassThruStructs.PassThruMsg[] ConvertReadExpression(this PassThruReadMessagesExpression MessageExpression)
         {
             // Store the Message Data and the values of the message params.
             MessageExpression.FindMessageContents(out List<string[]> MessageContents);

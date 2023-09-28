@@ -762,11 +762,7 @@ namespace SharpSimulator
                 if (CanMatchFilter && !FilterFlowCtl.Contains(ChannelFilter.FilterFlowCtl)) continue;
 
                 // Try and set each filter for the channel. Skip duplicate filters
-                try
-                {
-                    this.PhysicalChannel.StartMessageFilter(ChannelFilter);
-                    this._simPlayingLogger.WriteLog($"Started Filter: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog);
-                }
+                try { this.PhysicalChannel.StartMessageFilter(ChannelFilter); }
                 catch
                 {
                     // Log out what our duplicate/invalid filter was
@@ -787,12 +783,8 @@ namespace SharpSimulator
         private bool _generateSimulationResponses(int IndexOfMessageSet, int IndexOfMessageFound)
         {
             // Pull out the message set, then find the response messages and send them out
-            this._simPlayingLogger.WriteLog(string.Join("", Enumerable.Repeat("=", 100)));
             var PulledMessages = this.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
-
-            // Log message contents out and then log the responses out if we are going to be sending them
-            this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.MessageRead.Data)}", LogType.InfoLog);
-            if (!ResponsesEnabled)
+            if (!this.ResponsesEnabled)
             {
                 // Fake a reply output event and disconnect our channel
                 this.SimulationSession.PTDisconnect(0);
@@ -808,10 +800,6 @@ namespace SharpSimulator
 
                 // Attempt to send output events in a task to stop hanging our response operations
                 this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
-                for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
-                    this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
-
-                // Return passed sending output
                 return true;
             }
             catch (Exception SendResponseException)

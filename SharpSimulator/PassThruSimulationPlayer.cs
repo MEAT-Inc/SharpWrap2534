@@ -296,14 +296,28 @@ namespace SharpSimulator
         /// <returns>True if the simulation is loaded. False if it is not</returns>
         public bool LoadSimulationFile(string SimulationFile)
         {
+            // Load the file content in and store it as a JArray
+            string SimFileContent = File.ReadAllText(SimulationFile);
+            this._simPlayingLogger.WriteLog($"LOADING AND PARSING SIMULATION FILE {SimulationFile} NOW...", LogType.WarnLog);
+
+            // Parse all the channels loaded in from the file and return the result
+            var PulledChannels = JArray.Parse(SimFileContent);
+            return this.LoadSimulationFile(PulledChannels);
+        }
+        /// <summary>
+        /// Loads a simulation into the playback helper by parsing a JSON Array of channels
+        /// </summary>
+        /// <param name="SimulationChannels">JArray holding the channels of the simulation</param>
+        /// <returns>True if the simulation is loaded. False if it is not</returns>
+        public bool LoadSimulationFile(JArray SimulationChannels)
+        {
             // Load the file and parse all the JSON contents from it to build our channels
             int FailedCounter = 0;
-            var PulledChannels = JArray.Parse(File.ReadAllText(SimulationFile));
-            this._simPlayingLogger.WriteLog($"LOADING AND PARSING SIMULATION FILE {SimulationFile} NOW...", LogType.WarnLog);
+            this._simPlayingLogger.WriteLog($"LOADING AND PARSING SIMULATION FILE CONTENTS NOW...", LogType.WarnLog);
 
             // Iterate all the channels loaded in the JSON file and parse them
             this._simulationChannels = new List<PassThruSimulationChannel>();
-            foreach (var ChannelInstance in PulledChannels.Children())
+            foreach (var ChannelInstance in SimulationChannels.Children())
             {
                 try
                 {
@@ -328,7 +342,7 @@ namespace SharpSimulator
             }
 
             // Log out that we're loaded up and return out true once done
-            this._simPlayingLogger.WriteLog($"IMPORTED SIMULATION FILE {SimulationFile} CORRECTLY!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog($"IMPORTED SIMULATION FILE {SimulationChannels} CORRECTLY!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog($"PULLED IN A TOTAL OF {this._simulationChannels.Count} INPUT SIMULATION CHANNELS INTO OUR LOADER WITHOUT FAILURE!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog($"ENCOUNTERED A TOTAL OF {FailedCounter} FAILURES WHILE LOADING CHANNELS!", LogType.InfoLog);
             return true;

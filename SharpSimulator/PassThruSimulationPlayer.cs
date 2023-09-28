@@ -296,14 +296,28 @@ namespace SharpSimulator
         /// <returns>True if the simulation is loaded. False if it is not</returns>
         public bool LoadSimulationFile(string SimulationFile)
         {
+            // Load the file content in and store it as a JArray
+            string SimFileContent = File.ReadAllText(SimulationFile);
+            this._simPlayingLogger.WriteLog($"LOADING AND PARSING SIMULATION FILE {SimulationFile} NOW...", LogType.WarnLog);
+
+            // Parse all the channels loaded in from the file and return the result
+            var PulledChannels = JArray.Parse(SimFileContent);
+            return this.LoadSimulationFile(PulledChannels);
+        }
+        /// <summary>
+        /// Loads a simulation into the playback helper by parsing a JSON Array of channels
+        /// </summary>
+        /// <param name="SimulationChannels">JArray holding the channels of the simulation</param>
+        /// <returns>True if the simulation is loaded. False if it is not</returns>
+        public bool LoadSimulationFile(JArray SimulationChannels)
+        {
             // Load the file and parse all the JSON contents from it to build our channels
             int FailedCounter = 0;
-            var PulledChannels = JArray.Parse(File.ReadAllText(SimulationFile));
-            this._simPlayingLogger.WriteLog($"LOADING AND PARSING SIMULATION FILE {SimulationFile} NOW...", LogType.WarnLog);
+            this._simPlayingLogger.WriteLog($"LOADING AND PARSING SIMULATION FILE CONTENTS NOW...", LogType.WarnLog);
 
             // Iterate all the channels loaded in the JSON file and parse them
             this._simulationChannels = new List<PassThruSimulationChannel>();
-            foreach (var ChannelInstance in PulledChannels.Children())
+            foreach (var ChannelInstance in SimulationChannels.Children())
             {
                 try
                 {
@@ -328,7 +342,7 @@ namespace SharpSimulator
             }
 
             // Log out that we're loaded up and return out true once done
-            this._simPlayingLogger.WriteLog($"IMPORTED SIMULATION FILE {SimulationFile} CORRECTLY!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog($"IMPORTED SIMULATION FILE {SimulationChannels} CORRECTLY!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog($"PULLED IN A TOTAL OF {this._simulationChannels.Count} INPUT SIMULATION CHANNELS INTO OUR LOADER WITHOUT FAILURE!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog($"ENCOUNTERED A TOTAL OF {FailedCounter} FAILURES WHILE LOADING CHANNELS!", LogType.InfoLog);
             return true;
@@ -667,14 +681,9 @@ namespace SharpSimulator
                         IndexOfMessageFound = ChannelMessagePair.ToList().IndexOf(MessageSet);
                     }
                 }
-
-                // Using the index found now build our output values
-                if (IndexOfMessageFound == -1)
-                {
-                    // Build and send a new message set event out even if there was no response processed
-                    this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, ReadMessage, null));
-                    continue;
-                }
+                
+                // If no message was found for the given input, move onto the next one
+                if (IndexOfMessageFound == -1) continue;
 
                 // Mark a new channel is needed and build new one for configuration of messages
                 try
@@ -753,11 +762,7 @@ namespace SharpSimulator
                 if (CanMatchFilter && !FilterFlowCtl.Contains(ChannelFilter.FilterFlowCtl)) continue;
 
                 // Try and set each filter for the channel. Skip duplicate filters
-                try
-                {
-                    this.PhysicalChannel.StartMessageFilter(ChannelFilter);
-                    this._simPlayingLogger.WriteLog($"Started Filter: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog);
-                }
+                try { this.PhysicalChannel.StartMessageFilter(ChannelFilter); }
                 catch
                 {
                     // Log out what our duplicate/invalid filter was
@@ -778,12 +783,8 @@ namespace SharpSimulator
         private bool _generateSimulationResponses(int IndexOfMessageSet, int IndexOfMessageFound)
         {
             // Pull out the message set, then find the response messages and send them out
-            this._simPlayingLogger.WriteLog(string.Join("", Enumerable.Repeat("=", 100)));
             var PulledMessages = this.PairedSimulationMessages[IndexOfMessageSet][IndexOfMessageFound];
-
-            // Log message contents out and then log the responses out if we are going to be sending them
-            this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.MessageRead.Data)}", LogType.InfoLog);
-            if (!ResponsesEnabled)
+            if (!this.ResponsesEnabled)
             {
                 // Fake a reply output event and disconnect our channel
                 this.SimulationSession.PTDisconnect(0);
@@ -799,10 +800,6 @@ namespace SharpSimulator
 
                 // Attempt to send output events in a task to stop hanging our response operations
                 this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
-                for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
-                    this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
-
-                // Return passed sending output
                 return true;
             }
             catch (Exception SendResponseException)

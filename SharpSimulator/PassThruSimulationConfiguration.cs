@@ -58,6 +58,14 @@ namespace SharpSimulator
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        /// Default CTOR for a configuration object. Used to build a configuration step by step
+        /// </summary>
+        public PassThruSimulationConfiguration()
+        {
+            // Setup a new configuration logger if possible
+            _configurationLogger ??= new SharpLogger(LoggerActions.UniversalLogger);
+        }
+        /// <summary>
         /// Builds a new configuration object and sets defaults to null/empty
         /// </summary>
         /// <param name="ProtocolInUse">Protocol for the configuration</param>

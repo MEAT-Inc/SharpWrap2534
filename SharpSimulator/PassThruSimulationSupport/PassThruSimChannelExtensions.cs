@@ -426,6 +426,9 @@ namespace SharpSimulator.PassThruSimulationSupport
                         ? TxFlags.ISO15765_FRAME_PAD
                         : TxFlags.NO_TX_FLAGS;
 
+                    // If this message is a framepad identifier, skip it 
+                    if (MsgRxStatus.HasFlag(RxStatus.TX_MSG_TYPE)) continue;
+
                     // Build a message and then return it. Store the needed RxStatus values for it if needed
                     var NextMessage = J2534Device.CreatePTMsgFromString(ProtocolId, (uint)MsgTxFlags, (uint)MsgRxStatus, MessageData);
                     MessagesBuilt = MessagesBuilt.Append(NextMessage).ToArray();

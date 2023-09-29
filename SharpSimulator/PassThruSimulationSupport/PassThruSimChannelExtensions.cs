@@ -417,17 +417,24 @@ namespace SharpSimulator.PassThruSimulationSupport
                         // Now restore message values
                         MessageData = string.Join(" ", SplitData);
                     }
-
-                    // If it's not a frame pad message, add to our simulation
+                    
+                    // Pull out the protocol, message data content, and parse the Rx Status value
                     var ProtocolId = (ProtocolId)Enum.Parse(typeof(ProtocolId), MessageSet[2].Split(':')[0]);
                     MessageData = MessageData.Replace("0x", string.Empty).Replace("  ", " ");
                     RxStatus MsgRxStatus = (RxStatus)uint.Parse(MessageSet[4].Replace("RxS=", string.Empty), NumberStyles.HexNumber);
-                    TxFlags MsgTxFlags = ProtocolId == ProtocolId.ISO15765 && MsgRxStatus == RxStatus.NO_RX_STATUS
-                        ? TxFlags.ISO15765_FRAME_PAD
-                        : TxFlags.NO_TX_FLAGS;
 
-                    // If this message is a framepad identifier, skip it 
+                    // Configure message TxFlags here
+                    TxFlags MsgTxFlags = TxFlags.NO_TX_FLAGS;
+                    if (ProtocolId == ProtocolId.ISO15765)
+                    {
+                        // Check the length of the message here
+                        int DataSize = MessageData.Split(' ').Length;
+                        if (DataSize <= 12) MsgTxFlags = TxFlags.ISO15765_FRAME_PAD;
+                    }
+
+                    // If this message was read in as part of a flow control operation, skip it
                     if (MsgRxStatus.HasFlag(RxStatus.TX_MSG_TYPE)) continue;
+                    if (MsgRxStatus.HasFlag(RxStatus.START_OF_MESSAGE)) continue;
 
                     // Build a message and then return it. Store the needed RxStatus values for it if needed
                     var NextMessage = J2534Device.CreatePTMsgFromString(ProtocolId, (uint)MsgTxFlags, (uint)MsgRxStatus, MessageData);

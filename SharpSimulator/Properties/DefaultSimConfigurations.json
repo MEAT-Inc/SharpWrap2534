@@ -6,8 +6,9 @@
   "SimulationConfigurations": [
     {
       "ConfigurationName": "CAN - 11 Bit",
-      "ReaderTimeout": 100,
+      "ReaderTimeout": 0,
       "ReaderMsgCount": 10,
+      "ResponseAttempts": 5,
       "ResponseTimeout": 1000,
       "ReaderBaudRate": 500000,
       "ReaderChannelFlags": "NO_CONNECT_FLAGS",
@@ -36,8 +37,9 @@
     },
     {
       "ConfigurationName": "CAN - 29 Bit",
-      "ReaderTimeout": 100,
+      "ReaderTimeout": 0,
       "ReaderMsgCount": 10,
+      "ResponseAttempts": 5,
       "ResponseTimeout": 1000,
       "ReaderBaudRate": 500000,
       "ReaderChannelFlags": "CAN_29BIT_ID",
@@ -66,8 +68,9 @@
     },
     {
       "ConfigurationName": "ISO15765 - Mixed Mode",
-      "ReaderTimeout": 100,
+      "ReaderTimeout": 0,
       "ReaderMsgCount": 10,
+      "ResponseAttempts": 5,
       "ResponseTimeout": 1000,
       "ReaderBaudRate": 500000,
       "ReaderChannelFlags": "CAN_ID_BOTH",

@@ -7,12 +7,15 @@ using Newtonsoft.Json.Linq;
 using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
 using SharpLogging;
+using SharpSimulator.PassThruSimulationSupport;
 
 namespace SharpSimulator
 {
     /// <summary>
     /// Default simulation configuration layout
     /// </summary>
+    // TODO: Configure JSON Converter for the configuration objects
+    // [JsonConverter(typeof(PassThruSimConfigJsonConverter))]
     public class PassThruSimulationConfiguration
     {
         #region Custom Events
@@ -36,6 +39,7 @@ namespace SharpSimulator
         public uint ReaderTimeout { get; set; }                                          // Timeout for each read routine
         public uint ReaderMsgCount { get; set; }                                         // The number of messages to read
         public uint ResponseTimeout { get; set; }                                        // The timeout for sending responses
+        public uint ResponseAttempts { get; set; }                                       // The number of attempts for responses
 
         // Basic Channel Configurations                                                  
         public BaudRate ReaderBaudRate { get; set; }                                     // Baudrate for the current channel
@@ -58,11 +62,22 @@ namespace SharpSimulator
         // ------------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Default CTOR for a configuration object. Used to build a configuration step by step
+        /// Default CTOR for a configuration object. Used mainly by JSON converter
         /// </summary>
-        public PassThruSimulationConfiguration()
+        [JsonConstructor]
+        internal PassThruSimulationConfiguration()
         {
             // Setup a new configuration logger if possible
+            _configurationLogger ??= new SharpLogger(LoggerActions.UniversalLogger);
+        }
+        /// <summary>
+        /// Builds a new configuration object. Used to build a configuration step by step
+        /// </summary>
+        /// <param name="ConfigurationName">Optional name of our configuration</param>
+        public PassThruSimulationConfiguration(string ConfigurationName)
+        {
+            // Setup a new configuration logger if possible and store the name of the configuration
+            this.ConfigurationName = ConfigurationName;
             _configurationLogger ??= new SharpLogger(LoggerActions.UniversalLogger);
         }
         /// <summary>

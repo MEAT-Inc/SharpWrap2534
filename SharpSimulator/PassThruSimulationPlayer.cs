@@ -70,6 +70,7 @@ namespace SharpSimulator
         public uint ReaderTimeout { get; private set; }
         public uint ReaderMessageCount { get; private set; }
         public uint SenderResponseTimeout { get; private set; }
+        public uint SenderRetryAttempts { get; private set; }
 
         // Other Reader Configuration Values and States
         public bool SimulationReading { get; private set; }
@@ -342,7 +343,7 @@ namespace SharpSimulator
             }
 
             // Log out that we're loaded up and return out true once done
-            this._simPlayingLogger.WriteLog($"IMPORTED SIMULATION FILE {SimulationChannels} CORRECTLY!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog($"IMPORTED SIMULATION FILE CORRECTLY!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog($"PULLED IN A TOTAL OF {this._simulationChannels.Count} INPUT SIMULATION CHANNELS INTO OUR LOADER WITHOUT FAILURE!", LogType.InfoLog);
             this._simPlayingLogger.WriteLog($"ENCOUNTERED A TOTAL OF {FailedCounter} FAILURES WHILE LOADING CHANNELS!", LogType.InfoLog);
             return true;
@@ -417,7 +418,8 @@ namespace SharpSimulator
             this.SetDefaultMessageValues(
                 SimConfiguration.ReaderTimeout,
                 SimConfiguration.ReaderMsgCount,
-                SimConfiguration.ResponseTimeout);
+                SimConfiguration.ResponseTimeout,
+                SimConfiguration.ResponseAttempts);
 
             // Log out that our configuration has been set and exit out 
             this._simPlayingLogger.WriteLog($"APPLIED ALL CONFIGURATION VALUES FOR CONFIGURATION {SimConfiguration.ConfigurationName} CORRECTLY!", LogType.InfoLog);
@@ -435,20 +437,24 @@ namespace SharpSimulator
         /// <summary>
         /// Stores new values for our reader configuration on our output
         /// </summary>
-        /// <param name="TimeoutValue">Timeout on each read command</param>
+        /// <param name="ReadTimeoutValue">Timeout on each read command</param>
         /// <param name="MessageCount">Messages to read</param>
-        public void SetDefaultMessageValues(uint ReadTimeoutValue = 100, uint MessageCount = 10, uint SenderTimeoutValue = 500)
+        /// <param name="SenderTimeoutValue">Timeout on each send response command</param>
+        /// <param name="SenderRetryAttempts">Number of tries to send messages back out</param>
+        public void SetDefaultMessageValues(uint ReadTimeoutValue = 100, uint MessageCount = 10, uint SenderTimeoutValue = 500, uint SenderRetryAttempts = 5)
         {
             // Store new values here and log them out
             this.ReaderTimeout = ReadTimeoutValue;
             this.ReaderMessageCount = MessageCount;
             this.SenderResponseTimeout = SenderTimeoutValue;
+            this.SenderRetryAttempts = SenderRetryAttempts;
 
             // Log our stored values out as trace log.
             this._simPlayingLogger.WriteLog($"STORED NEW READER CONFIGURATION! VALUES SET:\n" +
                 $"{this.ReaderMessageCount} MESSAGES TO READ\n" +
                 $"{this.ReaderTimeout} TIMEOUT ON EACH READ COMMAND\n" +
-                $"{this.SenderResponseTimeout} TIMEOUT ON EACH RESPONSE COMMAND",
+                $"{this.SenderResponseTimeout} TIMEOUT ON EACH RESPONSE COMMAND\n" +
+                $"{this.SenderRetryAttempts} ATTEMPTS ALLOWED FOR EACH RESPONSE",
                 LogType.TraceLog
             );
         }
@@ -723,13 +729,7 @@ namespace SharpSimulator
                     this._simPlayingLogger.WriteLog($"EXCEPTION THROWN: {RespEx}");
 
                     // Return passed and setup a base channel object again
-                    if (!this.InitializeSimReader())
-                        throw new Exception(
-                            "SETUP_READER_EXCEPTION",
-                            new InvalidOperationException("FAILED TO RECONFIGURE READER CHANNEL!")
-                        );
-
-                    // Return passed and move onto next configuration
+                    if (!this.InitializeSimReader()) throw RespEx;
                     return;
                 }
             }
@@ -768,14 +768,18 @@ namespace SharpSimulator
                 // Try and set each filter for the channel. Skip duplicate filters
                 try
                 {
+                    // Apply the filter and break this loop once we've configured it
                     this.PhysicalChannel.StartMessageFilter(ChannelFilter);
-                    this._simPlayingLogger.WriteLog($"Started Filter: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog);
+                    this._simPlayingLogger.WriteLog($"STARTED FILTER: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog); 
+
+                    // Break out if we've configured a perfect filter for this message instance
+                    if (CanMatchFilter) break;
                 }
                 catch
                 {
                     // Log out what our duplicate/invalid filter was
-                    this._simPlayingLogger.WriteLog($"Error! Filter was unable to be set for requested simulation channel!", LogType.ErrorLog);
-                    this._simPlayingLogger.WriteLog($"Filter: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog);
+                    this._simPlayingLogger.WriteLog($"ERROR! COULD NOT SET FILTER FOR SIMULATION CHANNEL!", LogType.ErrorLog);
+                    this._simPlayingLogger.WriteLog($"FILTER: {ChannelFilter.FilterMask} | {ChannelFilter.FilterPattern} | {ChannelFilter.FilterFlowCtl}", LogType.ErrorLog);
                 }
             }
 
@@ -796,7 +800,7 @@ namespace SharpSimulator
 
             // Log message contents out and then log the responses out if we are going to be sending them
             this._simPlayingLogger.WriteLog($"--> READ MESSAGE [0]: {BitConverter.ToString(PulledMessages.MessageRead.Data)}", LogType.InfoLog);
-            if (!ResponsesEnabled)
+            if (!this.ResponsesEnabled)
             {
                 // Fake a reply output event and disconnect our channel
                 this.SimulationSession.PTDisconnect(0);
@@ -804,33 +808,43 @@ namespace SharpSimulator
                 return true;
             }
 
-            try
+            // Try and send our message as many times as our configuration requests.
+            for (int RetryCount = 0; RetryCount < this.SenderRetryAttempts; RetryCount++)
             {
-                // Try and send the message, indicate passed sending routine
-                this.PhysicalChannel.PTWriteMessages(PulledMessages.MessageResponses, this.SenderResponseTimeout);
-                this.SimulationSession.PTDisconnect(0);
+                try
+                {
+                    // Try and send the message, indicate passed sending routine
+                    this.PhysicalChannel.PTWriteMessages(PulledMessages.MessageResponses, this.SenderResponseTimeout);
+                    this.SimulationSession.PTDisconnect(0);
 
-                // Attempt to send output events in a task to stop hanging our response operations
-                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
-                for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
-                    this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
+                    // Attempt to send output events in a task to stop hanging our response operations
+                    this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, true, PulledMessages.MessageRead, PulledMessages.MessageResponses));
+                    for (int RespIndex = 0; RespIndex < PulledMessages.MessageResponses.Length; RespIndex += 1)
+                        this._simPlayingLogger.WriteLog($"   --> SENT MESSAGE [{RespIndex}]: {BitConverter.ToString(PulledMessages.MessageResponses[RespIndex].Data)}");
 
-                // Return passed sending output
-                return true;
+                    // Return passed sending output
+                    return true;
+                }
+                catch (Exception SendResponseException)
+                {
+                    // If we're able to keep trying, do so here
+                    if (RetryCount < this.SenderRetryAttempts - 1) continue;   
+
+                    // Disconnect our channel and exit this routine
+                    this.SimulationSession.PTDisconnect(0);
+
+                    // Log failed to send output, set sending failed.
+                    this._simPlayingLogger.WriteLog($"ATTEMPT TO SEND MESSAGE RESPONSE FAILED!", LogType.ErrorLog);
+                    this._simPlayingLogger.WriteException("EXCEPTION IS BEING LOGGED BELOW", SendResponseException);
+                    this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
+
+                    // Return failed sending output
+                    return false;
+                }
             }
-            catch (Exception SendResponseException)
-            {
-                // Disconnect our channel and exit this routine
-                this.SimulationSession.PTDisconnect(0);
-                
-                // Log failed to send output, set sending failed.
-                this._simPlayingLogger.WriteLog($"ATTEMPT TO SEND MESSAGE RESPONSE FAILED!", LogType.ErrorLog);
-                this._simPlayingLogger.WriteException("EXCEPTION IS BEING LOGGED BELOW", SendResponseException);
-                this.SimMessageReceived(new SimMessageEventArgs(this.SimulationSession, false, PulledMessages.MessageRead, PulledMessages.MessageResponses));
 
-                // Return failed sending output
-                return false;
-            }
+            // Return false at this point if we're unable to send messages 
+            return false;
         }
     }
 }

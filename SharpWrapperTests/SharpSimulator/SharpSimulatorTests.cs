@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.Win32;
 using SharpSimulator;
 using SharpLogging;
+using SharpWrapper.J2534Objects;
 using SharpWrapper.PassThruTypes;
 
 namespace SharpWrapperTests.SharpSimulator
@@ -262,13 +263,14 @@ namespace SharpWrapperTests.SharpSimulator
             this._simTestLogger.WriteLog(SimulationPlayer.SimulationSession.ToDetailedString());
 
             // Load the simulation file into our playback helper and configure the playback setup routines
+            this._simTestLogger.WriteLog("Loading simulation file and configuring playback helper now...");
             Assert.IsTrue(SimulationPlayer.LoadSimulationFile(RequestedSimFile), "Error! Failed to load simulation file into a playback helper!");
-            PassThruSimulationConfiguration MixedModeConfiguration = PassThruSimulationConfiguration.LoadSimulationConfig("ISO15765 - Mixed Mode");
-            Assert.IsTrue(MixedModeConfiguration != null, "Error! Failed to find mixed mode configuration for playback!");
+            PassThruSimulationConfiguration TestingConfig = PassThruSimulationConfiguration.LoadSimulationConfig("ISO15765 - Mixed Mode");
+            Assert.IsTrue(TestingConfig != null, "Error! Could not load simulation configuration requested!");
 
             // Apply the configuration values to our playback helper here
             SimulationPlayer.SetResponsesEnabled(true);
-            SimulationPlayer.SetPlaybackConfiguration(MixedModeConfiguration);
+            SimulationPlayer.SetPlaybackConfiguration(TestingConfig);
             this._simTestLogger.WriteLog("Configured simulation playback helper without issues! Simulation is ready to run!");
 
             // Boot the simulation here if needed

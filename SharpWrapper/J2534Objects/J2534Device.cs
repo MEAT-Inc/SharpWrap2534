@@ -164,24 +164,33 @@ namespace SharpWrapper.J2534Objects
         /// <returns>Converted PTMessage</returns>
         public static PassThruStructs.PassThruMsg CreatePTMsgFromString(ProtocolId ProtocolId, uint MsgFlags, string MessageString)
         {
-            // Build a soaphex of the message contents.
-            SoapHexBinary SoapHexBin = SoapHexBinary.Parse(MessageString);
-
-            // Built new PTMessage.
-            uint MsgDataSize = (uint)SoapHexBin.Value.Length;
-            PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize)
+            try
             {
-                ProtocolId = ProtocolId,
-                TxFlags = (TxFlags)MsgFlags,
-                DataSize = MsgDataSize
-            };
+                // Build a soaphex of the message contents assuming it has content
+                if (string.IsNullOrWhiteSpace(MessageString)) return default;
+                SoapHexBinary SoapHexBin = SoapHexBinary.Parse(MessageString);
 
-            // Apply message values into here.
-            for (int ByteIndex = 0; ByteIndex < SoapHexBin.Value.Length; ByteIndex++)
-                BuiltPtMsg.Data[ByteIndex] = SoapHexBin.Value[ByteIndex];
+                // Built new PTMessage.
+                uint MsgDataSize = (uint)SoapHexBin.Value.Length;
+                PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize)
+                {
+                    ProtocolId = ProtocolId,
+                    TxFlags = (TxFlags)MsgFlags,
+                    DataSize = MsgDataSize
+                };
 
-            // Return built message.
-            return BuiltPtMsg;
+                // Apply message values into here.
+                for (int ByteIndex = 0; ByteIndex < SoapHexBin.Value.Length; ByteIndex++)
+                    BuiltPtMsg.Data[ByteIndex] = SoapHexBin.Value[ByteIndex];
+
+                // Return built message.
+                return BuiltPtMsg;
+            }
+            catch
+            {
+                // On failures, return an empty message object 
+                return default;
+            }
         }
         /// <summary>
         /// Builds a new message from a given string value
@@ -193,25 +202,34 @@ namespace SharpWrapper.J2534Objects
         /// <returns>Converted PTMessage</returns>
         public static PassThruStructs.PassThruMsg CreatePTMsgFromString(ProtocolId ProtocolId, uint MsgFlags, uint RxStatus, string MessageString)
         {
-            // Build a soaphex of the message contents.
-            SoapHexBinary SoapHexBin = SoapHexBinary.Parse(MessageString);
-
-            // Built new PTMessage.
-            uint MsgDataSize = (uint)SoapHexBin.Value.Length;
-            PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize)
+            try
             {
-                ProtocolId = ProtocolId,
-                DataSize = MsgDataSize,
-                TxFlags = (TxFlags)MsgFlags,
-                RxStatus = (RxStatus)RxStatus
-            };
+                // Build a soaphex of the message contents.
+                if (string.IsNullOrWhiteSpace(MessageString)) return default;
+                SoapHexBinary SoapHexBin = SoapHexBinary.Parse(MessageString);
 
-            // Apply message values into here.
-            for (int ByteIndex = 0; ByteIndex < SoapHexBin.Value.Length; ByteIndex++)
-                BuiltPtMsg.Data[ByteIndex] = SoapHexBin.Value[ByteIndex];
+                // Built new PTMessage.
+                uint MsgDataSize = (uint)SoapHexBin.Value.Length;
+                PassThruStructs.PassThruMsg BuiltPtMsg = new PassThruStructs.PassThruMsg(MsgDataSize)
+                {
+                    ProtocolId = ProtocolId,
+                    DataSize = MsgDataSize,
+                    TxFlags = (TxFlags)MsgFlags,
+                    RxStatus = (RxStatus)RxStatus
+                };
 
-            // Return built message.
-            return BuiltPtMsg;
+                // Apply message values into here.
+                for (int ByteIndex = 0; ByteIndex < SoapHexBin.Value.Length; ByteIndex++)
+                    BuiltPtMsg.Data[ByteIndex] = SoapHexBin.Value[ByteIndex];
+
+                // Return built message.
+                return BuiltPtMsg;
+            }
+            catch
+            {
+                // On failures, return an empty message object 
+                return default;
+            }
         }
         /// <summary>
         /// Converts a set of bytes into a PTMessage
@@ -222,20 +240,32 @@ namespace SharpWrapper.J2534Objects
         /// <returns>Built PTMessage</returns>
         public static PassThruStructs.PassThruMsg CreatePTMsgFromDataBytes(ProtocolId ProtocolId, uint MsgFlags, byte[] MessageBytes)
         {
-            // Build new PTMessage
-            PassThruStructs.PassThruMsg BuiltMessage = new PassThruStructs.PassThruMsg((uint)MessageBytes.Length);
+            try
+            {
+                // Make sure we've got input byte content first 
+                if (MessageBytes == null || MessageBytes.Length == 0) return default;
 
-            // Store properties onto the message.
-            BuiltMessage.ProtocolId = ProtocolId;
-            BuiltMessage.TxFlags = (TxFlags)MsgFlags;
-            BuiltMessage.DataSize = (uint)MessageBytes.Length;
+                // Build new PTMessage and store the properties of it
+                PassThruStructs.PassThruMsg BuiltMessage = new PassThruStructs.PassThruMsg((uint)MessageBytes.Length)
+                {
+                    // Configure protocol, flags, and data size
+                    ProtocolId = ProtocolId,
+                    TxFlags = (TxFlags)MsgFlags,
+                    DataSize = (uint)MessageBytes.Length
+                };
 
-            // Apply message bytes.
-            for (int ByteIndex = 0; ByteIndex < (uint)MessageBytes.Length; ByteIndex++)
-                BuiltMessage.Data[ByteIndex] = MessageBytes[ByteIndex];
+                // Apply message bytes.
+                for (int ByteIndex = 0; ByteIndex < (uint)MessageBytes.Length; ByteIndex++)
+                    BuiltMessage.Data[ByteIndex] = MessageBytes[ByteIndex];
 
-            // Return built message.
-            return BuiltMessage;
+                // Return built message.
+                return BuiltMessage;
+            }
+            catch
+            {
+                // On failures, return an empty message object 
+                return default;
+            }
         }
         /// <summary>
         /// Converts a set of bytes into a PTMessage
@@ -247,21 +277,33 @@ namespace SharpWrapper.J2534Objects
         /// <returns>Built PTMessage</returns>
         public static PassThruStructs.PassThruMsg CreatePTMsgFromDataBytes(ProtocolId ProtocolId, uint MsgFlags, uint RxStatus, byte[] MessageBytes)
         {
-            // Build new PTMessage
-            PassThruStructs.PassThruMsg BuiltMessage = new PassThruStructs.PassThruMsg((uint)MessageBytes.Length)
+            try
             {
-                ProtocolId = ProtocolId,
-                TxFlags = (TxFlags)MsgFlags,
-                RxStatus = (RxStatus)RxStatus,
-                DataSize = (uint)MessageBytes.Length
-            };
+                // Make sure we've got input byte content first 
+                if (MessageBytes == null || MessageBytes.Length ==0) return default;
 
-            // Apply message bytes.
-            for (int ByteIndex = 0; ByteIndex < (uint)MessageBytes.Length; ByteIndex++)
-                BuiltMessage.Data[ByteIndex] = MessageBytes[ByteIndex];
+                // Build new PTMessage and store the properties of it
+                PassThruStructs.PassThruMsg BuiltMessage = new PassThruStructs.PassThruMsg((uint)MessageBytes.Length)
+                {
+                    // Configure protocol, flags, data size, and RxStatus
+                    ProtocolId = ProtocolId,
+                    TxFlags = (TxFlags)MsgFlags,
+                    RxStatus = (RxStatus)RxStatus,
+                    DataSize = (uint)MessageBytes.Length
+                };
 
-            // Return built message.
-            return BuiltMessage;
+                // Apply message bytes.
+                for (int ByteIndex = 0; ByteIndex < (uint)MessageBytes.Length; ByteIndex++)
+                    BuiltMessage.Data[ByteIndex] = MessageBytes[ByteIndex];
+
+                // Return built message.
+                return BuiltMessage;
+            }
+            catch
+            {
+                // On failures, return an empty message object 
+                return default;
+            }
         }
         /// <summary>
         /// Converts an SByte array into an array

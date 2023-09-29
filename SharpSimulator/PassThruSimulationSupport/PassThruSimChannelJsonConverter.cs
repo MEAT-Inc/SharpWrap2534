@@ -20,11 +20,11 @@ namespace SharpSimulator.PassThruSimulationSupport
         public override bool CanConvert(Type ObjectType) { return ObjectType == typeof(PassThruSimulationChannel); }
 
         /// <summary>
-        /// Writes a J2534 Filter object to JSON
+        /// Writes a simulation channel object to JSON
         /// </summary>
-        /// <param name="JWriter"></param>
-        /// <param name="ValueObject"></param>
-        /// <param name="JSerializer"></param>
+        /// <param name="JWriter">JSON Writer to build output</param>
+        /// <param name="ValueObject">The configuration object we're converting</param>
+        /// <param name="JSerializer">JSON serialization settings for conversion</param>
         public override void WriteJson(JsonWriter JWriter, object? ValueObject, JsonSerializer JSerializer)
         {
             // Check if value object is null. Build output
@@ -57,11 +57,11 @@ namespace SharpSimulator.PassThruSimulationSupport
         /// <summary>
         /// Reads a J2534 object from JSON
         /// </summary>
-        /// <param name="JReader"></param>
-        /// <param name="ObjectType"></param>
-        /// <param name="ExistingValue"></param>
-        /// <param name="JSerializer"></param>
-        /// <returns></returns>
+        /// <param name="JReader">JSON reader reading the input JSON contents</param>
+        /// <param name="ObjectType">The type of object we're converting</param>
+        /// <param name="ExistingValue">An existing object we're trying to provide context with</param>
+        /// <param name="JSerializer">JSON serialization settings for conversion</param>
+        /// <returns>The built simulation channel object from the JSON input</returns>
         public override object? ReadJson(JsonReader JReader, Type ObjectType, object? ExistingValue, JsonSerializer JSerializer)
         {
             // Check if input is null. Build object from it.

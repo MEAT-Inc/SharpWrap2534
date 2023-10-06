@@ -47,8 +47,8 @@ namespace SharpSimulator
         public PassThroughConnect ReaderChannelFlags { get; set; }                       // Flags for the current channel
 
         // Reader configuration filters and IOCTLs                                       
-        public J2534Filter[] ReaderFilters { get; set; }                                 // Filters to apply to our reader channel
-        public PassThruStructs.SConfigList ReaderConfigs { get; set; }                   // The configurations to apply as IOCTLs for the channel
+        public List<J2534Filter> ReaderFilters { get; set; }                              // Filters to apply to our reader channel
+        public PassThruStructs.SConfigList ReaderConfigs { get; set; }                    // The configurations to apply as IOCTLs for the channel
 
         // List of all configurations and all supported protocols for playback during simulations
         public static ProtocolId[] SupportedProtocols => _supportedProtocols ??= _loadSupportedProtocols();
@@ -106,7 +106,7 @@ namespace SharpSimulator
             this.ReaderChannelFlags = 0x00;
 
             // Setup basic empty array for filters with a max count of 10
-            this.ReaderFilters = new J2534Filter[10];
+            this.ReaderFilters = new List<J2534Filter>();
             this.ReaderConfigs = new PassThruStructs.SConfigList(0);
         }
 

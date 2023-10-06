@@ -512,10 +512,10 @@ namespace SharpSimulator
         /// </summary>
         /// <param name="DefaultFilters"></param>
         /// <returns></returns>
-        public bool SetDefaultMessageFilters(J2534Filter[] DefaultFilters)
+        public bool SetDefaultMessageFilters(IEnumerable<J2534Filter> DefaultFilters)
         {
             // Ensure our channel object is not null at this point.
-            this.DefaultMessageFilters = DefaultFilters;
+            this.DefaultMessageFilters = DefaultFilters.ToArray();
             if (this.PhysicalChannel == null) {
                 this._simPlayingLogger.WriteLog("NOT SETTING DEFAULT FILTERS SINCE THE SIMULATION CHANNEL OBJECT IS CURRENTLY NULL OR IT IS CURRENTLY READING!", LogType.InfoLog);
                 return true;
@@ -542,7 +542,7 @@ namespace SharpSimulator
             }
 
             // Return passed and log information
-            this._simPlayingLogger.WriteLog($"CONFIGURED ALL REQUESTED {DefaultFilters.Length} FILTER INSTANCES OK!", LogType.InfoLog);
+            this._simPlayingLogger.WriteLog($"CONFIGURED ALL REQUESTED {DefaultFilters.Count()} FILTER INSTANCES OK!", LogType.InfoLog);
             return true;
         }
 

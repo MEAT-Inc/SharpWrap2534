@@ -453,5 +453,87 @@ namespace SharpSimulator.PassThruSimulationSupport
             // Return the message
             return MessagesBuilt;
         }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Converts a given flow control message into a segmented message object
+        /// Use the example blow to understand how this conversion routine is performed
+        /// 
+        /// Sent Input Message:
+        ///     00 00 07 DF 02 09 02
+        /// Response Message:
+        ///     00 00 07 E8 49 02 01 34 54 31 4B 36 31 41 4B 30 50 55 37 38 30 32 32 33
+        /// Response Segments: 
+        ///     00 00 07 E8 10 14 49 02 01 34 54 31 --> Start of Response 
+        ///     00 00 07 E0 30 00 00 00 00 00 00 00 --> Flow Control Identifier
+        ///     00 00 07 E8 21 4B 36 31 41 4B 30 50 --> Message 1 of 2
+        ///     00 00 07 E8 22 55 37 38 30 32 32 33 --> Message 2 of 2
+        /// </summary>
+        /// <param name="ResponseRead">The message we're looking to segment out</param>
+        /// <returns>An array of messages holding the input message contents segmented out</returns>
+        public static PassThruStructs.PassThruMsg[] SegmentMessage(this PassThruStructs.PassThruMsg ResponseRead, PassThruStructs.PassThruMsg CommandSent)
+        {
+            // First check if we need to segment this message or not
+            if (ResponseRead.DataSize <= 12) return new[] { ResponseRead };
+
+            // Take our input content and slice it into a set of messages here
+            int CommandSize = CommandSent.Data[5];
+            List<PassThruStructs.PassThruMsg> MessageContentsSplit = new List<PassThruStructs.PassThruMsg>();
+
+            // Build the first segment of the message content here
+            // 1. 00 00 07 E8                          --> Message Start/Address
+            // 2. 00 00 07 E8 10 14                    --> Indicate Flow Control and size (Size of input minus 10)
+            // 3. 00 00 07 E8 10 14 49 02              --> Tack on command response values here (Skip 4 on input command to find bytes)
+            // 4. 00 00 07 E8 10 14 49 02 01 34 54 31  --> Append the start of our message contents here. Should only be 4 bytes of data
+            List<byte> FirstSegment = new List<byte>();
+            FirstSegment.AddRange(ResponseRead.Data.Take(4));                                   // 00 00 07 E8
+            FirstSegment.AddRange(new byte[] { 0x10, (byte)(ResponseRead.DataSize - 10) });     // 00 00 07 E8 10 14
+            FirstSegment.AddRange(ResponseRead.Data.Skip(4).Take(CommandSize));                 // 00 00 07 E8 10 14 49 02
+            FirstSegment.AddRange(ResponseRead.Data.Skip(4 + CommandSize).Take(4));             // 00 00 07 E8 10 14 49 02 01 34 54 31
+
+            // Convert the input segment to a PassThruMsg and store it
+            MessageContentsSplit.Add(new PassThruStructs.PassThruMsg((uint)FirstSegment.Count)
+            {
+                ExtraDataIndex = 0,
+                Data = FirstSegment.ToArray(),
+                TxFlags = TxFlags.NO_TX_FLAGS,
+                RxStatus = RxStatus.NO_RX_STATUS,
+                DataSize = (uint)FirstSegment.Count,
+                ProtocolId = ResponseRead.ProtocolId,
+            });
+
+            // Now iterate through the rest of our message content and build segments for it
+            // 1. 00 00 07 E8
+            // 2. 00 00 07 E8 2X
+            // 3. 00 00 07 E8 2X XX XX XX XX XX XX XX (or shorter based on content size)
+            for (int MsgDataIndex = 12; MsgDataIndex < ResponseRead.DataSize; MsgDataIndex++)
+            {
+                // Start each message with 00 00 07 E8 2X
+                List<byte> MessageSegment = new List<byte>(); 
+                MessageSegment.AddRange(ResponseRead.Data.Take(4));                            // 00 00 07 E8
+                MessageSegment.Add((byte)MessageContentsSplit.Count);                                   // 00 00 07 E8 21
+
+                // Check to see if we can take the max message size or not.
+                int BytesToTake = MsgDataIndex + 7 < ResponseRead.DataSize 
+                    ? 7 
+                    : (int)(ResponseRead.DataSize - MsgDataIndex);
+                MessageSegment.AddRange(ResponseRead.Data.Skip(MsgDataIndex).Take(BytesToTake));   // 00 00 07 E8 21 4B 36 31 41 4B 30 50
+
+                // Add this segment to our collection of messages here and move onto the next loop
+                MessageContentsSplit.Add(new PassThruStructs.PassThruMsg((uint)MessageSegment.Count)
+                {
+                    ExtraDataIndex = 0,
+                    Data = FirstSegment.ToArray(),
+                    TxFlags = TxFlags.NO_TX_FLAGS,
+                    RxStatus = RxStatus.NO_RX_STATUS,
+                    DataSize = (uint)FirstSegment.Count,
+                    ProtocolId = ResponseRead.ProtocolId,
+                });
+            }
+
+            // Return our output list of message objects built
+            return MessageContentsSplit.ToArray();
+        }
     }
 }

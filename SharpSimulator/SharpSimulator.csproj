@@ -70,13 +70,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpExpressions">
-      <Version>0.5.15.397</Version>
+      <Version>0.5.15.453</Version>
     </PackageReference>
     <PackageReference Include="SharpLogger">
-      <Version>2.7.8.334</Version>
+      <Version>2.8.4.358</Version>
     </PackageReference>
     <PackageReference Include="SharpWrapper">
-      <Version>6.2.3.507</Version>
+      <Version>6.2.3.511</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
